@@ -129,7 +129,7 @@ namespace TRAP
                 this.isTSRHere = TSR;
             }
 
-            public TrainJourney(DateTime date, double speed, double kmPost, double virtualKm, bool loop, bool TSR)
+            public TrainJourney(DateTime date, double speed, double kmPost, double virtualKm, double elevation, bool loop, bool TSR)
             {
                 /* For interpolated Trains */
                 this.location = null;
@@ -137,7 +137,7 @@ namespace TRAP
                 this.speed = speed;
                 this.kmPost = kmPost;
                 this.kilometreage = virtualKm;
-                this.elevation = 0;
+                this.elevation = elevation;
                 this.isLoopHere = loop;
                 this.isTSRHere = TSR;
             }
@@ -398,7 +398,7 @@ namespace TRAP
                 /* interpolate data */
                 /******** Should only be required while we are waiting for the data in the prefered format ********/
                 List<Train> interpolatedRecords = new List<Train>();
-                //interpolatedRecords = processing.interpolateTrainData(CleanTrainRecords, trackGeometry);
+                interpolatedRecords = processing.interpolateTrainData(CleanTrainRecords, trackGeometry);
                 //interpolatedRecords = processing.interpolateTrainData(testTrainRecords, trackGeometry);
 
                 /**************************************************************************************************/

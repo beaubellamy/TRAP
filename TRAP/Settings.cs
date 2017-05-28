@@ -33,9 +33,9 @@ namespace Globalsettings
         public static bool includeAListOfTrainsToExclude;   /* Is a list of trains that are to be excluded available. */
 
         ///* Corridor dependant / Analysis parameters */
-        //public static double startKm;                       /* Start km for interpoaltion data. */
-        //public static double endKm;                         /* End km for interpolation data. */
-        //public static double interval;                      /* Interpolation interval (metres). */
+        public static double startKm;                       /* Start km for interpoaltion data. */
+        public static double endKm;                         /* End km for interpolation data. */
+        public static double interval;                      /* Interpolation interval (metres). */
         public static double minimumJourneyDistance;        /* Minimum distance of a train journey to be considered valid. */
 
         ///* Processing parameters */
