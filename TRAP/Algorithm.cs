@@ -15,7 +15,24 @@ namespace TRAP
         /// </summary>
         public enum direction { increasing, decreasing, invalid, notSpecified };
         public enum trainOperator { PacificNational, Aurizon, Freightliner, Simulated, unknown };
+        /*
+         * Aurizon = {Aurizon}
+         * ARTC = {Australian rail Track Corporation}
+         * Freightliner = {Freightliner}
+         * Pacific National = {Pac Nat – Coal, Pac Nat – Intermodal, Pac Nat – Rural & Bulk, Pacific Nat – ADHOC GRAIN}
+         * RailCorp = {RailCorp}
+         */
+
+
         public enum trainCommodity {Steel, Mineral, Grain, GeneralFreight, Coal, unknown};
+        /*
+         * Freight = {Steel, Minerals, Clinker, General Freight}
+         * Coal = {Coal Export, Containerised Coal}
+         * Grain = Grain
+         * Intermodal = Intermodal
+         * Work = Unspecified Commodity
+         * Unknown = Unknown
+         */
 
         public class Train
         {
