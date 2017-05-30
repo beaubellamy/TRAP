@@ -104,39 +104,39 @@ namespace TRAP
         //    return trackGeometry[minimumIndex].kilometreage;
         //}
 
-        ///// <summary>
-        ///// Finds the kilometreage point on the track that is closest to the supplied geographic location (latitude, longitude)
-        ///// </summary>
-        ///// <param name="TrackGeometry">List of TrackGeometry objects.</param>
-        ///// <param name="Location">Geographic location with latitude and longitude.</param>
-        ///// <returns>The kilometreage of the closest point to the track geometry.</returns>
-        //public double findClosestTrackGeometryPoint(List<TrackGeometry> trackGeometry, GeoLocation Location)
-        //{
-        //    /* Set up initial values. */
-        //    int minimumIndex = 0;
-        //    double minimumDistance = double.MaxValue;
-        //    double distance = 0;
-        //    GeoLocation trackPoint = new GeoLocation();
+        /// <summary>
+        /// Finds the kilometreage point on the track that is closest to the supplied geographic location (latitude, longitude)
+        /// </summary>
+        /// <param name="TrackGeometry">List of TrackGeometry objects.</param>
+        /// <param name="Location">Geographic location with latitude and longitude.</param>
+        /// <returns>The kilometreage of the closest point to the track geometry.</returns>
+        public double findClosestTrackGeometryPoint(List<TrackGeometry> trackGeometry, GeoLocation Location)
+        {
+            /* Set up initial values. */
+            int minimumIndex = 0;
+            double minimumDistance = double.MaxValue;
+            double distance = 0;
+            GeoLocation trackPoint = new GeoLocation();
 
-        //    for (int trackIdx = 0; trackIdx < trackGeometry.Count(); trackIdx++)
-        //    {
-        //        /* Set the current track geometry point. */
-        //        trackPoint = trackGeometry[trackIdx].point;
-        //        /* Calcualte the distance between the current track point and the location supplied. */
-        //        distance = processing.calculateGreatCircleDistance(trackPoint, Location);
+            for (int trackIdx = 0; trackIdx < trackGeometry.Count(); trackIdx++)
+            {
+                /* Set the current track geometry point. */
+                trackPoint = trackGeometry[trackIdx].point;
+                /* Calcualte the distance between the current track point and the location supplied. */
+                distance = processing.calculateGreatCircleDistance(trackPoint, Location);
 
-        //        /* Determine when the minimum distance is reached. */
-        //        if (distance < minimumDistance)
-        //        {
-        //            minimumDistance = distance;
-        //            minimumIndex = trackIdx;
-        //        }
+                /* Determine when the minimum distance is reached. */
+                if (distance < minimumDistance)
+                {
+                    minimumDistance = distance;
+                    minimumIndex = trackIdx;
+                }
 
-        //    }
+            }
 
-        //    /* Return the kilometreage of the point that is closest to the location supplied. */
-        //    return trackGeometry[minimumIndex].virtualKilometreage;
-        //}
+            /* Return the kilometreage of the point that is closest to the location supplied. */
+            return trackGeometry[minimumIndex].virtualKilometreage;
+        }
 
         /// <summary>
         /// Finds the kilometreage point on the track that is closest to the supplied kilometerage point.
@@ -181,30 +181,30 @@ namespace TRAP
         ///// <param name="track">The track geometry information.</param>
         //public void matchTrainLocationToTrackGeometry(Train train, List<TrackGeometry> track)
         //{
-        //    foreach (TrainDetails journey in train.TrainJourney)
+        //    foreach (TrainJourney journey in train.journey)
         //    {
         //        /* Find the closest km marker in the track geometry to the current train location. */
-        //        journey.kmPost = findClosestTrackGeometryPoint(track, journey.location);
+        //        journey.kilometreage = findClosestTrackGeometryPoint(track, journey.location);
 
         //    }
 
         //}
 
-        ///// <summary>
-        ///// Match the train location with the closest point on the track for the real track kmPost.
-        ///// </summary>
-        ///// <param name="TrainJourney">A list of a points describing a single train journey.</param>
-        ///// <param name="track">The track geometry information.</param>
-        //public void matchTrainLocationToTrackGeometry(List<TrainDetails> TrainJourney, List<TrackGeometry> track)
-        //{
-        //    foreach (TrainDetails journey in TrainJourney)
-        //    {
-        //        /* Find the closest km marker in the track geometry to the current train location. */
-        //        journey.kmPost = findClosestTrackGeometryPoint(track, journey.location);
+        /// <summary>
+        /// Match the train location with the closest point on the track for the real track kmPost.
+        /// </summary>
+        /// <param name="TrainJourney">A list of a points describing a single train journey.</param>
+        /// <param name="track">The track geometry information.</param>
+        public void matchTrainLocationToTrackGeometry(List<TrainJourney> TrainJourney, List<TrackGeometry> track)
+        {
+            foreach (TrainJourney journey in TrainJourney)
+            {
+                /* Find the closest km marker in the track geometry to the current train location. */
+                journey.kmPost = findClosestTrackGeometryPoint(track, journey.location);
 
-        //    }
+            }
 
-        //}
+        }
 
 
     } // Class TrackGeometry

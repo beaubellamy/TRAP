@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Globalsettings;
+using Microsoft.Office.Interop.Excel;
 
 namespace TRAP
 {
@@ -17,17 +18,17 @@ namespace TRAP
             isFileOpen(filename);
 
             string[] lines = System.IO.File.ReadAllLines(filename);
-            char[] delimeters = { ',', '\t' };
+            char[] delimeters = { '\t' };
 
             /* Seperate the fields. */
             string[] fields = lines[0].Split(delimeters);
 
             /* Initialise the fields of interest. */
-            string subOperator = "";
             string TrainID = "none";
             string locoID = "none";
-            trainOperator trainOperator = trainOperator.unknown;
-            trainCommodity commodity = trainCommodity.unknown;
+            string subOperator = "";
+            trainOperator trainOperator = trainOperator.Unknown;
+            trainCommodity commodity = trainCommodity.Unknown;
             double powerToWeight = 0.0;
             double speed = 0.0;
             double kmPost = 0.0;
@@ -53,21 +54,23 @@ namespace TRAP
                     /* Seperate each record into each field */
                     fields = line.Split(delimeters);
 
-                    TrainID = fields[8];
-                    locoID = fields[3];
+                    TrainID = fields[6];
+                    locoID = fields[1];
 
-                    if (fields[0].Count() >= 3) //operator
-                        subOperator = fields[0].Substring(0, 3);
+                    if (fields[4].Count() >= 3) //operator
+                        subOperator = fields[4].Substring(0, 3);
 
                     trainOperator = getOperator(subOperator);
 
+                    commodity = getCommodity(fields[5]);
+
                     /* Ensure values are valid while reading them out. */
-                    double.TryParse(fields[14], out speed);
-                    double.TryParse(fields[11], out kmPost);
-                    double.TryParse(fields[2], out latitude);
-                    double.TryParse(fields[4], out longitude);
-                    DateTime.TryParse(fields[6], out dateTime);
-                    double.TryParse(fields[18], out powerToWeight);
+                    double.TryParse(fields[9], out speed);
+                    double.TryParse(fields[8], out kmPost);
+                    double.TryParse(fields[0], out latitude);
+                    double.TryParse(fields[2], out longitude);
+                    DateTime.TryParse(fields[3], out dateTime);
+                    double.TryParse(fields[7], out powerToWeight);
 
                     /* possible TSR information as well*/
                     /* TSR region
@@ -96,6 +99,88 @@ namespace TRAP
             return IceRecord;
         }
 
+        /// <summary>
+        /// This function reads the Traxim simulation files and populates the simualtedTrain 
+        /// data for comparison to the averaged ICE data.
+        /// </summary>
+        /// <param name="filename">The simulation filename.</param>
+        /// <returns>The list of data for the simualted train.</returns>
+        public static Simulations readSimulationData(string filename, catagory simulationCatagory, direction direction)
+        {
+
+            /*
+             * Bring back the List<TrainJourney> object
+             * create the list and add this to the train object
+             */
+
+
+            /* Read all the lines of the data file. */
+            isFileOpen(filename);
+
+            string[] lines = System.IO.File.ReadAllLines(filename);
+            char[] delimeters = { ',', '\t' };
+
+            /* Seperate the fields. */
+            string[] fields = lines[0].Split(delimeters);
+
+            /* Initialise the fields of interest. */
+            //double kmPoint = 0;
+            double km = 0;
+            List<double> singleLineKm = new List<double>();
+            //double lat = 0;
+            //double lon = 0;
+            double height = 0;
+            List<double> elevation = new List<double>();
+            //string TraximNode = "none";
+            //string TraximSection = "none";
+            double time = 0;
+            List<DateTime> dateTime = new List<DateTime>();
+            double speed = 0;
+            List<double> velocity = new List<double>();
+            //double previousDistance = 0;
+            //double maxSpeed = 0;
+
+            //bool header = true;
+
+            /* List of all simulated train data. */
+            //Train simulatedTrain = new Train();
+
+
+            //dateTime[0] = new DateTime(2016, 1, 1, 0, 0, 0);
+
+            /* Ignore the header line. */
+            for (int lineIdx = 1; lineIdx < lines.Count(); lineIdx++)
+            {
+                /* Seperate each record into each field */
+                fields = lines[lineIdx].Split(delimeters);
+
+                /* Add the properties to their respsective lists. */
+
+                if (double.TryParse(fields[3], out height))
+                    elevation.Add(height);
+
+                if (double.TryParse(fields[8], out time))
+                {
+                    if (lineIdx == 1)
+                        dateTime.Add(new DateTime(2016, 1, 1, 0, 0, 0));
+                    else
+                        dateTime.Add(dateTime[lineIdx - 1].AddSeconds(time));
+                }
+
+                if (double.TryParse(fields[9], out speed))
+                    velocity.Add(speed);
+
+                if (double.TryParse(fields[14], out km))
+                    singleLineKm.Add(km);
+                
+            }
+            Train sim = new Train();//List < TrainJourney > journey);
+
+            Simulations simulatedTrain = new Simulations(simulationCatagory, direction, singleLineKm, dateTime, elevation, velocity);
+
+            /* Return the list of records. */
+            return simulatedTrain;
+        }
 
         /// <summary>
         /// This function reads the file with the list of trains to exclude from the 
@@ -141,7 +226,7 @@ namespace TRAP
 
             /* Read all the lines of the file. */
             string[] lines = System.IO.File.ReadAllLines(filename);
-            char[] delimeters = { ',','\t'}; 
+            char[] delimeters = { ',', '\t' };
 
             /* Seperate the fields. */
             string[] fields = lines[0].Split(delimeters);
@@ -159,7 +244,7 @@ namespace TRAP
 
             /* Define some additional helper parameters. */
             double distance = 0;
-            direction direction = direction.notSpecified;
+            direction direction = direction.NotSpecified;
             double previousLat = 0;
             double previousLong = 0;
             double previouskm = 0;
@@ -200,18 +285,18 @@ namespace TRAP
                     else
                     {
                         /* Determine the direction for the track kilometreage. */
-                        if (direction == direction.notSpecified)
+                        if (direction == direction.NotSpecified)
                         {
                             if (kilometreage - previouskm > 0)
-                                direction = direction.increasing;
+                                direction = direction.Increasing;
                             else
-                                direction = direction.decreasing;
+                                direction = direction.Decreasing;
                         }
 
                         /* Calcualte the distance between succesive points and increment the virtual kilometreage. */
                         distance = processing.calculateGreatCircleDistance(previousLat, previousLong, latitude, longitude);
 
-                        if (direction == direction.increasing)
+                        if (direction == direction.Increasing)
                             virtualKilometreage = virtualKilometreage + distance / 1000;
 
                         else
@@ -226,7 +311,7 @@ namespace TRAP
                     /* Add the geometry point to the list. */
                     TrackGeometry geometry = new TrackGeometry(0, geometryName, latitude, longitude, elevation, kilometreage, virtualKilometreage, isLoopHere);
                     trackGeometry.Add(geometry);
-                    
+
                 }
             }
 
@@ -301,18 +386,179 @@ namespace TRAP
             return TSRList;
         }
 
+        /// <summary>
+        /// This function writes each interpolated train journey to an individual column in excel.
+        /// This can be used to compare against previously completed corridor analysis for validation.
+        /// </summary>
+        /// <param name="trainRecords">List of trains containing the interpolated data.</param>
+        public static void writeTrainData(List<Train> trainRecords)
+        {
+
+            /* Create the microsfot excel references. */
+            //Application excel;
+            _Workbook workbook;
+            _Worksheet worksheet;
+
+            /* Start Excel and get Application object. */
+            Application excel = new Application();
+
+            /* Get the reference to the new workbook. */
+            workbook = (Microsoft.Office.Interop.Excel._Workbook)(excel.Workbooks.Add(""));
+
+            /* Create the header details. */
+            //string[] headerString1 = { "km", "", "Trains:" };
+            //string[] headerString2 = { "", "Train ID:" };
+            //string[] headerString3 = { "", "Loco ID:" };
+            //string[] headerString4 = { "", "Date:" };
+            //string[] headerString5 = { "", "Power to Weight Ratio:" };
+            //string[] headerString6 = { "", "Commodity:", };
+            //string[] headerString7 = { "", "Direction:" };
+
+            string[,] headerString = {{ "km", "", "Trains:" },
+                                     { "", "Train ID:", "" },
+                                     { "", "Loco ID:", "" },
+                                     { "", "Date:", "" },
+                                     { "", "Power to Weight Ratio:", "" },
+                                     { "", "Commodity:", "" },
+                                     { "", "Direction:", "" }};
+
+
+            /* Pagenate the data for writing to excel. */
+            int excelPageSize = 1000000;        /* Page size of the excel worksheet. */
+            int excelPages = 1;                 /* Number of Excel pages to write. */
+            int headerOffset = 9;
+
+            /* Adjust the excel page size or the number of pages to write. */
+            if (trainRecords.Count() < excelPageSize)
+                excelPageSize = trainRecords.Count();
+            else
+                excelPages = (int)Math.Round((double)trainRecords.Count() / excelPageSize + 0.5);
+
+            //int middle = (int)trainRecords[0].TrainJourney.Count() / 2;
+            /* Deconstruct the train details into excel columns. */
+            string[,] TrainID = new string[1, trainRecords.Count()];
+            string[,] LocoID = new string[1, trainRecords.Count()];
+            double[,] powerToWeight = new double[1, trainRecords.Count()];
+            string[,] commodity = new string[1, trainRecords.Count()];
+            string[,] direction = new string[1, trainRecords.Count()];
+            DateTime[,] dateTime = new DateTime[1, trainRecords[0].journey.Count()];
+            double[,] kilometerage = new double[trainRecords[0].journey.Count(), 1];
+
+            double[,] speed = new double[trainRecords[0].journey.Count(), trainRecords.Count()];
+
+            int headerRows = headerString.GetLength(0); //7
+            int headerColumns = headerString.GetLength(1); //3
+
+            /* Loop through the excel pages. */
+            for (int excelPage = 0; excelPage < excelPages; excelPage++)
+            {
+                /* Set the active worksheet. */
+                worksheet = workbook.Sheets[excelPage + 1];
+                workbook.Sheets[excelPage + 1].Activate();  // A1:C7
+                Range topLeft = worksheet.Cells[1, 1];
+                Range bottomRight = worksheet.Cells[headerRows, headerColumns];
+                worksheet.get_Range(topLeft, bottomRight).Value2 = headerString;
+
+                /* Loop through the data for each excel page. */
+                for (int trainIdx = 0; trainIdx < trainRecords.Count(); trainIdx++)
+                {
+
+                    TrainID[0, trainIdx] = trainRecords[trainIdx].trainID;
+                    LocoID[0, trainIdx] = trainRecords[trainIdx].locoID;
+
+                    /* Extract the earliest date in the journey to represent the train date. */
+                    dateTime[0, trainIdx] = trainRecords[trainIdx].journey.Where(t => t.dateTime > DateTime.MinValue).ToList().Min(t => t.dateTime);
+
+                    powerToWeight[0, trainIdx] = trainRecords[trainIdx].powerToWeight;
+
+                    commodity[0, trainIdx] = trainRecords[trainIdx].commodity.ToString();
+
+                    direction[0, trainIdx] = trainRecords[trainIdx].trainDirection.ToString();
+
+                    for (int journeyIdx = 0; journeyIdx < trainRecords[trainIdx].journey.Count(); journeyIdx++)
+                    {
+                        kilometerage[journeyIdx, 0] = Settings.startKm + Settings.interval / 1000 * journeyIdx;
+
+                        speed[journeyIdx, trainIdx] = trainRecords[trainIdx].journey[journeyIdx].speed;
+
+                    }
+                }
+
+                /* Write the data to the active excel workseet. */
+                worksheet.Range[worksheet.Cells[2, 3], worksheet.Cells[2, trainRecords.Count() + 2]].Value2 = TrainID;
+                worksheet.Range[worksheet.Cells[3, 3], worksheet.Cells[3, trainRecords.Count() + 2]].Value2 = LocoID;
+                worksheet.Range[worksheet.Cells[4, 3], worksheet.Cells[4, trainRecords.Count() + 2]].Value2 = dateTime;
+                worksheet.Range[worksheet.Cells[5, 3], worksheet.Cells[5, trainRecords.Count() + 2]].Value2 = powerToWeight;
+                worksheet.Range[worksheet.Cells[6, 3], worksheet.Cells[6, trainRecords.Count() + 2]].Value2 = commodity;
+                worksheet.Range[worksheet.Cells[7, 3], worksheet.Cells[7, trainRecords.Count() + 2]].Value2 = direction;
+
+                worksheet.Range[worksheet.Cells[headerOffset, 1], worksheet.Cells[headerOffset + trainRecords[0].journey.Count() - 1, 1]].Value2 = kilometerage;
+                worksheet.Range[worksheet.Cells[headerOffset, 3], worksheet.Cells[headerOffset + trainRecords[0].journey.Count() - 1, 3 + trainRecords.Count() - 1]].Value2 = speed;
+
+            }
+
+            /* Generate the resulting file name and location to save to. */
+            string savePath = FileSettings.aggregatedDestination;
+            string saveFilename = savePath + @"\ICEData_InterpolatedTrains" + DateTime.Now.ToString("yyyyMMdd") + ".xlsx";
+
+            /* Check the file does not exist yet. */
+            if (File.Exists(saveFilename))
+            {
+                isFileOpen(saveFilename);
+                File.Delete(saveFilename);
+            }
+
+
+            /* Save the excel file. */
+            excel.UserControl = false;
+            workbook.SaveAs(saveFilename, XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing, false, false,
+                XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+
+            workbook.Close();
+
+            return;
+        }
+
+
         private static trainOperator getOperator(string shortOperator)
         {
             if (shortOperator.Equals("Aur", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.Aurizon;
+            else if (shortOperator.Equals("Aus", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.ARTC;
             else if (shortOperator.Equals("Pac", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.PacificNational;
-            else if (shortOperator.Equals("Fre",StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("Fre", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.Freightliner;
-            else 
-                return trainOperator.unknown;
-        
+            else if (shortOperator.Equals("Rai", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.RailCorp;
+            else
+                return trainOperator.Unknown;
+
         }
+
+        private static trainCommodity getCommodity(string commodity)
+        {
+            string[] Freight = { "Clinker", "General Freight", "Minerals", "Steel" };
+            string[] Coal = { "Coal Export", "Containersied Coal" };
+            string[] Grain = { "Grain" };
+            string[] Intermodal = { "Intermodal" };
+            string[] Work = { "Unspecified Commodity" };
+
+            if (Freight.Contains(commodity))
+                return trainCommodity.Freight;
+            else if (Coal.Contains(commodity))
+                return trainCommodity.Coal;
+            else if (Grain.Contains(commodity))
+                return trainCommodity.Grain;
+            else if (Intermodal.Contains(commodity))
+                return trainCommodity.Intermodal;
+            else if (Work.Contains(commodity))
+                return trainCommodity.Work;
+            else
+                return trainCommodity.Unknown;
+        }
+
 
         /// <summary>
         /// Determine if a file is already open before trying to read the file.

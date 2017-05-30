@@ -14,12 +14,12 @@ namespace Globalsettings
         public static string geometryFile = null;
         public static string temporarySpeedRestrictionFile = null;
         public static string trainList = null;                  /* File only required if includeAListOfTrainsToExclude is TRUE. */
-        //public static string underpoweredIncreasingSimulationFile = null;
-        //public static string underpoweredDecreasingSimulationFile = null;
-        //public static string overpoweredIncreasingSimulationFile = null;
-        //public static string overpoweredDecreasingSimulationFile = null;
+        public static string underpoweredIncreasingSimulationFile = null;       // simcatagory1
+        //public static string underpoweredDecreasingSimulationFile = null;     // simcatagory1
+        //public static string overpoweredIncreasingSimulationFile = null;      // simcatagory2
+        //public static string overpoweredDecreasingSimulationFile = null;      // simcatagory2
 
-        //public static string aggregatedDestination = null;
+        public static string aggregatedDestination = null;
 
     }
 
@@ -39,9 +39,9 @@ namespace Globalsettings
         public static double minimumJourneyDistance;        /* Minimum distance of a train journey to be considered valid. */
 
         ///* Processing parameters */
-        //public static double loopSpeedThreshold;            /* Cuttoff for the simulation speed, when comparing the train to the simualted train. */
-        //public static double loopBoundaryThreshold;         /* Distance either side of the loop to be considered within the loop boundary (km). */
-        //public static double TSRwindowBounday;              /* Distance either side of the TSR location to be considered within the TSR boundary (km). */
+        public static double loopSpeedThreshold;            /* Cuttoff for the simulation speed, when comparing the train to the simualted train. */
+        public static double loopBoundaryThreshold;         /* Distance either side of the loop to be considered within the loop boundary (km). */
+        public static double TSRwindowBoundary;              /* Distance either side of the TSR location to be considered within the TSR boundary (km). */
         public static double timeThreshold;                 /* Minimum time between data points to be considered a seperate train. */
         public static double distanceThreshold;             /* Minimum ditance between successive data points. */
 
@@ -53,7 +53,7 @@ namespace Globalsettings
         //public static double combinedLowerBound;            /* The lower bound cuttoff for the combined trains. */
         //public static double combinedUpperBound;            /* The upper bound cuttoff for the combined trains. */
 
-        //public static bool HunterValleyRegion;
+        public static bool HunterValleyRegion;
 
         ///// <summary>
         ///// This function resets the power to weight upper and lower boundaries to 

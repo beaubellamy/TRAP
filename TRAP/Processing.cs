@@ -93,7 +93,8 @@ namespace TRAP
                 return journey;
 
             /* Set the kmPosts to the closest points on the geometry alignment. */
-            TRAP.track.matchTrainLocationToTrackGeometry(journey, trackGeometry);
+            TrainPerformance.track.matchTrainLocationToTrackGeometry(journey, trackGeometry);
+            
 
             start = 0;
 
@@ -228,9 +229,9 @@ namespace TRAP
             double journeyDistance = train.journey[train.journey.Count() - 1].kmPost - train.journey[0].kmPost;
 
             if (journeyDistance > 0)
-                return direction.increasing;
+                return direction.Increasing;
             else
-                return direction.decreasing;
+                return direction.Decreasing;
 
 
         }
@@ -249,7 +250,7 @@ namespace TRAP
             {
                 /* Find the kilometerage of the closest point on the track and associate it with the current train location.*/
                 trainPoint = new GeoLocation(journey[journeyIdx]);
-                journey[journeyIdx].kilometreage = TRAP.track.findClosestTrackGeometryPoint(trackGeometry, trainPoint);
+                journey[journeyIdx].kilometreage = TrainPerformance.track.findClosestTrackGeometryPoint(trackGeometry, trainPoint);
                 /* This method reduces any error in the actual klometreage when
                  * calculating the straight line distance over a few kilometres.
                  */
@@ -320,6 +321,35 @@ namespace TRAP
         //        }
         //    }
         //}
+
+        /// <summary>
+        /// This function cycles through each train and determines if a TSR had applied to any part of the journey.
+        /// </summary>
+        /// <param name="trains">A list of trains containing the journey for each.</param>
+        /// <param name="TSRs">A list of TSR objects.</param>
+        public void populateAllTrainsTemporarySpeedRestrictions(List<Train> trains, List<TSRObject> TSRs)
+        {
+
+            foreach (Train train in trains)
+            {
+                int tsrIndex = 0;
+
+                foreach (TrainJourney journey in train.journey)
+                {
+                    /* Establish the TSR that applies to the train position. */
+                    if (journey.kilometreage > TSRs[tsrIndex].endKm && tsrIndex < TSRs.Count() - 1)
+                        tsrIndex++;
+
+                    /* Determine if the TSR is applicable to the train by location and date. */
+                    if (journey.kilometreage >= TSRs[tsrIndex].startKm && journey.kilometreage <= TSRs[tsrIndex].endKm &&
+                        journey.dateTime >= TSRs[tsrIndex].IssueDate && journey.dateTime <= TSRs[tsrIndex].LiftedDate)
+                    {
+                        journey.isTSRHere = true;                        
+                    }
+                }
+            }
+        }
+
 
         /// <summary>
         /// Linear interpolation to a target point.
@@ -394,7 +424,7 @@ namespace TRAP
 
                     /* Find the closest kilometerage markers either side of the current interpolation point. */
                     index0 = findClosestLowerKm(currentKm, journey);
-                    index1 = index0 + 1; // findClosestGreaterKm(currentKm, interpolatedJourney);
+                    index1 = findClosestGreaterKm(currentKm, journey);
 
                     /* If a valid index is found, extract the existing journey parameters and interpolate. */
                     if (index0 >= 0 && index1 >= 0)
@@ -450,7 +480,7 @@ namespace TRAP
                 }
 
                 /* Add the interpolated list to the list of new train objects. */
-                Train trainItem = new Train(trains[trainIdx].trainID, trains[trainIdx].locoID, 
+                Train trainItem = new Train(trains[trainIdx].catagory,trains[trainIdx].trainID, trains[trainIdx].locoID, 
                     trains[trainIdx].trainOperator, trains[trainIdx].commodity, trains[trainIdx].powerToWeight, 
                     interpolatedJourney, trains[trainIdx].trainDirection);
                     
@@ -460,6 +490,14 @@ namespace TRAP
 
             /* Return the completed interpolated train data. */
             return newTrainList;
+        }
+
+        public AverageTrain averageTrain(List<Train> trains, TrainJourney catagorySim, TrainJourney weightedSim)
+        {
+
+
+            return new AverageTrain();
+        
         }
 
         /// <summary>
@@ -497,6 +535,42 @@ namespace TRAP
 
             return index;
         }
+
+        /// <summary>
+        /// Find the index of the closest kilometerage that is larger than the target point.
+        /// </summary>
+        /// <param name="target">The target kilometerage.</param>
+        /// <param name="journey">The list of train details containig the journey parameters.</param>
+        /// <returns>The index of the closest point that is larger than the target point. 
+        /// Returns -1 if a point does not exist.</returns>
+        private int findClosestGreaterKm(double target, List<TrainJourney> journey)
+        {
+            /* Set the initial values. */
+            double minimum = double.MaxValue;
+            double difference = double.MaxValue;
+            int index = 0;
+
+            /* Cycle through the journey parameters. */
+            for (int journeyIdx = 0; journeyIdx < journey.Count(); journeyIdx++)
+            {
+                /* Find the difference if the value is lower. */
+                if (journey[journeyIdx].kilometreage > target)
+                    difference = Math.Abs(journey[journeyIdx].kilometreage - target);
+
+                /* Find the minimum difference. */
+                if (difference < minimum)
+                {
+                    minimum = difference;
+                    index = journeyIdx;
+                }
+            }
+
+            if (difference == double.MaxValue)
+                return -1;
+
+            return index;
+        }
+
 
         /// <summary>
         /// Calculate the time interval between two locations based on the speed.

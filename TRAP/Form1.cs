@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace TRAP
 {
-    public partial class Form1 : Form
+    public partial class TrainPerformance : Form
     {
-        public Form1()
+        public static TrackGeometry track = new TrackGeometry();
+
+        public TrainPerformance()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            List<Train> trains = Algorithm.trainPerformance();
         }
     }
 }
