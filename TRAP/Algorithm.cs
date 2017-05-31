@@ -34,6 +34,7 @@ namespace TRAP
          * Work = Unspecified Commodity
          * Unknown = Unknown
          */
+       
 
         public class Train
         {
@@ -63,7 +64,7 @@ namespace TRAP
             public Train(string trainId, string locoID, trainOperator trainOperator, trainCommodity commodity, double power, List<TrainJourney> journey, direction direction, bool include)
             {
                 /* Designed for standard train */
-                this.catagory = catagory.Actual;
+                this.catagory = catagory;
                 this.trainID = trainId;
                 this.locoID = locoID;
                 this.trainOperator = trainOperator;
@@ -88,18 +89,37 @@ namespace TRAP
                 this.include = true;
             }
 
-            public Train(List<TrainJourney> journey)
+            public Train(List<TrainJourney> journey, catagory catagory, direction direction)
             {
                 /* Designed for simulated train */
-                this.catagory = catagory.Simulated;
+                this.catagory = catagory;
                 this.trainID = "Simulated";
                 this.locoID = "Simulated";
                 this.trainOperator = trainOperator.Simulated;
                 this.commodity = trainCommodity.Unknown;
                 this.powerToWeight = 0;
                 this.journey = journey;
-                this.trainDirection = direction.NotSpecified;
+                this.trainDirection = direction;
                 this.include = true;
+            }
+
+            /// <summary>
+            /// Determine the index of the geomerty data for the supplied kilometreage.
+            /// </summary>
+            /// <param name="TrainJourney">List of train details objects containt the journey details of the train.</param>
+            /// <param name="targetKm">The target location to find in the geomerty data.</param>
+            /// <returns>The index of the target kilometreage in the geomerty data, -1 if the target is not found.</returns>
+            public int indexOfgeometryKm(List<TrainJourney> TrainJourney, double targetKm)
+            {
+                /* Loop through the train journey. */
+                for (int journeyIdx = 0; journeyIdx < TrainJourney.Count(); journeyIdx++)
+                {
+                    /* Match the current location with the geometry information. */
+                    if (Math.Abs(TrainJourney[journeyIdx].kilometreage - targetKm) * 1e12 < 1)
+                        return journeyIdx;
+                }
+
+                return -1;
             }
 
         }
@@ -216,6 +236,8 @@ namespace TRAP
         public class AverageTrain
         {
             public catagory trainCatagory;
+            public direction direction;
+            public int trainCount;
             public List<double> kilometreage;
             public List<double> elevation;
             public List<double> averageSpeed;
@@ -225,6 +247,8 @@ namespace TRAP
             public AverageTrain()
             {
                 this.trainCatagory = catagory.Unknown;
+                this.direction = direction.NotSpecified;
+                this.trainCount = 0;
                 this.kilometreage = new List<double>();
                 this.elevation = new List<double>();
                 this.averageSpeed = new List<double>();
@@ -232,48 +256,59 @@ namespace TRAP
                 this.isInTSRboundary = new List<bool>();
             }
 
-
-        }
-
-        public class Simulations
-        {
-            public catagory simulationCatagory;
-            public direction simulatedDirection;
-            public List<double> kilometreage;
-            public List<DateTime> time;
-            public List<double> elevation;
-            public List<double> speed;
-
-            public Simulations()
+            public AverageTrain(catagory catagory, direction direction, int count, List<double> kilometreage,List<double> elevation,List<double> averageSpeed,List<bool> loop,List<bool> TSR)
             {
-                this.simulationCatagory = catagory.Simulated;
-                this.simulatedDirection = direction.NotSpecified;
-                this.kilometreage = new List<double>();
-                this.time = new List<DateTime>();
-                this.elevation = new List<double>();
-                this.speed = new List<double>();
-            }
-
-            //public Simulations(catagory catagory)
-            //{
-            //    this.simulationCatagory = catagory;
-            //    this.kilometreage = new List<double>();
-            //    this.time = new List<DateTime>();
-            //    this.elevation = new List<double>();
-            //    this.speed = new List<double>();
-            //}
-
-            public Simulations(catagory catagory, direction direction, List<double> kilometreage, List<DateTime> time, List<double> elevation, List<double> speed)
-            {
-                this.simulationCatagory = catagory;
-                this.simulatedDirection = direction;
+                this.trainCatagory = catagory;
+                this.direction = direction;
+                this.trainCount = count;
                 this.kilometreage = kilometreage;
-                this.time = time;
                 this.elevation = elevation;
-                this.speed = speed;
+                this.averageSpeed = averageSpeed;
+                this.isInLoopBoundary = loop;
+                this.isInTSRboundary = TSR;            
             }
 
         }
+
+        //public class Simulations
+        //{
+        //    public catagory simulationCatagory;
+        //    public direction simulatedDirection;
+        //    public List<double> kilometreage;
+        //    public List<DateTime> time;
+        //    public List<double> elevation;
+        //    public List<double> speed;
+
+        //    public Simulations()
+        //    {
+        //        this.simulationCatagory = catagory.Simulated;
+        //        this.simulatedDirection = direction.NotSpecified;
+        //        this.kilometreage = new List<double>();
+        //        this.time = new List<DateTime>();
+        //        this.elevation = new List<double>();
+        //        this.speed = new List<double>();
+        //    }
+
+        //    //public Simulations(catagory catagory)
+        //    //{
+        //    //    this.simulationCatagory = catagory;
+        //    //    this.kilometreage = new List<double>();
+        //    //    this.time = new List<DateTime>();
+        //    //    this.elevation = new List<double>();
+        //    //    this.speed = new List<double>();
+        //    //}
+
+        //    public Simulations(catagory catagory, direction direction, List<double> kilometreage, List<DateTime> time, List<double> elevation, List<double> speed)
+        //    {
+        //        this.simulationCatagory = catagory;
+        //        this.simulatedDirection = direction;
+        //        this.kilometreage = kilometreage;
+        //        this.time = time;
+        //        this.elevation = elevation;
+        //        this.speed = speed;
+        //    }
+
+        //}
 
         /// <summary>
         /// A class describing a geographic location with latitude and longitude.
@@ -400,10 +435,11 @@ namespace TRAP
 
                 Settings.includeAListOfTrainsToExclude = false;
                 FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Geometry.csv"; ;
-                FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin TSR 2016 - 2017.csv";
+                FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin TSR.csv";
                 string batchFileName = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Data 2016-2017.txt";
                 FileSettings.batchFiles.Add(batchFileName);
-                FileSettings.underpoweredIncreasingSimulationFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Increasing.csv"; //PN - Increasing.csv";
+                FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Increasing.csv");
+                FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Decreasing.csv");
                 FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin";
                 Settings.distanceThreshold = 4*1000;
                 Settings.minimumJourneyDistance = 250*1000;
@@ -456,10 +492,12 @@ namespace TRAP
 
                 /* Read in the simulation data and interpolate to the desired interval. */
                 /* Maybe prduce a weighted simulation to replace the values for those points that are affected by TSRs */
-                /* Underpowered Simualtions. */
-                catagory simCatagory1 = catagory.Unknown;
-                catagory simCatagory2 = catagory.Unknown;
-                catagory simCatagory3 = catagory.Unknown;
+                
+                List<catagory> simCatagories = new List<catagory>();
+                //catagory simCatagory1 = catagory.Unknown;
+                //catagory simCatagory2 = catagory.Unknown;
+                //catagory simCatagory3 = catagory.Unknown;
+                
                 /* Check conditions to change the catagories */
                 if (Settings.HunterValleyRegion)
                 {
@@ -470,16 +508,28 @@ namespace TRAP
                     if (numberOfOperators == 2)
                     {
                         /* Analysing Newcastle/Muswellbrook to Narrabri. */
-                        simCatagory1 = catagory.PacificNational;
-                        simCatagory2 = catagory.Aurizon;
+                        //simCatagory1 = catagory.PacificNational;
+                        //simCatagory2 = catagory.Aurizon;
+                        
+                        /* OR */
+                        simCatagories.Add(catagory.PacificNational);
+                        //simCatagories.Add(catagory.Aurizon);
+                        
                     }
                     else if (numberOfOperators == 3)
                     {
                         /* Analysing Newcastle/Muswellbrook to Ulan. */
-                        simCatagory1 = catagory.PacificNational;
-                        simCatagory2 = catagory.Aurizon;
-                        simCatagory3 = catagory.Freightliner;
+                        //simCatagory1 = catagory.PacificNational;
+                        //simCatagory2 = catagory.Aurizon;
+                        //simCatagory3 = catagory.Freightliner;
+
+                        /* OR */
+                        simCatagories.Add(catagory.PacificNational);
+                        //simCatagories.Add(catagory.Aurizon);
+                        //simCatagories.Add(catagory.Freightliner);
+                        
                     }
+                        
                     else
                     {
                         Console.WriteLine("The number of operators in the train list is: " + numberOfOperators);
@@ -487,9 +537,27 @@ namespace TRAP
                     }
 
                 }
+                else 
+                {
+                    //simCatagory1 = catagory.Underpowered;
+                    //simCatagory2 = catagory.Overpowered;
 
-                List<Simulations> simulatedTrains = new List<Simulations>();
-                simulatedTrains.Add(FileOperations.readSimulationData(FileSettings.underpoweredIncreasingSimulationFile, simCatagory1, direction.Increasing));
+                    /* OR */
+                    simCatagories.Add(catagory.Underpowered);
+                    //simCatagories.Add(catagory.Overpowered);
+
+                }
+
+                List<Train> simulatedTrains = new List<Train>();
+                
+                /* Check the size of teh catagories and the size of teh simulation file list match. */
+               
+
+                for (int index = 0; index < simCatagories.Count(); index++ )
+                {
+                    simulatedTrains.Add(FileOperations.readSimulationData(FileSettings.simulationFiles[index*2], simCatagories[index], direction.Increasing));
+                    simulatedTrains.Add(FileOperations.readSimulationData(FileSettings.simulationFiles[index*2+1], simCatagories[index], direction.Decreasing));
+                }
                 //simulatedTrains.Add(FileOperations.readSimulationData(FileSettings.underpoweredDecreasingSimulationFile, simCatagory1, direction.decreasing));
                 //simulatedTrains.Add(FileOperations.readSimulationData(FileSettings.overpoweredIncreasingSimulationFile, simCatagory2, direction.increasing));
                 //simulatedTrains.Add(FileOperations.readSimulationData(FileSettings.overpoweredDecreasingSimulationFile, simCatagory2, direction.decreasing));
@@ -501,6 +569,9 @@ namespace TRAP
                 //}
 
                 /* Interpolate the simulations to the same granularity as the ICE data will be. */
+                List<Train> interpolatedSimulations = new List<Train>();
+                interpolatedSimulations = processing.interpolateTrainData(simulatedTrains, trackGeometry);
+
 
 
                 //List<simulatedTrain> underpoweredIncreasingSimulation = new List<simulatedTrain>();
@@ -532,6 +603,8 @@ namespace TRAP
                 //    Settings.resetPowerToWeightBoundariesToZero();
 
                 /* Sort the data by [trainID, locoID, Date & Time, kmPost]. */
+                
+
                 List<TrainRecord> OrderdTrainRecords = new List<TrainRecord>();
                 OrderdTrainRecords = TrainRecords.OrderBy(t => t.trainID).ThenBy(t => t.locoID).ThenBy(t => t.dateTime).ThenBy(t => t.kmPost).ToList();
                 
@@ -551,10 +624,11 @@ namespace TRAP
                 List<Train> CleanTrainRecords = new List<Train>();
                 CleanTrainRecords = CleanData(OrderdTrainRecords, trackGeometry, TSRs);
 
+                
                 /* interpolate data */
                 /******** Should only be required while we are waiting for the data in the prefered format ********/
-                List<Train> interpolatedRecords = new List<Train>();
-                interpolatedRecords = processing.interpolateTrainData(CleanTrainRecords, trackGeometry);
+                List<Train> interpolatedTrains = new List<Train>();
+                interpolatedTrains = processing.interpolateTrainData(CleanTrainRecords, trackGeometry);
                 //interpolatedRecords = processing.interpolateTrainData(testTrainRecords, trackGeometry);
 
                 /**************************************************************************************************/
@@ -563,12 +637,12 @@ namespace TRAP
 
 
                 /* Populate the trains TSR values after interpolation to gain more granularity with TSR boundary. */
-                processing.populateAllTrainsTemporarySpeedRestrictions(interpolatedRecords, TSRs);
+                processing.populateAllTrainsTemporarySpeedRestrictions(interpolatedTrains, TSRs);
 
                 //List<InterpolatedTrain> unpackedInterpolation = new List<InterpolatedTrain>();
                 //unpackedInterpolation = unpackInterpolatedData(interpolatedRecords);
                 //FileOperations.writeTrainData(unpackedInterpolation);
-                FileOperations.writeTrainData(interpolatedRecords);
+                FileOperations.writeTrainData(interpolatedTrains);
 
                 /******************************************************/
                 /* Can we have a generic average function for operators, power catagories and commodity?
@@ -628,6 +702,77 @@ namespace TRAP
                 //stats.Add(Statistics.generateStats(increasing, "Combined Increasing"));
                 //stats.Add(Statistics.generateStats(decreasing, "Combined Decreasing"));
 
+                /* Extract the train operator from the catagory */
+                //simCatagory1
+                List<AverageTrain> averageTrains = new List<AverageTrain>();
+
+                List<Train> increasingTrainCatagory = new List<Train>();
+                List<Train> decreasingTrainCatagory = new List<Train>();
+
+                for (int index = 0; index < simCatagories.Count(); index++)
+                {
+                    
+                    if (Settings.HunterValleyRegion)
+                    {
+                        trainOperator operatorCatagory = matchOperatorToCatagory(simCatagories[index]);
+                        /* will be an operator; can be 2 or 3 different operators */
+                        increasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.Increasing).ToList();
+                        decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.Decreasing).ToList();
+                    }
+                    else
+                    { 
+                        /* Can only be 2 catagories; underpowered and overpowered. */
+                        increasingTrainCatagory = interpolatedTrains.Where(t => t.catagory == simCatagories[index]).Where(t => t.trainDirection == direction.Increasing).ToList();
+                        decreasingTrainCatagory = interpolatedTrains.Where(t => t.catagory == simCatagories[index]).Where(t => t.trainDirection == direction.Decreasing).ToList();
+                
+                    }
+
+
+                    averageTrains.Add(processing.averageTrain(increasingTrainCatagory, interpolatedSimulations[index*2].journey, trackGeometry));
+                    averageTrains.Add(processing.averageTrain(decreasingTrainCatagory, interpolatedSimulations[index*2+1].journey, trackGeometry));
+
+                }
+
+                /* Add the weighted average trains to the list. */
+                List<Train> increasingCombined = new List<Train>();
+                List<Train> decreasingCombined = new List<Train>();
+
+                if (Settings.HunterValleyRegion)
+                {
+                    /* Will be an operator; can be 2 or 3 different operators */
+                    increasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.Increasing).ToList();
+                    decreasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.Decreasing).ToList();
+                }
+                else
+                {
+                    List<Train> increasingSubList = new List<Train>();
+                    List<Train> decreasingSubList = new List<Train>();
+                    /* Can only be 2 catagories; underpowered and overpowered;
+                     * Add each catagory to the final lists.
+                     */
+                    foreach(catagory simCatagory in simCatagories)
+                    {
+                        increasingSubList = interpolatedTrains.Where(t => t.catagory == simCatagory).Where(t => t.trainDirection == direction.Increasing).ToList();
+                        increasingCombined.AddRange(increasingSubList);
+                        decreasingSubList = interpolatedTrains.Where(t => t.catagory == simCatagory).Where(t => t.trainDirection == direction.Decreasing).ToList();
+                        decreasingCombined.AddRange(decreasingSubList);
+                    }
+                }
+
+                
+                /* Create a weighted average simulation */
+                List<Train> weightedSimualtion = new List<Train>();
+                //averageTrains.Count()
+                weightedSimualtion = Processing.getWeightedAverageSimulation(interpolatedSimulations, averageTrains);
+
+               
+
+                /********************************************************************************/
+
+
+
+                averageTrains.Add(processing.averageTrain(increasingCombined, weightedSimualtion[0].journey, trackGeometry));
+                averageTrains.Add(processing.averageTrain(decreasingCombined, weightedSimualtion[1].journey, trackGeometry));
                 /******************************************************/
                 
 
@@ -649,7 +794,7 @@ namespace TRAP
                 ///* Write data to an excel file. */
                 //FileOperations.writeTrainData(unpackedData);
 
-                return interpolatedRecords;
+                return interpolatedTrains;
             }
 
             /// <summary>
@@ -740,7 +885,23 @@ namespace TRAP
                             item.trainOperator = record[trainIndex - 1].trainOperator;
                             item.commodity = record[trainIndex - 1].commodity;
                             item.powerToWeight = record[trainIndex - 1].powerToWeight;
+
+                            if (Settings.HunterValleyRegion)
+                            {
+                                item.catagory = matchCatagoryToOperator(item.trainOperator);
+                            }
+                            else
+                            {
+                                if (item.powerToWeight > Settings.underpoweredLowerBound && item.powerToWeight <= Settings.underpoweredUpperBound)
+                                    item.catagory = catagory.Underpowered;
+                                else if (item.powerToWeight > Settings.overpoweredLowerBound && item.powerToWeight <= Settings.overpoweredUpperBound)
+                                    item.catagory = catagory.Overpowered;
+                                else
+                                    item.catagory = catagory.Actual;
                             
+                            }
+
+
                             /* Determine the actual km, and populate the loops and TSR information. */
                             processing.populateGeometryKm(item.journey, trackGeometry);
                             processing.populateLoopLocations(item.journey, trackGeometry);
@@ -980,9 +1141,37 @@ namespace TRAP
             //        return trainOperator.unknown; // "Unknown";
             //}
 
+            private static trainOperator matchOperatorToCatagory(catagory catagory)
+            {
+                trainOperator trainOperator = trainOperator.Unknown;
 
+                List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
 
+                foreach (trainOperator Operator in operatorList)
+                {
+                    if (Operator.ToString().Equals(catagory.ToString()))
+                        trainOperator = Operator;
+                }
+
+                return trainOperator;
+            }
+
+            private static catagory matchCatagoryToOperator(trainOperator trainOperator)
+            {
+                catagory trainCatagory = catagory.Unknown;
+
+                List<catagory> catagoryList = Enum.GetValues(typeof(catagory)).Cast<catagory>().ToList();
+
+                foreach (catagory cat in catagoryList)
+                {
+                    if (cat.ToString().Equals(trainOperator.ToString()))
+                        trainCatagory = cat;
+                }
+
+                return trainCatagory;
+            }
             
-        
+            
+            
     } // Class Algorithm
 }

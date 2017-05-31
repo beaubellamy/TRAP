@@ -492,12 +492,272 @@ namespace TRAP
             return newTrainList;
         }
 
-        public AverageTrain averageTrain(List<Train> trains, TrainJourney catagorySim, TrainJourney weightedSim)
+        public AverageTrain averageTrain(List<Train> trains, List<TrainJourney> catagorySim, List<TrackGeometry> trackGeometry)
+        {
+            bool loopBoundary = false;
+            bool TSRBoundary = false;
+            List<bool> TSRList = new List<bool>();
+
+            List<double> kilometreage = new List<double>();
+            List<double> elevation = new List<double>();
+            List<double> averageSpeed = new List<double>();
+            List<bool> isInLoopBoundary = new List<bool>();
+            List<bool> isInTSRboundary = new List<bool>();
+
+
+            double kmPost = 0;
+            double altitude = 0;
+            List<double> speed = new List<double>();
+            double sum = 0;
+            double aveSpeed = 0;
+
+            int size = (int)((Settings.endKm - Settings.startKm) / (Settings.interval / 1000));
+
+            TrainJourney journey = new TrainJourney();
+
+
+            for (int journeyIdx = 0; journeyIdx < size; journeyIdx++)
+            {
+                kmPost = Settings.startKm + Settings.interval / 1000 * journeyIdx;
+                altitude = trackGeometry[TrainPerformance.track.findClosestTrackGeometryPoint(trackGeometry, kmPost)].elevation;
+
+                speed.Clear();
+                sum = 0;
+
+                foreach (Train train in trains)
+                {
+                    
+                    journey = train.journey[journeyIdx];
+
+                    /* Does a TSR apply */
+                    if (!withinTemporarySpeedRestrictionBoundaries(train, journey.kilometreage))
+                    {
+                        TSRList.Add(false);
+                        /* Is the train within a loop boundary */
+                        if (!isTrainInLoopBoundary(train, journey.kilometreage))
+                        {// train is NOT in loop
+                            loopBoundary = false;
+
+                            speed.Add(journey.speed);
+                            sum = sum + journey.speed;
+                        }
+                        else
+                        {// train IS IN loop
+                            loopBoundary = true;
+
+                            if (journey.speed > (Settings.loopSpeedThreshold * catagorySim[journeyIdx].speed))
+                            {
+                                speed.Add(journey.speed);
+                                sum = sum + journey.speed;
+                            }
+
+                        }
+
+                    }
+                    else
+                    {
+                        TSRList.Add(true);
+
+                        /* We dont want to include the speed in the aggregation if the train is within the
+                         * bundaries of a TSR and is forced to slow down.  
+                         */
+
+                    }
+
+                }
+
+                /* Identify where the TSR's were applied for the average train. */
+                int TSRtrue = TSRList.Where(t => t == true).Count();
+                if (TSRtrue > 0)
+                    TSRBoundary = true;
+                else
+                    TSRBoundary = false;    
+
+                /* If the TSR applied for the whole analysis period, the simulation speed is used. */
+                if (TSRtrue == TSRList.Count())
+                    aveSpeed = catagorySim[journeyIdx].speed;
+                else
+                {
+                    /* Calcualte the average speed at each location. */
+                    if (speed.Count() == 0 || sum == 0)
+                        aveSpeed = 0;
+                    else
+                        aveSpeed = speed.Where(x => x > 0.0).Average();
+                }
+
+                kilometreage.Add(kmPost);
+                elevation.Add(altitude);
+                averageSpeed.Add(aveSpeed);
+                isInLoopBoundary.Add(loopBoundary);
+                isInTSRboundary.Add(TSRBoundary);
+
+
+            }
+            
+            AverageTrain averageTrain = new AverageTrain(trains[0].catagory, trains[0].trainDirection, trains.Count() ,kilometreage, elevation, averageSpeed, isInLoopBoundary, isInTSRboundary);
+
+            return averageTrain;
+
+        }
+
+        public static List<Train> getWeightedAverageSimulation(List<Train> simulations, List<AverageTrain> averageTrains)
+        {
+            /* The list of trains (2) that will be returned */
+            List<Train> weightedAvergeTrain = new List<Train>();
+
+            /* The denominator for the weighting calulations */
+            int totalTrainCount = averageTrains.Select(t => t.trainCount).Sum();
+
+            List<TrainJourney> increasingJourney = new List<TrainJourney>();    
+            List<TrainJourney> decreasingJourney = new List<TrainJourney>();
+            
+            double speedIncreasing = 0;
+            double speedDecreasing = 0;
+
+            /* If there are only two simulations, there is no need to calculate weighting */
+            if (simulations.Count() == 2)
+                return simulations;
+
+            for (int journeyIdx = 0; journeyIdx < simulations[0].journey.Count();  journeyIdx++ )
+            {
+                /* The journey for each simulation should be the same length, So loop 
+                 * through the journey 
+                 */
+                if (simulations.Count() == 4)
+                {
+                    /* Assumes 2 individual catagories for increasing and decreasing directions. */
+                    speedIncreasing = (simulations[0].journey[journeyIdx].speed * averageTrains[0].trainCount +
+                        simulations[2].journey[journeyIdx].speed * averageTrains[2].trainCount) / totalTrainCount;
+
+                    speedDecreasing = (simulations[1].journey[journeyIdx].speed * averageTrains[1].trainCount +
+                        simulations[3].journey[journeyIdx].speed * averageTrains[3].trainCount) / totalTrainCount;
+                }
+                else if (simulations.Count() == 6)
+                {
+                    /* Assumes 3 individual catagories for increasing and decreasing directions. */
+                    speedIncreasing = (simulations[0].journey[journeyIdx].speed * averageTrains[0].trainCount +
+                           simulations[2].journey[journeyIdx].speed * averageTrains[2].trainCount +
+                           simulations[4].journey[journeyIdx].speed * averageTrains[4].trainCount) / totalTrainCount;
+
+                    speedDecreasing = (simulations[1].journey[journeyIdx].speed * averageTrains[1].trainCount +
+                        simulations[3].journey[journeyIdx].speed * averageTrains[3].trainCount + 
+                        simulations[5].journey[journeyIdx].speed * averageTrains[5].trainCount) / totalTrainCount;
+                }
+                else
+                {
+                    /* Assumes 4 individual catagories for increasing and decreasing directions. */
+                    speedIncreasing = (simulations[0].journey[journeyIdx].speed * averageTrains[0].trainCount +
+                           simulations[2].journey[journeyIdx].speed * averageTrains[2].trainCount +
+                           simulations[4].journey[journeyIdx].speed * averageTrains[4].trainCount +
+                           simulations[6].journey[journeyIdx].speed * averageTrains[6].trainCount) / totalTrainCount;
+
+                    speedDecreasing = (simulations[1].journey[journeyIdx].speed * averageTrains[1].trainCount +
+                        simulations[3].journey[journeyIdx].speed * averageTrains[3].trainCount +
+                        simulations[5].journey[journeyIdx].speed * averageTrains[5].trainCount +
+                        simulations[7].journey[journeyIdx].speed * averageTrains[7].trainCount) / totalTrainCount;
+                }
+                
+                /* Assumed the same properties as the existing simulations */
+                GeoLocation location = simulations[0].journey[journeyIdx].location;
+                DateTime increasingTime = simulations[0].journey[journeyIdx].dateTime;
+                DateTime decreasingTime = simulations[1].journey[journeyIdx].dateTime;
+                double kilometreage = simulations[0].journey[journeyIdx].kilometreage;
+                double elevation = simulations[0].journey[journeyIdx].elevation;
+
+                /* Add to the journey for the increasing weighted average */
+                TrainJourney itemIncreasing = new TrainJourney(location,increasingTime,speedIncreasing,kilometreage,kilometreage, elevation);
+                increasingJourney.Add(itemIncreasing);
+
+                /* Add to the journey for the decreasing weighted average */
+                TrainJourney itemDecreasing = new TrainJourney(location, decreasingTime, speedDecreasing, kilometreage, kilometreage, elevation);
+                increasingJourney.Add(itemDecreasing);
+            }
+
+            /* Add the weighted average trains to the list */
+            Train itemInc = new Train(increasingJourney, catagory.Simulated, direction.Increasing);
+            weightedAvergeTrain.Add(itemInc);
+            Train itemDec = new Train(decreasingJourney, catagory.Simulated, direction.Decreasing);
+            weightedAvergeTrain.Add(itemDec);
+            
+            return weightedAvergeTrain;
+        }
+
+        /// <summary>
+        /// Determine if the train is approaching, leaving or within a loop.
+        /// </summary>
+        /// <param name="train">The train object containing the journey details.</param>
+        /// <param name="targetLocation">The specific location being considered.</param>
+        /// <returns>True, if the train is within the boundaries of the loop window.</returns>
+        public bool isTrainInLoopBoundary(Train train, double targetLocation)
         {
 
+            /* Find the indecies of the boundaries of the loop. */
+            double lookBack = targetLocation - Settings.loopBoundaryThreshold;
+            double lookForward = targetLocation + Settings.loopBoundaryThreshold;
+            int lookBackIdx = train.indexOfgeometryKm(train.journey, lookBack);
+            int lookForwardIdx = train.indexOfgeometryKm(train.journey, lookForward);
 
-            return new AverageTrain();
-        
+            /* Check the indecies are valid */
+            if (lookBack < Settings.startKm && lookBackIdx == -1)
+                lookBackIdx = 0;
+            if (lookForward > Settings.endKm && lookForwardIdx == -1)
+            {
+                if (train.trainDirection == direction.Increasing)
+                    lookForwardIdx = train.journey.Count() - 1;
+                else
+                    lookForwardIdx = 0;
+            }
+
+            /* Determine if a loop is within the loop window of the current position. */
+            if (lookBackIdx >= 0 && lookForwardIdx >= 0)
+            {
+                for (int journeyIdx = lookBackIdx; journeyIdx < lookForwardIdx; journeyIdx++)
+                {
+                    TrainJourney journey = train.journey[journeyIdx];
+
+                    if (journey.isLoopHere)
+                        return true;
+
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Determine the properties of the TSR if one applies.
+        /// </summary>
+        /// <param name="train">The train object containing the journey details.</param>
+        /// <param name="targetLocation">The specific location being considered.</param>
+        /// <returns>TSR object containting the TSR flag and the associated speed. </returns>
+        public bool withinTemporarySpeedRestrictionBoundaries(Train train, double targetLocation)
+        {
+
+            bool isTSRHere = false;
+
+            /* Find the indecies of the boundaries of the loop. */
+            double lookBack = targetLocation - Settings.TSRwindowBoundary;
+            double lookForward = targetLocation + Settings.TSRwindowBoundary;
+            int lookBackIdx = train.indexOfgeometryKm(train.journey, lookBack);
+            int lookForwardIdx = train.indexOfgeometryKm(train.journey, lookForward);
+
+            /* Check the indecies are valid */
+            if (lookBack < Settings.startKm && lookBackIdx == -1)
+                lookBackIdx = 0;
+            if (lookForward > Settings.endKm && lookForwardIdx == -1)
+                lookForwardIdx = train.journey.Count() - 1;
+
+            /* Determine if a loop is within the loop window of the current position. */
+            if (lookBackIdx >= 0 && lookForwardIdx >= 0)
+            {
+                for (int journeyIdx = lookBackIdx; journeyIdx < lookForwardIdx; journeyIdx++)
+                {
+                    TrainJourney journey = train.journey[journeyIdx];
+
+                    if (journey.isTSRHere)
+                        isTSRHere = true;
+                }
+            }
+            return isTSRHere;
         }
 
         /// <summary>

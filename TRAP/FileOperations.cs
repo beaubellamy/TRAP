@@ -37,6 +37,7 @@ namespace TRAP
             double longitude = 0.0;
             DateTime dateTime = DateTime.MinValue;
             //double elevation = 0.0;
+            catagory catagory = catagory.Unknown;
 
             bool header = true;
             bool includeTrain = true;
@@ -105,14 +106,8 @@ namespace TRAP
         /// </summary>
         /// <param name="filename">The simulation filename.</param>
         /// <returns>The list of data for the simualted train.</returns>
-        public static Simulations readSimulationData(string filename, catagory simulationCatagory, direction direction)
+        public static Train readSimulationData(string filename, catagory simulationCatagory, direction direction)
         {
-
-            /*
-             * Bring back the List<TrainJourney> object
-             * create the list and add this to the train object
-             */
-
 
             /* Read all the lines of the data file. */
             isFileOpen(filename);
@@ -124,60 +119,55 @@ namespace TRAP
             string[] fields = lines[0].Split(delimeters);
 
             /* Initialise the fields of interest. */
-            //double kmPoint = 0;
-            double km = 0;
-            List<double> singleLineKm = new List<double>();
-            //double lat = 0;
-            //double lon = 0;
-            double height = 0;
-            List<double> elevation = new List<double>();
-            //string TraximNode = "none";
-            //string TraximSection = "none";
+            double kilometreage = 0;
+            double latitude = 0;
+            double longitude = 0;
+            double elevation = 0;
             double time = 0;
-            List<DateTime> dateTime = new List<DateTime>();
+            DateTime dateTime = DateTime.MinValue;
             double speed = 0;
-            List<double> velocity = new List<double>();
-            //double previousDistance = 0;
-            //double maxSpeed = 0;
 
-            //bool header = true;
+            bool header = true;
 
-            /* List of all simulated train data. */
-            //Train simulatedTrain = new Train();
+            /* List of the simulated journey. */
+            List<TrainJourney> simulatedJourney = new List<TrainJourney>();
 
-
-            //dateTime[0] = new DateTime(2016, 1, 1, 0, 0, 0);
-
-            /* Ignore the header line. */
-            for (int lineIdx = 1; lineIdx < lines.Count(); lineIdx++)
+                       
+            foreach (string line in lines)
             {
                 /* Seperate each record into each field */
-                fields = lines[lineIdx].Split(delimeters);
+                fields = line.Split(delimeters);
 
-                /* Add the properties to their respsective lists. */
-
-                if (double.TryParse(fields[3], out height))
-                    elevation.Add(height);
-
-                if (double.TryParse(fields[8], out time))
+                if (header)
                 {
-                    if (lineIdx == 1)
-                        dateTime.Add(new DateTime(2016, 1, 1, 0, 0, 0));
-                    else
-                        dateTime.Add(dateTime[lineIdx - 1].AddSeconds(time));
+                    header = false;
                 }
+                else
+                {
+                    /* Add the properties to their respsective fields. */
 
-                if (double.TryParse(fields[9], out speed))
-                    velocity.Add(speed);
+                    double.TryParse(fields[3], out elevation);
+                    double.TryParse(fields[9], out speed);
+                    double.TryParse(fields[14], out kilometreage);
+                    double.TryParse(fields[0], out latitude);
+                    double.TryParse(fields[2], out longitude);
 
-                if (double.TryParse(fields[14], out km))
-                    singleLineKm.Add(km);
-                
+
+                    if (double.TryParse(fields[8], out time))
+                    {
+                        if (dateTime == DateTime.MinValue)
+                            dateTime = new DateTime(2016, 1, 1, 0, 0, 0);
+                        else
+                            dateTime = dateTime.AddSeconds(time);
+                    }
+                    /* Add the record to the simulated journey. */
+                    TrainJourney item = new TrainJourney(new GeoLocation(latitude, longitude), dateTime, speed, kilometreage, kilometreage, elevation);
+                    simulatedJourney.Add(item);
+                }
             }
-            Train sim = new Train();//List < TrainJourney > journey);
-
-            Simulations simulatedTrain = new Simulations(simulationCatagory, direction, singleLineKm, dateTime, elevation, velocity);
-
+            /* Create the simulated train. */
+            Train simulatedTrain = new Train(simulatedJourney, simulationCatagory, direction);
+            
             /* Return the list of records. */
             return simulatedTrain;
         }
