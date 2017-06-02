@@ -10,10 +10,10 @@ namespace Globalsettings
     public static class FileSettings
     {
         /* Filenames for each required file. */
-        public static List<string> batchFiles = new List<string>();
+        public static string dataFile = null;
         public static string geometryFile = null;
         public static string temporarySpeedRestrictionFile = null;
-        public static string trainList = null;                  /* File only required if includeAListOfTrainsToExclude is TRUE. */
+        public static string trainListFile = null;                  /* File only required if includeAListOfTrainsToExclude is TRUE. */
         public static List<string> simulationFiles = new List<string>();
 
         //public static string underpoweredIncreasingSimulationFile = null;       // simcatagory1
@@ -48,10 +48,10 @@ namespace Globalsettings
         public static double distanceThreshold;             /* Minimum ditance between successive data points. */
 
         ///* Simulation Parameters */
-        public static double underpoweredLowerBound;        /* The lower bound cuttoff for the underpowered trains. */
-        public static double underpoweredUpperBound;        /* The upper bound cuttoff for the underpowered trains. */
-        public static double overpoweredLowerBound;         /* The lower bound cuttoff for the overpowered trains. */
-        public static double overpoweredUpperBound;         /* The upper bound cuttoff for the overpowered trains. */
+        public static double catagory1LowerBound;        /* The lower bound cuttoff for the underpowered trains. */
+        public static double catagory1UpperBound;        /* The upper bound cuttoff for the underpowered trains. */
+        public static double catagory2LowerBound;         /* The lower bound cuttoff for the overpowered trains. */
+        public static double catagory2UpperBound;         /* The upper bound cuttoff for the overpowered trains. */
         //public static double combinedLowerBound;            /* The lower bound cuttoff for the combined trains. */
         //public static double combinedUpperBound;            /* The upper bound cuttoff for the combined trains. */
 

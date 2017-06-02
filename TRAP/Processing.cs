@@ -7,7 +7,7 @@ using Globalsettings;
 
 namespace TRAP
 {
-    class Processing
+    public class Processing
     {
         /* Mean radius of the Earth */
         private const double EarthRadius = 6371000.0;   // metres
@@ -229,9 +229,9 @@ namespace TRAP
             double journeyDistance = train.journey[train.journey.Count() - 1].kmPost - train.journey[0].kmPost;
 
             if (journeyDistance > 0)
-                return direction.Increasing;
+                return direction.IncreasingKm;
             else
-                return direction.Decreasing;
+                return direction.DecreasingKm;
 
 
         }
@@ -606,7 +606,8 @@ namespace TRAP
             List<Train> weightedAvergeTrain = new List<Train>();
 
             /* The denominator for the weighting calulations */
-            int totalTrainCount = averageTrains.Select(t => t.trainCount).Sum();
+            int increasingTrainCount = averageTrains.Where(t => t.direction == direction.IncreasingKm).Select(t => t.trainCount).Sum(); 
+            int decreasingTrainCount = averageTrains.Where(t => t.direction == direction.DecreasingKm).Select(t => t.trainCount).Sum();
 
             List<TrainJourney> increasingJourney = new List<TrainJourney>();    
             List<TrainJourney> decreasingJourney = new List<TrainJourney>();
@@ -627,21 +628,21 @@ namespace TRAP
                 {
                     /* Assumes 2 individual catagories for increasing and decreasing directions. */
                     speedIncreasing = (simulations[0].journey[journeyIdx].speed * averageTrains[0].trainCount +
-                        simulations[2].journey[journeyIdx].speed * averageTrains[2].trainCount) / totalTrainCount;
+                        simulations[2].journey[journeyIdx].speed * averageTrains[2].trainCount) / increasingTrainCount;
 
                     speedDecreasing = (simulations[1].journey[journeyIdx].speed * averageTrains[1].trainCount +
-                        simulations[3].journey[journeyIdx].speed * averageTrains[3].trainCount) / totalTrainCount;
+                        simulations[3].journey[journeyIdx].speed * averageTrains[3].trainCount) / decreasingTrainCount;
                 }
                 else if (simulations.Count() == 6)
                 {
                     /* Assumes 3 individual catagories for increasing and decreasing directions. */
                     speedIncreasing = (simulations[0].journey[journeyIdx].speed * averageTrains[0].trainCount +
                            simulations[2].journey[journeyIdx].speed * averageTrains[2].trainCount +
-                           simulations[4].journey[journeyIdx].speed * averageTrains[4].trainCount) / totalTrainCount;
+                           simulations[4].journey[journeyIdx].speed * averageTrains[4].trainCount) / increasingTrainCount;
 
                     speedDecreasing = (simulations[1].journey[journeyIdx].speed * averageTrains[1].trainCount +
-                        simulations[3].journey[journeyIdx].speed * averageTrains[3].trainCount + 
-                        simulations[5].journey[journeyIdx].speed * averageTrains[5].trainCount) / totalTrainCount;
+                        simulations[3].journey[journeyIdx].speed * averageTrains[3].trainCount +
+                        simulations[5].journey[journeyIdx].speed * averageTrains[5].trainCount) / decreasingTrainCount;
                 }
                 else
                 {
@@ -649,12 +650,12 @@ namespace TRAP
                     speedIncreasing = (simulations[0].journey[journeyIdx].speed * averageTrains[0].trainCount +
                            simulations[2].journey[journeyIdx].speed * averageTrains[2].trainCount +
                            simulations[4].journey[journeyIdx].speed * averageTrains[4].trainCount +
-                           simulations[6].journey[journeyIdx].speed * averageTrains[6].trainCount) / totalTrainCount;
+                           simulations[6].journey[journeyIdx].speed * averageTrains[6].trainCount) / increasingTrainCount;
 
                     speedDecreasing = (simulations[1].journey[journeyIdx].speed * averageTrains[1].trainCount +
                         simulations[3].journey[journeyIdx].speed * averageTrains[3].trainCount +
                         simulations[5].journey[journeyIdx].speed * averageTrains[5].trainCount +
-                        simulations[7].journey[journeyIdx].speed * averageTrains[7].trainCount) / totalTrainCount;
+                        simulations[7].journey[journeyIdx].speed * averageTrains[7].trainCount) / decreasingTrainCount;
                 }
                 
                 /* Assumed the same properties as the existing simulations */
@@ -670,13 +671,13 @@ namespace TRAP
 
                 /* Add to the journey for the decreasing weighted average */
                 TrainJourney itemDecreasing = new TrainJourney(location, decreasingTime, speedDecreasing, kilometreage, kilometreage, elevation);
-                increasingJourney.Add(itemDecreasing);
+                decreasingJourney.Add(itemDecreasing);
             }
 
             /* Add the weighted average trains to the list */
-            Train itemInc = new Train(increasingJourney, catagory.Simulated, direction.Increasing);
+            Train itemInc = new Train(increasingJourney, catagory.Simulated, direction.IncreasingKm);
             weightedAvergeTrain.Add(itemInc);
-            Train itemDec = new Train(decreasingJourney, catagory.Simulated, direction.Decreasing);
+            Train itemDec = new Train(decreasingJourney, catagory.Simulated, direction.DecreasingKm);
             weightedAvergeTrain.Add(itemDec);
             
             return weightedAvergeTrain;
@@ -702,7 +703,7 @@ namespace TRAP
                 lookBackIdx = 0;
             if (lookForward > Settings.endKm && lookForwardIdx == -1)
             {
-                if (train.trainDirection == direction.Increasing)
+                if (train.trainDirection == direction.IncreasingKm)
                     lookForwardIdx = train.journey.Count() - 1;
                 else
                     lookForwardIdx = 0;
@@ -847,6 +848,109 @@ namespace TRAP
             else
                 return 0;
         }
+
+        /// <summary>
+        /// Populate the Setting parameters from the form provided.
+        /// </summary>
+        /// <param name="form">The Form object containg the form parameters.</param>
+        public void populateFormParameters(TrainPerformance form)
+        {
+
+            /* Extract the form parameters. */
+            Settings.dateRange = form.getDateRange();
+            Settings.topLeftLocation = form.getTopLeftLocation();
+            Settings.bottomRightLocation = form.getBottomRightLocation();
+            Settings.includeAListOfTrainsToExclude = form.getTrainListExcludeFlag();
+            Settings.startKm = form.getStartKm();
+            Settings.endKm = form.getEndKm();
+            Settings.interval = form.getInterval();
+            Settings.minimumJourneyDistance = form.getJourneydistance();
+            Settings.loopSpeedThreshold = form.getLoopFactor();
+            Settings.loopBoundaryThreshold = form.getLoopBoundary();
+            Settings.TSRwindowBoundary = form.getTSRWindow();
+            Settings.timeThreshold = form.getTimeSeparation();
+            Settings.distanceThreshold = form.getDataSeparation();
+            Settings.catagory1LowerBound = form.getCatagory1LowerBound();
+            Settings.catagory1UpperBound = form.getCatagory1UpperBound();
+            Settings.catagory2LowerBound = form.getCatagory2LowerBound();
+            Settings.catagory2UpperBound = form.getCatagory2UpperBound();
+            //Settings.combinedLowerBound = form.getUnderpoweredLowerBound();
+            //Settings.combinedUpperBound = form.getOvderpoweredUpperBound();
+            Settings.HunterValleyRegion = form.getHunterValleyRegion();
+
+
+        }
+
+        /// <summary>
+        /// Validate the form parameters are within logical boundaries.
+        /// </summary>
+        /// <returns></returns>
+        public bool areFormParametersValid()
+        {
+
+            if (Settings.dateRange == null ||
+                Settings.dateRange[0] > DateTime.Today || Settings.dateRange[1] > DateTime.Today ||
+                Settings.dateRange[0] > Settings.dateRange[1])
+                return false;
+
+            if (Settings.topLeftLocation == null ||
+                Settings.topLeftLocation.latitude > -10 ||      /* Australian top left bounday */
+                Settings.topLeftLocation.longitude < 110 ||
+                Settings.topLeftLocation.latitude > -10 ||      /* Australian top right bounday */
+                Settings.topLeftLocation.longitude > 155)
+                return false;
+
+            if (Settings.bottomRightLocation == null ||
+                Settings.bottomRightLocation.latitude < -40 ||      /* Australian bottom left bounday */
+                Settings.bottomRightLocation.longitude < 110 ||
+                Settings.bottomRightLocation.latitude < -40 ||      /* Australian bottom right bounday */
+                Settings.bottomRightLocation.longitude > 155)
+                return false;
+
+            if (Settings.startKm < 0)
+                return false;
+
+            if (Settings.endKm < 0)
+                return false;
+
+            if (Settings.interval < 0)
+                return false;
+
+            if (Settings.minimumJourneyDistance < 0)
+                return false;
+
+            if (Settings.loopSpeedThreshold < 0 || Settings.loopSpeedThreshold > 100)
+                return false;
+
+            if (Settings.loopBoundaryThreshold < 0)
+                return false;
+
+            if (Settings.TSRwindowBoundary < 0)
+                return false;
+
+            if (Settings.timeThreshold < 0)
+                return false;
+
+            if (Settings.distanceThreshold < 0)
+                return false;
+
+            if (Settings.catagory1LowerBound < 0)
+                return false;
+
+            if (Settings.catagory1UpperBound < 0)
+                return false;
+
+            if (Settings.catagory2LowerBound < 0)
+                return false;
+
+            if (Settings.catagory2UpperBound < 0)
+                return false;
+
+            return true;
+
+
+        }
+
 
 
 

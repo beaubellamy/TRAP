@@ -13,27 +13,20 @@ namespace TRAP
         /// <summary>
         /// Enumerated direction of the train km's.
         /// </summary>
-        public enum direction { Increasing, Decreasing, Invalid, NotSpecified };
-        public enum trainOperator { PacificNational, ARTC, Aurizon, Freightliner, RailCorp, Simulated, Unknown };
-        /*
-         * Aurizon = {Aurizon}
-         * ARTC = {Australian rail Track Corporation}
-         * Freightliner = {Freightliner}
-         * Pacific National = {Pac Nat – Coal, Pac Nat – Intermodal, Pac Nat – Rural & Bulk, Pacific Nat – ADHOC GRAIN}
-         * RailCorp = {RailCorp}
-         */
-        public enum catagory { PacificNational, ARTC, Aurizon, Freightliner, RailCorp, Underpowered, Overpowered, Actual, Simulated, Unknown };
-        
-
-        public enum trainCommodity {Freight, Coal, Grain, Intermodal, Work, Unknown};
-        /*
-         * Freight = {Steel, Minerals, Clinker, General Freight}
-         * Coal = {Coal Export, Containerised Coal}
-         * Grain = Grain
-         * Intermodal = Intermodal
-         * Work = Unspecified Commodity
-         * Unknown = Unknown
-         */
+        public enum direction { IncreasingKm, DecreasingKm, Invalid, Unknown };
+        public enum trainOperator
+        {
+            ARTC, Aurizon, CityRail, CountryLink, Freightliner, GreatSouthernRail, Interail, LauchlanValleyRailSociety,
+            PacificNational, QUBE, RailCorp, SCT, SouthernShorthaulRail, SydneyRailService, TheRailMotorService, VLinePassenger,
+            Combined, Simulated, Unknown
+        };
+        public enum catagory
+        {
+            ARTC, Aurizon, CityRail, CountryLink, Freightliner, GreatSouthernRail, Interail, LauchlanValleyRailSociety,
+            PacificNational, QUBE, RailCorp, SCT, SouthernShorthaulRail, SydneyRailService, TheRailMotorService, VLinePassenger,
+            Combined, Actual, Simulated, Unknown
+        };
+        public enum trainCommodity { Freight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, Unknown };
        
 
         public class Train
@@ -57,7 +50,7 @@ namespace TRAP
                 this.commodity = trainCommodity.Unknown;
                 this.powerToWeight = 0;
                 this.journey = new List<TrainJourney>();
-                this.trainDirection = direction.NotSpecified;
+                this.trainDirection = direction.Unknown;
                 this.include = false;
             }
 
@@ -247,7 +240,7 @@ namespace TRAP
             public AverageTrain()
             {
                 this.trainCatagory = catagory.Unknown;
-                this.direction = direction.NotSpecified;
+                this.direction = direction.Unknown;
                 this.trainCount = 0;
                 this.kilometreage = new List<double>();
                 this.elevation = new List<double>();
@@ -433,27 +426,28 @@ namespace TRAP
             public static List<Train> trainPerformance()
             {
 
-                Settings.includeAListOfTrainsToExclude = false;
-                FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Geometry.csv"; ;
-                FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin TSR.csv";
-                string batchFileName = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Data 2016-2017.txt";
-                FileSettings.batchFiles.Add(batchFileName);
-                FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Increasing.csv");
-                FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Decreasing.csv");
-                FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin";
-                Settings.distanceThreshold = 4*1000;
-                Settings.minimumJourneyDistance = 250*1000;
-                Settings.startKm = 264;
-                Settings.endKm = 541;
-                Settings.interval = 50;
-                Settings.timeThreshold = 10*60;
-                Settings.dateRange = new DateTime[]{new DateTime(2016,1,1), new DateTime(2016,1,8)};
-                Settings.topLeftLocation = new GeoLocation(-10,110);
-                Settings.bottomRightLocation = new GeoLocation(-40,152);
-                Settings.loopBoundaryThreshold = 1;
-                Settings.loopSpeedThreshold = 0.5;
-                Settings.TSRwindowBoundary = 1;
-                Settings.HunterValleyRegion = true;
+                //Settings.includeAListOfTrainsToExclude = false;
+                //FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Geometry.csv"; ;
+                //FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin TSR.csv";
+                //FileSettings.dataFile= @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Data 2016-2017.txt";
+                //FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Increasing.csv");
+                //FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Decreasing.csv");
+                //FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Aurizon-Increasing-60.csv");
+                //FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Aurizon-Decreasing.csv");
+                //FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin";
+                //Settings.distanceThreshold = 4*1000;
+                //Settings.minimumJourneyDistance = 250*1000;
+                //Settings.startKm = 264;
+                //Settings.endKm = 541;
+                //Settings.interval = 50;
+                //Settings.timeThreshold = 10*60;
+                //Settings.dateRange = new DateTime[]{new DateTime(2016,1,1), new DateTime(2016,1,8)};
+                //Settings.topLeftLocation = new GeoLocation(-10,110);
+                //Settings.bottomRightLocation = new GeoLocation(-40,152);
+                //Settings.loopBoundaryThreshold = 1;
+                //Settings.loopSpeedThreshold = 0.5;
+                //Settings.TSRwindowBoundary = 1;
+                //Settings.HunterValleyRegion = true;
 
 
 
@@ -462,7 +456,7 @@ namespace TRAP
 
                 /* Populate the exluded train list. */
                 if (Settings.includeAListOfTrainsToExclude)
-                    excludeTrainList = FileOperations.readTrainList(FileSettings.trainList);
+                    excludeTrainList = FileOperations.readTrainList(FileSettings.trainListFile);
 
                 /* Read in the track geometry data. */
                 List<TrackGeometry> trackGeometry = new List<TrackGeometry>();
@@ -476,8 +470,7 @@ namespace TRAP
 
                 /* Read the data. */
                 List<TrainRecord> TrainRecords = new List<TrainRecord>();
-                foreach (string batchFile in FileSettings.batchFiles)
-                    TrainRecords.AddRange(FileOperations.readICEData(batchFile, excludeTrainList));
+                TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList);
 
                 if (TrainRecords.Count() == 0)
                 {
@@ -513,7 +506,7 @@ namespace TRAP
                         
                         /* OR */
                         simCatagories.Add(catagory.PacificNational);
-                        //simCatagories.Add(catagory.Aurizon);
+                        simCatagories.Add(catagory.Aurizon);
                         
                     }
                     else if (numberOfOperators == 3)
@@ -525,8 +518,8 @@ namespace TRAP
 
                         /* OR */
                         simCatagories.Add(catagory.PacificNational);
-                        //simCatagories.Add(catagory.Aurizon);
-                        //simCatagories.Add(catagory.Freightliner);
+                        simCatagories.Add(catagory.Aurizon);
+                        simCatagories.Add(catagory.Freightliner);
                         
                     }
                         
@@ -544,7 +537,7 @@ namespace TRAP
 
                     /* OR */
                     simCatagories.Add(catagory.Underpowered);
-                    //simCatagories.Add(catagory.Overpowered);
+                    simCatagories.Add(catagory.Overpowered);
 
                 }
 
@@ -555,8 +548,8 @@ namespace TRAP
 
                 for (int index = 0; index < simCatagories.Count(); index++ )
                 {
-                    simulatedTrains.Add(FileOperations.readSimulationData(FileSettings.simulationFiles[index*2], simCatagories[index], direction.Increasing));
-                    simulatedTrains.Add(FileOperations.readSimulationData(FileSettings.simulationFiles[index*2+1], simCatagories[index], direction.Decreasing));
+                    simulatedTrains.Add(FileOperations.readSimulationData(FileSettings.simulationFiles[index*2], simCatagories[index], direction.IncreasingKm));
+                    simulatedTrains.Add(FileOperations.readSimulationData(FileSettings.simulationFiles[index*2+1], simCatagories[index], direction.DecreasingKm));
                 }
                 //simulatedTrains.Add(FileOperations.readSimulationData(FileSettings.underpoweredDecreasingSimulationFile, simCatagory1, direction.decreasing));
                 //simulatedTrains.Add(FileOperations.readSimulationData(FileSettings.overpoweredIncreasingSimulationFile, simCatagory2, direction.increasing));
@@ -709,6 +702,8 @@ namespace TRAP
                 List<Train> increasingTrainCatagory = new List<Train>();
                 List<Train> decreasingTrainCatagory = new List<Train>();
 
+                List<Statistics> stats = new List<Statistics>();
+
                 for (int index = 0; index < simCatagories.Count(); index++)
                 {
                     
@@ -716,15 +711,20 @@ namespace TRAP
                     {
                         trainOperator operatorCatagory = matchOperatorToCatagory(simCatagories[index]);
                         /* will be an operator; can be 2 or 3 different operators */
-                        increasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.Increasing).ToList();
-                        decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.Decreasing).ToList();
+                        increasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                        stats.Add(Statistics.generateStats(increasingTrainCatagory));
+                        stats.Add(Statistics.generateStats(decreasingTrainCatagory));
                     }
                     else
                     { 
                         /* Can only be 2 catagories; underpowered and overpowered. */
-                        increasingTrainCatagory = interpolatedTrains.Where(t => t.catagory == simCatagories[index]).Where(t => t.trainDirection == direction.Increasing).ToList();
-                        decreasingTrainCatagory = interpolatedTrains.Where(t => t.catagory == simCatagories[index]).Where(t => t.trainDirection == direction.Decreasing).ToList();
-                
+                        increasingTrainCatagory = interpolatedTrains.Where(t => t.catagory == simCatagories[index]).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        decreasingTrainCatagory = interpolatedTrains.Where(t => t.catagory == simCatagories[index]).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                        stats.Add(Statistics.generateStats(increasingTrainCatagory));
+                        stats.Add(Statistics.generateStats(decreasingTrainCatagory));
                     }
 
 
@@ -740,8 +740,14 @@ namespace TRAP
                 if (Settings.HunterValleyRegion)
                 {
                     /* Will be an operator; can be 2 or 3 different operators */
-                    increasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.Increasing).ToList();
-                    decreasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.Decreasing).ToList();
+                    increasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                    decreasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                    setOperatorToCombined(increasingCombined);
+                    setOperatorToCombined(decreasingCombined);
+
+                    stats.Add(Statistics.generateStats(increasingCombined));
+                    stats.Add(Statistics.generateStats(decreasingCombined));                    
                 }
                 else
                 {
@@ -752,29 +758,44 @@ namespace TRAP
                      */
                     foreach(catagory simCatagory in simCatagories)
                     {
-                        increasingSubList = interpolatedTrains.Where(t => t.catagory == simCatagory).Where(t => t.trainDirection == direction.Increasing).ToList();
+                        increasingSubList = interpolatedTrains.Where(t => t.catagory == simCatagory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                         increasingCombined.AddRange(increasingSubList);
-                        decreasingSubList = interpolatedTrains.Where(t => t.catagory == simCatagory).Where(t => t.trainDirection == direction.Decreasing).ToList();
+                        decreasingSubList = interpolatedTrains.Where(t => t.catagory == simCatagory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
                         decreasingCombined.AddRange(decreasingSubList);
                     }
+
+                    setOperatorToCombined(increasingCombined);
+                    setOperatorToCombined(decreasingCombined);
+                    stats.Add(Statistics.generateStats(increasingCombined));
+                    stats.Add(Statistics.generateStats(decreasingCombined));
+                    
                 }
 
                 
                 /* Create a weighted average simulation */
                 List<Train> weightedSimualtion = new List<Train>();
-                //averageTrains.Count()
                 weightedSimualtion = Processing.getWeightedAverageSimulation(interpolatedSimulations, averageTrains);
 
-               
+                /* Calculate the weighted average train in each direction. */
+                if (weightedSimualtion.Count() >= 2)
+                {
+                    averageTrains.Add(processing.averageTrain(increasingCombined, weightedSimualtion[0].journey, trackGeometry));
+                    averageTrains.Add(processing.averageTrain(decreasingCombined, weightedSimualtion[1].journey, trackGeometry));
+                }
+                else
+                {
+                    string error = "There aren't enough weighted simualtion files to proceed.";
+                    Console.WriteLine(error);
 
-                /********************************************************************************/
-
-
-
-                averageTrains.Add(processing.averageTrain(increasingCombined, weightedSimualtion[0].journey, trackGeometry));
-                averageTrains.Add(processing.averageTrain(decreasingCombined, weightedSimualtion[1].journey, trackGeometry));
+                    throw new ArgumentException(error);
+                }
                 /******************************************************/
                 
+                
+
+
+
+
 
                 /* Seperate averages for P/W ratio groups, commodity, Operator */
                 /* AverageByPower2Weight    -> powerToWeightAverageSpeed
@@ -785,8 +806,7 @@ namespace TRAP
                  */
 
                 /* Write the averaged Data to file for inspection. */
-                //FileOperations.writeAverageData(averageData, stats);
-
+                FileOperations.wrtieAverageData(averageTrains, stats);
                 ///* Unpack the records into a single trainDetails object list. */
                 //List<TrainDetails> unpackedData = new List<TrainDetails>();
                 //unpackedData = unpackCleanData(CleanTrainRecords);
@@ -892,9 +912,9 @@ namespace TRAP
                             }
                             else
                             {
-                                if (item.powerToWeight > Settings.underpoweredLowerBound && item.powerToWeight <= Settings.underpoweredUpperBound)
+                                if (item.powerToWeight > Settings.catagory1LowerBound && item.powerToWeight <= Settings.catagory1UpperBound)
                                     item.catagory = catagory.Underpowered;
-                                else if (item.powerToWeight > Settings.overpoweredLowerBound && item.powerToWeight <= Settings.overpoweredUpperBound)
+                                else if (item.powerToWeight > Settings.catagory2LowerBound && item.powerToWeight <= Settings.catagory2UpperBound)
                                     item.catagory = catagory.Overpowered;
                                 else
                                     item.catagory = catagory.Actual;
@@ -1170,8 +1190,15 @@ namespace TRAP
 
                 return trainCatagory;
             }
-            
-            
+
+            private static void setOperatorToCombined(List<Train> combined)
+            {
+                foreach(Train train in combined)
+                {
+                    train.catagory = catagory.Combined;
+                }
+            }
+
             
     } // Class Algorithm
 }

@@ -132,7 +132,7 @@ namespace TRAP
             /* List of the simulated journey. */
             List<TrainJourney> simulatedJourney = new List<TrainJourney>();
 
-                       
+
             foreach (string line in lines)
             {
                 /* Seperate each record into each field */
@@ -167,7 +167,7 @@ namespace TRAP
             }
             /* Create the simulated train. */
             Train simulatedTrain = new Train(simulatedJourney, simulationCatagory, direction);
-            
+
             /* Return the list of records. */
             return simulatedTrain;
         }
@@ -234,7 +234,7 @@ namespace TRAP
 
             /* Define some additional helper parameters. */
             double distance = 0;
-            direction direction = direction.NotSpecified;
+            direction direction = direction.Unknown;
             double previousLat = 0;
             double previousLong = 0;
             double previouskm = 0;
@@ -275,18 +275,18 @@ namespace TRAP
                     else
                     {
                         /* Determine the direction for the track kilometreage. */
-                        if (direction == direction.NotSpecified)
+                        if (direction == direction.Unknown)
                         {
                             if (kilometreage - previouskm > 0)
-                                direction = direction.Increasing;
+                                direction = direction.IncreasingKm;
                             else
-                                direction = direction.Decreasing;
+                                direction = direction.DecreasingKm;
                         }
 
                         /* Calcualte the distance between succesive points and increment the virtual kilometreage. */
                         distance = processing.calculateGreatCircleDistance(previousLat, previousLong, latitude, longitude);
 
-                        if (direction == direction.Increasing)
+                        if (direction == direction.IncreasingKm)
                             virtualKilometreage = virtualKilometreage + distance / 1000;
 
                         else
@@ -444,7 +444,7 @@ namespace TRAP
             {
                 /* Set the active worksheet. */
                 worksheet = workbook.Sheets[excelPage + 1];
-                workbook.Sheets[excelPage + 1].Activate();  // A1:C7
+                workbook.Sheets[excelPage + 1].Activate();
                 Range topLeft = worksheet.Cells[1, 1];
                 Range bottomRight = worksheet.Cells[headerRows, headerColumns];
                 worksheet.get_Range(topLeft, bottomRight).Value2 = headerString;
@@ -509,19 +509,249 @@ namespace TRAP
             return;
         }
 
+        public static void wrtieAverageData(List<AverageTrain> averageTrains, List<Statistics> stats)
+        {
+            /* Start Excel and get the references to the workbook and worksheet. */
+            Application excel = new Application();
+            _Workbook workbook = excel.Workbooks.Add("");
+            _Worksheet worksheet;
+
+
+            /* Extract the statistics */
+            /* Note: there is no check to confimr the order in which the statistics values are listed. */
+            string[,] statisticsHeader = { { "Statistics:" }, { "Number Of Trains" }, { "Average Distance Travelled" }, { "Average Speed" }, { "Average P/W Ratio" }, { "P/W standard Deviation" } };
+            string[,] totalStatistics = new string[statisticsHeader.GetLength(0), stats.Count()];
+
+
+            for (int index = 0; index < stats.Count(); index++)
+            {
+                totalStatistics[0, index] = stats[index].catagory;
+                totalStatistics[1, index] = stats[index].numberOfTrains.ToString();
+                totalStatistics[2, index] = stats[index].averageDistanceTravelled.ToString();
+                totalStatistics[3, index] = stats[index].averageSpeed.ToString();
+                totalStatistics[4, index] = stats[index].averagePowerToWeightRatio.ToString();
+                totalStatistics[5, index] = stats[index].standardDeviationP2W.ToString();
+
+            }
+
+            /* Determine the number of different catagories in both direction. */
+            /* Ignore the combined trains as they are an amalgamation of each catagory in each direction. */
+            //int catagories = (averageTrains.Count() - 2) / 2;
+
+            
+
+
+            /* Create the header details. */
+            //string[] headerString = new string[] { };
+            //if (Settings.HunterValleyRegion)
+            //{
+            //    if (catagories == 2)
+            //        headerString = new string[] { "Kilometreage", "Elevation", "Pacific National Increasing km", "Pacific National Decreasing km", 
+            //            "Aurizon Increasing km", "Aurizon Decreasing km", "Weighted Average Increasing km", "Weighted Average Decreasing km", "Loop", "TSRs" };
+
+            //    if (catagories == 3)
+            //        headerString = new string[] { "Kilometreage", "Elevation", "Pacific National Increasing km", "Pacific National Decreasing km", 
+            //            "Aurizon Increasing km", "Aurizon Decreasing km", "Freightliner Increasing km", "Freightliner Decreasing km", 
+            //            "Weighted Average Increasing km", "Weighted Average Decreasing km", "Loop", "TSRs" };
+            //}
+            //else
+            //    headerString = new string[] { "Kilometreage", "Elevation", "Underpowered Increasing km", "Underpowered Decreasing km", "Overpowered Increasing km", 
+            //                            "Overpowered Decreasing km", "Weighted Average Increasing km", "Weighted Average Decreasing km", "Loop", "TSRs" };
+
+
+            List<string> headerString = new List<string>();
+            headerString.Add("kilometerage");
+            headerString.Add("Elevation");
+
+            for (int trainIdx = 0; trainIdx < averageTrains.Count(); trainIdx++)
+            {
+                headerString.Add(averageTrains[trainIdx].trainCatagory.ToString() + " " +averageTrains[trainIdx].direction.ToString());
+            }
+            headerString.Add("Loops");
+            headerString.Add("TSRs");
+            
+            /* Pagenate the data for writing to excel. */
+            //int excelPageSize = 1000000;        /* Page size of the excel worksheet. */
+            int numberOfPoints = averageTrains[0].kilometreage.Count();
+            //int excelPages = 1;                 /* Number of Excel pages to write. */
+            int headerOffset = statisticsHeader.GetLength(0) + 4;
+
+            /* Adjust the excel page size or the number of pages to write. */
+            //if (averageTrains[0].kilometreage.Count() < excelPageSize)
+            //    excelPageSize = averageTrains[0].kilometreage.Count();
+            //else
+            //    excelPages = (int)Math.Round((double)averageTrains[0].kilometreage.Count() / excelPageSize + 0.5);
+
+
+            /* Deconstruct the train details into excel columns. */
+            double[,] kilometerage = new double[numberOfPoints, 1];
+            double[,] elevation = new double[numberOfPoints, 1];
+            //double[,] catagory1Increasing = new double[numberOfPoints, 1];   // Pacific National
+            //double[,] catagory1Decreasing = new double[numberOfPoints, 1];   // Pacific National
+            //double[,] catagory2Increasing = new double[numberOfPoints, 1];    // Aurizon
+            //double[,] catagory2Decreasing = new double[numberOfPoints, 1];    // Aurizon
+            //double[,] catagory3Increasing = new double[numberOfPoints, 1];    // Freightliner
+            //double[,] catagory3Decreasing = new double[numberOfPoints, 1];    // Freightliner
+
+            //double[,] totalIncreasingSpeed = new double[numberOfPoints, 1];
+            //double[,] totalDecreasingSpeed = new double[numberOfPoints, 1];
+            string[,] isLoophere = new string[numberOfPoints, 1];
+            string[,] isTSRhere = new string[numberOfPoints, 1];
+
+            double[,] averageSpeedArray = new double[numberOfPoints, averageTrains.Count()];
+
+
+            /* Set the active worksheet. */
+            worksheet = (_Worksheet)workbook.Sheets[1];
+            workbook.Sheets[1].Activate();
+
+            /* Loop through the data for each excel page. */
+            for (int i = 0; i < numberOfPoints; i++)
+            {
+                /* Check we dont try to read more data than there really is. */
+                //int checkIdx = j + 0 * numberOfPoints;
+
+                kilometerage[i, 0] = averageTrains[0].kilometreage[i];
+                elevation[i, 0] = averageTrains[0].elevation[i];
+
+                if (averageTrains[0].isInLoopBoundary[i])
+                    isLoophere[i, 0] = "Loop Boundary";
+
+                if (averageTrains[0].isInTSRboundary[i])
+                    isTSRhere[i, 0] = "TSR Boundary";
+
+
+                for (int j = 0; j < averageTrains.Count(); j++)
+                {
+                    averageSpeedArray[i, j] = averageTrains[j].averageSpeed[i];
+                }
+
+            }
+
+            /* Display the statistics for each catagory. */
+            int column = 3;
+            Range topLeft = worksheet.Cells[statisticsHeader.GetLength(1), column];
+            Range bottomRight = worksheet.Cells[statisticsHeader.GetLength(0), column + totalStatistics.GetLength(1) - 1];
+
+            /* Set statistics. */
+            worksheet.get_Range("A1", "A6").Value2 = statisticsHeader;
+            worksheet.get_Range(topLeft, bottomRight).Value2 = totalStatistics;
+
+
+            /* Generalise the row and columns */
+            /* Set the data header. */
+            topLeft = worksheet.Cells[headerOffset, 1];
+            bottomRight = worksheet.Cells[headerOffset, averageTrains.Count() +4];
+            worksheet.get_Range(topLeft, bottomRight).Value2 = headerString.ToArray();
+            //"A9", "L9"
+
+            int dataOffset = headerOffset+1;
+            /* Write the data to the active excel workseet. */
+            worksheet.get_Range("A" + dataOffset, "A" + (dataOffset + numberOfPoints-1)).Value2 = kilometerage;
+            worksheet.get_Range("B" + dataOffset, "B" + (dataOffset + numberOfPoints-1)).Value2 = elevation;
+
+            topLeft = worksheet.Cells[dataOffset, column];
+            bottomRight = worksheet.Cells[dataOffset + numberOfPoints-1, column + averageTrains.Count() - 1];
+            worksheet.get_Range(topLeft, bottomRight).Value2 = averageSpeedArray;
+
+            /* Increment the column. */
+            topLeft = worksheet.Cells[dataOffset, column + averageTrains.Count()];
+            bottomRight = worksheet.Cells[dataOffset + numberOfPoints-1, column + averageTrains.Count()];
+            worksheet.get_Range(topLeft, bottomRight).Value2 = isLoophere;
+
+            /* Increment the column. */
+            topLeft = worksheet.Cells[dataOffset, column + averageTrains.Count() + 1];
+            bottomRight = worksheet.Cells[dataOffset + numberOfPoints-1, column + averageTrains.Count() + 1];
+            worksheet.get_Range(topLeft, bottomRight).Value2 = isTSRhere;
+
+
+
+            //worksheet.get_Range("A" + headerOffset, "A" + (headerOffset + excelPageSize - 1)).Value2 = kilometerage;
+            //worksheet.get_Range("B" + headerOffset, "B" + (headerOffset + excelPageSize - 1)).Value2 = elevation;
+            //worksheet.get_Range("C" + headerOffset, "C" + (headerOffset + excelPageSize - 1)).Value2 = catagory1Increasing;     // Pacific National
+            //worksheet.get_Range("D" + headerOffset, "D" + (headerOffset + excelPageSize - 1)).Value2 = catagory1Decreasing;     // Pacific National
+            //worksheet.get_Range("E" + headerOffset, "E" + (headerOffset + excelPageSize - 1)).Value2 = catagory2Increasing;      // Aurizon
+            //worksheet.get_Range("F" + headerOffset, "F" + (headerOffset + excelPageSize - 1)).Value2 = catagory2Decreasing;      // Aurizon
+            //if (catagories == 3)
+            //{
+            //    worksheet.get_Range("G" + headerOffset, "G" + (headerOffset + excelPageSize - 1)).Value2 = catagory3Increasing;      // Freightliner
+            //    worksheet.get_Range("H" + headerOffset, "H" + (headerOffset + excelPageSize - 1)).Value2 = catagory3Decreasing;      // Freightliner
+            //    worksheet.get_Range("I" + headerOffset, "I" + (headerOffset + excelPageSize - 1)).Value2 = totalIncreasingSpeed;
+            //    worksheet.get_Range("J" + headerOffset, "J" + (headerOffset + excelPageSize - 1)).Value2 = totalDecreasingSpeed;
+            //    worksheet.get_Range("K" + headerOffset, "K" + (headerOffset + excelPageSize - 1)).Value2 = isLoophere;
+            //    worksheet.get_Range("L" + headerOffset, "L" + (headerOffset + excelPageSize - 1)).Value2 = isTSRhere;
+            //}
+            //else
+            //{
+            //    worksheet.get_Range("G" + headerOffset, "G" + (headerOffset + excelPageSize - 1)).Value2 = totalIncreasingSpeed;
+            //    worksheet.get_Range("H" + headerOffset, "H" + (headerOffset + excelPageSize - 1)).Value2 = totalDecreasingSpeed;
+            //    worksheet.get_Range("I" + headerOffset, "I" + (headerOffset + excelPageSize - 1)).Value2 = isLoophere;
+            //    worksheet.get_Range("J" + headerOffset, "J" + (headerOffset + excelPageSize - 1)).Value2 = isTSRhere;
+            //}
+
+
+
+
+
+            /* Generate the resulting file name and location to save to. */
+            string savePath = FileSettings.aggregatedDestination;
+            string saveFilename = savePath + @"\AverageSpeed_" + DateTime.Now.ToString("yyyyMMdd") + ".xlsx";
+
+            /* Check the file does not exist yet. */
+            if (File.Exists(saveFilename))
+            {
+                isFileOpen(saveFilename);
+                File.Delete(saveFilename);
+            }
+
+            /* Save the excel file. */
+            excel.UserControl = false;
+            workbook.SaveAs(saveFilename, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
+                false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
+                Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+
+            workbook.Close();
+
+            return;
+
+
+
+        }
 
         private static trainOperator getOperator(string shortOperator)
         {
-            if (shortOperator.Equals("Aur", StringComparison.OrdinalIgnoreCase))
-                return trainOperator.Aurizon;
-            else if (shortOperator.Equals("Aus", StringComparison.OrdinalIgnoreCase))
+            if (shortOperator.Equals("Aus", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.ARTC;
-            else if (shortOperator.Equals("Pac", StringComparison.OrdinalIgnoreCase))
-                return trainOperator.PacificNational;
+            else if (shortOperator.Equals("Aur", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.Aurizon;
+            else if (shortOperator.Equals("Cit", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.CityRail;
+            else if (shortOperator.Equals("Cou", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.CountryLink;
             else if (shortOperator.Equals("Fre", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.Freightliner;
+            else if (shortOperator.Equals("Gre", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.GreatSouthernRail;
+            else if (shortOperator.Equals("int", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.Interail;
+            else if (shortOperator.Equals("Lau", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.LauchlanValleyRailSociety;
+            else if (shortOperator.Equals("Pac", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.PacificNational;
+            else if (shortOperator.Equals("QUB", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.QUBE;
             else if (shortOperator.Equals("Rai", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.RailCorp;
+            else if (shortOperator.Equals("SCT", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.SCT;
+            else if (shortOperator.Equals("Sou", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.SouthernShorthaulRail;
+            else if (shortOperator.Equals("Syd", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.SydneyRailService;
+            else if (shortOperator.Equals("The", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.TheRailMotorService;
+            else if (shortOperator.Equals("V L", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.VLinePassenger;
             else
                 return trainOperator.Unknown;
 
@@ -529,20 +759,33 @@ namespace TRAP
 
         private static trainCommodity getCommodity(string commodity)
         {
-            string[] Freight = { "Clinker", "General Freight", "Minerals", "Steel" };
+            string[] Clinker = { "Clinker" };
             string[] Coal = { "Coal Export", "Containersied Coal" };
+            string[] Freight = { "General Freight" };
             string[] Grain = { "Grain" };
             string[] Intermodal = { "Intermodal" };
+            string[] Minerals = { "Minerals" };
+            string[] Passenger = { "Passenger" };
+            string[] Steel = { "Steel" };
             string[] Work = { "Unspecified Commodity" };
 
-            if (Freight.Contains(commodity))
-                return trainCommodity.Freight;
+
+            if (Clinker.Contains(commodity))
+                return trainCommodity.Clinker;
             else if (Coal.Contains(commodity))
                 return trainCommodity.Coal;
+            else if (Freight.Contains(commodity))
+                return trainCommodity.Freight;
             else if (Grain.Contains(commodity))
                 return trainCommodity.Grain;
             else if (Intermodal.Contains(commodity))
                 return trainCommodity.Intermodal;
+            else if (Minerals.Contains(commodity))
+                return trainCommodity.Mineral;
+            else if (Passenger.Contains(commodity))
+                return trainCommodity.Passenger;
+            else if (Steel.Contains(commodity))
+                return trainCommodity.Steel;
             else if (Work.Contains(commodity))
                 return trainCommodity.Work;
             else
