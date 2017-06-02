@@ -24,7 +24,7 @@ namespace TRAP
         {
             ARTC, Aurizon, CityRail, CountryLink, Freightliner, GreatSouthernRail, Interail, LauchlanValleyRailSociety,
             PacificNational, QUBE, RailCorp, SCT, SouthernShorthaulRail, SydneyRailService, TheRailMotorService, VLinePassenger,
-            Combined, Actual, Simulated, Unknown
+            Combined, Actual, Underpowered, Overpowered, Simulated, Unknown
         };
         public enum trainCommodity { Freight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, Unknown };
        
