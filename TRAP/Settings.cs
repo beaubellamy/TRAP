@@ -8,7 +8,7 @@ using TRAP;
 namespace Globalsettings
 {
     /* A list of available analysis seperation catagories. */
-    public enum analysisCatagory { TrainOperator, TrainCommodity, TrainPowerToWeight };
+    public enum analysisCatagory { TrainOperator, TrainCommodity, TrainPowerToWeight , Unknown};
 
     public static class FileSettings
     {
@@ -57,11 +57,18 @@ namespace Globalsettings
         public static double catagory2UpperBound;         /* The upper bound cuttoff for the overpowered trains. */
         //public static double combinedLowerBound;            /* The lower bound cuttoff for the combined trains. */
         //public static double combinedUpperBound;            /* The upper bound cuttoff for the combined trains. */
-
+        
         public static bool HunterValleyRegion;
 
         public static analysisCatagory analysisCatagory;
-        
+        public static trainOperator catagory1Operator = trainOperator.Unknown;
+        public static trainOperator catagory2Operator = trainOperator.Unknown;
+        public static trainOperator catagory3Operator = trainOperator.Unknown;
+        public static trainCommodity catagory1Commodity = trainCommodity.Unknown;
+        public static trainCommodity catagory2Commodity = trainCommodity.Unknown;
+        public static trainCommodity catagory3Commodity = trainCommodity.Unknown;
+
+
 
         ///// <summary>
         ///// This function resets the power to weight upper and lower boundaries to 

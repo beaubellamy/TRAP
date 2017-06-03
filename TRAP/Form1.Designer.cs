@@ -116,6 +116,7 @@
             this.catagory1Label = new System.Windows.Forms.Label();
             this.dataFileLabel = new System.Windows.Forms.Label();
             this.simualtionFileTab = new System.Windows.Forms.TabPage();
+            this.powerToWeightRatioAnalysis = new System.Windows.Forms.CheckBox();
             this.Commodity3Catagory = new System.Windows.Forms.ComboBox();
             this.Operator3Catagory = new System.Windows.Forms.ComboBox();
             this.Commodity2Catagory = new System.Windows.Forms.ComboBox();
@@ -145,7 +146,6 @@
             this.selectCatagory1IncreasingSimulation = new System.Windows.Forms.Button();
             this.catagory1SimualtionLabel = new System.Windows.Forms.Label();
             this.catagory1IncreasingSimulationFile = new System.Windows.Forms.TextBox();
-            this.powerToWeightRatioAnalysis = new System.Windows.Forms.CheckBox();
             this.simulationTab.SuspendLayout();
             this.fileSelectionTab.SuspendLayout();
             this.processingTab.SuspendLayout();
@@ -1157,6 +1157,16 @@
             this.simualtionFileTab.Text = "Simulation File Selection";
             this.simualtionFileTab.UseVisualStyleBackColor = true;
             // 
+            // powerToWeightRatioAnalysis
+            // 
+            this.powerToWeightRatioAnalysis.AutoSize = true;
+            this.powerToWeightRatioAnalysis.Location = new System.Drawing.Point(879, 25);
+            this.powerToWeightRatioAnalysis.Name = "powerToWeightRatioAnalysis";
+            this.powerToWeightRatioAnalysis.Size = new System.Drawing.Size(201, 24);
+            this.powerToWeightRatioAnalysis.TabIndex = 29;
+            this.powerToWeightRatioAnalysis.Text = "Power to Weight Ratios";
+            this.powerToWeightRatioAnalysis.UseVisualStyleBackColor = true;
+            // 
             // Commodity3Catagory
             // 
             this.Commodity3Catagory.FormattingEnabled = true;
@@ -1171,6 +1181,7 @@
             this.Commodity3Catagory.Size = new System.Drawing.Size(176, 28);
             this.Commodity3Catagory.TabIndex = 28;
             this.Commodity3Catagory.Text = "Select a Commodity";
+            this.Commodity3Catagory.SelectedIndexChanged += new System.EventHandler(this.Commodity3Catagory_SelectedIndexChanged);
             // 
             // Operator3Catagory
             // 
@@ -1180,15 +1191,13 @@
             "Aurizon",
             "Freightliner",
             "ARTC",
-            "QUBE",
-            "Underpowered",
-            "Overpowered",
-            "Alternative"});
+            "QUBE"});
             this.Operator3Catagory.Location = new System.Drawing.Point(1118, 412);
             this.Operator3Catagory.Name = "Operator3Catagory";
             this.Operator3Catagory.Size = new System.Drawing.Size(170, 28);
             this.Operator3Catagory.TabIndex = 27;
             this.Operator3Catagory.Text = "Select an Operator";
+            this.Operator3Catagory.SelectedIndexChanged += new System.EventHandler(this.Operator3Catagory_SelectedIndexChanged);
             // 
             // Commodity2Catagory
             // 
@@ -1204,6 +1213,7 @@
             this.Commodity2Catagory.Size = new System.Drawing.Size(176, 28);
             this.Commodity2Catagory.TabIndex = 26;
             this.Commodity2Catagory.Text = "Select a Commodity";
+            this.Commodity2Catagory.SelectedIndexChanged += new System.EventHandler(this.Commodity2Catagory_SelectedIndexChanged);
             // 
             // Operator2Catagory
             // 
@@ -1213,15 +1223,13 @@
             "Aurizon",
             "Freightliner",
             "ARTC",
-            "QUBE",
-            "Underpowered",
-            "Overpowered",
-            "Alternative"});
+            "QUBE"});
             this.Operator2Catagory.Location = new System.Drawing.Point(1118, 262);
             this.Operator2Catagory.Name = "Operator2Catagory";
             this.Operator2Catagory.Size = new System.Drawing.Size(170, 28);
             this.Operator2Catagory.TabIndex = 25;
             this.Operator2Catagory.Text = "Select an Operator";
+            this.Operator2Catagory.SelectedValueChanged += new System.EventHandler(this.Operator2Catagory_SelectedValueChanged);
             // 
             // Commodity1Catagory
             // 
@@ -1237,6 +1245,7 @@
             this.Commodity1Catagory.Size = new System.Drawing.Size(176, 28);
             this.Commodity1Catagory.TabIndex = 24;
             this.Commodity1Catagory.Text = "Select a Commodity";
+            this.Commodity1Catagory.SelectedIndexChanged += new System.EventHandler(this.Commodity1Catagory_SelectedIndexChanged);
             // 
             // Operator1Catagory
             // 
@@ -1246,10 +1255,7 @@
             "Aurizon",
             "Freightliner",
             "ARTC",
-            "QUBE",
-            "Underpowered",
-            "Overpowered",
-            "Alternative"});
+            "QUBE"});
             this.Operator1Catagory.Location = new System.Drawing.Point(1118, 106);
             this.Operator1Catagory.Name = "Operator1Catagory";
             this.Operator1Catagory.Size = new System.Drawing.Size(170, 28);
@@ -1492,16 +1498,6 @@
             this.catagory1IncreasingSimulationFile.Size = new System.Drawing.Size(736, 26);
             this.catagory1IncreasingSimulationFile.TabIndex = 0;
             this.catagory1IncreasingSimulationFile.Text = "<Required>";
-            // 
-            // powerToWeightRatioAnalysis
-            // 
-            this.powerToWeightRatioAnalysis.AutoSize = true;
-            this.powerToWeightRatioAnalysis.Location = new System.Drawing.Point(879, 25);
-            this.powerToWeightRatioAnalysis.Name = "powerToWeightRatioAnalysis";
-            this.powerToWeightRatioAnalysis.Size = new System.Drawing.Size(201, 24);
-            this.powerToWeightRatioAnalysis.TabIndex = 29;
-            this.powerToWeightRatioAnalysis.Text = "Power to Weight Ratios";
-            this.powerToWeightRatioAnalysis.UseVisualStyleBackColor = true;
             // 
             // TrainPerformance
             // 

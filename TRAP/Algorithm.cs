@@ -589,55 +589,95 @@ namespace TRAP
             //catagory simCatagory2 = catagory.Unknown;
             //catagory simCatagory3 = catagory.Unknown;
 
+            /*******************************************************************************************/
+            
             /* Check conditions to change the catagories */
-            if (Settings.HunterValleyRegion)
+            //if (Settings.HunterValleyRegion)
+            //{
+            //    /* Analysing train in the Hunter Valley region:
+            //     * Newcastle/Muswellbrook to Narrabri - only Pacific National and Aurizon
+            //     * Newcastle/Muswellbrook to Ulan - Pacific National, Aurizon and Freightliner 
+            //     */
+            //    if (numberOfOperators == 2)
+            //    {
+            //        /* Analysing Newcastle/Muswellbrook to Narrabri. */
+            //        //simCatagory1 = catagory.PacificNational;
+            //        //simCatagory2 = catagory.Aurizon;
+
+            //        /* OR */
+            //        simCatagories.Add(catagory.PacificNational);
+            //        simCatagories.Add(catagory.Aurizon);
+
+            //    }
+            //    else if (numberOfOperators == 3)
+            //    {
+            //        /* Analysing Newcastle/Muswellbrook to Ulan. */
+            //        //simCatagory1 = catagory.PacificNational;
+            //        //simCatagory2 = catagory.Aurizon;
+            //        //simCatagory3 = catagory.Freightliner;
+
+            //        /* OR */
+            //        simCatagories.Add(catagory.PacificNational);
+            //        simCatagories.Add(catagory.Aurizon);
+            //        simCatagories.Add(catagory.Freightliner);
+
+            //    }
+
+            //    else
+            //    {
+            //        Console.WriteLine("The number of operators in the train list is: " + numberOfOperators);
+            //        throw new ArgumentOutOfRangeException("The number of operators is " + numberOfOperators + ", this many operatos are not supported.");
+            //    }
+
+            //}
+            //else
+            //{
+            //    //simCatagory1 = catagory.Underpowered;
+            //    //simCatagory2 = catagory.Overpowered;
+
+            //    /* OR */
+            //    simCatagories.Add(catagory.Underpowered);
+            //    simCatagories.Add(catagory.Overpowered);
+
+            //}
+
+            /*******************************************************************************************/
+            
+            if (Settings.analysisCatagory == analysisCatagory.TrainPowerToWeight)
             {
-                /* Analysing train in the Hunter Valley region:
-                 * Newcastle/Muswellbrook to Narrabri - only Pacific National and Aurizon
-                 * Newcastle/Muswellbrook to Ulan - Pacific National, Aurizon and Freightliner 
-                 */
-                if (numberOfOperators == 2)
-                {
-                    /* Analysing Newcastle/Muswellbrook to Narrabri. */
-                    //simCatagory1 = catagory.PacificNational;
-                    //simCatagory2 = catagory.Aurizon;
+                simCatagories.Add(catagory.Underpowered);
+                simCatagories.Add(catagory.Overpowered);            
+            }
+            else if (Settings.analysisCatagory == analysisCatagory.TrainOperator)
+            {
+                if (Settings.catagory1Operator != null || Settings.catagory1Operator != trainOperator.Unknown)
+                    simCatagories.Add(convertTrainOperatorToCatagory(Settings.catagory1Operator));
 
-                    /* OR */
-                    simCatagories.Add(catagory.PacificNational);
-                    simCatagories.Add(catagory.Aurizon);
+                if (Settings.catagory2Operator != null || Settings.catagory2Operator != trainOperator.Unknown)
+                    simCatagories.Add(convertTrainOperatorToCatagory(Settings.catagory2Operator));
 
-                }
-                else if (numberOfOperators == 3)
-                {
-                    /* Analysing Newcastle/Muswellbrook to Ulan. */
-                    //simCatagory1 = catagory.PacificNational;
-                    //simCatagory2 = catagory.Aurizon;
-                    //simCatagory3 = catagory.Freightliner;
-
-                    /* OR */
-                    simCatagories.Add(catagory.PacificNational);
-                    simCatagories.Add(catagory.Aurizon);
-                    simCatagories.Add(catagory.Freightliner);
-
-                }
-
-                else
-                {
-                    Console.WriteLine("The number of operators in the train list is: " + numberOfOperators);
-                    throw new ArgumentOutOfRangeException("The number of operators is " + numberOfOperators + ", this many operatos are not supported.");
-                }
-
+                if (Settings.catagory3Operator != null || Settings.catagory3Operator != trainOperator.Unknown)
+                    simCatagories.Add(convertTrainOperatorToCatagory(Settings.catagory3Operator));
+                
             }
             else
             {
-                //simCatagory1 = catagory.Underpowered;
-                //simCatagory2 = catagory.Overpowered;
-
-                /* OR */
-                simCatagories.Add(catagory.Underpowered);
-                simCatagories.Add(catagory.Overpowered);
+                /* analysisCatagory is commodities. */
+                if (Settings.catagory1Commodity != null || Settings.catagory1Commodity != trainCommodity.Unknown)
+                    simCatagories.Add(convertCommodityToCatagory(Settings.catagory1Commodity));
+                
+                if (Settings.catagory2Commodity != null || Settings.catagory2Commodity != trainCommodity.Unknown)
+                    simCatagories.Add(convertCommodityToCatagory(Settings.catagory2Commodity));
+                
+                if (Settings.catagory3Commodity != null || Settings.catagory3Commodity != trainCommodity.Unknown)
+                    simCatagories.Add(convertCommodityToCatagory(Settings.catagory3Commodity));
 
             }
+
+
+
+               
+
 
             List<Train> simulatedTrains = new List<Train>();
 
@@ -802,10 +842,42 @@ namespace TRAP
 
             for (int index = 0; index < simCatagories.Count(); index++)
             {
+                /*******************************************************************************************/
+            
+                //if (Settings.HunterValleyRegion)
+                //{
+                //    trainOperator operatorCatagory = convertCatagoryToTrainOperator(simCatagories[index]);
+                //    /* will be an operator; can be 2 or 3 different operators */
+                //    increasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                //    decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
 
-                if (Settings.HunterValleyRegion)
+                //    stats.Add(Statistics.generateStats(increasingTrainCatagory));
+                //    stats.Add(Statistics.generateStats(decreasingTrainCatagory));
+                //}
+                //else
+                //{
+                //    /* Can only be 2 catagories; underpowered and overpowered. */
+                //    increasingTrainCatagory = interpolatedTrains.Where(t => t.catagory == simCatagories[index]).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                //    decreasingTrainCatagory = interpolatedTrains.Where(t => t.catagory == simCatagories[index]).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                //    stats.Add(Statistics.generateStats(increasingTrainCatagory));
+                //    stats.Add(Statistics.generateStats(decreasingTrainCatagory));
+                //}
+            
+                /*******************************************************************************************/
+            
+
+                if (Settings.analysisCatagory == analysisCatagory.TrainPowerToWeight)
                 {
-                    trainOperator operatorCatagory = matchOperatorToCatagory(simCatagories[index]);
+                    increasingTrainCatagory = interpolatedTrains.Where(t => t.catagory == simCatagories[index]).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                    decreasingTrainCatagory = interpolatedTrains.Where(t => t.catagory == simCatagories[index]).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                    stats.Add(Statistics.generateStats(increasingTrainCatagory));
+                    stats.Add(Statistics.generateStats(decreasingTrainCatagory));
+                }
+                else if (Settings.analysisCatagory == analysisCatagory.TrainOperator)
+                {
+                    trainOperator operatorCatagory = convertCatagoryToTrainOperator(simCatagories[index]);
                     /* will be an operator; can be 2 or 3 different operators */
                     increasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                     decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
@@ -815,15 +887,15 @@ namespace TRAP
                 }
                 else
                 {
-                    /* Can only be 2 catagories; underpowered and overpowered. */
-                    increasingTrainCatagory = interpolatedTrains.Where(t => t.catagory == simCatagories[index]).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
-                    decreasingTrainCatagory = interpolatedTrains.Where(t => t.catagory == simCatagories[index]).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                    trainCommodity commodity = convertCatagoryToCommodity(simCatagories[index]);
+                    /* will be an operator; can be 2 or 3 different operators */
+                    increasingTrainCatagory = interpolatedTrains.Where(t => t.commodity == commodity).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                    decreasingTrainCatagory = interpolatedTrains.Where(t => t.commodity == commodity).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
 
                     stats.Add(Statistics.generateStats(increasingTrainCatagory));
                     stats.Add(Statistics.generateStats(decreasingTrainCatagory));
                 }
-
-
+                
                 averageTrains.Add(processing.averageTrain(increasingTrainCatagory, interpolatedSimulations[index * 2].journey, trackGeometry));
                 averageTrains.Add(processing.averageTrain(decreasingTrainCatagory, interpolatedSimulations[index * 2 + 1].journey, trackGeometry));
 
@@ -833,19 +905,45 @@ namespace TRAP
             List<Train> increasingCombined = new List<Train>();
             List<Train> decreasingCombined = new List<Train>();
 
-            if (Settings.HunterValleyRegion)
-            {
-                /* Will be an operator; can be 2 or 3 different operators */
-                increasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.IncreasingKm).ToList();
-                decreasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.DecreasingKm).ToList();
 
-                setOperatorToCombined(increasingCombined);
-                setOperatorToCombined(decreasingCombined);
+            /*******************************************************************************************/
+            
+            //if (Settings.HunterValleyRegion)
+            //{
+            //    /* Will be an operator; can be 2 or 3 different operators */
+            //    increasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+            //    decreasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.DecreasingKm).ToList();
 
-                stats.Add(Statistics.generateStats(increasingCombined));
-                stats.Add(Statistics.generateStats(decreasingCombined));
-            }
-            else
+            //    setOperatorToCombined(increasingCombined);
+            //    setOperatorToCombined(decreasingCombined);
+
+            //    stats.Add(Statistics.generateStats(increasingCombined));
+            //    stats.Add(Statistics.generateStats(decreasingCombined));
+            //}
+            //else
+            //{
+            //    List<Train> increasingSubList = new List<Train>();
+            //    List<Train> decreasingSubList = new List<Train>();
+            //    /* Can only be 2 catagories; underpowered and overpowered;
+            //     * Add each catagory to the final lists.
+            //     */
+            //    foreach (catagory simCatagory in simCatagories)
+            //    {
+            //        increasingSubList = interpolatedTrains.Where(t => t.catagory == simCatagory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+            //        increasingCombined.AddRange(increasingSubList);
+            //        decreasingSubList = interpolatedTrains.Where(t => t.catagory == simCatagory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+            //        decreasingCombined.AddRange(decreasingSubList);
+            //    }
+
+            //    setOperatorToCombined(increasingCombined);
+            //    setOperatorToCombined(decreasingCombined);
+            //    stats.Add(Statistics.generateStats(increasingCombined));
+            //    stats.Add(Statistics.generateStats(decreasingCombined));
+
+            //}
+
+            /*******************************************************************************************/
+            if (Settings.analysisCatagory == analysisCatagory.TrainPowerToWeight)
             {
                 List<Train> increasingSubList = new List<Train>();
                 List<Train> decreasingSubList = new List<Train>();
@@ -864,8 +962,44 @@ namespace TRAP
                 setOperatorToCombined(decreasingCombined);
                 stats.Add(Statistics.generateStats(increasingCombined));
                 stats.Add(Statistics.generateStats(decreasingCombined));
-
             }
+            else if (Settings.analysisCatagory == analysisCatagory.TrainOperator)
+            {
+                /* Will be an operator; can be 2 or 3 different operators */
+                increasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                decreasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                setOperatorToCombined(increasingCombined);
+                setOperatorToCombined(decreasingCombined);
+
+                stats.Add(Statistics.generateStats(increasingCombined));
+                stats.Add(Statistics.generateStats(decreasingCombined));
+            }
+            else
+            {
+                /* Analyse Commodities. */
+
+                List<Train> increasingSubList = new List<Train>();
+                List<Train> decreasingSubList = new List<Train>();
+                /* Can only be 2 catagories; underpowered and overpowered;
+                 * Add each catagory to the final lists.
+                 */
+                foreach (catagory simCatagory in simCatagories)
+                {
+                    increasingSubList = interpolatedTrains.Where(t => t.commodity == convertCatagoryToCommodity(simCatagory)).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                    increasingCombined.AddRange(increasingSubList);
+                    decreasingSubList = interpolatedTrains.Where(t => t.commodity == convertCatagoryToCommodity(simCatagory)).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                    decreasingCombined.AddRange(decreasingSubList);
+                }
+
+                setOperatorToCombined(increasingCombined);
+                setOperatorToCombined(decreasingCombined);
+                stats.Add(Statistics.generateStats(increasingCombined));
+                stats.Add(Statistics.generateStats(decreasingCombined));
+            
+            }
+
+
 
 
             /* Create a weighted average simulation */
@@ -1002,11 +1136,8 @@ namespace TRAP
                         item.commodity = record[trainIndex - 1].commodity;
                         item.powerToWeight = record[trainIndex - 1].powerToWeight;
 
-                        if (Settings.HunterValleyRegion)
-                        {
-                            item.catagory = matchCatagoryToOperator(item.trainOperator);
-                        }
-                        else
+                        //if (Settings.HunterValleyRegion)
+                        if (Settings.analysisCatagory == analysisCatagory.TrainPowerToWeight)
                         {
                             if (item.powerToWeight > Settings.catagory1LowerBound && item.powerToWeight <= Settings.catagory1UpperBound)
                                 item.catagory = catagory.Underpowered;
@@ -1015,6 +1146,14 @@ namespace TRAP
                             else
                                 item.catagory = catagory.Actual;
 
+                        }
+                        else if (Settings.analysisCatagory == analysisCatagory.TrainOperator)
+                        {
+                            item.catagory = convertTrainOperatorToCatagory(item.trainOperator);
+                        }
+                        else
+                        {// Analyzing Commodities.
+                            item.catagory = convertCommodityToCatagory(item.commodity);
                         }
 
 
@@ -1071,6 +1210,25 @@ namespace TRAP
                         lastItem.commodity = record[trainIndex - 1].commodity;
                         lastItem.powerToWeight = record[trainIndex - 1].powerToWeight;
 
+                        //if (Settings.HunterValleyRegion)
+                        if (Settings.analysisCatagory == analysisCatagory.TrainPowerToWeight)
+                        {
+                            if (lastItem.powerToWeight > Settings.catagory1LowerBound && lastItem.powerToWeight <= Settings.catagory1UpperBound)
+                                lastItem.catagory = catagory.Underpowered;
+                            else if (lastItem.powerToWeight > Settings.catagory2LowerBound && lastItem.powerToWeight <= Settings.catagory2UpperBound)
+                                lastItem.catagory = catagory.Overpowered;
+                            else
+                                lastItem.catagory = catagory.Actual;
+
+                        }
+                        else if (Settings.analysisCatagory == analysisCatagory.TrainOperator)
+                        {
+                            lastItem.catagory = convertTrainOperatorToCatagory(lastItem.trainOperator);
+                        }
+                        else
+                        {// Analyzing Commodities.
+                            lastItem.catagory = convertCommodityToCatagory(lastItem.commodity);
+                        }
                         //lastItem.journey = journey;
 
                         /* If all points are aceptable, add the train journey to the cleaned list. */
@@ -1100,7 +1258,7 @@ namespace TRAP
         /// </summary>
         /// <param name="catagory">The analsyis catagory.</param>
         /// <returns>The train operator corresponding to the analysis catagory.</returns>
-        private static trainOperator matchOperatorToCatagory(catagory catagory)
+        private static trainOperator convertCatagoryToTrainOperator(catagory catagory)
         {
             trainOperator trainOperator = trainOperator.Unknown;
 
@@ -1118,11 +1276,32 @@ namespace TRAP
         }
 
         /// <summary>
+        /// Convert The train Catagory to the train commodity.
+        /// </summary>
+        /// <param name="catagory">The analsyis catagory.</param>
+        /// <returns>The train commodity corresponding to the analysis catagory.</returns>
+        private static trainCommodity convertCatagoryToCommodity(catagory catagory)
+        {
+            trainCommodity trainCommodity = trainCommodity.Unknown;
+
+            /* Extract the list of train operators. */
+            List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
+
+            /* Match the opertor to the catagory. */
+            foreach (trainCommodity commodity in commodityList)
+            {
+                if (commodity.ToString().Equals(catagory.ToString()))
+                    trainCommodity = commodity;
+            }
+
+            return trainCommodity;
+        }
+        /// <summary>
         /// Convert the train operator to the analysis catagory.
         /// </summary>
         /// <param name="trainOperator">The train operator.</param>
         /// <returns>The analysis catagory corresponding to the train operator.</returns>
-        private static catagory matchCatagoryToOperator(trainOperator trainOperator)
+        private static catagory convertTrainOperatorToCatagory(trainOperator trainOperator)
         {
             catagory trainCatagory = catagory.Unknown;
 
@@ -1133,6 +1312,28 @@ namespace TRAP
             foreach (catagory cat in catagoryList)
             {
                 if (cat.ToString().Equals(trainOperator.ToString()))
+                    trainCatagory = cat;
+            }
+
+            return trainCatagory;
+        }
+
+        /// <summary>
+        /// Convert the train commodity to the analysis catagory.
+        /// </summary>
+        /// <param name="trainOperator">The train operator.</param>
+        /// <returns>The analysis catagory corresponding to the train operator.</returns>
+        private static catagory convertCommodityToCatagory(trainCommodity commodity)
+        {
+            catagory trainCatagory = catagory.Unknown;
+
+            /* Extract the list of catagories. */
+            List<catagory> catagoryList = Enum.GetValues(typeof(catagory)).Cast<catagory>().ToList();
+
+            /* Match the catagory to the opertor. */
+            foreach (catagory cat in catagoryList)
+            {
+                if (cat.ToString().Equals(commodity.ToString()))
                     trainCatagory = cat;
             }
 
