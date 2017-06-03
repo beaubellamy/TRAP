@@ -116,6 +116,14 @@
             this.catagory1Label = new System.Windows.Forms.Label();
             this.dataFileLabel = new System.Windows.Forms.Label();
             this.simualtionFileTab = new System.Windows.Forms.TabPage();
+            this.Commodity3Catagory = new System.Windows.Forms.ComboBox();
+            this.Operator3Catagory = new System.Windows.Forms.ComboBox();
+            this.Commodity2Catagory = new System.Windows.Forms.ComboBox();
+            this.Operator2Catagory = new System.Windows.Forms.ComboBox();
+            this.Commodity1Catagory = new System.Windows.Forms.ComboBox();
+            this.Operator1Catagory = new System.Windows.Forms.ComboBox();
+            this.CommodityLabel = new System.Windows.Forms.Label();
+            this.OperatorLabel = new System.Windows.Forms.Label();
             this.Execute = new System.Windows.Forms.Button();
             this.executionTime = new System.Windows.Forms.Label();
             this.ExecitionTimeLabel = new System.Windows.Forms.Label();
@@ -137,14 +145,7 @@
             this.selectCatagory1IncreasingSimulation = new System.Windows.Forms.Button();
             this.catagory1SimualtionLabel = new System.Windows.Forms.Label();
             this.catagory1IncreasingSimulationFile = new System.Windows.Forms.TextBox();
-            this.OperatorLabel = new System.Windows.Forms.Label();
-            this.CommodityLabel = new System.Windows.Forms.Label();
-            this.Operator1Catagory = new System.Windows.Forms.ComboBox();
-            this.Commodity1Catagory = new System.Windows.Forms.ComboBox();
-            this.Commodity2Catagory = new System.Windows.Forms.ComboBox();
-            this.Operator2Catagory = new System.Windows.Forms.ComboBox();
-            this.Commodity3Catagory = new System.Windows.Forms.ComboBox();
-            this.Operator3Catagory = new System.Windows.Forms.ComboBox();
+            this.powerToWeightRatioAnalysis = new System.Windows.Forms.CheckBox();
             this.simulationTab.SuspendLayout();
             this.fileSelectionTab.SuspendLayout();
             this.processingTab.SuspendLayout();
@@ -1117,6 +1118,7 @@
             // 
             // simualtionFileTab
             // 
+            this.simualtionFileTab.Controls.Add(this.powerToWeightRatioAnalysis);
             this.simualtionFileTab.Controls.Add(this.Commodity3Catagory);
             this.simualtionFileTab.Controls.Add(this.Operator3Catagory);
             this.simualtionFileTab.Controls.Add(this.Commodity2Catagory);
@@ -1155,6 +1157,124 @@
             this.simualtionFileTab.Text = "Simulation File Selection";
             this.simualtionFileTab.UseVisualStyleBackColor = true;
             // 
+            // Commodity3Catagory
+            // 
+            this.Commodity3Catagory.FormattingEnabled = true;
+            this.Commodity3Catagory.Items.AddRange(new object[] {
+            "Steel",
+            "Minerals",
+            "General Freight",
+            "Intermodal",
+            "Coal"});
+            this.Commodity3Catagory.Location = new System.Drawing.Point(1331, 412);
+            this.Commodity3Catagory.Name = "Commodity3Catagory";
+            this.Commodity3Catagory.Size = new System.Drawing.Size(176, 28);
+            this.Commodity3Catagory.TabIndex = 28;
+            this.Commodity3Catagory.Text = "Select a Commodity";
+            // 
+            // Operator3Catagory
+            // 
+            this.Operator3Catagory.FormattingEnabled = true;
+            this.Operator3Catagory.Items.AddRange(new object[] {
+            "Pacific National",
+            "Aurizon",
+            "Freightliner",
+            "ARTC",
+            "QUBE",
+            "Underpowered",
+            "Overpowered",
+            "Alternative"});
+            this.Operator3Catagory.Location = new System.Drawing.Point(1118, 412);
+            this.Operator3Catagory.Name = "Operator3Catagory";
+            this.Operator3Catagory.Size = new System.Drawing.Size(170, 28);
+            this.Operator3Catagory.TabIndex = 27;
+            this.Operator3Catagory.Text = "Select an Operator";
+            // 
+            // Commodity2Catagory
+            // 
+            this.Commodity2Catagory.FormattingEnabled = true;
+            this.Commodity2Catagory.Items.AddRange(new object[] {
+            "Steel",
+            "Minerals",
+            "General Freight",
+            "Intermodal",
+            "Coal"});
+            this.Commodity2Catagory.Location = new System.Drawing.Point(1331, 262);
+            this.Commodity2Catagory.Name = "Commodity2Catagory";
+            this.Commodity2Catagory.Size = new System.Drawing.Size(176, 28);
+            this.Commodity2Catagory.TabIndex = 26;
+            this.Commodity2Catagory.Text = "Select a Commodity";
+            // 
+            // Operator2Catagory
+            // 
+            this.Operator2Catagory.FormattingEnabled = true;
+            this.Operator2Catagory.Items.AddRange(new object[] {
+            "Pacific National",
+            "Aurizon",
+            "Freightliner",
+            "ARTC",
+            "QUBE",
+            "Underpowered",
+            "Overpowered",
+            "Alternative"});
+            this.Operator2Catagory.Location = new System.Drawing.Point(1118, 262);
+            this.Operator2Catagory.Name = "Operator2Catagory";
+            this.Operator2Catagory.Size = new System.Drawing.Size(170, 28);
+            this.Operator2Catagory.TabIndex = 25;
+            this.Operator2Catagory.Text = "Select an Operator";
+            // 
+            // Commodity1Catagory
+            // 
+            this.Commodity1Catagory.FormattingEnabled = true;
+            this.Commodity1Catagory.Items.AddRange(new object[] {
+            "Steel",
+            "Minerals",
+            "General Freight",
+            "Intermodal",
+            "Coal"});
+            this.Commodity1Catagory.Location = new System.Drawing.Point(1331, 106);
+            this.Commodity1Catagory.Name = "Commodity1Catagory";
+            this.Commodity1Catagory.Size = new System.Drawing.Size(176, 28);
+            this.Commodity1Catagory.TabIndex = 24;
+            this.Commodity1Catagory.Text = "Select a Commodity";
+            // 
+            // Operator1Catagory
+            // 
+            this.Operator1Catagory.FormattingEnabled = true;
+            this.Operator1Catagory.Items.AddRange(new object[] {
+            "Pacific National",
+            "Aurizon",
+            "Freightliner",
+            "ARTC",
+            "QUBE",
+            "Underpowered",
+            "Overpowered",
+            "Alternative"});
+            this.Operator1Catagory.Location = new System.Drawing.Point(1118, 106);
+            this.Operator1Catagory.Name = "Operator1Catagory";
+            this.Operator1Catagory.Size = new System.Drawing.Size(170, 28);
+            this.Operator1Catagory.TabIndex = 23;
+            this.Operator1Catagory.Text = "Select an Operator";
+            this.Operator1Catagory.SelectedValueChanged += new System.EventHandler(this.Operator1Catagory_SelectedValueChanged);
+            // 
+            // CommodityLabel
+            // 
+            this.CommodityLabel.AutoSize = true;
+            this.CommodityLabel.Location = new System.Drawing.Point(1327, 29);
+            this.CommodityLabel.Name = "CommodityLabel";
+            this.CommodityLabel.Size = new System.Drawing.Size(88, 20);
+            this.CommodityLabel.TabIndex = 22;
+            this.CommodityLabel.Text = "Commodity";
+            // 
+            // OperatorLabel
+            // 
+            this.OperatorLabel.AutoSize = true;
+            this.OperatorLabel.Location = new System.Drawing.Point(1114, 29);
+            this.OperatorLabel.Name = "OperatorLabel";
+            this.OperatorLabel.Size = new System.Drawing.Size(111, 20);
+            this.OperatorLabel.TabIndex = 21;
+            this.OperatorLabel.Text = "Train Operator";
+            // 
             // Execute
             // 
             this.Execute.Location = new System.Drawing.Point(1264, 574);
@@ -1192,7 +1312,7 @@
             this.resultsDestination.Location = new System.Drawing.Point(344, 543);
             this.resultsDestination.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.resultsDestination.Name = "resultsDestination";
-            this.resultsDestination.Size = new System.Drawing.Size(865, 26);
+            this.resultsDestination.Size = new System.Drawing.Size(736, 26);
             this.resultsDestination.TabIndex = 17;
             this.resultsDestination.Text = "<Required>";
             // 
@@ -1234,7 +1354,7 @@
             this.catagory3DecreasingSimulationFile.Location = new System.Drawing.Point(344, 452);
             this.catagory3DecreasingSimulationFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.catagory3DecreasingSimulationFile.Name = "catagory3DecreasingSimulationFile";
-            this.catagory3DecreasingSimulationFile.Size = new System.Drawing.Size(865, 26);
+            this.catagory3DecreasingSimulationFile.Size = new System.Drawing.Size(736, 26);
             this.catagory3DecreasingSimulationFile.TabIndex = 13;
             this.catagory3DecreasingSimulationFile.Text = "<Optional>";
             // 
@@ -1265,7 +1385,7 @@
             this.catagory3IncreasingSimulationFile.Location = new System.Drawing.Point(344, 391);
             this.catagory3IncreasingSimulationFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.catagory3IncreasingSimulationFile.Name = "catagory3IncreasingSimulationFile";
-            this.catagory3IncreasingSimulationFile.Size = new System.Drawing.Size(865, 26);
+            this.catagory3IncreasingSimulationFile.Size = new System.Drawing.Size(736, 26);
             this.catagory3IncreasingSimulationFile.TabIndex = 10;
             this.catagory3IncreasingSimulationFile.Text = "<Optional>";
             // 
@@ -1286,7 +1406,7 @@
             this.catagory2DecreasingSimulationFile.Location = new System.Drawing.Point(344, 297);
             this.catagory2DecreasingSimulationFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.catagory2DecreasingSimulationFile.Name = "catagory2DecreasingSimulationFile";
-            this.catagory2DecreasingSimulationFile.Size = new System.Drawing.Size(865, 26);
+            this.catagory2DecreasingSimulationFile.Size = new System.Drawing.Size(736, 26);
             this.catagory2DecreasingSimulationFile.TabIndex = 8;
             this.catagory2DecreasingSimulationFile.Text = "<Required>";
             // 
@@ -1317,7 +1437,7 @@
             this.catagory2IncreasingSimulationFile.Location = new System.Drawing.Point(344, 235);
             this.catagory2IncreasingSimulationFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.catagory2IncreasingSimulationFile.Name = "catagory2IncreasingSimulationFile";
-            this.catagory2IncreasingSimulationFile.Size = new System.Drawing.Size(865, 26);
+            this.catagory2IncreasingSimulationFile.Size = new System.Drawing.Size(736, 26);
             this.catagory2IncreasingSimulationFile.TabIndex = 5;
             this.catagory2IncreasingSimulationFile.Text = "<Required>";
             // 
@@ -1338,7 +1458,7 @@
             this.catagory1DecreasingSimulationFile.Location = new System.Drawing.Point(344, 143);
             this.catagory1DecreasingSimulationFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.catagory1DecreasingSimulationFile.Name = "catagory1DecreasingSimulationFile";
-            this.catagory1DecreasingSimulationFile.Size = new System.Drawing.Size(865, 26);
+            this.catagory1DecreasingSimulationFile.Size = new System.Drawing.Size(736, 26);
             this.catagory1DecreasingSimulationFile.TabIndex = 3;
             this.catagory1DecreasingSimulationFile.Text = "<Required>";
             // 
@@ -1369,111 +1489,19 @@
             this.catagory1IncreasingSimulationFile.Location = new System.Drawing.Point(344, 82);
             this.catagory1IncreasingSimulationFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.catagory1IncreasingSimulationFile.Name = "catagory1IncreasingSimulationFile";
-            this.catagory1IncreasingSimulationFile.Size = new System.Drawing.Size(865, 26);
+            this.catagory1IncreasingSimulationFile.Size = new System.Drawing.Size(736, 26);
             this.catagory1IncreasingSimulationFile.TabIndex = 0;
             this.catagory1IncreasingSimulationFile.Text = "<Required>";
             // 
-            // OperatorLabel
+            // powerToWeightRatioAnalysis
             // 
-            this.OperatorLabel.AutoSize = true;
-            this.OperatorLabel.Location = new System.Drawing.Point(1260, 30);
-            this.OperatorLabel.Name = "OperatorLabel";
-            this.OperatorLabel.Size = new System.Drawing.Size(111, 20);
-            this.OperatorLabel.TabIndex = 21;
-            this.OperatorLabel.Text = "Train Operator";
-            // 
-            // CommodityLabel
-            // 
-            this.CommodityLabel.AutoSize = true;
-            this.CommodityLabel.Location = new System.Drawing.Point(1413, 29);
-            this.CommodityLabel.Name = "CommodityLabel";
-            this.CommodityLabel.Size = new System.Drawing.Size(88, 20);
-            this.CommodityLabel.TabIndex = 22;
-            this.CommodityLabel.Text = "Commodity";
-            // 
-            // Operator1Catagory
-            // 
-            this.Operator1Catagory.FormattingEnabled = true;
-            this.Operator1Catagory.Items.AddRange(new object[] {
-            "Pacific Nationl",
-            "Aurizon",
-            "Freightliner",
-            "ARTC",
-            "QUBE"});
-            this.Operator1Catagory.Location = new System.Drawing.Point(1250, 106);
-            this.Operator1Catagory.Name = "Operator1Catagory";
-            this.Operator1Catagory.Size = new System.Drawing.Size(121, 28);
-            this.Operator1Catagory.TabIndex = 23;
-            // 
-            // Commodity1Catagory
-            // 
-            this.Commodity1Catagory.FormattingEnabled = true;
-            this.Commodity1Catagory.Items.AddRange(new object[] {
-            "Steel",
-            "Minerals",
-            "General Freight",
-            "Intermodal",
-            "Coal"});
-            this.Commodity1Catagory.Location = new System.Drawing.Point(1417, 106);
-            this.Commodity1Catagory.Name = "Commodity1Catagory";
-            this.Commodity1Catagory.Size = new System.Drawing.Size(121, 28);
-            this.Commodity1Catagory.TabIndex = 24;
-            // 
-            // Commodity2Catagory
-            // 
-            this.Commodity2Catagory.FormattingEnabled = true;
-            this.Commodity2Catagory.Items.AddRange(new object[] {
-            "Steel",
-            "Minerals",
-            "General Freight",
-            "Intermodal",
-            "Coal"});
-            this.Commodity2Catagory.Location = new System.Drawing.Point(1417, 262);
-            this.Commodity2Catagory.Name = "Commodity2Catagory";
-            this.Commodity2Catagory.Size = new System.Drawing.Size(121, 28);
-            this.Commodity2Catagory.TabIndex = 26;
-            // 
-            // Operator2Catagory
-            // 
-            this.Operator2Catagory.FormattingEnabled = true;
-            this.Operator2Catagory.Items.AddRange(new object[] {
-            "Pacific Nationl",
-            "Aurizon",
-            "Freightliner",
-            "ARTC",
-            "QUBE"});
-            this.Operator2Catagory.Location = new System.Drawing.Point(1250, 262);
-            this.Operator2Catagory.Name = "Operator2Catagory";
-            this.Operator2Catagory.Size = new System.Drawing.Size(121, 28);
-            this.Operator2Catagory.TabIndex = 25;
-            // 
-            // Commodity3Catagory
-            // 
-            this.Commodity3Catagory.FormattingEnabled = true;
-            this.Commodity3Catagory.Items.AddRange(new object[] {
-            "Steel",
-            "Minerals",
-            "General Freight",
-            "Intermodal",
-            "Coal"});
-            this.Commodity3Catagory.Location = new System.Drawing.Point(1417, 422);
-            this.Commodity3Catagory.Name = "Commodity3Catagory";
-            this.Commodity3Catagory.Size = new System.Drawing.Size(121, 28);
-            this.Commodity3Catagory.TabIndex = 28;
-            // 
-            // Operator3Catagory
-            // 
-            this.Operator3Catagory.FormattingEnabled = true;
-            this.Operator3Catagory.Items.AddRange(new object[] {
-            "Pacific Nationl",
-            "Aurizon",
-            "Freightliner",
-            "ARTC",
-            "QUBE"});
-            this.Operator3Catagory.Location = new System.Drawing.Point(1250, 422);
-            this.Operator3Catagory.Name = "Operator3Catagory";
-            this.Operator3Catagory.Size = new System.Drawing.Size(121, 28);
-            this.Operator3Catagory.TabIndex = 27;
+            this.powerToWeightRatioAnalysis.AutoSize = true;
+            this.powerToWeightRatioAnalysis.Location = new System.Drawing.Point(879, 25);
+            this.powerToWeightRatioAnalysis.Name = "powerToWeightRatioAnalysis";
+            this.powerToWeightRatioAnalysis.Size = new System.Drawing.Size(201, 24);
+            this.powerToWeightRatioAnalysis.TabIndex = 29;
+            this.powerToWeightRatioAnalysis.Text = "Power to Weight Ratios";
+            this.powerToWeightRatioAnalysis.UseVisualStyleBackColor = true;
             // 
             // TrainPerformance
             // 
@@ -1616,6 +1644,7 @@
         private System.Windows.Forms.ComboBox Commodity2Catagory;
         private System.Windows.Forms.ComboBox Operator2Catagory;
         private System.Windows.Forms.ComboBox Commodity1Catagory;
+        private System.Windows.Forms.CheckBox powerToWeightRatioAnalysis;
 
     }
 }

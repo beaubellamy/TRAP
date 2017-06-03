@@ -29,6 +29,8 @@ namespace TRAP
             return degrees * Math.PI / 180;
         }
 
+        /// <summary>
+        /// Calculate the shortes distance between two geographical locations using the great circle formula.
         /// </summary>
         /// <param name="latitude1">Latitude of location 1.</param>
         /// <param name="longitude1">Longitude of location 1.</param>
@@ -47,6 +49,12 @@ namespace TRAP
 
         }
 
+        /// <summary>
+        /// Calculate the shortes distance between two geographical locations using the great circle formula.
+        /// </summary>
+        /// <param name="point1">The geographic location of the first point.</param>
+        /// <param name="point2">The geographic location of the second point.</param>
+        /// <returns></returns>
         public double calculateGreatCircleDistance(GeoLocation point1, GeoLocation point2)
         {
 
@@ -285,44 +293,6 @@ namespace TRAP
         }
 
         /// <summary>
-        /// populate the temporary speed restriction information for each train journey.
-        /// </summary>
-        /// <param name="train">A train object containing the journey details.</param>
-        /// <param name="trackGeometry">the track Geometry object indicating the TSR information at each location.</param>
-        //public void populateTemporarySpeedRestrictions(Train train, List<TrackGeometry> trackGeometry, List<TSRObject> TSRs)
-        //{
-        //    /* Create a track geometry object. */
-        //    TrackGeometry track = new TrackGeometry();
-        //    //int index = 0;
-        //    double trainPoint = 0;
-
-        //    /* Cycle through the train journey. */
-        //    foreach (TrainDetails journey in train.TrainJourney)
-        //    {
-        //        /* Extract the current point in the journey */
-        //        trainPoint = journey.geometryKm;
-
-        //        /* Cycle through each TSR. */
-        //        foreach (TSRObject TSR in TSRs)
-        //        {
-        //            if (trainPoint >= TSR.startKm && trainPoint <= TSR.endKm)
-        //            {
-        //                if (journey.NotificationDateTime >= TSR.IssueDate && journey.NotificationDateTime <= TSR.LiftedDate)
-        //                {
-        //                    /* When the train is within the applicable TSR, add it to the journey. */
-        //                    journey.isTSRHere = true;
-        //                    journey.TSRspeed = TSR.TSRSpeed;
-        //                }
-        //            }
-
-        //            /* When a TSR is applicable, break out of the current loop and continue with the rest of the journey. */
-        //            if (journey.isTSRHere)
-        //                break;
-        //        }
-        //    }
-        //}
-
-        /// <summary>
         /// This function cycles through each train and determines if a TSR had applied to any part of the journey.
         /// </summary>
         /// <param name="trains">A list of trains containing the journey for each.</param>
@@ -492,12 +462,21 @@ namespace TRAP
             return newTrainList;
         }
 
+        /// <summary>
+        /// Calculate the aggregated average speed of all trains.
+        /// </summary>
+        /// <param name="trains">A list of trains to be aggregated in a single group.</param>
+        /// <param name="catagorySim">The simulted train for the specified analysis catagory.</param>
+        /// <param name="trackGeometry">The track alignment information for the train journey.</param>
+        /// <returns>An average train containing information about the average speed at each location.</returns>
         public AverageTrain averageTrain(List<Train> trains, List<TrainJourney> catagorySim, List<TrackGeometry> trackGeometry)
         {
+
             bool loopBoundary = false;
             bool TSRBoundary = false;
             List<bool> TSRList = new List<bool>();
 
+            /* Set up the average train journey lists. */
             List<double> kilometreage = new List<double>();
             List<double> elevation = new List<double>();
             List<double> averageSpeed = new List<double>();
@@ -511,19 +490,22 @@ namespace TRAP
             double sum = 0;
             double aveSpeed = 0;
 
+            /* Determine the number of points in the average train journey. */
             int size = (int)((Settings.endKm - Settings.startKm) / (Settings.interval / 1000));
 
             TrainJourney journey = new TrainJourney();
 
-
+            /* Cycle through each location to average the valid values. */
             for (int journeyIdx = 0; journeyIdx < size; journeyIdx++)
             {
+                /* Determine the current location and elevation of the alignemnt at this point. */
                 kmPost = Settings.startKm + Settings.interval / 1000 * journeyIdx;
                 altitude = trackGeometry[TrainPerformance.track.findClosestTrackGeometryPoint(trackGeometry, kmPost)].elevation;
 
                 speed.Clear();
                 sum = 0;
 
+                /* Cycle through each train in the list. */
                 foreach (Train train in trains)
                 {
                     
@@ -542,7 +524,7 @@ namespace TRAP
                             sum = sum + journey.speed;
                         }
                         else
-                        {// train IS IN loop
+                        {// train is IN loop
                             loopBoundary = true;
 
                             if (journey.speed > (Settings.loopSpeedThreshold * catagorySim[journeyIdx].speed))
@@ -578,13 +560,14 @@ namespace TRAP
                     aveSpeed = catagorySim[journeyIdx].speed;
                 else
                 {
-                    /* Calcualte the average speed at each location. */
+                    /* Calculate the average speed at each location. */
                     if (speed.Count() == 0 || sum == 0)
                         aveSpeed = 0;
                     else
                         aveSpeed = speed.Where(x => x > 0.0).Average();
                 }
 
+                /* Add to each list for this location. */
                 kilometreage.Add(kmPost);
                 elevation.Add(altitude);
                 averageSpeed.Add(aveSpeed);
@@ -594,12 +577,20 @@ namespace TRAP
 
             }
             
+            /* Create the new average train object. */
             AverageTrain averageTrain = new AverageTrain(trains[0].catagory, trains[0].trainDirection, trains.Count() ,kilometreage, elevation, averageSpeed, isInLoopBoundary, isInTSRboundary);
 
             return averageTrain;
 
         }
 
+        /// <summary>
+        /// Calculate the weighted average of all simulations. This simulation is then used for 
+        /// comparison when calculating the combined catagories (weighted average train).
+        /// </summary>
+        /// <param name="simulations">List of simulations for each catagory analysed.</param>
+        /// <param name="averageTrains">A List of the average train data, only used for the weighting.</param>
+        /// <returns>A list of average train data describing the combined catagories.</returns>
         public static List<Train> getWeightedAverageSimulation(List<Train> simulations, List<AverageTrain> averageTrains)
         {
             /* The list of trains (2) that will be returned */
@@ -894,16 +885,16 @@ namespace TRAP
                 return false;
 
             if (Settings.topLeftLocation == null ||
-                Settings.topLeftLocation.latitude > -10 ||      /* Australian top left bounday */
+                Settings.topLeftLocation.latitude > -10 ||      /* Australian top left boundary */
                 Settings.topLeftLocation.longitude < 110 ||
-                Settings.topLeftLocation.latitude > -10 ||      /* Australian top right bounday */
+                Settings.topLeftLocation.latitude > -10 ||      /* Australian top right boundary */
                 Settings.topLeftLocation.longitude > 155)
                 return false;
 
             if (Settings.bottomRightLocation == null ||
-                Settings.bottomRightLocation.latitude < -40 ||      /* Australian bottom left bounday */
+                Settings.bottomRightLocation.latitude < -40 ||      /* Australian bottom left boundary */
                 Settings.bottomRightLocation.longitude < 110 ||
-                Settings.bottomRightLocation.latitude < -40 ||      /* Australian bottom right bounday */
+                Settings.bottomRightLocation.latitude < -40 ||      /* Australian bottom right boundary */
                 Settings.bottomRightLocation.longitude > 155)
                 return false;
 

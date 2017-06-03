@@ -25,12 +25,11 @@ namespace TRAP
             InitializeComponent();
         }
 
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    List<Train> trains = Algorithm.trainPerformance();
-        //}
-
-        
+        /// <summary>
+        /// Select the data file that requires processing.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void selectDataFile_Click(object sender, EventArgs e)
         {
             /* Select the data file. */
@@ -43,6 +42,11 @@ namespace TRAP
             
         }
 
+        /// <summary>
+        /// Select the geometry file required to process the train data.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void selectGeometryFile_Click(object sender, EventArgs e)
         {
             FileSettings.geometryFile = tool.browseFile("Select the geometry file.");
@@ -50,6 +54,11 @@ namespace TRAP
             GeometryFile.ForeColor = System.Drawing.Color.Black;
         }
 
+        /// <summary>
+        /// Select the Temporary Speed Restriction file required to process the train data.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void selectTSRFile_Click(object sender, EventArgs e)
         {
             FileSettings.temporarySpeedRestrictionFile = tool.browseFile("Select the TSR file.");
@@ -57,6 +66,11 @@ namespace TRAP
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
         }
 
+        /// <summary>
+        /// Select the file containing the list of trains to exclude from the processing.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void selectTrainFile_Click(object sender, EventArgs e)
         {
             FileSettings.trainListFile = tool.browseFile("Select the train list file.");
@@ -64,10 +78,16 @@ namespace TRAP
             trainListFile.ForeColor = System.Drawing.Color.Black;
         }
 
+        /// <summary>
+        /// Calculate the average power to weight ratio required for the simulations.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void simulationPowerToWeightRatios_Click(object sender, EventArgs e)
         {
-
+            /* Extract the form parameters. */
             processing.populateFormParameters(this);
+
             /* Validate the form parameters. */
             if (!processing.areFormParametersValid())
             {
@@ -75,6 +95,7 @@ namespace TRAP
                 return;
             }
 
+            /* The data file and the geometry file are required for processing. */
             if (FileSettings.dataFile == null || FileSettings.geometryFile == null)
                 return;
 
@@ -88,11 +109,6 @@ namespace TRAP
             /* Read in the track gemoetry data. */
             List<TrackGeometry> trackGeometry = new List<TrackGeometry>();
             trackGeometry = FileOperations.readGeometryfile(FileSettings.geometryFile);
-
-
-            /* Read in the TSR information */
-            List<TSRObject> TSRs = new List<TSRObject>();
-            TSRs = FileOperations.readTSRFile(FileSettings.temporarySpeedRestrictionFile);
 
             /* Read the data. */
             List<TrainRecord> TrainRecords = new List<TrainRecord>();
@@ -120,9 +136,6 @@ namespace TRAP
             }
             else
             {
-
-
-
                 /* Sort the data by [trainID, locoID, Date & Time, kmPost]. */
                 List<TrainRecord> OrderdTrainRecords = new List<TrainRecord>();
                 OrderdTrainRecords = TrainRecords.OrderBy(t => t.trainID).ThenBy(t => t.locoID).ThenBy(t => t.dateTime).ThenBy(t => t.kmPost).ToList();
@@ -130,7 +143,7 @@ namespace TRAP
                 /* Clean data - remove trains with insufficient data. */
                 /******** Should only be required while we are waiting for the data in the prefered format ********/
                 List<Train> CleanTrainRecords = new List<Train>();
-                CleanTrainRecords = Algorithm.CleanData(OrderdTrainRecords, trackGeometry, TSRs);
+                CleanTrainRecords = Algorithm.CleanData(OrderdTrainRecords, trackGeometry);
                 /**************************************************************************************************/
                 
 
@@ -174,114 +187,112 @@ namespace TRAP
             
         }
 
+        /// <summary>
+        /// Select the simulation file for catagory 1 characteristics in the increasing km direction.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void selectCatagory1IncreasingSimulation_Click(object sender, EventArgs e)
         {
+            /* Set the simulation file parameters and insert into the list at the correct index. */
             setSimulationFile(catagory1IncreasingSimulationFile, 0);
-            //string filename = null;
-            //string browseFile = "Select the Underpowered increasing km simulation file.";
-            //if (getHunterValleyRegion())
-            //    browseFile = "Select the Pacific National increasing km simulation file.";
-
-            //filename = tool.browseFile(browseFile);
-            //FileSettings.simulationFiles.Insert(0, filename);
-            //catagory1IncreasingSimulationFile.Text = Path.GetFileName(filename);
-            //catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            
         }
 
+        /// <summary>
+        /// Select the simulation file for catagory 1 characteristics in the decreasing km direction.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void selectCatagory1DecreasingSimulation_Click(object sender, EventArgs e)
         {
+            /* Set the simulation file parameters and insert into the list at the correct index. */
             setSimulationFile(catagory1DecreasingSimulationFile, 1);
-            //string filename = null;
-            //string browseFile = "Select the Underpowered decreasing km simulation file.";
-            //if (getHunterValleyRegion())
-            //    browseFile = "Select the Pacific National decreasing km simulation file.";
-
-            //filename = tool.browseFile(browseFile);
-            //FileSettings.simulationFiles.Insert(1, filename);
-            //catagory1DecreasingSimulationFile.Text = Path.GetFileName(filename);
-            //catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
         }
 
+        /// <summary>
+        /// Select the simulation file for catagory 2 characteristics in the increasing km direction.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void selectCatagory2IncreasingSimulation_Click(object sender, EventArgs e)
         {
+            /* Set the simulation file parameters and insert into the list at the correct index. */
             setSimulationFile(catagory2IncreasingSimulationFile, 2);
-            //string filename = null;
-            //string browseFile = "Select the Overpowered increasing km simulation file.";
-            //if (getHunterValleyRegion())
-            //    browseFile = "Select the Aurizon decreasing km simulation file.";
-
-            //filename = tool.browseFile(browseFile);
-            //FileSettings.simulationFiles.Insert(2, filename);
-            //catagory2IncreasingSimulationFile.Text = Path.GetFileName(filename);
-            //catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
         }
 
+        /// <summary>
+        /// Select the simulation file for catagory 2 characteristics in the decreasing km direction.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void selectCatagory2DecreasingSimulation_Click(object sender, EventArgs e)
         {
+            /* Set the simulation file parameters and insert into the list at the correct index. */
             setSimulationFile(catagory2DecreasingSimulationFile, 3);
-            //string filename = null;
-            //string browseFile = "Select the Overpowered decreasing km simulation file.";
-            //if (getHunterValleyRegion())
-            //    browseFile = "Select the Aurizon decreasing km simulation file.";
-
-            //filename = tool.browseFile(browseFile);
-            //FileSettings.simulationFiles.Insert(3, filename);
-            //catagory2DecreasingSimulationFile.Text = Path.GetFileName(filename);
-            //catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
         }
 
+        /// <summary>
+        /// Select the simulation file for catagory 3 characteristics in the increasing km direction.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void selectCatagory3IncreasingSimulation_Click(object sender, EventArgs e)
         {
+            /* Set the simulation file parameters and insert into the list at the correct index. */
             setSimulationFile(catagory3IncreasingSimulationFile, 4);
-            //string filename = null;
-            //string browseFile = "Select the Alternative increasing km simulation file.";
-            //if (getHunterValleyRegion())
-            //    browseFile = "Select the Freightliner increasing km simulation file.";
-
-            //filename = tool.browseFile(browseFile);
-            //FileSettings.simulationFiles.Insert(4, filename);
-            //catagory3IncreasingSimulationFile.Text = Path.GetFileName(filename);
-            //catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
         }
 
+        /// <summary>
+        /// Select the simulation file for catagory 3 characteristics in the decreasing km direction.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void selectCatagory3DecreasingSimulation_Click(object sender, EventArgs e)
         {
+            /* Set the simulation file parameters and insert into the list at the correct index. */
             setSimulationFile(catagory3DecreasingSimulationFile, 5);
-            //string filename = null;
-            //string browseFile = "Select the Alternative decreasing km simulation file.";
-            //if (getHunterValleyRegion())
-            //    browseFile = "Select the Freightliner decreasing km simulation file.";
-
-            //filename = tool.browseFile(browseFile);
-            //FileSettings.simulationFiles.Insert(5, filename);
-            //catagory3DecreasingSimulationFile.Text = Path.GetFileName(filename);
-            //catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
         }
 
+        
+        /// <summary>
+        /// Helper function to set the simulation file parameters and add the simulation file into the list in the correct index.
+        /// </summary>
+        /// <param name="simulationFile">Form object to populate.</param>
+        /// <param name="index">Insertion index into the simulation file list.</param>
         private void setSimulationFile(TextBox simulationFile, int index)
         {
             string filename = null;
-            string catagory = getSimulationCatagory(index);
             string direction = null;
-
+            /* Extract the simualtion catagory. */
+            string catagory = getSimulationCatagory(index);
+            
+            /* Determine the direction of the simulation. */
             if ((index % 2) == 0)
                 direction = "increasing";
             else
                 direction = "decreasing";
 
-
+            /* Create a meaningful string to help user identify the correct file. */
             string browseFile = "Select the " + catagory + " " + direction + " km simulation file.";
 
-
+            /* Select the simulation file using the browser and insert into the simulation file list. */
             filename = tool.browseFile(browseFile);
             FileSettings.simulationFiles.Insert(index, filename);
             simulationFile.Text = Path.GetFileName(filename);
             simulationFile.ForeColor = System.Drawing.Color.Black;
         }
 
-
+        /// <summary>
+        /// Identify the simulation catagory based on the index in the list.
+        /// </summary>
+        /// <param name="index">Index of the simualtion catagory</param>
+        /// <returns>A string identifying the simualtion catagory.</returns>
         private string getSimulationCatagory(int index)
         {
+            /* This will need to be modified with the new features for operator and commodity. */
+
+            /* Hunter Valley region requires the operators to be identified. */
             if (getHunterValleyRegion())
             {
                 if (index < 2)
@@ -293,6 +304,7 @@ namespace TRAP
             }
             else
             {
+                /* Standard interstate network catagories. */
                 if (index < 2)
                     return "Underpowered";
                 else if (index < 4)
@@ -302,6 +314,11 @@ namespace TRAP
             }
         }
 
+        /// <summary>
+        /// Set the destiantion directory for the aggregated results files.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void resultsDirectory_Click(object sender, EventArgs e)
         {
             FileSettings.aggregatedDestination = tool.selectFolder();
@@ -309,6 +326,11 @@ namespace TRAP
             resultsDestination.ForeColor = System.Drawing.Color.Black;
         }
 
+        /// <summary>
+        /// Perform the analysis based on the input parameters.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void Execute_Click(object sender, EventArgs e)
         {
             /* Populate the parameters. */
@@ -326,6 +348,7 @@ namespace TRAP
             /* Run the train performance analysis. */
             List<Train> trains = new List<Train>();
             trains = Algorithm.trainPerformance();
+
             timer.Stop();
             TimeSpan ts = timer.Elapsed;
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
@@ -605,10 +628,16 @@ namespace TRAP
         /// <returns>The value of the boolean flag.</returns>
         public bool getHunterValleyRegion() { return HunterValley.Checked; }
 
+        /// <summary>
+        /// Modify the simulation parameter labels based on the region under analysis.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
         private void HunterValley_CheckedChanged(object sender, EventArgs e)
         {
             if (HunterValley.Checked)
             {
+                /* Set the train operators for the Hunter Valley region. */
                 catagory1SimualtionLabel.Text = "Pacific National";
                 catagory1Label.Text = "Pacific National:";
                 simCatagory1Label.Text = "Pacific National:";
@@ -622,6 +651,7 @@ namespace TRAP
             }
             else
             {
+                /* Set the simulation catagories for the interstate network. */
                 catagory1SimualtionLabel.Text = "Underpowered";
                 catagory1Label.Text = "Underpowered:";
                 simCatagory1Label.Text = "Underpowered:";
@@ -718,7 +748,20 @@ namespace TRAP
             catagory2LowerBound.Text = "4";
             catagory2UpperBound.Text = "6";
 
-            HunterValley.Checked = false;
+            HunterValley.Checked = false;   // not required with new features.
+            /* New features */
+            powerToWeightRatioAnalysis.Checked = true;
+
+            Operator1Catagory.Text = "Underpowered";
+            Operator2Catagory.Text = "Overpowered";
+
+            //Operator1Catagory.SelectedItem = Operator1Catagory.Items.IndexOf("Underpowered");
+            //Operator2Catagory.SelectedItem = Operator1Catagory.Items.IndexOf("Overpowered");
+            Operator3Catagory.SelectedItem = null;
+
+            Commodity1Catagory.SelectedItem = null;
+            Commodity2Catagory.SelectedItem = null;
+            Commodity3Catagory.SelectedItem = null;
 
 
         }
@@ -1339,6 +1382,12 @@ namespace TRAP
 
 
         }
+
+        private void Operator1Catagory_SelectedValueChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine(Operator1Catagory.Name);
+        }
+
 
 
         

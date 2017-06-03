@@ -7,6 +7,9 @@ using TRAP;
 
 namespace Globalsettings
 {
+    /* A list of available analysis seperation catagories. */
+    public enum analysisCatagory { TrainOperator, TrainCommodity, TrainPowerToWeight };
+
     public static class FileSettings
     {
         /* Filenames for each required file. */
@@ -27,7 +30,7 @@ namespace Globalsettings
 
     public static class Settings
     {
-
+        
         /* Data boundaries */
         public static DateTime[] dateRange;                 /* Date range of data to include. */
         public static GeoLocation topLeftLocation;          /* Top left corner of the geographic box describing the included data. */
@@ -56,6 +59,9 @@ namespace Globalsettings
         //public static double combinedUpperBound;            /* The upper bound cuttoff for the combined trains. */
 
         public static bool HunterValleyRegion;
+
+        public static analysisCatagory analysisCatagory;
+        
 
         ///// <summary>
         ///// This function resets the power to weight upper and lower boundaries to 

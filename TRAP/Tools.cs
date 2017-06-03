@@ -21,8 +21,7 @@ namespace TRAP
         /// <param name="message">Message to display.</param>
         public void messageBox(string message)
         {
-            System.Windows.Forms.MessageBox.Show(message, "Information",
-                System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+            MessageBox.Show(message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         /// <summary>
@@ -32,8 +31,7 @@ namespace TRAP
         /// <param name="caption">Caption for the message box.</param>
         public void messageBox(string message, string caption)
         {
-            System.Windows.Forms.MessageBox.Show(message, caption,
-                System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+            MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         /// <summary>
@@ -95,8 +93,7 @@ namespace TRAP
             }
             return filename;
         }
-
-
+        
         /// <summary>
         /// A wrapper function to contain the try catch block for selecting a file using the browser.
         /// </summary>
@@ -107,7 +104,7 @@ namespace TRAP
             string filename = null;
             try
             {
-                // Open the browser and retrieve the file.
+                /* Open the browser and retrieve the file. */
                 filename = selectDataFile(browseTitle);
                 if (filename == null)
                     return "";
