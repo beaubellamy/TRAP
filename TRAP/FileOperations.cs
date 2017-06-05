@@ -711,7 +711,7 @@ namespace TRAP
             else if (Coal.Contains(commodity))
                 return trainCommodity.Coal;
             else if (Freight.Contains(commodity))
-                return trainCommodity.Freight;
+                return trainCommodity.GeneralFreight;
             else if (Grain.Contains(commodity))
                 return trainCommodity.Grain;
             else if (Intermodal.Contains(commodity))

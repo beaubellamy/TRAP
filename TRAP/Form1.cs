@@ -634,7 +634,29 @@ namespace TRAP
         /// </summary>
         /// <returns>The value of the boolean flag.</returns>
         public bool getPowerToWeightRatioAnalysis() { return powerToWeightRatioAnalysis.Checked; }
+        
+        /// <summary>
+        /// Set the labels associated to the power to weight ratio analysis catagory.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void powerToWeightRatioAnalysis_CheckedChanged(object sender, EventArgs e)
+        {
+            if (powerToWeightRatioAnalysis.Checked)
+            {
+                /* Set the default commodity and train operator catagories. */
+                setDefaultCommodityAnalysisParameters();
+                setDefaultOperatorAnalysisParameters();
 
+                /* Set the power to weight ratio labels. */
+                catagory1SimualtionLabel.Text = "Underpowered";
+                catagory2SimualtionLabel.Text = "Overpowered";
+                catagory3SimualtionLabel.Text = "Alternative";
+            }
+
+
+        }
+        
         /// <summary>
         /// Extract the analysis catagory.
         /// </summary>
@@ -664,8 +686,10 @@ namespace TRAP
 
             foreach (trainOperator Operator in operatorList)
             {
-                if (Operator1Catagory.SelectedItem.ToString().Replace(" ",string.Empty).Equals(Operator.ToString()))
+                if (Operator1Catagory.SelectedItem != null &&
+                    Operator1Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
                     return Operator;
+                
             }
 
             return trainOperator.Unknown;
@@ -682,7 +706,8 @@ namespace TRAP
 
             foreach (trainOperator Operator in operatorList)
             {
-                if (Operator2Catagory.SelectedItem.ToString().Equals(Operator.ToString()))
+                if (Operator2Catagory.SelectedItem != null &&
+                    Operator2Catagory.SelectedItem.ToString().Equals(Operator.ToString()))
                     return Operator;
             }
 
@@ -700,7 +725,8 @@ namespace TRAP
 
             foreach (trainOperator Operator in operatorList)
             {
-                if (Operator3Catagory.SelectedItem.ToString().Equals(Operator.ToString()))
+                if (Operator3Catagory.SelectedItem != null &&
+                    Operator3Catagory.SelectedItem.ToString().Equals(Operator.ToString()))
                     return Operator;
             }
 
@@ -718,7 +744,8 @@ namespace TRAP
 
             foreach (trainCommodity commodity in commodityList)
             {
-                if (Commodity1Catagory.SelectedItem.ToString().Equals(commodity.ToString()))
+                if (Commodity1Catagory.SelectedItem != null &&
+                    Commodity1Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
                     return commodity;
             }
             return trainCommodity.Unknown;
@@ -735,7 +762,8 @@ namespace TRAP
 
             foreach (trainCommodity commodity in commodityList)
             {
-                if (Commodity2Catagory.SelectedItem.ToString().Equals(commodity.ToString()))
+                if (Commodity2Catagory.SelectedItem != null &&
+                    Commodity2Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
                     return commodity;
             }
             return trainCommodity.Unknown;
@@ -752,10 +780,204 @@ namespace TRAP
 
             foreach (trainCommodity commodity in commodityList)
             {
-                if (Commodity3Catagory.SelectedItem.ToString().Equals(commodity.ToString()))
+                if (Commodity3Catagory.SelectedItem != null &&
+                    Commodity3Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
                     return commodity;
             }
             return trainCommodity.Unknown;
+        }
+
+        /// <summary>
+        /// Convert the analysis catagory to the appropriate train operator.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void Operator1Catagory_SelectedValueChanged(object sender, EventArgs e)
+        {
+            /* Set the analysis catagory to train operator. */
+            Settings.analysisCatagory = analysisCatagory.TrainOperator;
+
+            /* Convert operator catagory to train operator. */
+            List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
+
+            foreach (trainOperator Operator in operatorList)
+            {
+                /* Match the string of the analysis catagory to the train operator. */
+                if (Operator1Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                    Settings.catagory1Operator = Operator;
+            }
+
+            catagory1SimualtionLabel.Text = Settings.catagory1Operator.ToString();
+
+            /* Set other anaylsis parameters to default */
+            powerToWeightRatioAnalysis.Checked = false;
+            setDefaultCommodityAnalysisParameters();
+
+        }
+
+        /// <summary>
+        /// Convert the analysis catagory to the appropriate train operator.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void Operator2Catagory_SelectedValueChanged(object sender, EventArgs e)
+        {
+            /* Set the analysis catagory to train operator. */
+            Settings.analysisCatagory = analysisCatagory.TrainOperator;
+
+            /* Convert operator catagory to train operator. */
+            List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
+
+            foreach (trainOperator Operator in operatorList)
+            {
+                /* Match the string of the analysis catagory to the train operator. */
+                if (Operator2Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                    Settings.catagory2Operator = Operator;
+            }
+            catagory2SimualtionLabel.Text = Settings.catagory2Operator.ToString();
+
+            /* Set other anaylsis parameters to default */
+            powerToWeightRatioAnalysis.Checked = false;
+            setDefaultCommodityAnalysisParameters();
+
+        }
+
+        /// <summary>
+        /// Convert the analysis catagory to the appropriate train operator.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void Operator3Catagory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            /* Set the analysis catagory to train operator. */
+            Settings.analysisCatagory = analysisCatagory.TrainOperator;
+
+            /* Convert operator catagory to train operator. */
+            List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
+
+            foreach (trainOperator Operator in operatorList)
+            {
+                /* Match the string of the analysis catagory to the train operator. */
+                if (Operator3Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                    Settings.catagory3Operator = Operator;
+            }
+            catagory3SimualtionLabel.Text = Settings.catagory3Operator.ToString();
+
+            /* Set other anaylsis parameters to default */
+            powerToWeightRatioAnalysis.Checked = false;
+            setDefaultCommodityAnalysisParameters();
+
+        }
+
+        /// <summary>
+        /// Convert the analysis catagory to the appropriate commodity.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void Commodity1Catagory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            /* Set the analysis catagory to train commodity. */
+            Settings.analysisCatagory = analysisCatagory.TrainCommodity;
+
+            /* Convert string to train operator. */
+            List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
+
+            foreach (trainCommodity commodity in commodityList)
+            {
+                /* Match the string of the analysis catagory to the commodity. */
+                if (Commodity1Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                    Settings.catagory1Commodity = commodity;
+            }
+            catagory1SimualtionLabel.Text = Settings.catagory1Commodity.ToString();
+
+            /* Set other anaylsis parameters to default */
+            powerToWeightRatioAnalysis.Checked = false;
+            setDefaultOperatorAnalysisParameters();
+
+        }
+
+        /// <summary>
+        /// Convert the analysis catagory to the appropriate commodity.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void Commodity2Catagory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            /* Set the analysis catagory to train commodity. */
+            Settings.analysisCatagory = analysisCatagory.TrainCommodity;
+
+            /* Convert string to train operator. */
+            List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
+
+            foreach (trainCommodity commodity in commodityList)
+            {
+                /* Match the string of the analysis catagory to the commodity. */
+                if (Commodity2Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                    Settings.catagory2Commodity = commodity;
+            }
+            catagory2SimualtionLabel.Text = Settings.catagory2Commodity.ToString();
+
+            /* Set other anaylsis parameters to default */
+            powerToWeightRatioAnalysis.Checked = false;
+            setDefaultOperatorAnalysisParameters();
+
+        }
+
+        /// <summary>
+        /// Convert the analysis catagory to the appropriate commodity.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void Commodity3Catagory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            /* Set the analysis catagory to train commodity. */
+            Settings.analysisCatagory = analysisCatagory.TrainCommodity;
+
+            /* Convert string to train operator. */
+            List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
+
+            foreach (trainCommodity commodity in commodityList)
+            {
+                /* Match the string of the analysis catagory to the commodity. */
+                if (Commodity3Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                    Settings.catagory3Commodity = commodity;
+            }
+            catagory3SimualtionLabel.Text = Settings.catagory3Commodity.ToString();
+
+            /* Set other anaylsis parameters to default */
+            powerToWeightRatioAnalysis.Checked = false;
+            setDefaultOperatorAnalysisParameters();
+
+        }
+
+        /// <summary>
+        /// Set Default commodity items.
+        /// </summary>
+        private void setDefaultCommodityAnalysisParameters()
+        {
+            Commodity1Catagory.SelectedItem = "";
+            Commodity1Catagory.Text = "";
+
+            Commodity2Catagory.SelectedItem = "";
+            Commodity2Catagory.Text = "";
+
+            Commodity3Catagory.SelectedItem = "";
+            Commodity3Catagory.Text = "";
+        }
+
+        /// <summary>
+        /// Set Default train operator items.
+        /// </summary>
+        private void setDefaultOperatorAnalysisParameters()
+        {
+            Operator1Catagory.SelectedItem = "";
+            Operator1Catagory.Text = "";
+
+            Operator2Catagory.SelectedItem = "";
+            Operator2Catagory.Text = "";
+
+            Operator3Catagory.SelectedItem = "";
+            Operator3Catagory.Text = "";
         }
 
         /// <summary>
@@ -1538,100 +1760,6 @@ namespace TRAP
 
 
         }
-
-        private void Operator1Catagory_SelectedValueChanged(object sender, EventArgs e)
-        {
-            /* Set the analysis catagory to train operator. */
-            Settings.analysisCatagory = analysisCatagory.TrainOperator;
-
-            /* Convert operator catagory to train operator. */
-            List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
-
-            foreach(trainOperator Operator in operatorList)
-            {
-                if (Operator1Catagory.SelectedItem.ToString().Equals(Operator.ToString()))
-                    Settings.catagory1Operator = Operator;
-            }
-
-        }
-
-        private void Operator2Catagory_SelectedValueChanged(object sender, EventArgs e)
-        {
-            /* Set the analysis catagory to train operator. */
-            Settings.analysisCatagory = analysisCatagory.TrainOperator;
-
-            /* Convert operator catagory to train operator. */
-            List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
-
-            foreach (trainOperator Operator in operatorList)
-            {
-                if (Operator2Catagory.SelectedItem.ToString().Equals(Operator.ToString()))
-                    Settings.catagory2Operator = Operator;
-            }
-        }
-
-        private void Operator3Catagory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            /* Set the analysis catagory to train operator. */
-            Settings.analysisCatagory = analysisCatagory.TrainOperator;
-
-            /* Convert operator catagory to train operator. */
-            List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
-
-            foreach (trainOperator Operator in operatorList)
-            {
-                if (Operator3Catagory.SelectedItem.ToString().Equals(Operator.ToString()))
-                    Settings.catagory3Operator = Operator;
-            }
-        }
-
-        private void Commodity1Catagory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            /* Set the analysis catagory to train commodity. */
-            Settings.analysisCatagory = analysisCatagory.TrainCommodity;
-
-            /* Convert string to train operator. */
-            List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
-
-            foreach (trainCommodity commodity in commodityList)
-            {
-                if (Commodity1Catagory.SelectedItem.ToString().Equals(commodity.ToString()))
-                    Settings.catagory1Commodity = commodity;
-            }
-
-        }
-
-        private void Commodity2Catagory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            /* Set the analysis catagory to train commodity. */
-            Settings.analysisCatagory = analysisCatagory.TrainCommodity;
-
-            /* Convert string to train operator. */
-            List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
-
-            foreach (trainCommodity commodity in commodityList)
-            {
-                if (Commodity2Catagory.SelectedItem.ToString().Equals(commodity.ToString()))
-                    Settings.catagory2Commodity = commodity;
-            }
-        }
-
-        private void Commodity3Catagory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            /* Set the analysis catagory to train commodity. */
-            Settings.analysisCatagory = analysisCatagory.TrainCommodity;
-
-            /* Convert string to train operator. */
-            List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
-
-            foreach (trainCommodity commodity in commodityList)
-            {
-                if (Commodity3Catagory.SelectedItem.ToString().Equals(commodity.ToString()))
-                    Settings.catagory3Commodity = commodity;
-            }
-        }
-
-
 
         
     }

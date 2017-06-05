@@ -129,7 +129,6 @@
             this.executionTime = new System.Windows.Forms.Label();
             this.ExecitionTimeLabel = new System.Windows.Forms.Label();
             this.resultsDestination = new System.Windows.Forms.TextBox();
-            this.ResultsDirectoryLabel = new System.Windows.Forms.Label();
             this.resultsDirectory = new System.Windows.Forms.Button();
             this.selectCatagory3DecreasingSimulation = new System.Windows.Forms.Button();
             this.catagory3DecreasingSimulationFile = new System.Windows.Forms.TextBox();
@@ -1131,7 +1130,6 @@
             this.simualtionFileTab.Controls.Add(this.executionTime);
             this.simualtionFileTab.Controls.Add(this.ExecitionTimeLabel);
             this.simualtionFileTab.Controls.Add(this.resultsDestination);
-            this.simualtionFileTab.Controls.Add(this.ResultsDirectoryLabel);
             this.simualtionFileTab.Controls.Add(this.resultsDirectory);
             this.simualtionFileTab.Controls.Add(this.selectCatagory3DecreasingSimulation);
             this.simualtionFileTab.Controls.Add(this.catagory3DecreasingSimulationFile);
@@ -1166,13 +1164,14 @@
             this.powerToWeightRatioAnalysis.TabIndex = 29;
             this.powerToWeightRatioAnalysis.Text = "Power to Weight Ratios";
             this.powerToWeightRatioAnalysis.UseVisualStyleBackColor = true;
+            this.powerToWeightRatioAnalysis.CheckedChanged += new System.EventHandler(this.powerToWeightRatioAnalysis_CheckedChanged);
             // 
             // Commodity3Catagory
             // 
             this.Commodity3Catagory.FormattingEnabled = true;
             this.Commodity3Catagory.Items.AddRange(new object[] {
             "Steel",
-            "Minerals",
+            "Mineral",
             "General Freight",
             "Intermodal",
             "Coal"});
@@ -1204,7 +1203,7 @@
             this.Commodity2Catagory.FormattingEnabled = true;
             this.Commodity2Catagory.Items.AddRange(new object[] {
             "Steel",
-            "Minerals",
+            "Mineral",
             "General Freight",
             "Intermodal",
             "Coal"});
@@ -1236,7 +1235,7 @@
             this.Commodity1Catagory.FormattingEnabled = true;
             this.Commodity1Catagory.Items.AddRange(new object[] {
             "Steel",
-            "Minerals",
+            "Mineral",
             "General Freight",
             "Intermodal",
             "Coal"});
@@ -1321,16 +1320,6 @@
             this.resultsDestination.Size = new System.Drawing.Size(736, 26);
             this.resultsDestination.TabIndex = 17;
             this.resultsDestination.Text = "<Required>";
-            // 
-            // ResultsDirectoryLabel
-            // 
-            this.ResultsDirectoryLabel.AutoSize = true;
-            this.ResultsDirectoryLabel.Location = new System.Drawing.Point(48, 574);
-            this.ResultsDirectoryLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.ResultsDirectoryLabel.Name = "ResultsDirectoryLabel";
-            this.ResultsDirectoryLabel.Size = new System.Drawing.Size(134, 20);
-            this.ResultsDirectoryLabel.TabIndex = 16;
-            this.ResultsDirectoryLabel.Text = "Resutls Directory:";
             // 
             // resultsDirectory
             // 
@@ -1622,7 +1611,6 @@
         private System.Windows.Forms.Label executionTime;
         private System.Windows.Forms.Label ExecitionTimeLabel;
         private System.Windows.Forms.TextBox resultsDestination;
-        private System.Windows.Forms.Label ResultsDirectoryLabel;
         private System.Windows.Forms.Button resultsDirectory;
         private System.Windows.Forms.Label SimulationP2WRatioLabel;
         private System.Windows.Forms.CheckBox UlanLine;

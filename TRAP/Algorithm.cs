@@ -32,13 +32,14 @@ namespace TRAP
     {
         ARTC, Aurizon, CityRail, CountryLink, Freightliner, GreatSouthernRail, Interail, LauchlanValleyRailSociety,
         PacificNational, QUBE, RailCorp, SCT, SouthernShorthaulRail, SydneyRailService, TheRailMotorService, VLinePassenger,
-        Combined, Actual, Underpowered, Overpowered, Simulated, Unknown
+        Combined, Actual, Underpowered, Overpowered, GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal,
+        Passenger, Work, Simulated, Unknown
     };
 
     /// <summary>
     /// A list of available commodities.
     /// </summary>
-    public enum trainCommodity { Freight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, Unknown };
+    public enum trainCommodity { GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, Unknown };
 
     /// <summary>
     /// A Train class to describe each individual train.
@@ -590,7 +591,7 @@ namespace TRAP
             //catagory simCatagory3 = catagory.Unknown;
 
             /*******************************************************************************************/
-            
+
             /* Check conditions to change the catagories */
             //if (Settings.HunterValleyRegion)
             //{
@@ -642,41 +643,41 @@ namespace TRAP
             //}
 
             /*******************************************************************************************/
-            
+
             if (Settings.analysisCatagory == analysisCatagory.TrainPowerToWeight)
             {
                 simCatagories.Add(catagory.Underpowered);
-                simCatagories.Add(catagory.Overpowered);            
+                simCatagories.Add(catagory.Overpowered);
             }
             else if (Settings.analysisCatagory == analysisCatagory.TrainOperator)
             {
-                if (Settings.catagory1Operator != null || Settings.catagory1Operator != trainOperator.Unknown)
+                if (Settings.catagory1Operator != null && Settings.catagory1Operator != trainOperator.Unknown)
                     simCatagories.Add(convertTrainOperatorToCatagory(Settings.catagory1Operator));
 
-                if (Settings.catagory2Operator != null || Settings.catagory2Operator != trainOperator.Unknown)
+                if (Settings.catagory2Operator != null && Settings.catagory2Operator != trainOperator.Unknown)
                     simCatagories.Add(convertTrainOperatorToCatagory(Settings.catagory2Operator));
 
-                if (Settings.catagory3Operator != null || Settings.catagory3Operator != trainOperator.Unknown)
+                if (Settings.catagory3Operator != null && Settings.catagory3Operator != trainOperator.Unknown)
                     simCatagories.Add(convertTrainOperatorToCatagory(Settings.catagory3Operator));
-                
+
             }
             else
             {
                 /* analysisCatagory is commodities. */
-                if (Settings.catagory1Commodity != null || Settings.catagory1Commodity != trainCommodity.Unknown)
+                if (Settings.catagory1Commodity != null && Settings.catagory1Commodity != trainCommodity.Unknown)
                     simCatagories.Add(convertCommodityToCatagory(Settings.catagory1Commodity));
-                
-                if (Settings.catagory2Commodity != null || Settings.catagory2Commodity != trainCommodity.Unknown)
+
+                if (Settings.catagory2Commodity != null && Settings.catagory2Commodity != trainCommodity.Unknown)
                     simCatagories.Add(convertCommodityToCatagory(Settings.catagory2Commodity));
-                
-                if (Settings.catagory3Commodity != null || Settings.catagory3Commodity != trainCommodity.Unknown)
+
+                if (Settings.catagory3Commodity != null && Settings.catagory3Commodity != trainCommodity.Unknown)
                     simCatagories.Add(convertCommodityToCatagory(Settings.catagory3Commodity));
 
             }
 
 
 
-               
+
 
 
             List<Train> simulatedTrains = new List<Train>();
@@ -843,7 +844,7 @@ namespace TRAP
             for (int index = 0; index < simCatagories.Count(); index++)
             {
                 /*******************************************************************************************/
-            
+
                 //if (Settings.HunterValleyRegion)
                 //{
                 //    trainOperator operatorCatagory = convertCatagoryToTrainOperator(simCatagories[index]);
@@ -863,9 +864,9 @@ namespace TRAP
                 //    stats.Add(Statistics.generateStats(increasingTrainCatagory));
                 //    stats.Add(Statistics.generateStats(decreasingTrainCatagory));
                 //}
-            
+
                 /*******************************************************************************************/
-            
+
 
                 if (Settings.analysisCatagory == analysisCatagory.TrainPowerToWeight)
                 {
@@ -874,6 +875,15 @@ namespace TRAP
 
                     stats.Add(Statistics.generateStats(increasingTrainCatagory));
                     stats.Add(Statistics.generateStats(decreasingTrainCatagory));
+
+                    if (increasingTrainCatagory.Count() == 0 || decreasingTrainCatagory.Count() == 0)
+                    {
+                        stats[stats.Count() - 1].catagory = simCatagories[index].ToString() + " " + direction.DecreasingKm.ToString();
+                        stats[stats.Count() - 2].catagory = simCatagories[index].ToString() + " " + direction.IncreasingKm.ToString();
+                    }
+
+
+
                 }
                 else if (Settings.analysisCatagory == analysisCatagory.TrainOperator)
                 {
@@ -882,8 +892,16 @@ namespace TRAP
                     increasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                     decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
 
+
                     stats.Add(Statistics.generateStats(increasingTrainCatagory));
                     stats.Add(Statistics.generateStats(decreasingTrainCatagory));
+
+                    if (increasingTrainCatagory.Count() == 0 || decreasingTrainCatagory.Count() == 0)
+                    {
+                        stats[stats.Count() - 1].catagory = simCatagories[index].ToString() + " " + direction.DecreasingKm.ToString();
+                        stats[stats.Count() - 2].catagory = simCatagories[index].ToString() + " " + direction.IncreasingKm.ToString();
+                    }
+
                 }
                 else
                 {
@@ -894,11 +912,32 @@ namespace TRAP
 
                     stats.Add(Statistics.generateStats(increasingTrainCatagory));
                     stats.Add(Statistics.generateStats(decreasingTrainCatagory));
-                }
-                
-                averageTrains.Add(processing.averageTrain(increasingTrainCatagory, interpolatedSimulations[index * 2].journey, trackGeometry));
-                averageTrains.Add(processing.averageTrain(decreasingTrainCatagory, interpolatedSimulations[index * 2 + 1].journey, trackGeometry));
 
+                    if (increasingTrainCatagory.Count() == 0 || decreasingTrainCatagory.Count() == 0)
+                    {
+                        stats[stats.Count() - 1].catagory = simCatagories[index].ToString() + " " + direction.DecreasingKm.ToString();
+                        stats[stats.Count() - 2].catagory = simCatagories[index].ToString() + " " + direction.IncreasingKm.ToString();
+                    }
+
+                }
+
+                if (increasingTrainCatagory.Count() > 0)
+                {
+                    averageTrains.Add(processing.averageTrain(increasingTrainCatagory, interpolatedSimulations[index * 2].journey, trackGeometry));
+                }
+                else
+                {
+                    averageTrains.Add(createZeroedAverageTrain(simCatagories[index], direction.IncreasingKm));
+                }
+
+                if (decreasingTrainCatagory.Count() > 0)
+                {
+                    averageTrains.Add(processing.averageTrain(decreasingTrainCatagory, interpolatedSimulations[index * 2 + 1].journey, trackGeometry));
+                }
+                else
+                {
+                    averageTrains.Add(createZeroedAverageTrain(simCatagories[index], direction.DecreasingKm));
+                }
             }
 
             /* Add the weighted average trains to the list. */
@@ -907,7 +946,7 @@ namespace TRAP
 
 
             /*******************************************************************************************/
-            
+
             //if (Settings.HunterValleyRegion)
             //{
             //    /* Will be an operator; can be 2 or 3 different operators */
@@ -960,8 +999,17 @@ namespace TRAP
 
                 setOperatorToCombined(increasingCombined);
                 setOperatorToCombined(decreasingCombined);
+
                 stats.Add(Statistics.generateStats(increasingCombined));
                 stats.Add(Statistics.generateStats(decreasingCombined));
+
+                if (increasingCombined.Count() == 0 || decreasingCombined.Count() == 0)
+                {
+                    stats[stats.Count() - 1].catagory = "Combined " + direction.DecreasingKm.ToString();
+                    stats[stats.Count() - 2].catagory = "Combined " + direction.IncreasingKm.ToString();                     
+                }
+
+
             }
             else if (Settings.analysisCatagory == analysisCatagory.TrainOperator)
             {
@@ -974,6 +1022,14 @@ namespace TRAP
 
                 stats.Add(Statistics.generateStats(increasingCombined));
                 stats.Add(Statistics.generateStats(decreasingCombined));
+
+                if (increasingCombined.Count() == 0 || decreasingCombined.Count() == 0)
+                {
+                    stats[stats.Count() - 1].catagory = "Combined " + direction.DecreasingKm.ToString();
+                    stats[stats.Count() - 2].catagory = "Combined " + direction.IncreasingKm.ToString();
+                }
+
+
             }
             else
             {
@@ -994,9 +1050,18 @@ namespace TRAP
 
                 setOperatorToCombined(increasingCombined);
                 setOperatorToCombined(decreasingCombined);
+
                 stats.Add(Statistics.generateStats(increasingCombined));
                 stats.Add(Statistics.generateStats(decreasingCombined));
-            
+
+                if (increasingCombined.Count() == 0 || decreasingCombined.Count() == 0)
+                {
+                    stats[stats.Count() - 1].catagory = "Combined " + direction.DecreasingKm.ToString();
+                    stats[stats.Count() - 2].catagory = "Combined " + direction.IncreasingKm.ToString();
+                }
+
+
+
             }
 
 
@@ -1247,7 +1312,7 @@ namespace TRAP
 
             return cleanTrainList;
 
-        } 
+        }
 
         //public static List<Train> MakeTrains(List<TrainRecord> record, List<TrackGeometry> trackGeometry)
         //{
@@ -1352,6 +1417,31 @@ namespace TRAP
             }
         }
 
+        private static AverageTrain createZeroedAverageTrain(catagory trainCatagory, direction direction)
+        {
+            //AverageTrain train = new AverageTrain();
+
+            /* Determine the number of points in the average train journey. */
+            int size = (int)((Settings.endKm - Settings.startKm) / (Settings.interval / 1000));
+
+            int trainCount = 0;
+            List<double> kilometreage = new List<double>(size);
+            List<double> elevation = new List<double>(size);
+            List<double> averageSpeed = new List<double>(size);
+            List<bool> isInLoopBoundary = new List<bool>(size);
+            List<bool> isInTSRboundary = new List<bool>(size);
+
+            for (int index = 0; index < size; index++)
+            {
+                kilometreage.Add(Settings.startKm + Settings.interval / 1000 * index);
+                elevation.Add(0);
+                averageSpeed.Add(0);
+                isInLoopBoundary.Add(false);
+                isInTSRboundary.Add(false);
+            }
+
+            return new AverageTrain(trainCatagory, direction, trainCount, kilometreage, elevation, averageSpeed, isInLoopBoundary, isInTSRboundary);
+        }
 
     } // Class Algorithm
 }
