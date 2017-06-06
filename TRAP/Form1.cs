@@ -253,8 +253,7 @@ namespace TRAP
             /* Set the simulation file parameters and insert into the list at the correct index. */
             setSimulationFile(catagory3DecreasingSimulationFile, 5);
         }
-
-        
+                
         /// <summary>
         /// Helper function to set the simulation file parameters and add the simulation file into the list in the correct index.
         /// </summary>
@@ -278,7 +277,8 @@ namespace TRAP
 
             /* Select the simulation file using the browser and insert into the simulation file list. */
             filename = tool.browseFile(browseFile);
-            FileSettings.simulationFiles.Insert(index, filename);
+            //FileSettings.simulationFiles.Insert(index, filename);
+            FileSettings.simulationFiles[index] = filename;
             simulationFile.Text = Path.GetFileName(filename);
             simulationFile.ForeColor = System.Drawing.Color.Black;
         }
@@ -290,22 +290,30 @@ namespace TRAP
         /// <returns>A string identifying the simualtion catagory.</returns>
         private string getSimulationCatagory(int index)
         {
-            /* This will need to be modified with the new features for operator and commodity. */
 
-            /* Hunter Valley region requires the operators to be identified. */
-            //if (getHunterValleyRegion())
-            if (getPowerToWeightRatioAnalysis())
+            if (Operator1Catagory.Text != "" || Operator2Catagory.Text != "" || Operator3Catagory.Text != "")
             {
+                /* Return the appropriate operator. */
                 if (index < 2)
-                    return "Pacific National";
+                    return Operator1Catagory.SelectedItem.ToString();
                 else if (index < 4)
-                    return "Aurizon";
+                    return Operator2Catagory.SelectedItem.ToString();
                 else
-                    return "Freightliner";
+                    return Operator3Catagory.SelectedItem.ToString();
+            }
+            else if (Commodity1Catagory.Text != "" || Commodity2Catagory.Text != "" || Commodity3Catagory.Text != "")
+            {
+                /* Return the appropriate Commodity. */
+                if (index < 2)
+                    return Commodity1Catagory.SelectedItem.ToString();
+                else if (index < 4)
+                    return Commodity2Catagory.SelectedItem.ToString();
+                else
+                    return Commodity3Catagory.SelectedItem.ToString();
             }
             else
             {
-                /* Standard interstate network catagories. */
+                /* Return the appropriate power to weight catagory. */
                 if (index < 2)
                     return "Underpowered";
                 else if (index < 4)
@@ -313,6 +321,7 @@ namespace TRAP
                 else
                     return "Alternative";
             }
+
         }
 
         /// <summary>
@@ -680,7 +689,8 @@ namespace TRAP
         /// </summary>
         /// <returns>The train operator describing the first analysis catagory.</returns>
         public trainOperator getOperator1Catagory()
-        {            
+        {
+            //catagory1SimualtionLabel.Text = Operator1Catagory.SelectedItem.ToString();
             /* Convert operator catagory to train operator. */
             List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
 

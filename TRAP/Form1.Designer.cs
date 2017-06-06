@@ -1174,7 +1174,8 @@
             "Mineral",
             "General Freight",
             "Intermodal",
-            "Coal"});
+            "Coal",
+            "Group Remaining"});
             this.Commodity3Catagory.Location = new System.Drawing.Point(1331, 412);
             this.Commodity3Catagory.Name = "Commodity3Catagory";
             this.Commodity3Catagory.Size = new System.Drawing.Size(176, 28);
@@ -1206,7 +1207,8 @@
             "Mineral",
             "General Freight",
             "Intermodal",
-            "Coal"});
+            "Coal",
+            "Group Remaining"});
             this.Commodity2Catagory.Location = new System.Drawing.Point(1331, 262);
             this.Commodity2Catagory.Name = "Commodity2Catagory";
             this.Commodity2Catagory.Size = new System.Drawing.Size(176, 28);
@@ -1238,7 +1240,8 @@
             "Mineral",
             "General Freight",
             "Intermodal",
-            "Coal"});
+            "Coal",
+            "Group Remaining"});
             this.Commodity1Catagory.Location = new System.Drawing.Point(1331, 106);
             this.Commodity1Catagory.Name = "Commodity1Catagory";
             this.Commodity1Catagory.Size = new System.Drawing.Size(176, 28);

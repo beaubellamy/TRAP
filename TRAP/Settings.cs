@@ -17,7 +17,7 @@ namespace Globalsettings
         public static string geometryFile = null;
         public static string temporarySpeedRestrictionFile = null;
         public static string trainListFile = null;                  /* File only required if includeAListOfTrainsToExclude is TRUE. */
-        public static List<string> simulationFiles = new List<string>();
+        public static List<string> simulationFiles = new List<string>(new string[6]);
 
         //public static string underpoweredIncreasingSimulationFile = null;       // simcatagory1
         //public static string underpoweredDecreasingSimulationFile = null;     // simcatagory1

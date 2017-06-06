@@ -39,7 +39,7 @@ namespace TRAP
     /// <summary>
     /// A list of available commodities.
     /// </summary>
-    public enum trainCommodity { GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, Unknown };
+    public enum trainCommodity { GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, GroupRemaining, Unknown };
 
     /// <summary>
     /// A Train class to describe each individual train.
@@ -906,9 +906,28 @@ namespace TRAP
                 else
                 {
                     trainCommodity commodity = convertCatagoryToCommodity(simCatagories[index]);
-                    /* will be an operator; can be 2 or 3 different operators */
-                    increasingTrainCatagory = interpolatedTrains.Where(t => t.commodity == commodity).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
-                    decreasingTrainCatagory = interpolatedTrains.Where(t => t.commodity == commodity).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                    
+                    /* Create a list for each commodity for each direction */
+                    if (commodity != trainCommodity.GroupRemaining)
+                    {
+                        increasingTrainCatagory = interpolatedTrains.Where(t => t.commodity == commodity).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        decreasingTrainCatagory = interpolatedTrains.Where(t => t.commodity == commodity).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                    }
+                    else 
+                    {
+                        increasingTrainCatagory = interpolatedTrains.Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                        for (int groupIdx = 0; groupIdx < simCatagories.Count(); groupIdx++)
+                        {
+                            if (groupIdx != index)
+                            {
+                                commodity = convertCatagoryToCommodity(simCatagories[groupIdx]);
+                                increasingTrainCatagory = increasingTrainCatagory.Where(t => t.commodity != commodity).ToList();
+                                decreasingTrainCatagory = decreasingTrainCatagory.Where(t => t.commodity != commodity).ToList();
+                            }    
+                        }                       
+                    }
 
                     stats.Add(Statistics.generateStats(increasingTrainCatagory));
                     stats.Add(Statistics.generateStats(decreasingTrainCatagory));
