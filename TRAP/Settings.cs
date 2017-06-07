@@ -58,7 +58,7 @@ namespace Globalsettings
         //public static double combinedLowerBound;            /* The lower bound cuttoff for the combined trains. */
         //public static double combinedUpperBound;            /* The upper bound cuttoff for the combined trains. */
         
-        public static bool HunterValleyRegion;
+        //public static bool HunterValleyRegion;
 
         public static analysisCatagory analysisCatagory;
         public static trainOperator catagory1Operator = trainOperator.Unknown;

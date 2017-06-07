@@ -27,13 +27,14 @@ namespace TRAP
 
     /// <summary>
     /// A list of analysis catagories, comprising of train operators, power to weight ratios.
+    /// {TrainOperator List, TrainCommodity, power to weight catagories}
     /// </summary>
     public enum catagory
     {
         ARTC, Aurizon, CityRail, CountryLink, Freightliner, GreatSouthernRail, Interail, LauchlanValleyRailSociety,
         PacificNational, QUBE, RailCorp, SCT, SouthernShorthaulRail, SydneyRailService, TheRailMotorService, VLinePassenger,
-        Combined, Actual, Underpowered, Overpowered, GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal,
-        Passenger, Work, Simulated, Unknown
+        Combined, Actual, GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, GroupRemaining, 
+        Underpowered, Overpowered, Alternative, Simulated, Unknown
     };
 
     /// <summary>
@@ -651,26 +652,26 @@ namespace TRAP
             }
             else if (Settings.analysisCatagory == analysisCatagory.TrainOperator)
             {
-                if (Settings.catagory1Operator != null && Settings.catagory1Operator != trainOperator.Unknown)
+                if (Settings.catagory1Operator != trainOperator.Unknown)
                     simCatagories.Add(convertTrainOperatorToCatagory(Settings.catagory1Operator));
 
-                if (Settings.catagory2Operator != null && Settings.catagory2Operator != trainOperator.Unknown)
+                if (Settings.catagory2Operator != trainOperator.Unknown)
                     simCatagories.Add(convertTrainOperatorToCatagory(Settings.catagory2Operator));
 
-                if (Settings.catagory3Operator != null && Settings.catagory3Operator != trainOperator.Unknown)
+                if (Settings.catagory3Operator != trainOperator.Unknown)
                     simCatagories.Add(convertTrainOperatorToCatagory(Settings.catagory3Operator));
 
             }
             else
             {
                 /* analysisCatagory is commodities. */
-                if (Settings.catagory1Commodity != null && Settings.catagory1Commodity != trainCommodity.Unknown)
+                if (Settings.catagory1Commodity != trainCommodity.Unknown)
                     simCatagories.Add(convertCommodityToCatagory(Settings.catagory1Commodity));
 
-                if (Settings.catagory2Commodity != null && Settings.catagory2Commodity != trainCommodity.Unknown)
+                if (Settings.catagory2Commodity != trainCommodity.Unknown)
                     simCatagories.Add(convertCommodityToCatagory(Settings.catagory2Commodity));
 
-                if (Settings.catagory3Commodity != null && Settings.catagory3Commodity != trainCommodity.Unknown)
+                if (Settings.catagory3Commodity != trainCommodity.Unknown)
                     simCatagories.Add(convertCommodityToCatagory(Settings.catagory3Commodity));
 
             }
@@ -891,8 +892,7 @@ namespace TRAP
                     /* will be an operator; can be 2 or 3 different operators */
                     increasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                     decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
-
-
+                    
                     stats.Add(Statistics.generateStats(increasingTrainCatagory));
                     stats.Add(Statistics.generateStats(decreasingTrainCatagory));
 
@@ -926,8 +926,12 @@ namespace TRAP
                                 increasingTrainCatagory = increasingTrainCatagory.Where(t => t.commodity != commodity).ToList();
                                 decreasingTrainCatagory = decreasingTrainCatagory.Where(t => t.commodity != commodity).ToList();
                             }    
-                        }                       
+                        }
+                        /* Reset the operator to group for the analysis */
+                        setOperatorToGrouped(increasingTrainCatagory);
+                        setOperatorToGrouped(decreasingTrainCatagory);
                     }
+                    
 
                     stats.Add(Statistics.generateStats(increasingTrainCatagory));
                     stats.Add(Statistics.generateStats(decreasingTrainCatagory));
@@ -1059,14 +1063,21 @@ namespace TRAP
                 /* Can only be 2 catagories; underpowered and overpowered;
                  * Add each catagory to the final lists.
                  */
-                foreach (catagory simCatagory in simCatagories)
+                if (simCatagories.Contains(catagory.GroupRemaining))
                 {
-                    increasingSubList = interpolatedTrains.Where(t => t.commodity == convertCatagoryToCommodity(simCatagory)).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
-                    increasingCombined.AddRange(increasingSubList);
-                    decreasingSubList = interpolatedTrains.Where(t => t.commodity == convertCatagoryToCommodity(simCatagory)).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
-                    decreasingCombined.AddRange(decreasingSubList);
+                    increasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                    decreasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.DecreasingKm).ToList();
                 }
-
+                else
+                {
+                    foreach (catagory simCatagory in simCatagories)
+                    {
+                        increasingSubList = interpolatedTrains.Where(t => t.commodity == convertCatagoryToCommodity(simCatagory)).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        increasingCombined.AddRange(increasingSubList);
+                        decreasingSubList = interpolatedTrains.Where(t => t.commodity == convertCatagoryToCommodity(simCatagory)).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                        decreasingCombined.AddRange(decreasingSubList);
+                    }
+                }
                 setOperatorToCombined(increasingCombined);
                 setOperatorToCombined(decreasingCombined);
 
@@ -1433,6 +1444,18 @@ namespace TRAP
             foreach (Train train in combined)
             {
                 train.catagory = catagory.Combined;
+            }
+        }
+
+        /// <summary>
+        /// Set the Train operator to the group remaining catagories for full aggregation.
+        /// </summary>
+        /// <param name="combined">The list of trains to convert the operator to grouped.</param>
+        private static void setOperatorToGrouped(List<Train> trains)
+        {
+            foreach (Train train in trains)
+            {
+                train.catagory = catagory.GroupRemaining;
             }
         }
 

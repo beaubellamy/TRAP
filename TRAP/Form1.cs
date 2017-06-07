@@ -291,7 +291,8 @@ namespace TRAP
         private string getSimulationCatagory(int index)
         {
 
-            if (Operator1Catagory.Text != "" || Operator2Catagory.Text != "" || Operator3Catagory.Text != "")
+            if ((Operator1Catagory.SelectedItem != null || Operator2Catagory.SelectedItem != null || Operator3Catagory.SelectedItem != null) &&
+                (Operator1Catagory.Text != "" || Operator2Catagory.Text != "" || Operator3Catagory.Text != ""))
             {
                 /* Return the appropriate operator. */
                 if (index < 2)
@@ -301,7 +302,8 @@ namespace TRAP
                 else
                     return Operator3Catagory.SelectedItem.ToString();
             }
-            else if (Commodity1Catagory.Text != "" || Commodity2Catagory.Text != "" || Commodity3Catagory.Text != "")
+            else if ((Commodity1Catagory.SelectedItem != null || Commodity2Catagory.SelectedItem != null || Commodity3Catagory.SelectedItem != null) &&
+                (Commodity1Catagory.Text != "" || Commodity2Catagory.Text != "" || Commodity3Catagory.Text != ""))
             {
                 /* Return the appropriate Commodity. */
                 if (index < 2)
@@ -636,7 +638,7 @@ namespace TRAP
         /// Extract the value of the HunterValleyRegion flag.
         /// </summary>
         /// <returns>The value of the boolean flag.</returns>
-        public bool getHunterValleyRegion() { return HunterValley.Checked; }
+        //public bool getHunterValleyRegion() { return HunterValley.Checked; }
 
         /// <summary>
         /// Extract the value of the powerToWeightRatioAnalysis flag.
@@ -813,7 +815,8 @@ namespace TRAP
             foreach (trainOperator Operator in operatorList)
             {
                 /* Match the string of the analysis catagory to the train operator. */
-                if (Operator1Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                //if (Operator1Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                if (Operator1Catagory.Text.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
                     Settings.catagory1Operator = Operator;
             }
 
@@ -841,8 +844,9 @@ namespace TRAP
             foreach (trainOperator Operator in operatorList)
             {
                 /* Match the string of the analysis catagory to the train operator. */
-                if (Operator2Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
-                    Settings.catagory2Operator = Operator;
+                //if (Operator2Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                if (Operator2Catagory.Text.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                        Settings.catagory2Operator = Operator;
             }
             catagory2SimualtionLabel.Text = Settings.catagory2Operator.ToString();
 
@@ -868,7 +872,8 @@ namespace TRAP
             foreach (trainOperator Operator in operatorList)
             {
                 /* Match the string of the analysis catagory to the train operator. */
-                if (Operator3Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                //if (Operator3Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                if (Operator3Catagory.Text.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
                     Settings.catagory3Operator = Operator;
             }
             catagory3SimualtionLabel.Text = Settings.catagory3Operator.ToString();
@@ -895,7 +900,8 @@ namespace TRAP
             foreach (trainCommodity commodity in commodityList)
             {
                 /* Match the string of the analysis catagory to the commodity. */
-                if (Commodity1Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                //if (Commodity1Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                if (Commodity1Catagory.Text.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
                     Settings.catagory1Commodity = commodity;
             }
             catagory1SimualtionLabel.Text = Settings.catagory1Commodity.ToString();
@@ -922,7 +928,8 @@ namespace TRAP
             foreach (trainCommodity commodity in commodityList)
             {
                 /* Match the string of the analysis catagory to the commodity. */
-                if (Commodity2Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                //if (Commodity2Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                if (Commodity2Catagory.Text.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
                     Settings.catagory2Commodity = commodity;
             }
             catagory2SimualtionLabel.Text = Settings.catagory2Commodity.ToString();
@@ -949,7 +956,8 @@ namespace TRAP
             foreach (trainCommodity commodity in commodityList)
             {
                 /* Match the string of the analysis catagory to the commodity. */
-                if (Commodity3Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                //if (Commodity3Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                if (Commodity3Catagory.Text.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
                     Settings.catagory3Commodity = commodity;
             }
             catagory3SimualtionLabel.Text = Settings.catagory3Commodity.ToString();
@@ -990,41 +998,41 @@ namespace TRAP
             Operator3Catagory.Text = "";
         }
 
-        /// <summary>
-        /// Modify the simulation parameter labels based on the region under analysis.
-        /// </summary>
-        /// <param name="sender">The object container.</param>
-        /// <param name="e">The event arguments.</param>
-        private void HunterValley_CheckedChanged(object sender, EventArgs e)
-        {
-            if (HunterValley.Checked)
-            {
-                /* Set the train operators for the Hunter Valley region. */
-                catagory1SimualtionLabel.Text = "Pacific National";
-                catagory1Label.Text = "Pacific National:";
-                simCatagory1Label.Text = "Pacific National:";
+        ///// <summary>
+        ///// Modify the simulation parameter labels based on the region under analysis.
+        ///// </summary>
+        ///// <param name="sender">The object container.</param>
+        ///// <param name="e">The event arguments.</param>
+        //private void HunterValley_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (HunterValley.Checked)
+        //    {
+        //        /* Set the train operators for the Hunter Valley region. */
+        //        catagory1SimualtionLabel.Text = "Pacific National";
+        //        catagory1Label.Text = "Pacific National:";
+        //        simCatagory1Label.Text = "Pacific National:";
 
-                catagory2SimualtionLabel.Text = "Aurizon";
-                catagory2Label.Text = "Aurizon:";
-                simCatagory2Label.Text = "Aurizon:";
+        //        catagory2SimualtionLabel.Text = "Aurizon";
+        //        catagory2Label.Text = "Aurizon:";
+        //        simCatagory2Label.Text = "Aurizon:";
 
-                catagory3SimualtionLabel.Text = "Freightliner";
+        //        catagory3SimualtionLabel.Text = "Freightliner";
 
-            }
-            else
-            {
-                /* Set the simulation catagories for the interstate network. */
-                catagory1SimualtionLabel.Text = "Underpowered";
-                catagory1Label.Text = "Underpowered:";
-                simCatagory1Label.Text = "Underpowered:";
+        //    }
+        //    else
+        //    {
+        //        /* Set the simulation catagories for the interstate network. */
+        //        catagory1SimualtionLabel.Text = "Underpowered";
+        //        catagory1Label.Text = "Underpowered:";
+        //        simCatagory1Label.Text = "Underpowered:";
 
-                catagory2SimualtionLabel.Text = "Overpowered";
-                catagory2Label.Text = "Overpowered:";
-                simCatagory2Label.Text = "Overpowered:";
+        //        catagory2SimualtionLabel.Text = "Overpowered";
+        //        catagory2Label.Text = "Overpowered:";
+        //        simCatagory2Label.Text = "Overpowered:";
 
-                catagory3SimualtionLabel.Text = "Alternative";
-            }
-        }
+        //        catagory3SimualtionLabel.Text = "Alternative";
+        //    }
+        //}
 
         /// <summary>
         /// This function sets all the testing parameters for the Cullerin Ranges data
@@ -1053,19 +1061,19 @@ namespace TRAP
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
             /* Simulation files */
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Increasing 3.31_ThuW1.csv");
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Increasing 3.31_ThuW1.csv";
             catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
             catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Decreasing 3.33_TueW1.csv");
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Decreasing 3.33_TueW1.csv";
             catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
             catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Increasing 4.8_FriW1.csv");
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Increasing 4.8_FriW1.csv";
             catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
             catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Decreasing 4.68_WedW1.csv");
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Decreasing 4.68_WedW1.csv";
             catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
             catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
@@ -1110,16 +1118,16 @@ namespace TRAP
             catagory2LowerBound.Text = "4";
             catagory2UpperBound.Text = "6";
 
-            HunterValley.Checked = false;   // not required with new features.
+            //HunterValley.Checked = false;   // not required with new features.
 
             /* New features */
             powerToWeightRatioAnalysis.Checked = true;
 
             Settings.analysisCatagory = analysisCatagory.TrainPowerToWeight;
 
-            Operator1Catagory.Text = "Underpowered";
-            Settings.catagory1Operator = trainOperator.Unknown;            
-            Operator2Catagory.Text = "Overpowered";
+            Operator1Catagory.SelectedItem = "Underpowered";
+            Settings.catagory1Operator = trainOperator.Unknown;
+            Operator2Catagory.SelectedItem = "Overpowered";
             Settings.catagory2Operator = trainOperator.Unknown;
             Operator3Catagory.SelectedItem = null;
             Settings.catagory3Operator = trainOperator.Unknown;
@@ -1131,7 +1139,7 @@ namespace TRAP
             Commodity3Catagory.SelectedItem = null;
             Settings.catagory3Commodity = trainCommodity.Unknown;
 
-            
+
             
 
 
@@ -1164,27 +1172,27 @@ namespace TRAP
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
             /* Simulation files */
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Increasing.csv");
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Increasing.csv";
             catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
             catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Decreasing.csv");
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Decreasing.csv";
             catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
             catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Aurizon-Increasing-60.csv");
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Aurizon-Increasing-60.csv";
             catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
             catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Aurizon-Decreasing.csv");
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Aurizon-Decreasing.csv";
             catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
             catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            //FileSettings.simulationFiles.Add();
+            //FileSettings.simulationFiles[4] = "";
             //catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
             //catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            //FileSettings.simulationFiles.Add();
+            //FileSettings.simulationFiles[5] = "";
             //catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
             //catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
@@ -1221,15 +1229,15 @@ namespace TRAP
             catagory2LowerBound.Text = "100";
             catagory2UpperBound.Text = "200";
 
-            HunterValley.Checked = true;
+            //HunterValley.Checked = true;
             /* New features */
             powerToWeightRatioAnalysis.Checked = false;
 
             Settings.analysisCatagory = analysisCatagory.TrainOperator;
 
-            Operator1Catagory.Text = "Pacific National";
+            Operator1Catagory.SelectedItem = "Pacific National";
             Settings.catagory1Operator = trainOperator.PacificNational;
-            Operator2Catagory.Text = "Aurizon";
+            Operator2Catagory.SelectedItem = "Aurizon";
             Settings.catagory2Operator = trainOperator.Aurizon;
             Operator3Catagory.SelectedItem = null;
             Settings.catagory3Operator = trainOperator.Unknown;
@@ -1270,27 +1278,27 @@ namespace TRAP
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
             /* Simulation files */
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Botany to Macarthur - increasing - 3.33_ThuW1.csv");
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Botany to Macarthur - increasing - 3.33_ThuW1.csv";
             catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
             catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany - decreasing - 3.20_SatW1.csv");
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany - decreasing - 3.20_SatW1.csv";
             catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
             catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Botany to Macarthur - increasing - 7.87_ThuW1.csv");
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Botany to Macarthur - increasing - 7.87_ThuW1.csv";
             catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
             catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany - decreasing - 6.97_SatW1.csv");
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany - decreasing - 6.97_SatW1.csv";
             catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
             catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            //FileSettings.simulationFiles.Add();
+            //FileSettings.simulationFiles[4] = "";
             //catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
             //catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            //FileSettings.simulationFiles.Add();
+            //FileSettings.simulationFiles[5] = "";
             //catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
             //catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
@@ -1327,8 +1335,24 @@ namespace TRAP
             catagory2LowerBound.Text = "4.5";
             catagory2UpperBound.Text = "11.5";
 
-            HunterValley.Checked = false;
+            //HunterValley.Checked = false;
+            powerToWeightRatioAnalysis.Checked = true;
 
+            Settings.analysisCatagory = analysisCatagory.TrainPowerToWeight;
+
+            Operator1Catagory.SelectedItem = null;
+            Settings.catagory1Operator = trainOperator.Unknown;
+            Operator2Catagory.SelectedItem = null;
+            Settings.catagory2Operator = trainOperator.Unknown;
+            Operator3Catagory.SelectedItem = null;
+            Settings.catagory3Operator = trainOperator.Unknown;
+
+            Commodity1Catagory.SelectedItem = null;
+            Settings.catagory1Commodity = trainCommodity.Unknown;
+            Commodity2Catagory.SelectedItem = null;
+            Settings.catagory2Commodity = trainCommodity.Unknown;
+            Commodity3Catagory.SelectedItem = null;
+            Settings.catagory3Commodity = trainCommodity.Unknown;
         }
 
         /// <summary>
@@ -1359,27 +1383,27 @@ namespace TRAP
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
             /* Simulation files */
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Increasing sim 3.5.csv");
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Increasing sim 3.5.csv";
             catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
             catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\decreasing sim 3.5.csv");
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\decreasing sim 3.5.csv";
             catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
             catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Increasing sim 4.6.csv");
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Increasing sim 4.6.csv";
             catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
             catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\decreasing sim 4.6.csv");
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\decreasing sim 4.6.csv";
             catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
             catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            //FileSettings.simulationFiles.Add();
+            //FileSettings.simulationFiles[4] = "";
             //catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
             //catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            //FileSettings.simulationFiles.Add();
+            //FileSettings.simulationFiles[5] = "";
             //catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
             //catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
@@ -1416,8 +1440,24 @@ namespace TRAP
             catagory2LowerBound.Text = "4";
             catagory2UpperBound.Text = "5.5";
 
-            HunterValley.Checked = false;
+            //HunterValley.Checked = false;
+            powerToWeightRatioAnalysis.Checked = true;
 
+            Settings.analysisCatagory = analysisCatagory.TrainPowerToWeight;
+
+            Operator1Catagory.SelectedItem = null;
+            Settings.catagory1Operator = trainOperator.Unknown;
+            Operator2Catagory.SelectedItem = null;
+            Settings.catagory2Operator = trainOperator.Unknown;
+            Operator3Catagory.SelectedItem = null;
+            Settings.catagory3Operator = trainOperator.Unknown;
+
+            Commodity1Catagory.SelectedItem = null;
+            Settings.catagory1Commodity = trainCommodity.Unknown;
+            Commodity2Catagory.SelectedItem = null;
+            Settings.catagory2Commodity = trainCommodity.Unknown;
+            Commodity3Catagory.SelectedItem = null;
+            Settings.catagory3Commodity = trainCommodity.Unknown;
         }
 
         /// <summary>
@@ -1448,27 +1488,27 @@ namespace TRAP
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
             /* Simulation files */
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 2.2_ThuW1.csv");
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 2.2_ThuW1.csv";
             catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
             catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 2.6_SunW1.csv");
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 2.6_SunW1.csv";
             catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
             catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 3.4_FriW1.csv");
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 3.4_FriW1.csv";
             catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
             catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 3.5_MonW1.csv");
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 3.5_MonW1.csv";
             catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
             catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            //FileSettings.simulationFiles.Add();
+            //FileSettings.simulationFiles[4] = "";
             //catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
             //catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            //FileSettings.simulationFiles.Add();
+            //FileSettings.simulationFiles[5] = "";
             //catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
             //catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
@@ -1505,8 +1545,24 @@ namespace TRAP
             catagory2LowerBound.Text = "3";
             catagory2UpperBound.Text = "4";
 
-            HunterValley.Checked = false;
+            //HunterValley.Checked = false;
+            powerToWeightRatioAnalysis.Checked = true;
 
+            Settings.analysisCatagory = analysisCatagory.TrainPowerToWeight;
+
+            Operator1Catagory.SelectedItem = null;
+            Settings.catagory1Operator = trainOperator.Unknown;
+            Operator2Catagory.SelectedItem = null;
+            Settings.catagory2Operator = trainOperator.Unknown;
+            Operator3Catagory.SelectedItem = null;
+            Settings.catagory3Operator = trainOperator.Unknown;
+
+            Commodity1Catagory.SelectedItem = null;
+            Settings.catagory1Commodity = trainCommodity.Unknown;
+            Commodity2Catagory.SelectedItem = null;
+            Settings.catagory2Commodity = trainCommodity.Unknown;
+            Commodity3Catagory.SelectedItem = null;
+            Settings.catagory3Commodity = trainCommodity.Unknown;
         }
 
         /// <summary>
@@ -1536,27 +1592,27 @@ namespace TRAP
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
             /* Simulation files */
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Pacific National - Increasing.csv");
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Pacific National - Increasing.csv";
             catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
             catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Pacific National - Decreasing.csv");
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Pacific National - Decreasing.csv";
             catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
             catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Aurizon - Increasing.csv");
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Aurizon - Increasing.csv";
             catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
             catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Aurizon - Decreasing.csv");
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Aurizon - Decreasing.csv";
             catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
             catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Freightliner - Increasing.csv");
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Freightliner - Increasing.csv";
             catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
             catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles.Add(@"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Freightliner - Decreasing.csv");
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Freightliner - Decreasing.csv";
             catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
             catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
@@ -1593,10 +1649,132 @@ namespace TRAP
             catagory2LowerBound.Text = "100";
             catagory2UpperBound.Text = "200";
 
-            HunterValley.Checked = true;
+            //HunterValley.Checked = true;
+            powerToWeightRatioAnalysis.Checked = false;
 
+            Settings.analysisCatagory = analysisCatagory.TrainOperator;
+
+            Operator1Catagory.SelectedItem = "Pacific National";
+            Settings.catagory1Operator = trainOperator.PacificNational;
+            Operator2Catagory.SelectedItem = "Aurizon";
+            Settings.catagory2Operator = trainOperator.Aurizon;
+            Operator3Catagory.SelectedItem = "Freightliner";
+            Settings.catagory3Operator = trainOperator.Freightliner;
+
+            Commodity1Catagory.SelectedItem = null;
+            Settings.catagory1Commodity = trainCommodity.Unknown;
+            Commodity2Catagory.SelectedItem = null;
+            Settings.catagory2Commodity = trainCommodity.Unknown;
+            Commodity3Catagory.SelectedItem = null;
+            Settings.catagory3Commodity = trainCommodity.Unknown;
         }
 
+
+        /// <summary>
+        /// This function sets all the testing parameters for the Macarthur to Botany data
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void setSouthernHighlandsParameters(object sender, EventArgs e)
+        {
+
+            /* Data File */
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands Data 2016-2017.txt";
+
+            IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+            simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+
+            IceDataFile.ForeColor = System.Drawing.Color.Black;
+            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Geometry File */
+            FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands Geometry.csv";
+            GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
+            GeometryFile.ForeColor = System.Drawing.Color.Black;
+
+            /* TSR File */
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands TSR 2016-2017.csv";
+            temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
+            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Simulation files */
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Minerals-Increasing.csv";
+            catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Minerals-Decreasing.csv";
+            catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Passenger-Increasing.csv";
+            catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Passenger-Decreasing.csv";
+            catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Increasing.csv";
+            catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Decreasing.csv";
+            catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+
+            /* Destination Folder */
+            FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands";
+            resultsDestination.Text = FileSettings.aggregatedDestination;
+            resultsDestination.ForeColor = System.Drawing.Color.Black;
+
+            /* Settings */
+            fromDate.Value = new DateTime(2016, 1, 1);
+            toDate.Value = new DateTime(2016, 3, 1);
+
+            fromLatitude.Text = "-10";
+            toLatitude.Text = "-40";
+            fromLongitude.Text = "110";
+            toLongitude.Text = "152";
+
+            includeAListOfTrainsToExclude.Checked = false;
+
+            startInterpolationKm.Text = "55";
+            endInterpolationKm.Text = "145";
+            interpolationInterval.Text = "50";
+            minimumJourneyDistance.Text = "50";
+            dataSeparation.Text = "4";
+            timeSeparation.Text = "10";
+
+            loopBoundaryThreshold.Text = "1";
+            loopSpeedThreshold.Text = "50";
+            TSRWindowBoundary.Text = "1";
+
+            catagory1LowerBound.Text = "0";
+            catagory1UpperBound.Text = "0";
+            catagory2LowerBound.Text = "0";
+            catagory2UpperBound.Text = "0";
+
+            //HunterValley.Checked = false;
+            powerToWeightRatioAnalysis.Checked = false;
+
+            Settings.analysisCatagory = analysisCatagory.TrainCommodity;
+
+            Operator1Catagory.SelectedItem = null;
+            Settings.catagory1Operator = trainOperator.Unknown;
+            Operator2Catagory.SelectedItem = null;
+            Settings.catagory2Operator = trainOperator.Unknown;
+            Operator3Catagory.SelectedItem = null;
+            Settings.catagory3Operator = trainOperator.Unknown;
+
+            Commodity1Catagory.SelectedItem = "Mineral";
+            Settings.catagory1Commodity = trainCommodity.Mineral;
+            Commodity2Catagory.SelectedItem = "Passenger";
+            Settings.catagory2Commodity = trainCommodity.Passenger;
+            Commodity3Catagory.SelectedItem = "Group Remaining";
+            Settings.catagory3Commodity = trainCommodity.GroupRemaining;
+        
+        }
         /// <summary>
         /// Function determines if the testing parameters for Culleran Ranges need 
         /// to be set or resets to default settings.
@@ -1688,6 +1866,21 @@ namespace TRAP
         }
 
         /// <summary>
+        /// Function determines if the testing parameters for Tarcoola to Kalgoorlie need 
+        /// to be set or resets to default settings.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void SouthernHighlands_CheckedChanged(object sender, EventArgs e)
+        {
+            /* If Tarcoola to Kalgoorlie testing flag is checked, set the appropriate parameters. */
+            if (SouthernHighlands.Checked)
+                setSouthernHighlandsParameters(sender, e);
+            else
+                resetDefaultParameters();
+        }
+
+        /// <summary>
         /// function resets the train performance analysis form to default settings.
         /// </summary>
         private void resetDefaultParameters()
@@ -1712,7 +1905,7 @@ namespace TRAP
             temporarySpeedRestrictionFile.ForeColor = SystemColors.InactiveCaptionText;
 
             /* Simulation files */
-            FileSettings.simulationFiles.Clear();
+            //FileSettings.simulationFiles.Clear();
             catagory1IncreasingSimulationFile.Text = "<Required>";
             catagory1IncreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
 
@@ -1766,8 +1959,30 @@ namespace TRAP
             catagory2LowerBound.Text = "0";
             catagory2UpperBound.Text = "0";
 
-            HunterValley.Checked = false;
+            //HunterValley.Checked = false;
+            powerToWeightRatioAnalysis.Checked = false;
 
+            Settings.analysisCatagory = analysisCatagory.Unknown;
+
+            Operator1Catagory.SelectedItem = null;
+            Operator1Catagory.Text = "";
+            Settings.catagory1Operator = trainOperator.Unknown;
+            Operator2Catagory.SelectedItem = null;
+            Operator2Catagory.Text = "";
+            Settings.catagory2Operator = trainOperator.Unknown;
+            Operator3Catagory.SelectedItem = null;
+            Operator3Catagory.Text = "";
+            Settings.catagory3Operator = trainOperator.Unknown;
+
+            Commodity1Catagory.SelectedItem = null;
+            Commodity1Catagory.Text = "";
+            Settings.catagory1Commodity = trainCommodity.Unknown;
+            Commodity2Catagory.SelectedItem = null;
+            Commodity2Catagory.Text = "";
+            Settings.catagory2Commodity = trainCommodity.Unknown;
+            Commodity3Catagory.SelectedItem = null;
+            Commodity3Catagory.Text = "";
+            Settings.catagory3Commodity = trainCommodity.Unknown;
 
         }
 

@@ -30,6 +30,7 @@
         {
             this.simulationTab = new System.Windows.Forms.TabControl();
             this.fileSelectionTab = new System.Windows.Forms.TabPage();
+            this.SouthernHighlands = new System.Windows.Forms.CheckBox();
             this.UlanLine = new System.Windows.Forms.CheckBox();
             this.Tarcoola2Kalgoorlie = new System.Windows.Forms.CheckBox();
             this.Melbourne2Cootamundra = new System.Windows.Forms.CheckBox();
@@ -38,7 +39,6 @@
             this.CulleranRanges = new System.Windows.Forms.CheckBox();
             this.TestLabel = new System.Windows.Forms.Label();
             this.includeAListOfTrainsToExclude = new System.Windows.Forms.CheckBox();
-            this.HunterValley = new System.Windows.Forms.CheckBox();
             this.trainListFile = new System.Windows.Forms.TextBox();
             this.selectTrainFile = new System.Windows.Forms.Button();
             this.temporarySpeedRestrictionFile = new System.Windows.Forms.TextBox();
@@ -158,15 +158,15 @@
             this.simulationTab.Controls.Add(this.processingTab);
             this.simulationTab.Controls.Add(this.simulationParametersTab);
             this.simulationTab.Controls.Add(this.simualtionFileTab);
-            this.simulationTab.Location = new System.Drawing.Point(4, 18);
-            this.simulationTab.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.simulationTab.Location = new System.Drawing.Point(3, 12);
             this.simulationTab.Name = "simulationTab";
             this.simulationTab.SelectedIndex = 0;
-            this.simulationTab.Size = new System.Drawing.Size(1626, 794);
+            this.simulationTab.Size = new System.Drawing.Size(1084, 516);
             this.simulationTab.TabIndex = 0;
             // 
             // fileSelectionTab
             // 
+            this.fileSelectionTab.Controls.Add(this.SouthernHighlands);
             this.fileSelectionTab.Controls.Add(this.UlanLine);
             this.fileSelectionTab.Controls.Add(this.Tarcoola2Kalgoorlie);
             this.fileSelectionTab.Controls.Add(this.Melbourne2Cootamundra);
@@ -175,7 +175,6 @@
             this.fileSelectionTab.Controls.Add(this.CulleranRanges);
             this.fileSelectionTab.Controls.Add(this.TestLabel);
             this.fileSelectionTab.Controls.Add(this.includeAListOfTrainsToExclude);
-            this.fileSelectionTab.Controls.Add(this.HunterValley);
             this.fileSelectionTab.Controls.Add(this.trainListFile);
             this.fileSelectionTab.Controls.Add(this.selectTrainFile);
             this.fileSelectionTab.Controls.Add(this.temporarySpeedRestrictionFile);
@@ -184,22 +183,31 @@
             this.fileSelectionTab.Controls.Add(this.selectGeometryFile);
             this.fileSelectionTab.Controls.Add(this.IceDataFile);
             this.fileSelectionTab.Controls.Add(this.selectDataFile);
-            this.fileSelectionTab.Location = new System.Drawing.Point(4, 29);
-            this.fileSelectionTab.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fileSelectionTab.Location = new System.Drawing.Point(4, 22);
             this.fileSelectionTab.Name = "fileSelectionTab";
-            this.fileSelectionTab.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.fileSelectionTab.Size = new System.Drawing.Size(1618, 761);
+            this.fileSelectionTab.Padding = new System.Windows.Forms.Padding(3);
+            this.fileSelectionTab.Size = new System.Drawing.Size(1076, 490);
             this.fileSelectionTab.TabIndex = 0;
             this.fileSelectionTab.Text = "File Selection";
             this.fileSelectionTab.UseVisualStyleBackColor = true;
             // 
+            // SouthernHighlands
+            // 
+            this.SouthernHighlands.AutoSize = true;
+            this.SouthernHighlands.Location = new System.Drawing.Point(865, 258);
+            this.SouthernHighlands.Name = "SouthernHighlands";
+            this.SouthernHighlands.Size = new System.Drawing.Size(119, 17);
+            this.SouthernHighlands.TabIndex = 17;
+            this.SouthernHighlands.Text = "Southern Highlands";
+            this.SouthernHighlands.UseVisualStyleBackColor = true;
+            this.SouthernHighlands.CheckedChanged += new System.EventHandler(this.SouthernHighlands_CheckedChanged);
+            // 
             // UlanLine
             // 
             this.UlanLine.AutoSize = true;
-            this.UlanLine.Location = new System.Drawing.Point(1297, 362);
-            this.UlanLine.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.UlanLine.Location = new System.Drawing.Point(865, 235);
             this.UlanLine.Name = "UlanLine";
-            this.UlanLine.Size = new System.Drawing.Size(102, 24);
+            this.UlanLine.Size = new System.Drawing.Size(71, 17);
             this.UlanLine.TabIndex = 16;
             this.UlanLine.Text = "Ulan Line";
             this.UlanLine.UseVisualStyleBackColor = true;
@@ -208,10 +216,9 @@
             // Tarcoola2Kalgoorlie
             // 
             this.Tarcoola2Kalgoorlie.AutoSize = true;
-            this.Tarcoola2Kalgoorlie.Location = new System.Drawing.Point(1297, 326);
-            this.Tarcoola2Kalgoorlie.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Tarcoola2Kalgoorlie.Location = new System.Drawing.Point(865, 212);
             this.Tarcoola2Kalgoorlie.Name = "Tarcoola2Kalgoorlie";
-            this.Tarcoola2Kalgoorlie.Size = new System.Drawing.Size(187, 24);
+            this.Tarcoola2Kalgoorlie.Size = new System.Drawing.Size(129, 17);
             this.Tarcoola2Kalgoorlie.TabIndex = 15;
             this.Tarcoola2Kalgoorlie.Text = "Tarcoola to Kalgoorlie";
             this.Tarcoola2Kalgoorlie.UseVisualStyleBackColor = true;
@@ -220,10 +227,9 @@
             // Melbourne2Cootamundra
             // 
             this.Melbourne2Cootamundra.AutoSize = true;
-            this.Melbourne2Cootamundra.Location = new System.Drawing.Point(1297, 291);
-            this.Melbourne2Cootamundra.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Melbourne2Cootamundra.Location = new System.Drawing.Point(865, 189);
             this.Melbourne2Cootamundra.Name = "Melbourne2Cootamundra";
-            this.Melbourne2Cootamundra.Size = new System.Drawing.Size(229, 24);
+            this.Melbourne2Cootamundra.Size = new System.Drawing.Size(154, 17);
             this.Melbourne2Cootamundra.TabIndex = 14;
             this.Melbourne2Cootamundra.Text = "Melbourne to Cootamundra";
             this.Melbourne2Cootamundra.UseVisualStyleBackColor = true;
@@ -232,10 +238,9 @@
             // Macarthur2Botany
             // 
             this.Macarthur2Botany.AutoSize = true;
-            this.Macarthur2Botany.Location = new System.Drawing.Point(1297, 256);
-            this.Macarthur2Botany.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Macarthur2Botany.Location = new System.Drawing.Point(865, 166);
             this.Macarthur2Botany.Name = "Macarthur2Botany";
-            this.Macarthur2Botany.Size = new System.Drawing.Size(179, 24);
+            this.Macarthur2Botany.Size = new System.Drawing.Size(122, 17);
             this.Macarthur2Botany.TabIndex = 13;
             this.Macarthur2Botany.Text = "Macarthur to Botany";
             this.Macarthur2Botany.UseVisualStyleBackColor = true;
@@ -244,10 +249,9 @@
             // GunnedahBasin
             // 
             this.GunnedahBasin.AutoSize = true;
-            this.GunnedahBasin.Location = new System.Drawing.Point(1297, 220);
-            this.GunnedahBasin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.GunnedahBasin.Location = new System.Drawing.Point(865, 143);
             this.GunnedahBasin.Name = "GunnedahBasin";
-            this.GunnedahBasin.Size = new System.Drawing.Size(155, 24);
+            this.GunnedahBasin.Size = new System.Drawing.Size(105, 17);
             this.GunnedahBasin.TabIndex = 12;
             this.GunnedahBasin.Text = "Gunnedah Basin";
             this.GunnedahBasin.UseVisualStyleBackColor = true;
@@ -256,10 +260,9 @@
             // CulleranRanges
             // 
             this.CulleranRanges.AutoSize = true;
-            this.CulleranRanges.Location = new System.Drawing.Point(1297, 185);
-            this.CulleranRanges.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.CulleranRanges.Location = new System.Drawing.Point(865, 120);
             this.CulleranRanges.Name = "CulleranRanges";
-            this.CulleranRanges.Size = new System.Drawing.Size(153, 24);
+            this.CulleranRanges.Size = new System.Drawing.Size(104, 17);
             this.CulleranRanges.TabIndex = 11;
             this.CulleranRanges.Text = "Culleran Ranges";
             this.CulleranRanges.UseVisualStyleBackColor = true;
@@ -268,52 +271,36 @@
             // TestLabel
             // 
             this.TestLabel.AutoSize = true;
-            this.TestLabel.Location = new System.Drawing.Point(1293, 148);
-            this.TestLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.TestLabel.Location = new System.Drawing.Point(862, 96);
             this.TestLabel.Name = "TestLabel";
-            this.TestLabel.Size = new System.Drawing.Size(176, 20);
+            this.TestLabel.Size = new System.Drawing.Size(117, 13);
             this.TestLabel.TabIndex = 10;
             this.TestLabel.Text = "Set Testing Parameters";
             // 
             // includeAListOfTrainsToExclude
             // 
             this.includeAListOfTrainsToExclude.AutoSize = true;
-            this.includeAListOfTrainsToExclude.Location = new System.Drawing.Point(26, 437);
-            this.includeAListOfTrainsToExclude.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.includeAListOfTrainsToExclude.Location = new System.Drawing.Point(17, 284);
             this.includeAListOfTrainsToExclude.Name = "includeAListOfTrainsToExclude";
-            this.includeAListOfTrainsToExclude.Size = new System.Drawing.Size(173, 24);
+            this.includeAListOfTrainsToExclude.Size = new System.Drawing.Size(118, 17);
             this.includeAListOfTrainsToExclude.TabIndex = 9;
             this.includeAListOfTrainsToExclude.Text = "Exclude trains in list";
             this.includeAListOfTrainsToExclude.UseVisualStyleBackColor = true;
             // 
-            // HunterValley
-            // 
-            this.HunterValley.AutoSize = true;
-            this.HunterValley.Location = new System.Drawing.Point(26, 99);
-            this.HunterValley.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.HunterValley.Name = "HunterValley";
-            this.HunterValley.Size = new System.Drawing.Size(185, 24);
-            this.HunterValley.TabIndex = 8;
-            this.HunterValley.Text = "Hunter Valley Region";
-            this.HunterValley.UseVisualStyleBackColor = true;
-            this.HunterValley.CheckedChanged += new System.EventHandler(this.HunterValley_CheckedChanged);
-            // 
             // trainListFile
             // 
             this.trainListFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.trainListFile.Location = new System.Drawing.Point(267, 389);
-            this.trainListFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.trainListFile.Location = new System.Drawing.Point(178, 253);
             this.trainListFile.Name = "trainListFile";
-            this.trainListFile.Size = new System.Drawing.Size(858, 26);
+            this.trainListFile.Size = new System.Drawing.Size(573, 20);
             this.trainListFile.TabIndex = 7;
             this.trainListFile.Text = "<Optional>";
             // 
             // selectTrainFile
             // 
-            this.selectTrainFile.Location = new System.Drawing.Point(26, 378);
-            this.selectTrainFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.selectTrainFile.Location = new System.Drawing.Point(17, 246);
             this.selectTrainFile.Name = "selectTrainFile";
-            this.selectTrainFile.Size = new System.Drawing.Size(232, 49);
+            this.selectTrainFile.Size = new System.Drawing.Size(155, 32);
             this.selectTrainFile.TabIndex = 6;
             this.selectTrainFile.Text = "Select Train List File";
             this.selectTrainFile.UseVisualStyleBackColor = true;
@@ -322,19 +309,17 @@
             // temporarySpeedRestrictionFile
             // 
             this.temporarySpeedRestrictionFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.temporarySpeedRestrictionFile.Location = new System.Drawing.Point(267, 297);
-            this.temporarySpeedRestrictionFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.temporarySpeedRestrictionFile.Location = new System.Drawing.Point(178, 193);
             this.temporarySpeedRestrictionFile.Name = "temporarySpeedRestrictionFile";
-            this.temporarySpeedRestrictionFile.Size = new System.Drawing.Size(858, 26);
+            this.temporarySpeedRestrictionFile.Size = new System.Drawing.Size(573, 20);
             this.temporarySpeedRestrictionFile.TabIndex = 5;
             this.temporarySpeedRestrictionFile.Text = "<Required>";
             // 
             // selectTSRFile
             // 
-            this.selectTSRFile.Location = new System.Drawing.Point(26, 286);
-            this.selectTSRFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.selectTSRFile.Location = new System.Drawing.Point(17, 186);
             this.selectTSRFile.Name = "selectTSRFile";
-            this.selectTSRFile.Size = new System.Drawing.Size(232, 49);
+            this.selectTSRFile.Size = new System.Drawing.Size(155, 32);
             this.selectTSRFile.TabIndex = 4;
             this.selectTSRFile.Text = "Select TSR File";
             this.selectTSRFile.UseVisualStyleBackColor = true;
@@ -343,19 +328,17 @@
             // GeometryFile
             // 
             this.GeometryFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.GeometryFile.Location = new System.Drawing.Point(267, 220);
-            this.GeometryFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.GeometryFile.Location = new System.Drawing.Point(178, 143);
             this.GeometryFile.Name = "GeometryFile";
-            this.GeometryFile.Size = new System.Drawing.Size(858, 26);
+            this.GeometryFile.Size = new System.Drawing.Size(573, 20);
             this.GeometryFile.TabIndex = 3;
             this.GeometryFile.Text = "<Required>";
             // 
             // selectGeometryFile
             // 
-            this.selectGeometryFile.Location = new System.Drawing.Point(26, 209);
-            this.selectGeometryFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.selectGeometryFile.Location = new System.Drawing.Point(17, 136);
             this.selectGeometryFile.Name = "selectGeometryFile";
-            this.selectGeometryFile.Size = new System.Drawing.Size(232, 49);
+            this.selectGeometryFile.Size = new System.Drawing.Size(155, 32);
             this.selectGeometryFile.TabIndex = 2;
             this.selectGeometryFile.Text = "Select Geometry File";
             this.selectGeometryFile.UseVisualStyleBackColor = true;
@@ -364,19 +347,17 @@
             // IceDataFile
             // 
             this.IceDataFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.IceDataFile.Location = new System.Drawing.Point(267, 51);
-            this.IceDataFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.IceDataFile.Location = new System.Drawing.Point(178, 33);
             this.IceDataFile.Name = "IceDataFile";
-            this.IceDataFile.Size = new System.Drawing.Size(858, 26);
+            this.IceDataFile.Size = new System.Drawing.Size(573, 20);
             this.IceDataFile.TabIndex = 1;
             this.IceDataFile.Text = "<Required>";
             // 
             // selectDataFile
             // 
-            this.selectDataFile.Location = new System.Drawing.Point(26, 40);
-            this.selectDataFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.selectDataFile.Location = new System.Drawing.Point(17, 26);
             this.selectDataFile.Name = "selectDataFile";
-            this.selectDataFile.Size = new System.Drawing.Size(232, 49);
+            this.selectDataFile.Size = new System.Drawing.Size(155, 32);
             this.selectDataFile.TabIndex = 0;
             this.selectDataFile.Text = "Select Data File";
             this.selectDataFile.UseVisualStyleBackColor = true;
@@ -416,11 +397,10 @@
             this.processingTab.Controls.Add(this.interpolationLabel);
             this.processingTab.Controls.Add(this.GeographicBoxLabel);
             this.processingTab.Controls.Add(this.DateRangeLabel);
-            this.processingTab.Location = new System.Drawing.Point(4, 29);
-            this.processingTab.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.processingTab.Location = new System.Drawing.Point(4, 22);
             this.processingTab.Name = "processingTab";
-            this.processingTab.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.processingTab.Size = new System.Drawing.Size(1618, 761);
+            this.processingTab.Padding = new System.Windows.Forms.Padding(3);
+            this.processingTab.Size = new System.Drawing.Size(1076, 490);
             this.processingTab.TabIndex = 1;
             this.processingTab.Text = "Processing Parameters";
             this.processingTab.UseVisualStyleBackColor = true;
@@ -428,307 +408,275 @@
             // toDate
             // 
             this.toDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDate.Location = new System.Drawing.Point(722, 71);
-            this.toDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.toDate.Location = new System.Drawing.Point(481, 46);
             this.toDate.Name = "toDate";
-            this.toDate.Size = new System.Drawing.Size(148, 26);
+            this.toDate.Size = new System.Drawing.Size(100, 20);
             this.toDate.TabIndex = 31;
             this.toDate.Value = new System.DateTime(2017, 6, 1, 0, 0, 0, 0);
             // 
             // fromDate
             // 
             this.fromDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDate.Location = new System.Drawing.Point(430, 71);
-            this.fromDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fromDate.Location = new System.Drawing.Point(287, 46);
             this.fromDate.Name = "fromDate";
-            this.fromDate.Size = new System.Drawing.Size(148, 26);
+            this.fromDate.Size = new System.Drawing.Size(100, 20);
             this.fromDate.TabIndex = 30;
             this.fromDate.Value = new System.DateTime(2017, 1, 1, 0, 0, 0, 0);
             // 
             // timeSeparation
             // 
-            this.timeSeparation.Location = new System.Drawing.Point(430, 462);
-            this.timeSeparation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.timeSeparation.Location = new System.Drawing.Point(287, 300);
             this.timeSeparation.Name = "timeSeparation";
-            this.timeSeparation.Size = new System.Drawing.Size(148, 26);
+            this.timeSeparation.Size = new System.Drawing.Size(100, 20);
             this.timeSeparation.TabIndex = 29;
             this.timeSeparation.Text = "10";
             // 
             // TSRWindowBoundary
             // 
-            this.TSRWindowBoundary.Location = new System.Drawing.Point(992, 462);
-            this.TSRWindowBoundary.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.TSRWindowBoundary.Location = new System.Drawing.Point(661, 300);
             this.TSRWindowBoundary.Name = "TSRWindowBoundary";
-            this.TSRWindowBoundary.Size = new System.Drawing.Size(148, 26);
+            this.TSRWindowBoundary.Size = new System.Drawing.Size(100, 20);
             this.TSRWindowBoundary.TabIndex = 28;
             this.TSRWindowBoundary.Text = "1";
             // 
             // dataSeparation
             // 
-            this.dataSeparation.Location = new System.Drawing.Point(430, 422);
-            this.dataSeparation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dataSeparation.Location = new System.Drawing.Point(287, 274);
             this.dataSeparation.Name = "dataSeparation";
-            this.dataSeparation.Size = new System.Drawing.Size(148, 26);
+            this.dataSeparation.Size = new System.Drawing.Size(100, 20);
             this.dataSeparation.TabIndex = 27;
             this.dataSeparation.Text = "4";
             // 
             // loopSpeedThreshold
             // 
-            this.loopSpeedThreshold.Location = new System.Drawing.Point(992, 422);
-            this.loopSpeedThreshold.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.loopSpeedThreshold.Location = new System.Drawing.Point(661, 274);
             this.loopSpeedThreshold.Name = "loopSpeedThreshold";
-            this.loopSpeedThreshold.Size = new System.Drawing.Size(148, 26);
+            this.loopSpeedThreshold.Size = new System.Drawing.Size(100, 20);
             this.loopSpeedThreshold.TabIndex = 26;
             this.loopSpeedThreshold.Text = "50";
             // 
             // minimumJourneyDistance
             // 
-            this.minimumJourneyDistance.Location = new System.Drawing.Point(430, 382);
-            this.minimumJourneyDistance.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.minimumJourneyDistance.Location = new System.Drawing.Point(287, 248);
             this.minimumJourneyDistance.Name = "minimumJourneyDistance";
-            this.minimumJourneyDistance.Size = new System.Drawing.Size(148, 26);
+            this.minimumJourneyDistance.Size = new System.Drawing.Size(100, 20);
             this.minimumJourneyDistance.TabIndex = 25;
             this.minimumJourneyDistance.Text = "100";
             // 
             // loopBoundaryThreshold
             // 
-            this.loopBoundaryThreshold.Location = new System.Drawing.Point(992, 382);
-            this.loopBoundaryThreshold.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.loopBoundaryThreshold.Location = new System.Drawing.Point(661, 248);
             this.loopBoundaryThreshold.Name = "loopBoundaryThreshold";
-            this.loopBoundaryThreshold.Size = new System.Drawing.Size(148, 26);
+            this.loopBoundaryThreshold.Size = new System.Drawing.Size(100, 20);
             this.loopBoundaryThreshold.TabIndex = 24;
             this.loopBoundaryThreshold.Text = "1";
             // 
             // interpolationInterval
             // 
-            this.interpolationInterval.Location = new System.Drawing.Point(430, 342);
-            this.interpolationInterval.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.interpolationInterval.Location = new System.Drawing.Point(287, 222);
             this.interpolationInterval.Name = "interpolationInterval";
-            this.interpolationInterval.Size = new System.Drawing.Size(148, 26);
+            this.interpolationInterval.Size = new System.Drawing.Size(100, 20);
             this.interpolationInterval.TabIndex = 23;
             this.interpolationInterval.Text = "50";
             // 
             // endInterpolationKm
             // 
-            this.endInterpolationKm.Location = new System.Drawing.Point(992, 302);
-            this.endInterpolationKm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.endInterpolationKm.Location = new System.Drawing.Point(661, 196);
             this.endInterpolationKm.Name = "endInterpolationKm";
-            this.endInterpolationKm.Size = new System.Drawing.Size(148, 26);
+            this.endInterpolationKm.Size = new System.Drawing.Size(100, 20);
             this.endInterpolationKm.TabIndex = 22;
             this.endInterpolationKm.Text = "460";
             // 
             // startInterpolationKm
             // 
-            this.startInterpolationKm.Location = new System.Drawing.Point(430, 302);
-            this.startInterpolationKm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.startInterpolationKm.Location = new System.Drawing.Point(287, 196);
             this.startInterpolationKm.Name = "startInterpolationKm";
-            this.startInterpolationKm.Size = new System.Drawing.Size(148, 26);
+            this.startInterpolationKm.Size = new System.Drawing.Size(100, 20);
             this.startInterpolationKm.TabIndex = 21;
             this.startInterpolationKm.Text = "280";
             // 
             // toLongitude
             // 
-            this.toLongitude.Location = new System.Drawing.Point(722, 211);
-            this.toLongitude.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.toLongitude.Location = new System.Drawing.Point(481, 137);
             this.toLongitude.Name = "toLongitude";
-            this.toLongitude.Size = new System.Drawing.Size(148, 26);
+            this.toLongitude.Size = new System.Drawing.Size(100, 20);
             this.toLongitude.TabIndex = 20;
             this.toLongitude.Text = "152";
             // 
             // toLatitude
             // 
-            this.toLatitude.Location = new System.Drawing.Point(430, 211);
-            this.toLatitude.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.toLatitude.Location = new System.Drawing.Point(287, 137);
             this.toLatitude.Name = "toLatitude";
-            this.toLatitude.Size = new System.Drawing.Size(148, 26);
+            this.toLatitude.Size = new System.Drawing.Size(100, 20);
             this.toLatitude.TabIndex = 19;
             this.toLatitude.Text = "-40";
             // 
             // fromLongitude
             // 
-            this.fromLongitude.Location = new System.Drawing.Point(722, 171);
-            this.fromLongitude.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fromLongitude.Location = new System.Drawing.Point(481, 111);
             this.fromLongitude.Name = "fromLongitude";
-            this.fromLongitude.Size = new System.Drawing.Size(148, 26);
+            this.fromLongitude.Size = new System.Drawing.Size(100, 20);
             this.fromLongitude.TabIndex = 18;
             this.fromLongitude.Text = "110";
             // 
             // fromLatitude
             // 
-            this.fromLatitude.Location = new System.Drawing.Point(430, 171);
-            this.fromLatitude.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fromLatitude.Location = new System.Drawing.Point(287, 111);
             this.fromLatitude.Name = "fromLatitude";
-            this.fromLatitude.Size = new System.Drawing.Size(148, 26);
+            this.fromLatitude.Size = new System.Drawing.Size(100, 20);
             this.fromLatitude.TabIndex = 17;
             this.fromLatitude.Text = "-10";
             // 
             // leftLongitudeLabel
             // 
             this.leftLongitudeLabel.AutoSize = true;
-            this.leftLongitudeLabel.Location = new System.Drawing.Point(717, 135);
-            this.leftLongitudeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.leftLongitudeLabel.Location = new System.Drawing.Point(478, 88);
             this.leftLongitudeLabel.Name = "leftLongitudeLabel";
-            this.leftLongitudeLabel.Size = new System.Drawing.Size(84, 20);
+            this.leftLongitudeLabel.Size = new System.Drawing.Size(57, 13);
             this.leftLongitudeLabel.TabIndex = 16;
             this.leftLongitudeLabel.Text = "Longitude:";
             // 
             // leftLatitudeLabel
             // 
             this.leftLatitudeLabel.AutoSize = true;
-            this.leftLatitudeLabel.Location = new System.Drawing.Point(426, 135);
-            this.leftLatitudeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.leftLatitudeLabel.Location = new System.Drawing.Point(284, 88);
             this.leftLatitudeLabel.Name = "leftLatitudeLabel";
-            this.leftLatitudeLabel.Size = new System.Drawing.Size(71, 20);
+            this.leftLatitudeLabel.Size = new System.Drawing.Size(48, 13);
             this.leftLatitudeLabel.TabIndex = 15;
             this.leftLatitudeLabel.Text = "Latitude:";
             // 
             // toLabel
             // 
             this.toLabel.AutoSize = true;
-            this.toLabel.Location = new System.Drawing.Point(717, 28);
-            this.toLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.toLabel.Location = new System.Drawing.Point(478, 18);
             this.toLabel.Name = "toLabel";
-            this.toLabel.Size = new System.Drawing.Size(31, 20);
+            this.toLabel.Size = new System.Drawing.Size(23, 13);
             this.toLabel.TabIndex = 14;
             this.toLabel.Text = "To:";
             // 
             // fromLabel
             // 
             this.fromLabel.AutoSize = true;
-            this.fromLabel.Location = new System.Drawing.Point(426, 28);
-            this.fromLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fromLabel.Location = new System.Drawing.Point(284, 18);
             this.fromLabel.Name = "fromLabel";
-            this.fromLabel.Size = new System.Drawing.Size(50, 20);
+            this.fromLabel.Size = new System.Drawing.Size(33, 13);
             this.fromLabel.TabIndex = 13;
             this.fromLabel.Text = "From:";
             // 
             // loopSpeedLabel
             // 
             this.loopSpeedLabel.AutoSize = true;
-            this.loopSpeedLabel.Location = new System.Drawing.Point(717, 426);
-            this.loopSpeedLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.loopSpeedLabel.Location = new System.Drawing.Point(478, 277);
             this.loopSpeedLabel.Name = "loopSpeedLabel";
-            this.loopSpeedLabel.Size = new System.Drawing.Size(198, 20);
+            this.loopSpeedLabel.Size = new System.Drawing.Size(132, 13);
             this.loopSpeedLabel.TabIndex = 12;
             this.loopSpeedLabel.Text = "Loop Speed Threshold (%)";
             // 
             // TSRLabel
             // 
             this.TSRLabel.AutoSize = true;
-            this.TSRLabel.Location = new System.Drawing.Point(717, 466);
-            this.TSRLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.TSRLabel.Location = new System.Drawing.Point(478, 303);
             this.TSRLabel.Name = "TSRLabel";
-            this.TSRLabel.Size = new System.Drawing.Size(136, 20);
+            this.TSRLabel.Size = new System.Drawing.Size(94, 13);
             this.TSRLabel.TabIndex = 11;
             this.TSRLabel.Text = "TSR Window (km)";
             // 
             // leftLocationLabel
             // 
             this.leftLocationLabel.AutoSize = true;
-            this.leftLocationLabel.Location = new System.Drawing.Point(144, 175);
-            this.leftLocationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.leftLocationLabel.Location = new System.Drawing.Point(96, 114);
             this.leftLocationLabel.Name = "leftLocationLabel";
-            this.leftLocationLabel.Size = new System.Drawing.Size(137, 20);
+            this.leftLocationLabel.Size = new System.Drawing.Size(94, 13);
             this.leftLocationLabel.TabIndex = 10;
             this.leftLocationLabel.Text = "Top Left Location:";
             // 
             // rightLocationLabel
             // 
             this.rightLocationLabel.AutoSize = true;
-            this.rightLocationLabel.Location = new System.Drawing.Point(144, 215);
-            this.rightLocationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.rightLocationLabel.Location = new System.Drawing.Point(96, 140);
             this.rightLocationLabel.Name = "rightLocationLabel";
-            this.rightLocationLabel.Size = new System.Drawing.Size(172, 20);
+            this.rightLocationLabel.Size = new System.Drawing.Size(115, 13);
             this.rightLocationLabel.TabIndex = 9;
             this.rightLocationLabel.Text = "Bottom Right Location:";
             // 
             // startKmLabel
             // 
             this.startKmLabel.AutoSize = true;
-            this.startKmLabel.Location = new System.Drawing.Point(46, 306);
-            this.startKmLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.startKmLabel.Location = new System.Drawing.Point(31, 199);
             this.startKmLabel.Name = "startKmLabel";
-            this.startKmLabel.Size = new System.Drawing.Size(176, 20);
+            this.startKmLabel.Size = new System.Drawing.Size(116, 13);
             this.startKmLabel.TabIndex = 8;
             this.startKmLabel.Text = "Start Kilometreage (km)";
             // 
             // minDistanceLabel
             // 
             this.minDistanceLabel.AutoSize = true;
-            this.minDistanceLabel.Location = new System.Drawing.Point(46, 386);
-            this.minDistanceLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.minDistanceLabel.Location = new System.Drawing.Point(31, 251);
             this.minDistanceLabel.Name = "minDistanceLabel";
-            this.minDistanceLabel.Size = new System.Drawing.Size(220, 20);
+            this.minDistanceLabel.Size = new System.Drawing.Size(149, 13);
             this.minDistanceLabel.TabIndex = 7;
             this.minDistanceLabel.Text = "Minimum Travel Distance (km)";
             // 
             // dataSeparationLabel
             // 
             this.dataSeparationLabel.AutoSize = true;
-            this.dataSeparationLabel.Location = new System.Drawing.Point(46, 426);
-            this.dataSeparationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.dataSeparationLabel.Location = new System.Drawing.Point(31, 277);
             this.dataSeparationLabel.Name = "dataSeparationLabel";
-            this.dataSeparationLabel.Size = new System.Drawing.Size(161, 20);
+            this.dataSeparationLabel.Size = new System.Drawing.Size(107, 13);
             this.dataSeparationLabel.TabIndex = 6;
             this.dataSeparationLabel.Text = "Data Separation (km)";
             // 
             // timeSeparationLabel
             // 
             this.timeSeparationLabel.AutoSize = true;
-            this.timeSeparationLabel.Location = new System.Drawing.Point(46, 466);
-            this.timeSeparationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.timeSeparationLabel.Location = new System.Drawing.Point(31, 303);
             this.timeSeparationLabel.Name = "timeSeparationLabel";
-            this.timeSeparationLabel.Size = new System.Drawing.Size(148, 20);
+            this.timeSeparationLabel.Size = new System.Drawing.Size(99, 13);
             this.timeSeparationLabel.TabIndex = 5;
             this.timeSeparationLabel.Text = "Time Separation (h)";
             // 
             // endKmLabel
             // 
             this.endKmLabel.AutoSize = true;
-            this.endKmLabel.Location = new System.Drawing.Point(717, 306);
-            this.endKmLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.endKmLabel.Location = new System.Drawing.Point(478, 199);
             this.endKmLabel.Name = "endKmLabel";
-            this.endKmLabel.Size = new System.Drawing.Size(164, 20);
+            this.endKmLabel.Size = new System.Drawing.Size(109, 13);
             this.endKmLabel.TabIndex = 4;
             this.endKmLabel.Text = "End interpolation (km)";
             // 
             // label3loopBoundarylabel
             // 
             this.label3loopBoundarylabel.AutoSize = true;
-            this.label3loopBoundarylabel.Location = new System.Drawing.Point(717, 386);
-            this.label3loopBoundarylabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3loopBoundarylabel.Location = new System.Drawing.Point(478, 251);
             this.label3loopBoundarylabel.Name = "label3loopBoundarylabel";
-            this.label3loopBoundarylabel.Size = new System.Drawing.Size(226, 20);
+            this.label3loopBoundarylabel.Size = new System.Drawing.Size(152, 13);
             this.label3loopBoundarylabel.TabIndex = 3;
             this.label3loopBoundarylabel.Text = "Loop Boundary Threshold (km)";
             // 
             // interpolationLabel
             // 
             this.interpolationLabel.AutoSize = true;
-            this.interpolationLabel.Location = new System.Drawing.Point(46, 346);
-            this.interpolationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.interpolationLabel.Location = new System.Drawing.Point(31, 225);
             this.interpolationLabel.Name = "interpolationLabel";
-            this.interpolationLabel.Size = new System.Drawing.Size(181, 20);
+            this.interpolationLabel.Size = new System.Drawing.Size(120, 13);
             this.interpolationLabel.TabIndex = 2;
             this.interpolationLabel.Text = "Interpolation Interval (m)";
             // 
             // GeographicBoxLabel
             // 
             this.GeographicBoxLabel.AutoSize = true;
-            this.GeographicBoxLabel.Location = new System.Drawing.Point(46, 135);
-            this.GeographicBoxLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.GeographicBoxLabel.Location = new System.Drawing.Point(31, 88);
             this.GeographicBoxLabel.Name = "GeographicBoxLabel";
-            this.GeographicBoxLabel.Size = new System.Drawing.Size(191, 20);
+            this.GeographicBoxLabel.Size = new System.Drawing.Size(127, 13);
             this.GeographicBoxLabel.TabIndex = 1;
             this.GeographicBoxLabel.Text = "Geographic Confinement:";
             // 
             // DateRangeLabel
             // 
             this.DateRangeLabel.AutoSize = true;
-            this.DateRangeLabel.Location = new System.Drawing.Point(46, 80);
-            this.DateRangeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.DateRangeLabel.Location = new System.Drawing.Point(31, 52);
             this.DateRangeLabel.Name = "DateRangeLabel";
-            this.DateRangeLabel.Size = new System.Drawing.Size(100, 20);
+            this.DateRangeLabel.Size = new System.Drawing.Size(68, 13);
             this.DateRangeLabel.TabIndex = 0;
             this.DateRangeLabel.Text = "Date Range:";
             // 
@@ -768,11 +716,10 @@
             this.simulationParametersTab.Controls.Add(this.catagory2Label);
             this.simulationParametersTab.Controls.Add(this.catagory1Label);
             this.simulationParametersTab.Controls.Add(this.dataFileLabel);
-            this.simulationParametersTab.Location = new System.Drawing.Point(4, 29);
-            this.simulationParametersTab.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.simulationParametersTab.Location = new System.Drawing.Point(4, 22);
             this.simulationParametersTab.Name = "simulationParametersTab";
-            this.simulationParametersTab.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.simulationParametersTab.Size = new System.Drawing.Size(1618, 761);
+            this.simulationParametersTab.Padding = new System.Windows.Forms.Padding(3);
+            this.simulationParametersTab.Size = new System.Drawing.Size(1076, 490);
             this.simulationParametersTab.TabIndex = 2;
             this.simulationParametersTab.Text = "Simulation Parameters";
             this.simulationParametersTab.UseVisualStyleBackColor = true;
@@ -781,179 +728,161 @@
             // 
             this.SimulationP2WRatioLabel.AutoSize = true;
             this.SimulationP2WRatioLabel.ForeColor = System.Drawing.Color.Red;
-            this.SimulationP2WRatioLabel.Location = new System.Drawing.Point(508, 646);
-            this.SimulationP2WRatioLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.SimulationP2WRatioLabel.Location = new System.Drawing.Point(339, 420);
             this.SimulationP2WRatioLabel.Name = "SimulationP2WRatioLabel";
-            this.SimulationP2WRatioLabel.Size = new System.Drawing.Size(51, 20);
+            this.SimulationP2WRatioLabel.Size = new System.Drawing.Size(35, 13);
             this.SimulationP2WRatioLabel.TabIndex = 33;
             this.SimulationP2WRatioLabel.Text = "label1";
             // 
             // combinedDecreasingTrainCount
             // 
             this.combinedDecreasingTrainCount.AutoSize = true;
-            this.combinedDecreasingTrainCount.Location = new System.Drawing.Point(736, 526);
-            this.combinedDecreasingTrainCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.combinedDecreasingTrainCount.Location = new System.Drawing.Point(491, 342);
             this.combinedDecreasingTrainCount.Name = "combinedDecreasingTrainCount";
-            this.combinedDecreasingTrainCount.Size = new System.Drawing.Size(18, 20);
+            this.combinedDecreasingTrainCount.Size = new System.Drawing.Size(13, 13);
             this.combinedDecreasingTrainCount.TabIndex = 32;
             this.combinedDecreasingTrainCount.Text = "0";
             // 
             // catagory2DecreasingTrainCount
             // 
             this.catagory2DecreasingTrainCount.AutoSize = true;
-            this.catagory2DecreasingTrainCount.Location = new System.Drawing.Point(736, 478);
-            this.catagory2DecreasingTrainCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.catagory2DecreasingTrainCount.Location = new System.Drawing.Point(491, 311);
             this.catagory2DecreasingTrainCount.Name = "catagory2DecreasingTrainCount";
-            this.catagory2DecreasingTrainCount.Size = new System.Drawing.Size(18, 20);
+            this.catagory2DecreasingTrainCount.Size = new System.Drawing.Size(13, 13);
             this.catagory2DecreasingTrainCount.TabIndex = 31;
             this.catagory2DecreasingTrainCount.Text = "0";
             // 
             // catagory1DecreasingTrainCount
             // 
             this.catagory1DecreasingTrainCount.AutoSize = true;
-            this.catagory1DecreasingTrainCount.Location = new System.Drawing.Point(736, 438);
-            this.catagory1DecreasingTrainCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.catagory1DecreasingTrainCount.Location = new System.Drawing.Point(491, 285);
             this.catagory1DecreasingTrainCount.Name = "catagory1DecreasingTrainCount";
-            this.catagory1DecreasingTrainCount.Size = new System.Drawing.Size(18, 20);
+            this.catagory1DecreasingTrainCount.Size = new System.Drawing.Size(13, 13);
             this.catagory1DecreasingTrainCount.TabIndex = 30;
             this.catagory1DecreasingTrainCount.Text = "0";
             // 
             // combinedDecreasingPowerToWeightRatio
             // 
             this.combinedDecreasingPowerToWeightRatio.AutoSize = true;
-            this.combinedDecreasingPowerToWeightRatio.Location = new System.Drawing.Point(600, 526);
-            this.combinedDecreasingPowerToWeightRatio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.combinedDecreasingPowerToWeightRatio.Location = new System.Drawing.Point(400, 342);
             this.combinedDecreasingPowerToWeightRatio.Name = "combinedDecreasingPowerToWeightRatio";
-            this.combinedDecreasingPowerToWeightRatio.Size = new System.Drawing.Size(18, 20);
+            this.combinedDecreasingPowerToWeightRatio.Size = new System.Drawing.Size(13, 13);
             this.combinedDecreasingPowerToWeightRatio.TabIndex = 29;
             this.combinedDecreasingPowerToWeightRatio.Text = "0";
             // 
             // catagory2DecreasingPowerToWeightRatio
             // 
             this.catagory2DecreasingPowerToWeightRatio.AutoSize = true;
-            this.catagory2DecreasingPowerToWeightRatio.Location = new System.Drawing.Point(600, 478);
-            this.catagory2DecreasingPowerToWeightRatio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.catagory2DecreasingPowerToWeightRatio.Location = new System.Drawing.Point(400, 311);
             this.catagory2DecreasingPowerToWeightRatio.Name = "catagory2DecreasingPowerToWeightRatio";
-            this.catagory2DecreasingPowerToWeightRatio.Size = new System.Drawing.Size(18, 20);
+            this.catagory2DecreasingPowerToWeightRatio.Size = new System.Drawing.Size(13, 13);
             this.catagory2DecreasingPowerToWeightRatio.TabIndex = 28;
             this.catagory2DecreasingPowerToWeightRatio.Text = "0";
             // 
             // catagory1DecreasingPowerToWeightRatio
             // 
             this.catagory1DecreasingPowerToWeightRatio.AutoSize = true;
-            this.catagory1DecreasingPowerToWeightRatio.Location = new System.Drawing.Point(600, 438);
-            this.catagory1DecreasingPowerToWeightRatio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.catagory1DecreasingPowerToWeightRatio.Location = new System.Drawing.Point(400, 285);
             this.catagory1DecreasingPowerToWeightRatio.Name = "catagory1DecreasingPowerToWeightRatio";
-            this.catagory1DecreasingPowerToWeightRatio.Size = new System.Drawing.Size(18, 20);
+            this.catagory1DecreasingPowerToWeightRatio.Size = new System.Drawing.Size(13, 13);
             this.catagory1DecreasingPowerToWeightRatio.TabIndex = 27;
             this.catagory1DecreasingPowerToWeightRatio.Text = "0";
             // 
             // combinedIncreasingTrainCount
             // 
             this.combinedIncreasingTrainCount.AutoSize = true;
-            this.combinedIncreasingTrainCount.Location = new System.Drawing.Point(408, 526);
-            this.combinedIncreasingTrainCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.combinedIncreasingTrainCount.Location = new System.Drawing.Point(272, 342);
             this.combinedIncreasingTrainCount.Name = "combinedIncreasingTrainCount";
-            this.combinedIncreasingTrainCount.Size = new System.Drawing.Size(18, 20);
+            this.combinedIncreasingTrainCount.Size = new System.Drawing.Size(13, 13);
             this.combinedIncreasingTrainCount.TabIndex = 26;
             this.combinedIncreasingTrainCount.Text = "0";
             // 
             // catagory2IncreasingTrainCount
             // 
             this.catagory2IncreasingTrainCount.AutoSize = true;
-            this.catagory2IncreasingTrainCount.Location = new System.Drawing.Point(408, 478);
-            this.catagory2IncreasingTrainCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.catagory2IncreasingTrainCount.Location = new System.Drawing.Point(272, 311);
             this.catagory2IncreasingTrainCount.Name = "catagory2IncreasingTrainCount";
-            this.catagory2IncreasingTrainCount.Size = new System.Drawing.Size(18, 20);
+            this.catagory2IncreasingTrainCount.Size = new System.Drawing.Size(13, 13);
             this.catagory2IncreasingTrainCount.TabIndex = 25;
             this.catagory2IncreasingTrainCount.Text = "0";
             // 
             // catagory1IncreasingTrainCount
             // 
             this.catagory1IncreasingTrainCount.AutoSize = true;
-            this.catagory1IncreasingTrainCount.Location = new System.Drawing.Point(408, 438);
-            this.catagory1IncreasingTrainCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.catagory1IncreasingTrainCount.Location = new System.Drawing.Point(272, 285);
             this.catagory1IncreasingTrainCount.Name = "catagory1IncreasingTrainCount";
-            this.catagory1IncreasingTrainCount.Size = new System.Drawing.Size(18, 20);
+            this.catagory1IncreasingTrainCount.Size = new System.Drawing.Size(13, 13);
             this.catagory1IncreasingTrainCount.TabIndex = 24;
             this.catagory1IncreasingTrainCount.Text = "0";
             // 
             // combinedIncreasingPowerToWeightRatio
             // 
             this.combinedIncreasingPowerToWeightRatio.AutoSize = true;
-            this.combinedIncreasingPowerToWeightRatio.Location = new System.Drawing.Point(279, 526);
-            this.combinedIncreasingPowerToWeightRatio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.combinedIncreasingPowerToWeightRatio.Location = new System.Drawing.Point(186, 342);
             this.combinedIncreasingPowerToWeightRatio.Name = "combinedIncreasingPowerToWeightRatio";
-            this.combinedIncreasingPowerToWeightRatio.Size = new System.Drawing.Size(18, 20);
+            this.combinedIncreasingPowerToWeightRatio.Size = new System.Drawing.Size(13, 13);
             this.combinedIncreasingPowerToWeightRatio.TabIndex = 23;
             this.combinedIncreasingPowerToWeightRatio.Text = "0";
             // 
             // catagory2IncreasingPowerToWeightRatio
             // 
             this.catagory2IncreasingPowerToWeightRatio.AutoSize = true;
-            this.catagory2IncreasingPowerToWeightRatio.Location = new System.Drawing.Point(279, 478);
-            this.catagory2IncreasingPowerToWeightRatio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.catagory2IncreasingPowerToWeightRatio.Location = new System.Drawing.Point(186, 311);
             this.catagory2IncreasingPowerToWeightRatio.Name = "catagory2IncreasingPowerToWeightRatio";
-            this.catagory2IncreasingPowerToWeightRatio.Size = new System.Drawing.Size(18, 20);
+            this.catagory2IncreasingPowerToWeightRatio.Size = new System.Drawing.Size(13, 13);
             this.catagory2IncreasingPowerToWeightRatio.TabIndex = 22;
             this.catagory2IncreasingPowerToWeightRatio.Text = "0";
             // 
             // catagory1IncreasingPowerToWeightRatio
             // 
             this.catagory1IncreasingPowerToWeightRatio.AutoSize = true;
-            this.catagory1IncreasingPowerToWeightRatio.Location = new System.Drawing.Point(279, 438);
-            this.catagory1IncreasingPowerToWeightRatio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.catagory1IncreasingPowerToWeightRatio.Location = new System.Drawing.Point(186, 285);
             this.catagory1IncreasingPowerToWeightRatio.Name = "catagory1IncreasingPowerToWeightRatio";
-            this.catagory1IncreasingPowerToWeightRatio.Size = new System.Drawing.Size(18, 20);
+            this.catagory1IncreasingPowerToWeightRatio.Size = new System.Drawing.Size(13, 13);
             this.catagory1IncreasingPowerToWeightRatio.TabIndex = 21;
             this.catagory1IncreasingPowerToWeightRatio.Text = "0";
             // 
             // countLabel2
             // 
             this.countLabel2.AutoSize = true;
-            this.countLabel2.Location = new System.Drawing.Point(736, 403);
-            this.countLabel2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.countLabel2.Location = new System.Drawing.Point(491, 262);
             this.countLabel2.Name = "countLabel2";
-            this.countLabel2.Size = new System.Drawing.Size(52, 20);
+            this.countLabel2.Size = new System.Drawing.Size(35, 13);
             this.countLabel2.TabIndex = 20;
             this.countLabel2.Text = "Count";
             // 
             // PWRatioLabel2
             // 
             this.PWRatioLabel2.AutoSize = true;
-            this.PWRatioLabel2.Location = new System.Drawing.Point(600, 403);
-            this.PWRatioLabel2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.PWRatioLabel2.Location = new System.Drawing.Point(400, 262);
             this.PWRatioLabel2.Name = "PWRatioLabel2";
-            this.PWRatioLabel2.Size = new System.Drawing.Size(73, 20);
+            this.PWRatioLabel2.Size = new System.Drawing.Size(53, 13);
             this.PWRatioLabel2.TabIndex = 19;
             this.PWRatioLabel2.Text = "P/W ratio";
             // 
             // countLabel1
             // 
             this.countLabel1.AutoSize = true;
-            this.countLabel1.Location = new System.Drawing.Point(408, 403);
-            this.countLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.countLabel1.Location = new System.Drawing.Point(272, 262);
             this.countLabel1.Name = "countLabel1";
-            this.countLabel1.Size = new System.Drawing.Size(52, 20);
+            this.countLabel1.Size = new System.Drawing.Size(35, 13);
             this.countLabel1.TabIndex = 18;
             this.countLabel1.Text = "Count";
             // 
             // PWRatioLabel1
             // 
             this.PWRatioLabel1.AutoSize = true;
-            this.PWRatioLabel1.Location = new System.Drawing.Point(279, 403);
-            this.PWRatioLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.PWRatioLabel1.Location = new System.Drawing.Point(186, 262);
             this.PWRatioLabel1.Name = "PWRatioLabel1";
-            this.PWRatioLabel1.Size = new System.Drawing.Size(73, 20);
+            this.PWRatioLabel1.Size = new System.Drawing.Size(53, 13);
             this.PWRatioLabel1.TabIndex = 17;
             this.PWRatioLabel1.Text = "P/W ratio";
             // 
             // simulationPowerToWeightRatios
             // 
-            this.simulationPowerToWeightRatios.Location = new System.Drawing.Point(74, 311);
-            this.simulationPowerToWeightRatios.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.simulationPowerToWeightRatios.Location = new System.Drawing.Point(49, 202);
             this.simulationPowerToWeightRatios.Name = "simulationPowerToWeightRatios";
-            this.simulationPowerToWeightRatios.Size = new System.Drawing.Size(204, 78);
+            this.simulationPowerToWeightRatios.Size = new System.Drawing.Size(136, 51);
             this.simulationPowerToWeightRatios.TabIndex = 16;
             this.simulationPowerToWeightRatios.Text = "Generate Simulation Power to Weight Ratios";
             this.simulationPowerToWeightRatios.UseVisualStyleBackColor = true;
@@ -961,157 +890,141 @@
             // 
             // catagory2UpperBound
             // 
-            this.catagory2UpperBound.Location = new System.Drawing.Point(604, 226);
-            this.catagory2UpperBound.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.catagory2UpperBound.Location = new System.Drawing.Point(403, 147);
             this.catagory2UpperBound.Name = "catagory2UpperBound";
-            this.catagory2UpperBound.Size = new System.Drawing.Size(148, 26);
+            this.catagory2UpperBound.Size = new System.Drawing.Size(100, 20);
             this.catagory2UpperBound.TabIndex = 15;
             this.catagory2UpperBound.Text = "11.5";
             // 
             // catagory2LowerBound
             // 
-            this.catagory2LowerBound.Location = new System.Drawing.Point(284, 226);
-            this.catagory2LowerBound.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.catagory2LowerBound.Location = new System.Drawing.Point(189, 147);
             this.catagory2LowerBound.Name = "catagory2LowerBound";
-            this.catagory2LowerBound.Size = new System.Drawing.Size(148, 26);
+            this.catagory2LowerBound.Size = new System.Drawing.Size(100, 20);
             this.catagory2LowerBound.TabIndex = 14;
             this.catagory2LowerBound.Text = "4.5";
             // 
             // catagory1UpperBound
             // 
-            this.catagory1UpperBound.Location = new System.Drawing.Point(604, 186);
-            this.catagory1UpperBound.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.catagory1UpperBound.Location = new System.Drawing.Point(403, 121);
             this.catagory1UpperBound.Name = "catagory1UpperBound";
-            this.catagory1UpperBound.Size = new System.Drawing.Size(148, 26);
+            this.catagory1UpperBound.Size = new System.Drawing.Size(100, 20);
             this.catagory1UpperBound.TabIndex = 13;
             this.catagory1UpperBound.Text = "4.5";
             // 
             // catagory1LowerBound
             // 
-            this.catagory1LowerBound.Location = new System.Drawing.Point(284, 186);
-            this.catagory1LowerBound.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.catagory1LowerBound.Location = new System.Drawing.Point(189, 121);
             this.catagory1LowerBound.Name = "catagory1LowerBound";
-            this.catagory1LowerBound.Size = new System.Drawing.Size(148, 26);
+            this.catagory1LowerBound.Size = new System.Drawing.Size(100, 20);
             this.catagory1LowerBound.TabIndex = 12;
             this.catagory1LowerBound.Text = "1.5";
             // 
             // powerToWeightLabel
             // 
             this.powerToWeightLabel.AutoSize = true;
-            this.powerToWeightLabel.Location = new System.Drawing.Point(69, 125);
-            this.powerToWeightLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.powerToWeightLabel.Location = new System.Drawing.Point(46, 81);
             this.powerToWeightLabel.Name = "powerToWeightLabel";
-            this.powerToWeightLabel.Size = new System.Drawing.Size(183, 20);
+            this.powerToWeightLabel.Size = new System.Drawing.Size(126, 13);
             this.powerToWeightLabel.TabIndex = 11;
             this.powerToWeightLabel.Text = "Power To Weight Ratios:";
             // 
             // simICEDataFile
             // 
             this.simICEDataFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.simICEDataFile.Location = new System.Drawing.Point(186, 43);
-            this.simICEDataFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.simICEDataFile.Location = new System.Drawing.Point(124, 28);
             this.simICEDataFile.Name = "simICEDataFile";
-            this.simICEDataFile.Size = new System.Drawing.Size(700, 26);
+            this.simICEDataFile.Size = new System.Drawing.Size(468, 20);
             this.simICEDataFile.TabIndex = 10;
             this.simICEDataFile.Text = "Data File Loaded from File Selection tab";
             // 
             // combinedLabel
             // 
             this.combinedLabel.AutoSize = true;
-            this.combinedLabel.Location = new System.Drawing.Point(69, 526);
-            this.combinedLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.combinedLabel.Location = new System.Drawing.Point(46, 342);
             this.combinedLabel.Name = "combinedLabel";
-            this.combinedLabel.Size = new System.Drawing.Size(85, 20);
+            this.combinedLabel.Size = new System.Drawing.Size(57, 13);
             this.combinedLabel.TabIndex = 9;
             this.combinedLabel.Text = "Combined:";
             // 
             // simCatagory2Label
             // 
             this.simCatagory2Label.AutoSize = true;
-            this.simCatagory2Label.Location = new System.Drawing.Point(69, 478);
-            this.simCatagory2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.simCatagory2Label.Location = new System.Drawing.Point(46, 311);
             this.simCatagory2Label.Name = "simCatagory2Label";
-            this.simCatagory2Label.Size = new System.Drawing.Size(107, 20);
+            this.simCatagory2Label.Size = new System.Drawing.Size(74, 13);
             this.simCatagory2Label.TabIndex = 8;
             this.simCatagory2Label.Text = "Overpowered:";
             // 
             // simCatagory1Label
             // 
             this.simCatagory1Label.AutoSize = true;
-            this.simCatagory1Label.Location = new System.Drawing.Point(69, 438);
-            this.simCatagory1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.simCatagory1Label.Location = new System.Drawing.Point(46, 285);
             this.simCatagory1Label.Name = "simCatagory1Label";
-            this.simCatagory1Label.Size = new System.Drawing.Size(118, 20);
+            this.simCatagory1Label.Size = new System.Drawing.Size(80, 13);
             this.simCatagory1Label.TabIndex = 7;
             this.simCatagory1Label.Text = "Underpowered:";
             // 
             // decreasingLabel
             // 
             this.decreasingLabel.AutoSize = true;
-            this.decreasingLabel.Location = new System.Drawing.Point(600, 369);
-            this.decreasingLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.decreasingLabel.Location = new System.Drawing.Point(400, 240);
             this.decreasingLabel.Name = "decreasingLabel";
-            this.decreasingLabel.Size = new System.Drawing.Size(186, 20);
+            this.decreasingLabel.Size = new System.Drawing.Size(126, 13);
             this.decreasingLabel.TabIndex = 6;
             this.decreasingLabel.Text = "Decreasing km Direction:";
             // 
             // increasingLabel
             // 
             this.increasingLabel.AutoSize = true;
-            this.increasingLabel.Location = new System.Drawing.Point(279, 369);
-            this.increasingLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.increasingLabel.Location = new System.Drawing.Point(186, 240);
             this.increasingLabel.Name = "increasingLabel";
-            this.increasingLabel.Size = new System.Drawing.Size(179, 20);
+            this.increasingLabel.Size = new System.Drawing.Size(121, 13);
             this.increasingLabel.TabIndex = 5;
             this.increasingLabel.Text = "Increasing km Direction:";
             // 
             // upperBoundLabel
             // 
             this.upperBoundLabel.AutoSize = true;
-            this.upperBoundLabel.Location = new System.Drawing.Point(600, 152);
-            this.upperBoundLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.upperBoundLabel.Location = new System.Drawing.Point(400, 99);
             this.upperBoundLabel.Name = "upperBoundLabel";
-            this.upperBoundLabel.Size = new System.Drawing.Size(108, 20);
+            this.upperBoundLabel.Size = new System.Drawing.Size(73, 13);
             this.upperBoundLabel.TabIndex = 4;
             this.upperBoundLabel.Text = "Upper Bound:";
             // 
             // lowerBoundLabel
             // 
             this.lowerBoundLabel.AutoSize = true;
-            this.lowerBoundLabel.Location = new System.Drawing.Point(279, 152);
-            this.lowerBoundLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lowerBoundLabel.Location = new System.Drawing.Point(186, 99);
             this.lowerBoundLabel.Name = "lowerBoundLabel";
-            this.lowerBoundLabel.Size = new System.Drawing.Size(107, 20);
+            this.lowerBoundLabel.Size = new System.Drawing.Size(73, 13);
             this.lowerBoundLabel.TabIndex = 3;
             this.lowerBoundLabel.Text = "Lower Bound:";
             // 
             // catagory2Label
             // 
             this.catagory2Label.AutoSize = true;
-            this.catagory2Label.Location = new System.Drawing.Point(69, 231);
-            this.catagory2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.catagory2Label.Location = new System.Drawing.Point(46, 150);
             this.catagory2Label.Name = "catagory2Label";
-            this.catagory2Label.Size = new System.Drawing.Size(107, 20);
+            this.catagory2Label.Size = new System.Drawing.Size(74, 13);
             this.catagory2Label.TabIndex = 2;
             this.catagory2Label.Text = "Overpowered:";
             // 
             // catagory1Label
             // 
             this.catagory1Label.AutoSize = true;
-            this.catagory1Label.Location = new System.Drawing.Point(69, 191);
-            this.catagory1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.catagory1Label.Location = new System.Drawing.Point(46, 124);
             this.catagory1Label.Name = "catagory1Label";
-            this.catagory1Label.Size = new System.Drawing.Size(118, 20);
+            this.catagory1Label.Size = new System.Drawing.Size(80, 13);
             this.catagory1Label.TabIndex = 1;
             this.catagory1Label.Text = "Underpowered:";
             // 
             // dataFileLabel
             // 
             this.dataFileLabel.AutoSize = true;
-            this.dataFileLabel.Location = new System.Drawing.Point(69, 48);
-            this.dataFileLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.dataFileLabel.Location = new System.Drawing.Point(46, 31);
             this.dataFileLabel.Name = "dataFileLabel";
-            this.dataFileLabel.Size = new System.Drawing.Size(108, 20);
+            this.dataFileLabel.Size = new System.Drawing.Size(72, 13);
             this.dataFileLabel.TabIndex = 0;
             this.dataFileLabel.Text = "ICE Data File:";
             // 
@@ -1146,11 +1059,10 @@
             this.simualtionFileTab.Controls.Add(this.selectCatagory1IncreasingSimulation);
             this.simualtionFileTab.Controls.Add(this.catagory1SimualtionLabel);
             this.simualtionFileTab.Controls.Add(this.catagory1IncreasingSimulationFile);
-            this.simualtionFileTab.Location = new System.Drawing.Point(4, 29);
-            this.simualtionFileTab.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.simualtionFileTab.Location = new System.Drawing.Point(4, 22);
             this.simualtionFileTab.Name = "simualtionFileTab";
-            this.simualtionFileTab.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.simualtionFileTab.Size = new System.Drawing.Size(1618, 761);
+            this.simualtionFileTab.Padding = new System.Windows.Forms.Padding(3);
+            this.simualtionFileTab.Size = new System.Drawing.Size(1076, 490);
             this.simualtionFileTab.TabIndex = 3;
             this.simualtionFileTab.Text = "Simulation File Selection";
             this.simualtionFileTab.UseVisualStyleBackColor = true;
@@ -1158,9 +1070,10 @@
             // powerToWeightRatioAnalysis
             // 
             this.powerToWeightRatioAnalysis.AutoSize = true;
-            this.powerToWeightRatioAnalysis.Location = new System.Drawing.Point(879, 25);
+            this.powerToWeightRatioAnalysis.Location = new System.Drawing.Point(586, 16);
+            this.powerToWeightRatioAnalysis.Margin = new System.Windows.Forms.Padding(2);
             this.powerToWeightRatioAnalysis.Name = "powerToWeightRatioAnalysis";
-            this.powerToWeightRatioAnalysis.Size = new System.Drawing.Size(201, 24);
+            this.powerToWeightRatioAnalysis.Size = new System.Drawing.Size(138, 17);
             this.powerToWeightRatioAnalysis.TabIndex = 29;
             this.powerToWeightRatioAnalysis.Text = "Power to Weight Ratios";
             this.powerToWeightRatioAnalysis.UseVisualStyleBackColor = true;
@@ -1171,14 +1084,17 @@
             this.Commodity3Catagory.FormattingEnabled = true;
             this.Commodity3Catagory.Items.AddRange(new object[] {
             "Steel",
+            "Clinker",
             "Mineral",
             "General Freight",
             "Intermodal",
+            "Passenger",
             "Coal",
             "Group Remaining"});
-            this.Commodity3Catagory.Location = new System.Drawing.Point(1331, 412);
+            this.Commodity3Catagory.Location = new System.Drawing.Point(887, 268);
+            this.Commodity3Catagory.Margin = new System.Windows.Forms.Padding(2);
             this.Commodity3Catagory.Name = "Commodity3Catagory";
-            this.Commodity3Catagory.Size = new System.Drawing.Size(176, 28);
+            this.Commodity3Catagory.Size = new System.Drawing.Size(119, 21);
             this.Commodity3Catagory.TabIndex = 28;
             this.Commodity3Catagory.Text = "Select a Commodity";
             this.Commodity3Catagory.SelectedIndexChanged += new System.EventHandler(this.Commodity3Catagory_SelectedIndexChanged);
@@ -1192,9 +1108,10 @@
             "Freightliner",
             "ARTC",
             "QUBE"});
-            this.Operator3Catagory.Location = new System.Drawing.Point(1118, 412);
+            this.Operator3Catagory.Location = new System.Drawing.Point(745, 268);
+            this.Operator3Catagory.Margin = new System.Windows.Forms.Padding(2);
             this.Operator3Catagory.Name = "Operator3Catagory";
-            this.Operator3Catagory.Size = new System.Drawing.Size(170, 28);
+            this.Operator3Catagory.Size = new System.Drawing.Size(115, 21);
             this.Operator3Catagory.TabIndex = 27;
             this.Operator3Catagory.Text = "Select an Operator";
             this.Operator3Catagory.SelectedIndexChanged += new System.EventHandler(this.Operator3Catagory_SelectedIndexChanged);
@@ -1204,14 +1121,17 @@
             this.Commodity2Catagory.FormattingEnabled = true;
             this.Commodity2Catagory.Items.AddRange(new object[] {
             "Steel",
+            "Clinker",
             "Mineral",
             "General Freight",
             "Intermodal",
+            "Passenger",
             "Coal",
             "Group Remaining"});
-            this.Commodity2Catagory.Location = new System.Drawing.Point(1331, 262);
+            this.Commodity2Catagory.Location = new System.Drawing.Point(887, 170);
+            this.Commodity2Catagory.Margin = new System.Windows.Forms.Padding(2);
             this.Commodity2Catagory.Name = "Commodity2Catagory";
-            this.Commodity2Catagory.Size = new System.Drawing.Size(176, 28);
+            this.Commodity2Catagory.Size = new System.Drawing.Size(119, 21);
             this.Commodity2Catagory.TabIndex = 26;
             this.Commodity2Catagory.Text = "Select a Commodity";
             this.Commodity2Catagory.SelectedIndexChanged += new System.EventHandler(this.Commodity2Catagory_SelectedIndexChanged);
@@ -1225,9 +1145,10 @@
             "Freightliner",
             "ARTC",
             "QUBE"});
-            this.Operator2Catagory.Location = new System.Drawing.Point(1118, 262);
+            this.Operator2Catagory.Location = new System.Drawing.Point(745, 170);
+            this.Operator2Catagory.Margin = new System.Windows.Forms.Padding(2);
             this.Operator2Catagory.Name = "Operator2Catagory";
-            this.Operator2Catagory.Size = new System.Drawing.Size(170, 28);
+            this.Operator2Catagory.Size = new System.Drawing.Size(115, 21);
             this.Operator2Catagory.TabIndex = 25;
             this.Operator2Catagory.Text = "Select an Operator";
             this.Operator2Catagory.SelectedValueChanged += new System.EventHandler(this.Operator2Catagory_SelectedValueChanged);
@@ -1237,14 +1158,17 @@
             this.Commodity1Catagory.FormattingEnabled = true;
             this.Commodity1Catagory.Items.AddRange(new object[] {
             "Steel",
+            "Clinker",
             "Mineral",
             "General Freight",
             "Intermodal",
+            "Passenger",
             "Coal",
             "Group Remaining"});
-            this.Commodity1Catagory.Location = new System.Drawing.Point(1331, 106);
+            this.Commodity1Catagory.Location = new System.Drawing.Point(887, 69);
+            this.Commodity1Catagory.Margin = new System.Windows.Forms.Padding(2);
             this.Commodity1Catagory.Name = "Commodity1Catagory";
-            this.Commodity1Catagory.Size = new System.Drawing.Size(176, 28);
+            this.Commodity1Catagory.Size = new System.Drawing.Size(119, 21);
             this.Commodity1Catagory.TabIndex = 24;
             this.Commodity1Catagory.Text = "Select a Commodity";
             this.Commodity1Catagory.SelectedIndexChanged += new System.EventHandler(this.Commodity1Catagory_SelectedIndexChanged);
@@ -1258,9 +1182,10 @@
             "Freightliner",
             "ARTC",
             "QUBE"});
-            this.Operator1Catagory.Location = new System.Drawing.Point(1118, 106);
+            this.Operator1Catagory.Location = new System.Drawing.Point(745, 69);
+            this.Operator1Catagory.Margin = new System.Windows.Forms.Padding(2);
             this.Operator1Catagory.Name = "Operator1Catagory";
-            this.Operator1Catagory.Size = new System.Drawing.Size(170, 28);
+            this.Operator1Catagory.Size = new System.Drawing.Size(115, 21);
             this.Operator1Catagory.TabIndex = 23;
             this.Operator1Catagory.Text = "Select an Operator";
             this.Operator1Catagory.SelectedValueChanged += new System.EventHandler(this.Operator1Catagory_SelectedValueChanged);
@@ -1268,27 +1193,28 @@
             // CommodityLabel
             // 
             this.CommodityLabel.AutoSize = true;
-            this.CommodityLabel.Location = new System.Drawing.Point(1327, 29);
+            this.CommodityLabel.Location = new System.Drawing.Point(885, 19);
+            this.CommodityLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CommodityLabel.Name = "CommodityLabel";
-            this.CommodityLabel.Size = new System.Drawing.Size(88, 20);
+            this.CommodityLabel.Size = new System.Drawing.Size(58, 13);
             this.CommodityLabel.TabIndex = 22;
             this.CommodityLabel.Text = "Commodity";
             // 
             // OperatorLabel
             // 
             this.OperatorLabel.AutoSize = true;
-            this.OperatorLabel.Location = new System.Drawing.Point(1114, 29);
+            this.OperatorLabel.Location = new System.Drawing.Point(743, 19);
+            this.OperatorLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.OperatorLabel.Name = "OperatorLabel";
-            this.OperatorLabel.Size = new System.Drawing.Size(111, 20);
+            this.OperatorLabel.Size = new System.Drawing.Size(75, 13);
             this.OperatorLabel.TabIndex = 21;
             this.OperatorLabel.Text = "Train Operator";
             // 
             // Execute
             // 
-            this.Execute.Location = new System.Drawing.Point(1264, 574);
-            this.Execute.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Execute.Location = new System.Drawing.Point(843, 373);
             this.Execute.Name = "Execute";
-            this.Execute.Size = new System.Drawing.Size(220, 71);
+            this.Execute.Size = new System.Drawing.Size(147, 46);
             this.Execute.TabIndex = 20;
             this.Execute.Text = "Execute";
             this.Execute.UseVisualStyleBackColor = true;
@@ -1297,39 +1223,35 @@
             // executionTime
             // 
             this.executionTime.AutoSize = true;
-            this.executionTime.Location = new System.Drawing.Point(1413, 669);
-            this.executionTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.executionTime.Location = new System.Drawing.Point(942, 435);
             this.executionTime.Name = "executionTime";
-            this.executionTime.Size = new System.Drawing.Size(39, 20);
+            this.executionTime.Size = new System.Drawing.Size(26, 13);
             this.executionTime.TabIndex = 19;
             this.executionTime.Text = "time";
             // 
             // ExecitionTimeLabel
             // 
             this.ExecitionTimeLabel.AutoSize = true;
-            this.ExecitionTimeLabel.Location = new System.Drawing.Point(1260, 669);
-            this.ExecitionTimeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ExecitionTimeLabel.Location = new System.Drawing.Point(840, 435);
             this.ExecitionTimeLabel.Name = "ExecitionTimeLabel";
-            this.ExecitionTimeLabel.Size = new System.Drawing.Size(121, 20);
+            this.ExecitionTimeLabel.Size = new System.Drawing.Size(83, 13);
             this.ExecitionTimeLabel.TabIndex = 18;
             this.ExecitionTimeLabel.Text = "Execution Time:";
             // 
             // resultsDestination
             // 
             this.resultsDestination.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.resultsDestination.Location = new System.Drawing.Point(344, 543);
-            this.resultsDestination.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.resultsDestination.Location = new System.Drawing.Point(229, 353);
             this.resultsDestination.Name = "resultsDestination";
-            this.resultsDestination.Size = new System.Drawing.Size(736, 26);
+            this.resultsDestination.Size = new System.Drawing.Size(492, 20);
             this.resultsDestination.TabIndex = 17;
             this.resultsDestination.Text = "<Required>";
             // 
             // resultsDirectory
             // 
-            this.resultsDirectory.Location = new System.Drawing.Point(80, 526);
-            this.resultsDirectory.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.resultsDirectory.Location = new System.Drawing.Point(53, 342);
             this.resultsDirectory.Name = "resultsDirectory";
-            this.resultsDirectory.Size = new System.Drawing.Size(255, 62);
+            this.resultsDirectory.Size = new System.Drawing.Size(170, 40);
             this.resultsDirectory.TabIndex = 15;
             this.resultsDirectory.Text = "Select AggregatedDestination Directory";
             this.resultsDirectory.UseVisualStyleBackColor = true;
@@ -1337,10 +1259,9 @@
             // 
             // selectCatagory3DecreasingSimulation
             // 
-            this.selectCatagory3DecreasingSimulation.Location = new System.Drawing.Point(80, 443);
-            this.selectCatagory3DecreasingSimulation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.selectCatagory3DecreasingSimulation.Location = new System.Drawing.Point(53, 288);
             this.selectCatagory3DecreasingSimulation.Name = "selectCatagory3DecreasingSimulation";
-            this.selectCatagory3DecreasingSimulation.Size = new System.Drawing.Size(255, 46);
+            this.selectCatagory3DecreasingSimulation.Size = new System.Drawing.Size(170, 30);
             this.selectCatagory3DecreasingSimulation.TabIndex = 14;
             this.selectCatagory3DecreasingSimulation.Text = "Select Decreasing Simulation";
             this.selectCatagory3DecreasingSimulation.UseVisualStyleBackColor = true;
@@ -1349,19 +1270,17 @@
             // catagory3DecreasingSimulationFile
             // 
             this.catagory3DecreasingSimulationFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.catagory3DecreasingSimulationFile.Location = new System.Drawing.Point(344, 452);
-            this.catagory3DecreasingSimulationFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.catagory3DecreasingSimulationFile.Location = new System.Drawing.Point(229, 294);
             this.catagory3DecreasingSimulationFile.Name = "catagory3DecreasingSimulationFile";
-            this.catagory3DecreasingSimulationFile.Size = new System.Drawing.Size(736, 26);
+            this.catagory3DecreasingSimulationFile.Size = new System.Drawing.Size(492, 20);
             this.catagory3DecreasingSimulationFile.TabIndex = 13;
             this.catagory3DecreasingSimulationFile.Text = "<Optional>";
             // 
             // selectCatagory3IncreasingSimulation
             // 
-            this.selectCatagory3IncreasingSimulation.Location = new System.Drawing.Point(80, 382);
-            this.selectCatagory3IncreasingSimulation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.selectCatagory3IncreasingSimulation.Location = new System.Drawing.Point(53, 248);
             this.selectCatagory3IncreasingSimulation.Name = "selectCatagory3IncreasingSimulation";
-            this.selectCatagory3IncreasingSimulation.Size = new System.Drawing.Size(255, 46);
+            this.selectCatagory3IncreasingSimulation.Size = new System.Drawing.Size(170, 30);
             this.selectCatagory3IncreasingSimulation.TabIndex = 12;
             this.selectCatagory3IncreasingSimulation.Text = "Select Increasing Simulation";
             this.selectCatagory3IncreasingSimulation.UseVisualStyleBackColor = true;
@@ -1370,29 +1289,26 @@
             // catagory3SimualtionLabel
             // 
             this.catagory3SimualtionLabel.AutoSize = true;
-            this.catagory3SimualtionLabel.Location = new System.Drawing.Point(48, 357);
-            this.catagory3SimualtionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.catagory3SimualtionLabel.Location = new System.Drawing.Point(32, 232);
             this.catagory3SimualtionLabel.Name = "catagory3SimualtionLabel";
-            this.catagory3SimualtionLabel.Size = new System.Drawing.Size(88, 20);
+            this.catagory3SimualtionLabel.Size = new System.Drawing.Size(60, 13);
             this.catagory3SimualtionLabel.TabIndex = 11;
             this.catagory3SimualtionLabel.Text = "Alternative:";
             // 
             // catagory3IncreasingSimulationFile
             // 
             this.catagory3IncreasingSimulationFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.catagory3IncreasingSimulationFile.Location = new System.Drawing.Point(344, 391);
-            this.catagory3IncreasingSimulationFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.catagory3IncreasingSimulationFile.Location = new System.Drawing.Point(229, 254);
             this.catagory3IncreasingSimulationFile.Name = "catagory3IncreasingSimulationFile";
-            this.catagory3IncreasingSimulationFile.Size = new System.Drawing.Size(736, 26);
+            this.catagory3IncreasingSimulationFile.Size = new System.Drawing.Size(492, 20);
             this.catagory3IncreasingSimulationFile.TabIndex = 10;
             this.catagory3IncreasingSimulationFile.Text = "<Optional>";
             // 
             // selectCatagory2DecreasingSimulation
             // 
-            this.selectCatagory2DecreasingSimulation.Location = new System.Drawing.Point(80, 288);
-            this.selectCatagory2DecreasingSimulation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.selectCatagory2DecreasingSimulation.Location = new System.Drawing.Point(53, 187);
             this.selectCatagory2DecreasingSimulation.Name = "selectCatagory2DecreasingSimulation";
-            this.selectCatagory2DecreasingSimulation.Size = new System.Drawing.Size(255, 46);
+            this.selectCatagory2DecreasingSimulation.Size = new System.Drawing.Size(170, 30);
             this.selectCatagory2DecreasingSimulation.TabIndex = 9;
             this.selectCatagory2DecreasingSimulation.Text = "Select Decreasing Simulation";
             this.selectCatagory2DecreasingSimulation.UseVisualStyleBackColor = true;
@@ -1401,19 +1317,17 @@
             // catagory2DecreasingSimulationFile
             // 
             this.catagory2DecreasingSimulationFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.catagory2DecreasingSimulationFile.Location = new System.Drawing.Point(344, 297);
-            this.catagory2DecreasingSimulationFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.catagory2DecreasingSimulationFile.Location = new System.Drawing.Point(229, 193);
             this.catagory2DecreasingSimulationFile.Name = "catagory2DecreasingSimulationFile";
-            this.catagory2DecreasingSimulationFile.Size = new System.Drawing.Size(736, 26);
+            this.catagory2DecreasingSimulationFile.Size = new System.Drawing.Size(492, 20);
             this.catagory2DecreasingSimulationFile.TabIndex = 8;
             this.catagory2DecreasingSimulationFile.Text = "<Required>";
             // 
             // selectCatagory2IncreasingSimulation
             // 
-            this.selectCatagory2IncreasingSimulation.Location = new System.Drawing.Point(80, 226);
-            this.selectCatagory2IncreasingSimulation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.selectCatagory2IncreasingSimulation.Location = new System.Drawing.Point(53, 147);
             this.selectCatagory2IncreasingSimulation.Name = "selectCatagory2IncreasingSimulation";
-            this.selectCatagory2IncreasingSimulation.Size = new System.Drawing.Size(255, 46);
+            this.selectCatagory2IncreasingSimulation.Size = new System.Drawing.Size(170, 30);
             this.selectCatagory2IncreasingSimulation.TabIndex = 7;
             this.selectCatagory2IncreasingSimulation.Text = "Select Increasing Simulation";
             this.selectCatagory2IncreasingSimulation.UseVisualStyleBackColor = true;
@@ -1422,29 +1336,26 @@
             // catagory2SimualtionLabel
             // 
             this.catagory2SimualtionLabel.AutoSize = true;
-            this.catagory2SimualtionLabel.Location = new System.Drawing.Point(48, 202);
-            this.catagory2SimualtionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.catagory2SimualtionLabel.Location = new System.Drawing.Point(32, 131);
             this.catagory2SimualtionLabel.Name = "catagory2SimualtionLabel";
-            this.catagory2SimualtionLabel.Size = new System.Drawing.Size(107, 20);
+            this.catagory2SimualtionLabel.Size = new System.Drawing.Size(74, 13);
             this.catagory2SimualtionLabel.TabIndex = 6;
             this.catagory2SimualtionLabel.Text = "Overpowered:";
             // 
             // catagory2IncreasingSimulationFile
             // 
             this.catagory2IncreasingSimulationFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.catagory2IncreasingSimulationFile.Location = new System.Drawing.Point(344, 235);
-            this.catagory2IncreasingSimulationFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.catagory2IncreasingSimulationFile.Location = new System.Drawing.Point(229, 153);
             this.catagory2IncreasingSimulationFile.Name = "catagory2IncreasingSimulationFile";
-            this.catagory2IncreasingSimulationFile.Size = new System.Drawing.Size(736, 26);
+            this.catagory2IncreasingSimulationFile.Size = new System.Drawing.Size(492, 20);
             this.catagory2IncreasingSimulationFile.TabIndex = 5;
             this.catagory2IncreasingSimulationFile.Text = "<Required>";
             // 
             // selectCatagory1DecreasingSimulation
             // 
-            this.selectCatagory1DecreasingSimulation.Location = new System.Drawing.Point(80, 134);
-            this.selectCatagory1DecreasingSimulation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.selectCatagory1DecreasingSimulation.Location = new System.Drawing.Point(53, 87);
             this.selectCatagory1DecreasingSimulation.Name = "selectCatagory1DecreasingSimulation";
-            this.selectCatagory1DecreasingSimulation.Size = new System.Drawing.Size(255, 46);
+            this.selectCatagory1DecreasingSimulation.Size = new System.Drawing.Size(170, 30);
             this.selectCatagory1DecreasingSimulation.TabIndex = 4;
             this.selectCatagory1DecreasingSimulation.Text = "Select Decreasing Simulation";
             this.selectCatagory1DecreasingSimulation.UseVisualStyleBackColor = true;
@@ -1453,19 +1364,17 @@
             // catagory1DecreasingSimulationFile
             // 
             this.catagory1DecreasingSimulationFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.catagory1DecreasingSimulationFile.Location = new System.Drawing.Point(344, 143);
-            this.catagory1DecreasingSimulationFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.catagory1DecreasingSimulationFile.Location = new System.Drawing.Point(229, 93);
             this.catagory1DecreasingSimulationFile.Name = "catagory1DecreasingSimulationFile";
-            this.catagory1DecreasingSimulationFile.Size = new System.Drawing.Size(736, 26);
+            this.catagory1DecreasingSimulationFile.Size = new System.Drawing.Size(492, 20);
             this.catagory1DecreasingSimulationFile.TabIndex = 3;
             this.catagory1DecreasingSimulationFile.Text = "<Required>";
             // 
             // selectCatagory1IncreasingSimulation
             // 
-            this.selectCatagory1IncreasingSimulation.Location = new System.Drawing.Point(80, 72);
-            this.selectCatagory1IncreasingSimulation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.selectCatagory1IncreasingSimulation.Location = new System.Drawing.Point(53, 47);
             this.selectCatagory1IncreasingSimulation.Name = "selectCatagory1IncreasingSimulation";
-            this.selectCatagory1IncreasingSimulation.Size = new System.Drawing.Size(255, 46);
+            this.selectCatagory1IncreasingSimulation.Size = new System.Drawing.Size(170, 30);
             this.selectCatagory1IncreasingSimulation.TabIndex = 2;
             this.selectCatagory1IncreasingSimulation.Text = "Select Increasing Simulation";
             this.selectCatagory1IncreasingSimulation.UseVisualStyleBackColor = true;
@@ -1474,30 +1383,27 @@
             // catagory1SimualtionLabel
             // 
             this.catagory1SimualtionLabel.AutoSize = true;
-            this.catagory1SimualtionLabel.Location = new System.Drawing.Point(48, 48);
-            this.catagory1SimualtionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.catagory1SimualtionLabel.Location = new System.Drawing.Point(32, 31);
             this.catagory1SimualtionLabel.Name = "catagory1SimualtionLabel";
-            this.catagory1SimualtionLabel.Size = new System.Drawing.Size(118, 20);
+            this.catagory1SimualtionLabel.Size = new System.Drawing.Size(80, 13);
             this.catagory1SimualtionLabel.TabIndex = 1;
             this.catagory1SimualtionLabel.Text = "Underpowered:";
             // 
             // catagory1IncreasingSimulationFile
             // 
             this.catagory1IncreasingSimulationFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.catagory1IncreasingSimulationFile.Location = new System.Drawing.Point(344, 82);
-            this.catagory1IncreasingSimulationFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.catagory1IncreasingSimulationFile.Location = new System.Drawing.Point(229, 53);
             this.catagory1IncreasingSimulationFile.Name = "catagory1IncreasingSimulationFile";
-            this.catagory1IncreasingSimulationFile.Size = new System.Drawing.Size(736, 26);
+            this.catagory1IncreasingSimulationFile.Size = new System.Drawing.Size(492, 20);
             this.catagory1IncreasingSimulationFile.TabIndex = 0;
             this.catagory1IncreasingSimulationFile.Text = "<Required>";
             // 
             // TrainPerformance
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1648, 831);
+            this.ClientSize = new System.Drawing.Size(1099, 540);
             this.Controls.Add(this.simulationTab);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "TrainPerformance";
             this.Text = "Form1";
             this.simulationTab.ResumeLayout(false);
@@ -1518,7 +1424,6 @@
         private System.Windows.Forms.TabControl simulationTab;
         private System.Windows.Forms.TabPage fileSelectionTab;
         private System.Windows.Forms.CheckBox includeAListOfTrainsToExclude;
-        private System.Windows.Forms.CheckBox HunterValley;
         private System.Windows.Forms.TextBox trainListFile;
         private System.Windows.Forms.Button selectTrainFile;
         private System.Windows.Forms.TextBox temporarySpeedRestrictionFile;
@@ -1632,6 +1537,7 @@
         private System.Windows.Forms.ComboBox Operator2Catagory;
         private System.Windows.Forms.ComboBox Commodity1Catagory;
         private System.Windows.Forms.CheckBox powerToWeightRatioAnalysis;
+        private System.Windows.Forms.CheckBox SouthernHighlands;
 
     }
 }

@@ -867,7 +867,7 @@ namespace TRAP
             Settings.catagory2UpperBound = form.getCatagory2UpperBound();
             //Settings.combinedLowerBound = form.getUnderpoweredLowerBound();
             //Settings.combinedUpperBound = form.getOvderpoweredUpperBound();
-            Settings.HunterValleyRegion = form.getHunterValleyRegion();
+            //Settings.HunterValleyRegion = form.getHunterValleyRegion();
             Settings.analysisCatagory = form.getAnalysisCatagory();
             Settings.catagory1Commodity = form.getCommodity1Catagory();
             Settings.catagory1Operator = form.getOperator1Catagory();
