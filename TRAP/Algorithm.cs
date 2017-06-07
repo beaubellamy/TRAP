@@ -33,14 +33,17 @@ namespace TRAP
     {
         ARTC, Aurizon, CityRail, CountryLink, Freightliner, GreatSouthernRail, Interail, LauchlanValleyRailSociety,
         PacificNational, QUBE, RailCorp, SCT, SouthernShorthaulRail, SydneyRailService, TheRailMotorService, VLinePassenger,
-        Combined, Actual, GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, GroupRemaining, 
+        Combined, Actual, GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, GroupRemaining,
         Underpowered, Overpowered, Alternative, Simulated, Unknown
     };
 
     /// <summary>
     /// A list of available commodities.
     /// </summary>
-    public enum trainCommodity { GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, GroupRemaining, Unknown };
+    public enum trainCommodity 
+    { 
+        GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, GroupRemaining, Unknown 
+    };
 
     /// <summary>
     /// A Train class to describe each individual train.
@@ -506,19 +509,11 @@ namespace TRAP
         /// Determine the average train performance in both directions based on the supplied 
         /// actual train data. The form allows the user to specify which parameters will be 
         /// used to analyse the data. These can be the train operator, the power to weight 
-        /// ratios, and the commidity the train carries.
+        /// ratios, and the commodity the train carries.
         /// 
-        /// The loop 
-        /// locations and TSR information is also used to extract the data that corresponds 
-        /// to a train that enteres a loop and is bound by a TSR. If the train is within the 
-        /// 'loop bounday threshold' and is deemed to be stopping in the loop, the data at this 
-        /// location is not included. The train is deemed to be stopping in a loop if the train 
-        /// speed drops below the simulated speed multiplied by the 'loop speed factor'. If the 
-        /// train is within the 'TSR window', the data at this location is ignored as the train 
-        /// is bound by the TSR at the location. The average train is then determined from the 
-        /// included train data.
+        /// The loop locations and TSR information is also used to extract the data that corresponds to a train that enteres a loop and is bound by a TSR. If the train is within the 'loop bounday threshold' and is deemed to be stopping in the loop, the data at this location is not included. The train is deemed to be stopping in a loop if the train speed drops below the simulated speed multiplied by the 'loop speed factor'. If the train is within the 'TSR window', the data at this location is ignored as the train is bound by the TSR at the location. The average train is then determined from the included train data.
         /// 
-        /// This function produces a a file containing the interpolated data for each train 
+        /// This function produces a file containing the interpolated data for each train 
         /// and a file containing the aggregated information for each analysis catagory.
         /// </summary>        
         [STAThread]
@@ -892,7 +887,7 @@ namespace TRAP
                     /* will be an operator; can be 2 or 3 different operators */
                     increasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                     decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
-                    
+
                     stats.Add(Statistics.generateStats(increasingTrainCatagory));
                     stats.Add(Statistics.generateStats(decreasingTrainCatagory));
 
@@ -906,14 +901,14 @@ namespace TRAP
                 else
                 {
                     trainCommodity commodity = convertCatagoryToCommodity(simCatagories[index]);
-                    
+
                     /* Create a list for each commodity for each direction */
                     if (commodity != trainCommodity.GroupRemaining)
                     {
                         increasingTrainCatagory = interpolatedTrains.Where(t => t.commodity == commodity).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                         decreasingTrainCatagory = interpolatedTrains.Where(t => t.commodity == commodity).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
                     }
-                    else 
+                    else
                     {
                         increasingTrainCatagory = interpolatedTrains.Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                         decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainDirection == direction.DecreasingKm).ToList();
@@ -925,13 +920,13 @@ namespace TRAP
                                 commodity = convertCatagoryToCommodity(simCatagories[groupIdx]);
                                 increasingTrainCatagory = increasingTrainCatagory.Where(t => t.commodity != commodity).ToList();
                                 decreasingTrainCatagory = decreasingTrainCatagory.Where(t => t.commodity != commodity).ToList();
-                            }    
+                            }
                         }
                         /* Reset the operator to group for the analysis */
                         setOperatorToGrouped(increasingTrainCatagory);
                         setOperatorToGrouped(decreasingTrainCatagory);
                     }
-                    
+
 
                     stats.Add(Statistics.generateStats(increasingTrainCatagory));
                     stats.Add(Statistics.generateStats(decreasingTrainCatagory));
@@ -1029,7 +1024,7 @@ namespace TRAP
                 if (increasingCombined.Count() == 0 || decreasingCombined.Count() == 0)
                 {
                     stats[stats.Count() - 1].catagory = "Combined " + direction.DecreasingKm.ToString();
-                    stats[stats.Count() - 2].catagory = "Combined " + direction.IncreasingKm.ToString();                     
+                    stats[stats.Count() - 2].catagory = "Combined " + direction.IncreasingKm.ToString();
                 }
 
 
@@ -1201,19 +1196,10 @@ namespace TRAP
                     /* Calculate the total length of the journey */
                     journeyDistance = processing.calculateTrainJourneyDistance(journey);
 
-                    /* Validate the direction of train */
+                    /* Populate the train parameters. */
                     Train item = new Train();
-                    //bool HunterValley = true;
-
-                    //if (HunterValley)
-                    //    trainOperator = whoIsOperator(tranJourney[0].LocoID);
-
                     item.journey = journey;
                     item.trainDirection = processing.getTrainDirection(item);
-
-
-                    //processing.populateOperator(item, trainOperator);
-                    //processing.populateDirection(item, trackGeometry);
 
                     /* remove the train if the direction is not valid. */
                     if (item.trainDirection == direction.Invalid)
@@ -1231,7 +1217,7 @@ namespace TRAP
                         item.commodity = record[trainIndex - 1].commodity;
                         item.powerToWeight = record[trainIndex - 1].powerToWeight;
 
-                        //if (Settings.HunterValleyRegion)
+                        /* Determine the analysis catagory. */
                         if (Settings.analysisCatagory == analysisCatagory.TrainPowerToWeight)
                         {
                             if (item.powerToWeight > Settings.catagory1LowerBound && item.powerToWeight <= Settings.catagory1UpperBound)
@@ -1270,7 +1256,6 @@ namespace TRAP
 
                     /* Add the first record of the new train journey. */
                     journey.Add(new TrainJourney(record[trainIndex]));
-                    //trainPoint = new GeoLocation(record[trainIndex]);
 
                 }
 
@@ -1281,16 +1266,10 @@ namespace TRAP
                     journey = processing.longestDistanceTravelledInOneDirection(journey, trackGeometry);
                     /* Calculate the total length of the journey */
                     journeyDistance = processing.calculateTrainJourneyDistance(journey);
-
-
-                    /* Validate the direction of train */
+                    
+                    /* Populate the train parameters. */
                     Train lastItem = new Train();
-                    //bool HunterValley = true;
-                    //if (HunterValley)
-                    //    trainOperator = whoIsOperator(tranJourney[0].LocoID);
-
                     lastItem.journey = journey;
-                    //lastItem.trainOperator = record[trainIndex - 1].trainOperator;
                     lastItem.trainDirection = processing.getTrainDirection(lastItem);
 
                     /* remove the train if the direction is not valid. */
@@ -1305,7 +1284,7 @@ namespace TRAP
                         lastItem.commodity = record[trainIndex - 1].commodity;
                         lastItem.powerToWeight = record[trainIndex - 1].powerToWeight;
 
-                        //if (Settings.HunterValleyRegion)
+                        /* Determine the analysis catagory. */
                         if (Settings.analysisCatagory == analysisCatagory.TrainPowerToWeight)
                         {
                             if (lastItem.powerToWeight > Settings.catagory1LowerBound && lastItem.powerToWeight <= Settings.catagory1UpperBound)
@@ -1324,7 +1303,6 @@ namespace TRAP
                         {// Analyzing Commodities.
                             lastItem.catagory = convertCommodityToCatagory(lastItem.commodity);
                         }
-                        //lastItem.journey = journey;
 
                         /* If all points are aceptable, add the train journey to the cleaned list. */
                         processing.populateGeometryKm(lastItem.journey, trackGeometry);
@@ -1344,9 +1322,137 @@ namespace TRAP
 
         }
 
-        //public static List<Train> MakeTrains(List<TrainRecord> record, List<TrackGeometry> trackGeometry)
-        //{
-        //}
+        public static List<Train> MakeTrains(List<TrainRecord> record, List<TrackGeometry> trackGeometry)
+        {
+            /* Note: this function is designed to replace the cleanTrains function when the 
+             * interpolated data is delivered by Enterprise Services.
+             */
+
+            /* Create the lists for the processed train data. */
+            List<Train> TrainList = new List<Train>();
+            List<TrainJourney> journey = new List<TrainJourney>();
+            
+            /* Add the first point to the train journey. */
+            journey.Add(new TrainJourney(record[0]));
+
+            for (int trainIndex = 1; trainIndex < record.Count(); trainIndex++)
+            {
+                /* Compare next train details with current train details to establish if its a new train. */
+                if (record[trainIndex].trainID.Equals(record[trainIndex - 1].trainID) &&
+                    record[trainIndex].locoID.Equals(record[trainIndex - 1].locoID) &&
+                    (record[trainIndex].dateTime - record[trainIndex - 1].dateTime).TotalMinutes < Settings.timeThreshold)
+                {
+
+                    /* If the current and previous record represent the same train journey, add it to the list. */
+                    journey.Add(new TrainJourney(record[trainIndex]));
+
+                }
+                else
+                {
+                    /* The end of the train journey has been reached. */
+
+                    /* Check uni directionality of the train */
+                    journey = processing.longestDistanceTravelledInOneDirection(journey, trackGeometry);
+
+                    /* Assign the train parameters. */
+                    Train item = new Train();
+                    item.journey = journey;
+                    item.trainDirection = processing.getTrainDirection(item);
+                    item.trainID = record[trainIndex - 1].trainID;
+                    item.locoID = record[trainIndex - 1].locoID;
+                    item.trainOperator = record[trainIndex - 1].trainOperator;
+                    item.commodity = record[trainIndex - 1].commodity;
+                    item.powerToWeight = record[trainIndex - 1].powerToWeight;
+
+                    /* Determine the train catagory. */
+                    if (Settings.analysisCatagory == analysisCatagory.TrainPowerToWeight)
+                    {
+                        if (item.powerToWeight > Settings.catagory1LowerBound && item.powerToWeight <= Settings.catagory1UpperBound)
+                            item.catagory = catagory.Underpowered;
+                        else if (item.powerToWeight > Settings.catagory2LowerBound && item.powerToWeight <= Settings.catagory2UpperBound)
+                            item.catagory = catagory.Overpowered;
+                        else
+                            item.catagory = catagory.Actual;
+
+                    }
+                    else if (Settings.analysisCatagory == analysisCatagory.TrainOperator)
+                    {
+                        item.catagory = convertTrainOperatorToCatagory(item.trainOperator);
+                    }
+                    else
+                    {// Analyzing Commodities.
+                        item.catagory = convertCommodityToCatagory(item.commodity);
+                    }
+
+
+                    /* Determine the actual km, and populate the loops information. */
+                    processing.populateGeometryKm(item.journey, trackGeometry);
+                    processing.populateLoopLocations(item.journey, trackGeometry);
+
+                    /* Sort the journey in ascending order. */
+                    item.journey = item.journey.OrderBy(t => t.kilometreage).ToList();
+
+                    TrainList.Add(item);
+
+
+                    /* Reset the parameters for the next train. */
+                    journey.Clear();
+
+                    /* Add the first record of the new train journey. */
+                    journey.Add(new TrainJourney(record[trainIndex]));
+
+                }
+
+                /* The end of the records have been reached. */
+
+                /* Check uni directionality of the last train */
+                journey = processing.longestDistanceTravelledInOneDirection(journey, trackGeometry);
+
+                /*  Assign the train parameters. */
+                Train lastItem = new Train();
+
+                lastItem.journey = journey;
+                lastItem.trainDirection = processing.getTrainDirection(lastItem);
+
+                lastItem.trainID = record[trainIndex - 1].trainID;
+                lastItem.locoID = record[trainIndex - 1].locoID;
+                lastItem.trainOperator = record[trainIndex - 1].trainOperator;
+                lastItem.commodity = record[trainIndex - 1].commodity;
+                lastItem.powerToWeight = record[trainIndex - 1].powerToWeight;
+
+                /* Determine the train catagory. */
+                if (Settings.analysisCatagory == analysisCatagory.TrainPowerToWeight)
+                {
+                    if (lastItem.powerToWeight > Settings.catagory1LowerBound && lastItem.powerToWeight <= Settings.catagory1UpperBound)
+                        lastItem.catagory = catagory.Underpowered;
+                    else if (lastItem.powerToWeight > Settings.catagory2LowerBound && lastItem.powerToWeight <= Settings.catagory2UpperBound)
+                        lastItem.catagory = catagory.Overpowered;
+                    else
+                        lastItem.catagory = catagory.Actual;
+
+                }
+                else if (Settings.analysisCatagory == analysisCatagory.TrainOperator)
+                {
+                    lastItem.catagory = convertTrainOperatorToCatagory(lastItem.trainOperator);
+                }
+                else
+                {// Analyzing Commodities.
+                    lastItem.catagory = convertCommodityToCatagory(lastItem.commodity);
+                }
+
+                /* Determine the actual km, and populate the loops information.  */
+                processing.populateGeometryKm(lastItem.journey, trackGeometry);
+                processing.populateLoopLocations(lastItem.journey, trackGeometry);
+
+                /* Sort the journey in ascending order. */
+                lastItem.journey = lastItem.journey.OrderBy(t => t.kilometreage).ToList();
+
+                TrainList.Add(lastItem);
+
+            }
+
+            return TrainList;
+        }
 
         /// <summary>
         /// Convert The analysis Catagory to the train Operator.
@@ -1391,6 +1497,7 @@ namespace TRAP
 
             return trainCommodity;
         }
+
         /// <summary>
         /// Convert the train operator to the analysis catagory.
         /// </summary>
@@ -1459,10 +1566,14 @@ namespace TRAP
             }
         }
 
+        /// <summary>
+        /// Creates an empty average train when there are no trains in the list to aggregate.
+        /// </summary>
+        /// <param name="trainCatagory">The anlaysis catagory where there are no trains in the list.</param>
+        /// <param name="direction">The empty trains direction of travel.</param>
+        /// <returns></returns>
         private static AverageTrain createZeroedAverageTrain(catagory trainCatagory, direction direction)
         {
-            //AverageTrain train = new AverageTrain();
-
             /* Determine the number of points in the average train journey. */
             int size = (int)((Settings.endKm - Settings.startKm) / (Settings.interval / 1000));
 
@@ -1473,6 +1584,7 @@ namespace TRAP
             List<bool> isInLoopBoundary = new List<bool>(size);
             List<bool> isInTSRboundary = new List<bool>(size);
 
+            /* Set all properties to 0 or false. */
             for (int index = 0; index < size; index++)
             {
                 kilometreage.Add(Settings.startKm + Settings.interval / 1000 * index);

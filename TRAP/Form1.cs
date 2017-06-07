@@ -273,10 +273,10 @@ namespace TRAP
                 direction = "decreasing";
 
             /* Create a meaningful string to help user identify the correct file. */
-            string browseFile = "Select the " + catagory + " " + direction + " km simulation file.";
+            string browseString = "Select the " + catagory + " " + direction + " km simulation file.";
 
             /* Select the simulation file using the browser and insert into the simulation file list. */
-            filename = tool.browseFile(browseFile);
+            filename = tool.browseFile(browseString);
             //FileSettings.simulationFiles.Insert(index, filename);
             FileSettings.simulationFiles[index] = filename;
             simulationFile.Text = Path.GetFileName(filename);
@@ -290,7 +290,7 @@ namespace TRAP
         /// <returns>A string identifying the simualtion catagory.</returns>
         private string getSimulationCatagory(int index)
         {
-
+            /* Identify which simualtion catagory is being selected. */
             if ((Operator1Catagory.SelectedItem != null || Operator2Catagory.SelectedItem != null || Operator3Catagory.SelectedItem != null) &&
                 (Operator1Catagory.Text != "" || Operator2Catagory.Text != "" || Operator3Catagory.Text != ""))
             {
@@ -333,6 +333,7 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void resultsDirectory_Click(object sender, EventArgs e)
         {
+            /* Browse the folders for the desired desination folder. */
             FileSettings.aggregatedDestination = tool.selectFolder();
             resultsDestination.Text = FileSettings.aggregatedDestination;
             resultsDestination.ForeColor = System.Drawing.Color.Black;
@@ -692,7 +693,6 @@ namespace TRAP
         /// <returns>The train operator describing the first analysis catagory.</returns>
         public trainOperator getOperator1Catagory()
         {
-            //catagory1SimualtionLabel.Text = Operator1Catagory.SelectedItem.ToString();
             /* Convert operator catagory to train operator. */
             List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
 
@@ -998,42 +998,6 @@ namespace TRAP
             Operator3Catagory.Text = "";
         }
 
-        ///// <summary>
-        ///// Modify the simulation parameter labels based on the region under analysis.
-        ///// </summary>
-        ///// <param name="sender">The object container.</param>
-        ///// <param name="e">The event arguments.</param>
-        //private void HunterValley_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (HunterValley.Checked)
-        //    {
-        //        /* Set the train operators for the Hunter Valley region. */
-        //        catagory1SimualtionLabel.Text = "Pacific National";
-        //        catagory1Label.Text = "Pacific National:";
-        //        simCatagory1Label.Text = "Pacific National:";
-
-        //        catagory2SimualtionLabel.Text = "Aurizon";
-        //        catagory2Label.Text = "Aurizon:";
-        //        simCatagory2Label.Text = "Aurizon:";
-
-        //        catagory3SimualtionLabel.Text = "Freightliner";
-
-        //    }
-        //    else
-        //    {
-        //        /* Set the simulation catagories for the interstate network. */
-        //        catagory1SimualtionLabel.Text = "Underpowered";
-        //        catagory1Label.Text = "Underpowered:";
-        //        simCatagory1Label.Text = "Underpowered:";
-
-        //        catagory2SimualtionLabel.Text = "Overpowered";
-        //        catagory2Label.Text = "Overpowered:";
-        //        simCatagory2Label.Text = "Overpowered:";
-
-        //        catagory3SimualtionLabel.Text = "Alternative";
-        //    }
-        //}
-
         /// <summary>
         /// This function sets all the testing parameters for the Cullerin Ranges data
         /// </summary>
@@ -1077,11 +1041,11 @@ namespace TRAP
             catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
             catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            //FileSettings.simulationFiles.Add();
+            //FileSettings.simulationFiles[4] = "";
             //catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
             //catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            //FileSettings.simulationFiles.Add();
+            //FileSettings.simulationFiles[5] = "";
             //catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
             //catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
@@ -1118,9 +1082,7 @@ namespace TRAP
             catagory2LowerBound.Text = "4";
             catagory2UpperBound.Text = "6";
 
-            //HunterValley.Checked = false;   // not required with new features.
-
-            /* New features */
+            /* Anlaysis Parameters */
             powerToWeightRatioAnalysis.Checked = true;
 
             Settings.analysisCatagory = analysisCatagory.TrainPowerToWeight;
@@ -1138,11 +1100,7 @@ namespace TRAP
             Settings.catagory2Commodity = trainCommodity.Unknown;
             Commodity3Catagory.SelectedItem = null;
             Settings.catagory3Commodity = trainCommodity.Unknown;
-
-
             
-
-
         }
 
         /// <summary>
@@ -1229,8 +1187,7 @@ namespace TRAP
             catagory2LowerBound.Text = "100";
             catagory2UpperBound.Text = "200";
 
-            //HunterValley.Checked = true;
-            /* New features */
+            /* Anlaysis Parameters */
             powerToWeightRatioAnalysis.Checked = false;
 
             Settings.analysisCatagory = analysisCatagory.TrainOperator;
@@ -1335,7 +1292,7 @@ namespace TRAP
             catagory2LowerBound.Text = "4.5";
             catagory2UpperBound.Text = "11.5";
 
-            //HunterValley.Checked = false;
+            /* Anlaysis Parameters */
             powerToWeightRatioAnalysis.Checked = true;
 
             Settings.analysisCatagory = analysisCatagory.TrainPowerToWeight;
@@ -1440,7 +1397,7 @@ namespace TRAP
             catagory2LowerBound.Text = "4";
             catagory2UpperBound.Text = "5.5";
 
-            //HunterValley.Checked = false;
+            /* Anlaysis Parameters */
             powerToWeightRatioAnalysis.Checked = true;
 
             Settings.analysisCatagory = analysisCatagory.TrainPowerToWeight;
@@ -1545,7 +1502,7 @@ namespace TRAP
             catagory2LowerBound.Text = "3";
             catagory2UpperBound.Text = "4";
 
-            //HunterValley.Checked = false;
+            /* Anlaysis Parameters */
             powerToWeightRatioAnalysis.Checked = true;
 
             Settings.analysisCatagory = analysisCatagory.TrainPowerToWeight;
@@ -1649,7 +1606,7 @@ namespace TRAP
             catagory2LowerBound.Text = "100";
             catagory2UpperBound.Text = "200";
 
-            //HunterValley.Checked = true;
+            /* Anlaysis Parameters */
             powerToWeightRatioAnalysis.Checked = false;
 
             Settings.analysisCatagory = analysisCatagory.TrainOperator;
@@ -1755,7 +1712,7 @@ namespace TRAP
             catagory2LowerBound.Text = "0";
             catagory2UpperBound.Text = "0";
 
-            //HunterValley.Checked = false;
+            /* Anlaysis Parameters */
             powerToWeightRatioAnalysis.Checked = false;
 
             Settings.analysisCatagory = analysisCatagory.TrainCommodity;
@@ -1783,7 +1740,7 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void CulleranRanges_CheckedChanged(object sender, EventArgs e)
         {
-            /* If Cullerin Ranges tesging flag is checked, set the appropriate parameters. */
+            /* If Culleran Ranges tesging flag is checked, set the appropriate parameters. */
             if (CulleranRanges.Checked)
                 setCulleranRangesParameters(sender, e);
             else
@@ -1892,8 +1849,7 @@ namespace TRAP
             IceDataFile.ForeColor = SystemColors.InactiveCaptionText;
             simICEDataFile.Text = "Data File Loaded from FileSelection tab";
             simICEDataFile.ForeColor = SystemColors.InactiveCaptionText;
-
-            
+                        
             /* Geometry File */
             FileSettings.geometryFile = null;
             GeometryFile.Text = "<Required>";
@@ -1905,7 +1861,7 @@ namespace TRAP
             temporarySpeedRestrictionFile.ForeColor = SystemColors.InactiveCaptionText;
 
             /* Simulation files */
-            //FileSettings.simulationFiles.Clear();
+            FileSettings.simulationFiles = new List<string>(new string[6]);
             catagory1IncreasingSimulationFile.Text = "<Required>";
             catagory1IncreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
 
@@ -1959,7 +1915,7 @@ namespace TRAP
             catagory2LowerBound.Text = "0";
             catagory2UpperBound.Text = "0";
 
-            //HunterValley.Checked = false;
+            /* Analysis parameters. */
             powerToWeightRatioAnalysis.Checked = false;
 
             Settings.analysisCatagory = analysisCatagory.Unknown;

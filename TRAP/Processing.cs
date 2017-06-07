@@ -103,7 +103,6 @@ namespace TRAP
             /* Set the kmPosts to the closest points on the geometry alignment. */
             TrainPerformance.track.matchTrainLocationToTrackGeometry(journey, trackGeometry);
             
-
             start = 0;
 
             for (int journeyIdx = 0; journeyIdx < journey.Count() - numPoints; journeyIdx++)
@@ -319,8 +318,7 @@ namespace TRAP
                 }
             }
         }
-
-
+        
         /// <summary>
         /// Linear interpolation to a target point.
         /// </summary>
@@ -339,8 +337,7 @@ namespace TRAP
             return Y0 + (targetX - X0) * (Y1 - Y0) / (X1 - X0);
 
         }
-
-
+        
         /// <summary>
         ///  Interpolate the train speed to a specified interval using a linear interpolation.
         /// </summary>
@@ -373,9 +370,7 @@ namespace TRAP
 
             /* Create a new list of trains for the journies interpolated values. */
             List<Train> newTrainList = new List<Train>();
-            /* Create a journey list to store the existing journey details. */
-            //List<TrainJourney> journey = new List<TrainJourney>();
-
+            
             /* Cycle through each train to interpolate between points. */
             for (int trainIdx = 0; trainIdx < trains.Count(); trainIdx++)
             {
@@ -418,7 +413,7 @@ namespace TRAP
                     else
                     {
                         /* Boundary conditions for interpolating the data prior to and beyond the existing journey points. */
-                        time = journey.Where(t => t.dateTime > DateTime.MinValue).Min(t => t.dateTime); // DateTime.MinValue;
+                        time = journey.Where(t => t.dateTime > DateTime.MinValue).Min(t => t.dateTime);
                         interpolatedSpeed = 0;
                     }
 
@@ -822,8 +817,7 @@ namespace TRAP
 
             return index;
         }
-
-
+        
         /// <summary>
         /// Calculate the time interval between two locations based on the speed.
         /// </summary>
@@ -881,7 +875,7 @@ namespace TRAP
         /// <summary>
         /// Validate the form parameters are within logical boundaries.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True if all parameters are valid.</returns>
         public bool areFormParametersValid()
         {
 
@@ -904,10 +898,10 @@ namespace TRAP
                 Settings.bottomRightLocation.longitude > 155)
                 return false;
 
-            if (Settings.startKm < 0)
+            if (Settings.startKm < 0 || Settings.startKm > Settings.endKm)
                 return false;
 
-            if (Settings.endKm < 0)
+            if (Settings.endKm < 0 || Settings.endKm < Settings.startKm)
                 return false;
 
             if (Settings.interval < 0)
@@ -948,8 +942,6 @@ namespace TRAP
 
         }
 
-
-
-
+        
     } // Class Processing
 }

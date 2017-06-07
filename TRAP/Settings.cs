@@ -17,13 +17,8 @@ namespace Globalsettings
         public static string geometryFile = null;
         public static string temporarySpeedRestrictionFile = null;
         public static string trainListFile = null;                  /* File only required if includeAListOfTrainsToExclude is TRUE. */
+        /* Default number of simulation catagories is 3, hence, the default number of simualtion files is 6, one for each direction */
         public static List<string> simulationFiles = new List<string>(new string[6]);
-
-        //public static string underpoweredIncreasingSimulationFile = null;       // simcatagory1
-        //public static string underpoweredDecreasingSimulationFile = null;     // simcatagory1
-        //public static string overpoweredIncreasingSimulationFile = null;      // simcatagory2
-        //public static string overpoweredDecreasingSimulationFile = null;      // simcatagory2
-
         public static string aggregatedDestination = null;
 
     }
@@ -58,7 +53,6 @@ namespace Globalsettings
         //public static double combinedLowerBound;            /* The lower bound cuttoff for the combined trains. */
         //public static double combinedUpperBound;            /* The upper bound cuttoff for the combined trains. */
         
-        //public static bool HunterValleyRegion;
 
         public static analysisCatagory analysisCatagory;
         public static trainOperator catagory1Operator = trainOperator.Unknown;
@@ -68,29 +62,7 @@ namespace Globalsettings
         public static trainCommodity catagory2Commodity = trainCommodity.Unknown;
         public static trainCommodity catagory3Commodity = trainCommodity.Unknown;
 
-
-
-        ///// <summary>
-        ///// This function resets the power to weight upper and lower boundaries to 
-        ///// default values when there are no power to weight ratio values available 
-        ///// for the trains.
-        ///// This means that all trains included will be classified as underpowered
-        ///// </summary>
-        //public static void resetPowerToWeightBoundariesToZero()
-        //{
-        //    /* When the data has no opower to weight ratio for the train, the power to weight ratio will default to 0. 
-        //     * The lower bound needs to allow this value to be include in the analysis.
-        //     */
-        //    underpoweredLowerBound = -1;
-        //    underpoweredUpperBound = double.MaxValue / 2;
-
-        //    overpoweredLowerBound = double.MaxValue / 2;
-        //    overpoweredUpperBound = double.MaxValue;
-
-        //    combinedLowerBound = -1;
-        //    combinedUpperBound = double.MaxValue;
-        //}
-
+        
     }
 
 

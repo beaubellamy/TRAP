@@ -518,7 +518,12 @@ namespace TRAP
 
             /* Extract the statistics */
             /* Note: there is no check to confimr the order in which the statistics values are listed. */
-            string[,] statisticsHeader = { { "Statistics:" }, { "Number Of Trains" }, { "Average Distance Travelled" }, { "Average Speed" }, { "Average P/W Ratio" }, { "P/W standard Deviation" } };
+            string[,] statisticsHeader = { { "Statistics:" }, 
+                                         { "Number Of Trains" }, 
+                                         { "Average Distance Travelled" }, 
+                                         { "Average Speed" },
+                                         { "Average P/W Ratio" }, 
+                                         { "P/W standard Deviation" } };
             string[,] totalStatistics = new string[statisticsHeader.GetLength(0), stats.Count()];
 
             /* Extract the statistics for each analysis catagory */
@@ -705,7 +710,7 @@ namespace TRAP
             string[] Steel = { "Steel" };
             string[] Work = { "Unspecified Commodity" };
 
-            /* Compare each commidty to the supplied string to identify the correct commodty. */
+            /* Compare each commidty to the supplied string to identify the correct commodity. */
             if (Clinker.Contains(commodity))
                 return trainCommodity.Clinker;
             else if (Coal.Contains(commodity))
