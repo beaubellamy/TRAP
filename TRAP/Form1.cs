@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Globalsettings;
+using System.Reflection;
 
 namespace TRAP
 {
@@ -22,7 +23,11 @@ namespace TRAP
 
         public TrainPerformance()
         {
+            /* initialise the form. */
             InitializeComponent();
+
+            string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.Text = "TRAP: "+version;
         }
 
         /// <summary>
@@ -438,27 +443,27 @@ namespace TRAP
         /// Extract the top left corner of the geographic box.
         /// </summary>
         /// <returns>A geographic location describing the top left corner of the box.</returns>
-        public GeoLocation getTopLeftLocation()
-        {
-            double latitude, longitude;
-            if (double.TryParse(fromLatitude.Text, out latitude) && (double.TryParse(fromLongitude.Text, out longitude)))
-                return new GeoLocation(latitude, longitude);
+        //public GeoLocation getTopLeftLocation()
+        //{
+        //    double latitude, longitude;
+        //    if (double.TryParse(fromLatitude.Text, out latitude) && (double.TryParse(fromLongitude.Text, out longitude)))
+        //        return new GeoLocation(latitude, longitude);
 
-            return new GeoLocation(0, 0);
-        }
+        //    return new GeoLocation(0, 0);
+        //}
 
         /// <summary>
         /// Extract the bottom right corner of the geographic box.
         /// </summary>
         /// <returns>A geographic location describing the bottom right corner of the box.</returns>
-        public GeoLocation getBottomRightLocation()
-        {
-            double latitude, longitude;
-            if (double.TryParse(toLatitude.Text, out latitude) && (double.TryParse(toLongitude.Text, out longitude)))
-                return new GeoLocation(latitude, longitude);
+        //public GeoLocation getBottomRightLocation()
+        //{
+        //    double latitude, longitude;
+        //    if (double.TryParse(toLatitude.Text, out latitude) && (double.TryParse(toLongitude.Text, out longitude)))
+        //        return new GeoLocation(latitude, longitude);
 
-            return new GeoLocation(0, 0);
-        }
+        //    return new GeoLocation(0, 0);
+        //}
 
         /// <summary>
         /// Extract the value of the includeAListOfTrainsToExclude flag.
@@ -719,7 +724,7 @@ namespace TRAP
             foreach (trainOperator Operator in operatorList)
             {
                 if (Operator2Catagory.SelectedItem != null &&
-                    Operator2Catagory.SelectedItem.ToString().Equals(Operator.ToString()))
+                    Operator2Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
                     return Operator;
             }
 
@@ -738,7 +743,7 @@ namespace TRAP
             foreach (trainOperator Operator in operatorList)
             {
                 if (Operator3Catagory.SelectedItem != null &&
-                    Operator3Catagory.SelectedItem.ToString().Equals(Operator.ToString()))
+                    Operator3Catagory.SelectedItem.ToString().Replace(" ",string.Empty).Equals(Operator.ToString()))
                     return Operator;
             }
 
@@ -1059,11 +1064,7 @@ namespace TRAP
             fromDate.Value = new DateTime(2016, 1, 1);
             toDate.Value = new DateTime(2016,4,1);
 
-            fromLatitude.Text = "-10";
-            toLatitude.Text = "-40";
-            fromLongitude.Text = "110";
-            toLongitude.Text = "152";
-
+            /* Interpoaltion parameters */
             includeAListOfTrainsToExclude.Checked = false;
 
             startInterpolationKm.Text = "220";
@@ -1164,11 +1165,7 @@ namespace TRAP
             fromDate.Value = new DateTime(2017, 1, 1);
             toDate.Value = new DateTime(2017,5,1);
 
-            fromLatitude.Text = "-10";
-            toLatitude.Text = "-40";
-            fromLongitude.Text = "110";
-            toLongitude.Text = "152";
-
+            /* Interpolation Parameters. */
             includeAListOfTrainsToExclude.Checked = false;
 
             startInterpolationKm.Text = "264";
@@ -1269,11 +1266,7 @@ namespace TRAP
             fromDate.Value = new DateTime(2016, 1, 1);
             toDate.Value = new DateTime(2016,2,1);
 
-            fromLatitude.Text = "-10";
-            toLatitude.Text = "-40";
-            fromLongitude.Text = "110";
-            toLongitude.Text = "152";
-
+            /* Interpoaltion Parameters. */
             includeAListOfTrainsToExclude.Checked = false;
 
             startInterpolationKm.Text = "5";
@@ -1374,11 +1367,7 @@ namespace TRAP
             fromDate.Value = new DateTime(2016, 1, 1);
             toDate.Value = new DateTime(2016,4,1);
 
-            fromLatitude.Text = "-10";
-            toLatitude.Text = "-40";
-            fromLongitude.Text = "110";
-            toLongitude.Text = "152";
-
+            /* Interpolation Parameters */
             includeAListOfTrainsToExclude.Checked = false;
 
             startInterpolationKm.Text = "5";
@@ -1479,11 +1468,7 @@ namespace TRAP
             fromDate.Value = new DateTime(2016, 1, 1);
             toDate.Value = new DateTime(2016, 2, 1);
 
-            fromLatitude.Text = "-10";
-            toLatitude.Text = "-40";
-            fromLongitude.Text = "110";
-            toLongitude.Text = "152";
-
+            /* Interpolation parameters. */
             includeAListOfTrainsToExclude.Checked = false;
 
             startInterpolationKm.Text = "950";
@@ -1583,11 +1568,7 @@ namespace TRAP
             fromDate.Value = new DateTime(2017, 1, 1);
             toDate.Value = new DateTime(2017,6,1);
 
-            fromLatitude.Text = "-10";
-            toLatitude.Text = "-40";
-            fromLongitude.Text = "110";
-            toLongitude.Text = "152";
-
+            /* Interpolation Parameters. */
             includeAListOfTrainsToExclude.Checked = false;
 
             startInterpolationKm.Text = "280";
@@ -1625,8 +1606,7 @@ namespace TRAP
             Commodity3Catagory.SelectedItem = null;
             Settings.catagory3Commodity = trainCommodity.Unknown;
         }
-
-
+        
         /// <summary>
         /// This function sets all the testing parameters for the Macarthur to Botany data
         /// </summary>
@@ -1636,7 +1616,7 @@ namespace TRAP
         {
 
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands Data 2016-2017.txt";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands Data 2016-201706.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
@@ -1655,19 +1635,19 @@ namespace TRAP
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
             /* Simulation files */
-            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Minerals-Increasing.csv";
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\CityRail Passenger-Increasing.csv";
             catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
             catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Minerals-Decreasing.csv";
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\CityRail Passenger-Decreasing.csv";
             catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
             catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Passenger-Increasing.csv";
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\CountryLink Passenger-Increasing.csv";
             catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
             catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Passenger-Decreasing.csv";
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\CountryLink Passenger-Decreasing.csv";
             catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
             catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
@@ -1689,11 +1669,7 @@ namespace TRAP
             fromDate.Value = new DateTime(2016, 1, 1);
             toDate.Value = new DateTime(2016, 3, 1);
 
-            fromLatitude.Text = "-10";
-            toLatitude.Text = "-40";
-            fromLongitude.Text = "110";
-            toLongitude.Text = "152";
-
+            /* Interpolation parameters. */
             includeAListOfTrainsToExclude.Checked = false;
 
             startInterpolationKm.Text = "55";
@@ -1715,23 +1691,24 @@ namespace TRAP
             /* Anlaysis Parameters */
             powerToWeightRatioAnalysis.Checked = false;
 
-            Settings.analysisCatagory = analysisCatagory.TrainCommodity;
+            Settings.analysisCatagory = analysisCatagory.TrainOperator;
 
-            Operator1Catagory.SelectedItem = null;
-            Settings.catagory1Operator = trainOperator.Unknown;
-            Operator2Catagory.SelectedItem = null;
-            Settings.catagory2Operator = trainOperator.Unknown;
-            Operator3Catagory.SelectedItem = null;
-            Settings.catagory3Operator = trainOperator.Unknown;
+            Operator1Catagory.SelectedItem = "City Rail";
+            Settings.catagory1Operator = trainOperator.CityRail;
+            Operator2Catagory.SelectedItem = "Countrylink";
+            Settings.catagory2Operator = trainOperator.Countrylink;
+            Operator3Catagory.SelectedItem = "Group Remaining";
+            Settings.catagory3Operator = trainOperator.GroupRemaining;
 
-            Commodity1Catagory.SelectedItem = "Mineral";
-            Settings.catagory1Commodity = trainCommodity.Mineral;
-            Commodity2Catagory.SelectedItem = "Passenger";
-            Settings.catagory2Commodity = trainCommodity.Passenger;
-            Commodity3Catagory.SelectedItem = "Group Remaining";
-            Settings.catagory3Commodity = trainCommodity.GroupRemaining;
+            Commodity1Catagory.SelectedItem = null;
+            Settings.catagory1Commodity = trainCommodity.Unknown;
+            Commodity2Catagory.SelectedItem = null;
+            Settings.catagory2Commodity = trainCommodity.Unknown;
+            Commodity3Catagory.SelectedItem = null;
+            Settings.catagory3Commodity = trainCommodity.Unknown;
         
         }
+        
         /// <summary>
         /// Function determines if the testing parameters for Culleran Ranges need 
         /// to be set or resets to default settings.
@@ -1891,12 +1868,7 @@ namespace TRAP
             fromDate.Value = new DateTime(2016, 1, 1);
             toDate.Value = new DateTime(2016, 2, 1);
 
-            /* Geographic box for Australia */
-            fromLatitude.Text = "-10";
-            toLatitude.Text = "-40";
-            fromLongitude.Text = "110";
-            toLongitude.Text = "152";
-
+            /* Interpolation Parameters */
             includeAListOfTrainsToExclude.Checked = false;
 
             startInterpolationKm.Text = "0";

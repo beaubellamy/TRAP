@@ -843,8 +843,8 @@ namespace TRAP
 
             /* Extract the form parameters. */
             Settings.dateRange = form.getDateRange();
-            Settings.topLeftLocation = form.getTopLeftLocation();
-            Settings.bottomRightLocation = form.getBottomRightLocation();
+            //Settings.topLeftLocation = form.getTopLeftLocation();
+            //Settings.bottomRightLocation = form.getBottomRightLocation();
             Settings.includeAListOfTrainsToExclude = form.getTrainListExcludeFlag();
             Settings.startKm = form.getStartKm();
             Settings.endKm = form.getEndKm();

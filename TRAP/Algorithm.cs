@@ -20,9 +20,9 @@ namespace TRAP
     /// </summary>
     public enum trainOperator
     {
-        ARTC, Aurizon, CityRail, CountryLink, Freightliner, GreatSouthernRail, Interail, LauchlanValleyRailSociety,
-        PacificNational, QUBE, RailCorp, SCT, SouthernShorthaulRail, SydneyRailService, TheRailMotorService, VLinePassenger,
-        Combined, Simulated, Unknown
+        ARTC, Aurizon, CityRail, Countrylink, Freightliner, GreatSouthernRail, Interail, LauchlanValleyRailSociety,
+        PacificNational, QUBE, RailCorp, SCT, SouthernShorthaulRail, SydneyRailService, TheRailMotorService, VLinePassenger, 
+        GroupRemaining, Combined, Simulated, Unknown
     };
 
     /// <summary>
@@ -31,7 +31,7 @@ namespace TRAP
     /// </summary>
     public enum catagory
     {
-        ARTC, Aurizon, CityRail, CountryLink, Freightliner, GreatSouthernRail, Interail, LauchlanValleyRailSociety,
+        ARTC, Aurizon, CityRail, Countrylink, Freightliner, GreatSouthernRail, Interail, LauchlanValleyRailSociety,
         PacificNational, QUBE, RailCorp, SCT, SouthernShorthaulRail, SydneyRailService, TheRailMotorService, VLinePassenger,
         Combined, Actual, GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, GroupRemaining,
         Underpowered, Overpowered, Alternative, Simulated, Unknown
@@ -578,9 +578,7 @@ namespace TRAP
             int numberOfOperators = operators.Count();
 
 
-            /* Read in the simulation data and interpolate to the desired interval. */
-            /* Maybe prduce a weighted simulation to replace the values for those points that are affected by TSRs */
-
+            
             List<catagory> simCatagories = new List<catagory>();
             //catagory simCatagory1 = catagory.Unknown;
             //catagory simCatagory2 = catagory.Unknown;
@@ -640,6 +638,7 @@ namespace TRAP
 
             /*******************************************************************************************/
 
+            /* Set the analysis paramteres. */
             if (Settings.analysisCatagory == analysisCatagory.TrainPowerToWeight)
             {
                 simCatagories.Add(catagory.Underpowered);
@@ -678,9 +677,8 @@ namespace TRAP
 
             List<Train> simulatedTrains = new List<Train>();
 
-            /* Check the size of the catagories and the size of the simulation file list match. */
 
-
+            /* Read in the simulation data and interpolate to the desired interval. */
             for (int index = 0; index < simCatagories.Count(); index++)
             {
                 simulatedTrains.Add(FileOperations.readSimulationData(FileSettings.simulationFiles[index * 2], simCatagories[index], direction.IncreasingKm));
@@ -885,8 +883,33 @@ namespace TRAP
                 {
                     trainOperator operatorCatagory = convertCatagoryToTrainOperator(simCatagories[index]);
                     /* will be an operator; can be 2 or 3 different operators */
-                    increasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
-                    decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                    //increasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                    //decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                    if (operatorCatagory !=  trainOperator.GroupRemaining)
+                    {
+                        increasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainOperator == operatorCatagory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                    }
+                    else
+                    {
+                        increasingTrainCatagory = interpolatedTrains.Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        decreasingTrainCatagory = interpolatedTrains.Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                        for (int groupIdx = 0; groupIdx < simCatagories.Count(); groupIdx++)
+                        {
+                            if (groupIdx != index)
+                            {
+                                /* Remove the specified operators from the list so they arent counted twice. */
+                                operatorCatagory = convertCatagoryToTrainOperator(simCatagories[groupIdx]);
+                                increasingTrainCatagory = increasingTrainCatagory.Where(t => t.trainOperator != operatorCatagory).ToList();
+                                decreasingTrainCatagory = decreasingTrainCatagory.Where(t => t.trainOperator != operatorCatagory).ToList();
+                            }
+                        }
+                        /* Reset the operator to grouped for the analysis */
+                        setOperatorToGrouped(increasingTrainCatagory);
+                        setOperatorToGrouped(decreasingTrainCatagory);
+                    }
 
                     stats.Add(Statistics.generateStats(increasingTrainCatagory));
                     stats.Add(Statistics.generateStats(decreasingTrainCatagory));
@@ -917,16 +940,16 @@ namespace TRAP
                         {
                             if (groupIdx != index)
                             {
+                                /* Remove the specified commodities from the list so they arent counted twice. */
                                 commodity = convertCatagoryToCommodity(simCatagories[groupIdx]);
                                 increasingTrainCatagory = increasingTrainCatagory.Where(t => t.commodity != commodity).ToList();
                                 decreasingTrainCatagory = decreasingTrainCatagory.Where(t => t.commodity != commodity).ToList();
                             }
                         }
-                        /* Reset the operator to group for the analysis */
+                        /* Reset the operator to grouped for the analysis */
                         setOperatorToGrouped(increasingTrainCatagory);
                         setOperatorToGrouped(decreasingTrainCatagory);
                     }
-
 
                     stats.Add(Statistics.generateStats(increasingTrainCatagory));
                     stats.Add(Statistics.generateStats(decreasingTrainCatagory));
@@ -939,12 +962,13 @@ namespace TRAP
 
                 }
 
+                /* Aggregate the train lists into an average train consistent with the specified catagory. */
                 if (increasingTrainCatagory.Count() > 0)
                 {
                     averageTrains.Add(processing.averageTrain(increasingTrainCatagory, interpolatedSimulations[index * 2].journey, trackGeometry));
                 }
                 else
-                {
+                {   /* There are zero trains in the list. */
                     averageTrains.Add(createZeroedAverageTrain(simCatagories[index], direction.IncreasingKm));
                 }
 
@@ -953,7 +977,7 @@ namespace TRAP
                     averageTrains.Add(processing.averageTrain(decreasingTrainCatagory, interpolatedSimulations[index * 2 + 1].journey, trackGeometry));
                 }
                 else
-                {
+                {   /* There are zero trains in the list. */
                     averageTrains.Add(createZeroedAverageTrain(simCatagories[index], direction.DecreasingKm));
                 }
             }
@@ -1321,7 +1345,14 @@ namespace TRAP
             return cleanTrainList;
 
         }
-
+        
+        /// <summary>
+        /// This function creates the individual train journeies and adds them to the list. The 
+        /// function ensures the train is consistent and has a single direction of travel.
+        /// </summary>
+        /// <param name="record">List of Train record objects</param>
+        /// <param name="trackGeometry">A list of track Geometry objects</param>
+        /// <returns>List of Train objects containing the journey details of each train.</returns>
         public static List<Train> MakeTrains(List<TrainRecord> record, List<TrackGeometry> trackGeometry)
         {
             /* Note: this function is designed to replace the cleanTrains function when the 

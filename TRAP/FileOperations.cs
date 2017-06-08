@@ -426,7 +426,7 @@ namespace TRAP
             double[,] powerToWeight = new double[1, trainRecords.Count()];
             string[,] commodity = new string[1, trainRecords.Count()];
             string[,] direction = new string[1, trainRecords.Count()];
-            DateTime[,] dateTime = new DateTime[1, trainRecords[0].journey.Count()];
+            DateTime[,] dateTime = new DateTime[1, trainRecords.Count()];
             double[,] kilometerage = new double[trainRecords[0].journey.Count(), 1];
 
             double[,] speed = new double[trainRecords[0].journey.Count(), trainRecords.Count()];
@@ -662,7 +662,7 @@ namespace TRAP
             else if (shortOperator.Equals("Cit", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.CityRail;
             else if (shortOperator.Equals("Cou", StringComparison.OrdinalIgnoreCase))
-                return trainOperator.CountryLink;
+                return trainOperator.Countrylink;
             else if (shortOperator.Equals("Fre", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.Freightliner;
             else if (shortOperator.Equals("Gre", StringComparison.OrdinalIgnoreCase))
@@ -732,8 +732,7 @@ namespace TRAP
             else
                 return trainCommodity.Unknown;
         }
-
-
+        
         /// <summary>
         /// Determine if a file is already open before trying to read the file.
         /// </summary>

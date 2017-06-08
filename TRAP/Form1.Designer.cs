@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrainPerformance));
             this.simulationTab = new System.Windows.Forms.TabControl();
-            this.fileSelectionTab = new System.Windows.Forms.TabPage();
+            this.AnalysisParametersTab = new System.Windows.Forms.TabPage();
             this.SouthernHighlands = new System.Windows.Forms.CheckBox();
             this.UlanLine = new System.Windows.Forms.CheckBox();
             this.Tarcoola2Kalgoorlie = new System.Windows.Forms.CheckBox();
@@ -47,40 +48,7 @@
             this.selectGeometryFile = new System.Windows.Forms.Button();
             this.IceDataFile = new System.Windows.Forms.TextBox();
             this.selectDataFile = new System.Windows.Forms.Button();
-            this.processingTab = new System.Windows.Forms.TabPage();
-            this.toDate = new System.Windows.Forms.DateTimePicker();
-            this.fromDate = new System.Windows.Forms.DateTimePicker();
-            this.timeSeparation = new System.Windows.Forms.TextBox();
-            this.TSRWindowBoundary = new System.Windows.Forms.TextBox();
-            this.dataSeparation = new System.Windows.Forms.TextBox();
-            this.loopSpeedThreshold = new System.Windows.Forms.TextBox();
-            this.minimumJourneyDistance = new System.Windows.Forms.TextBox();
-            this.loopBoundaryThreshold = new System.Windows.Forms.TextBox();
-            this.interpolationInterval = new System.Windows.Forms.TextBox();
-            this.endInterpolationKm = new System.Windows.Forms.TextBox();
-            this.startInterpolationKm = new System.Windows.Forms.TextBox();
-            this.toLongitude = new System.Windows.Forms.TextBox();
-            this.toLatitude = new System.Windows.Forms.TextBox();
-            this.fromLongitude = new System.Windows.Forms.TextBox();
-            this.fromLatitude = new System.Windows.Forms.TextBox();
-            this.leftLongitudeLabel = new System.Windows.Forms.Label();
-            this.leftLatitudeLabel = new System.Windows.Forms.Label();
-            this.toLabel = new System.Windows.Forms.Label();
-            this.fromLabel = new System.Windows.Forms.Label();
-            this.loopSpeedLabel = new System.Windows.Forms.Label();
-            this.TSRLabel = new System.Windows.Forms.Label();
-            this.leftLocationLabel = new System.Windows.Forms.Label();
-            this.rightLocationLabel = new System.Windows.Forms.Label();
-            this.startKmLabel = new System.Windows.Forms.Label();
-            this.minDistanceLabel = new System.Windows.Forms.Label();
-            this.dataSeparationLabel = new System.Windows.Forms.Label();
-            this.timeSeparationLabel = new System.Windows.Forms.Label();
-            this.endKmLabel = new System.Windows.Forms.Label();
-            this.label3loopBoundarylabel = new System.Windows.Forms.Label();
-            this.interpolationLabel = new System.Windows.Forms.Label();
-            this.GeographicBoxLabel = new System.Windows.Forms.Label();
-            this.DateRangeLabel = new System.Windows.Forms.Label();
-            this.simulationParametersTab = new System.Windows.Forms.TabPage();
+            this.powerToWeightParametersTab = new System.Windows.Forms.TabPage();
             this.SimulationP2WRatioLabel = new System.Windows.Forms.Label();
             this.combinedDecreasingTrainCount = new System.Windows.Forms.Label();
             this.catagory2DecreasingTrainCount = new System.Windows.Forms.Label();
@@ -145,18 +113,39 @@
             this.selectCatagory1IncreasingSimulation = new System.Windows.Forms.Button();
             this.catagory1SimualtionLabel = new System.Windows.Forms.Label();
             this.catagory1IncreasingSimulationFile = new System.Windows.Forms.TextBox();
+            this.toDate = new System.Windows.Forms.DateTimePicker();
+            this.fromDate = new System.Windows.Forms.DateTimePicker();
+            this.toLabel = new System.Windows.Forms.Label();
+            this.fromLabel = new System.Windows.Forms.Label();
+            this.DateRangeLabel = new System.Windows.Forms.Label();
+            this.timeSeparation = new System.Windows.Forms.TextBox();
+            this.TSRWindowBoundary = new System.Windows.Forms.TextBox();
+            this.dataSeparation = new System.Windows.Forms.TextBox();
+            this.loopSpeedThreshold = new System.Windows.Forms.TextBox();
+            this.minimumJourneyDistance = new System.Windows.Forms.TextBox();
+            this.loopBoundaryThreshold = new System.Windows.Forms.TextBox();
+            this.interpolationInterval = new System.Windows.Forms.TextBox();
+            this.endInterpolationKm = new System.Windows.Forms.TextBox();
+            this.startInterpolationKm = new System.Windows.Forms.TextBox();
+            this.loopSpeedLabel = new System.Windows.Forms.Label();
+            this.TSRLabel = new System.Windows.Forms.Label();
+            this.startKmLabel = new System.Windows.Forms.Label();
+            this.minDistanceLabel = new System.Windows.Forms.Label();
+            this.dataSeparationLabel = new System.Windows.Forms.Label();
+            this.timeSeparationLabel = new System.Windows.Forms.Label();
+            this.endKmLabel = new System.Windows.Forms.Label();
+            this.label3loopBoundarylabel = new System.Windows.Forms.Label();
+            this.interpolationLabel = new System.Windows.Forms.Label();
             this.simulationTab.SuspendLayout();
-            this.fileSelectionTab.SuspendLayout();
-            this.processingTab.SuspendLayout();
-            this.simulationParametersTab.SuspendLayout();
+            this.AnalysisParametersTab.SuspendLayout();
+            this.powerToWeightParametersTab.SuspendLayout();
             this.simualtionFileTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // simulationTab
             // 
-            this.simulationTab.Controls.Add(this.fileSelectionTab);
-            this.simulationTab.Controls.Add(this.processingTab);
-            this.simulationTab.Controls.Add(this.simulationParametersTab);
+            this.simulationTab.Controls.Add(this.AnalysisParametersTab);
+            this.simulationTab.Controls.Add(this.powerToWeightParametersTab);
             this.simulationTab.Controls.Add(this.simualtionFileTab);
             this.simulationTab.Location = new System.Drawing.Point(3, 12);
             this.simulationTab.Name = "simulationTab";
@@ -164,37 +153,60 @@
             this.simulationTab.Size = new System.Drawing.Size(1084, 516);
             this.simulationTab.TabIndex = 0;
             // 
-            // fileSelectionTab
+            // AnalysisParametersTab
             // 
-            this.fileSelectionTab.Controls.Add(this.SouthernHighlands);
-            this.fileSelectionTab.Controls.Add(this.UlanLine);
-            this.fileSelectionTab.Controls.Add(this.Tarcoola2Kalgoorlie);
-            this.fileSelectionTab.Controls.Add(this.Melbourne2Cootamundra);
-            this.fileSelectionTab.Controls.Add(this.Macarthur2Botany);
-            this.fileSelectionTab.Controls.Add(this.GunnedahBasin);
-            this.fileSelectionTab.Controls.Add(this.CulleranRanges);
-            this.fileSelectionTab.Controls.Add(this.TestLabel);
-            this.fileSelectionTab.Controls.Add(this.includeAListOfTrainsToExclude);
-            this.fileSelectionTab.Controls.Add(this.trainListFile);
-            this.fileSelectionTab.Controls.Add(this.selectTrainFile);
-            this.fileSelectionTab.Controls.Add(this.temporarySpeedRestrictionFile);
-            this.fileSelectionTab.Controls.Add(this.selectTSRFile);
-            this.fileSelectionTab.Controls.Add(this.GeometryFile);
-            this.fileSelectionTab.Controls.Add(this.selectGeometryFile);
-            this.fileSelectionTab.Controls.Add(this.IceDataFile);
-            this.fileSelectionTab.Controls.Add(this.selectDataFile);
-            this.fileSelectionTab.Location = new System.Drawing.Point(4, 22);
-            this.fileSelectionTab.Name = "fileSelectionTab";
-            this.fileSelectionTab.Padding = new System.Windows.Forms.Padding(3);
-            this.fileSelectionTab.Size = new System.Drawing.Size(1076, 490);
-            this.fileSelectionTab.TabIndex = 0;
-            this.fileSelectionTab.Text = "File Selection";
-            this.fileSelectionTab.UseVisualStyleBackColor = true;
+            this.AnalysisParametersTab.Controls.Add(this.timeSeparation);
+            this.AnalysisParametersTab.Controls.Add(this.TSRWindowBoundary);
+            this.AnalysisParametersTab.Controls.Add(this.dataSeparation);
+            this.AnalysisParametersTab.Controls.Add(this.loopSpeedThreshold);
+            this.AnalysisParametersTab.Controls.Add(this.minimumJourneyDistance);
+            this.AnalysisParametersTab.Controls.Add(this.loopBoundaryThreshold);
+            this.AnalysisParametersTab.Controls.Add(this.interpolationInterval);
+            this.AnalysisParametersTab.Controls.Add(this.endInterpolationKm);
+            this.AnalysisParametersTab.Controls.Add(this.startInterpolationKm);
+            this.AnalysisParametersTab.Controls.Add(this.loopSpeedLabel);
+            this.AnalysisParametersTab.Controls.Add(this.TSRLabel);
+            this.AnalysisParametersTab.Controls.Add(this.startKmLabel);
+            this.AnalysisParametersTab.Controls.Add(this.minDistanceLabel);
+            this.AnalysisParametersTab.Controls.Add(this.dataSeparationLabel);
+            this.AnalysisParametersTab.Controls.Add(this.timeSeparationLabel);
+            this.AnalysisParametersTab.Controls.Add(this.endKmLabel);
+            this.AnalysisParametersTab.Controls.Add(this.label3loopBoundarylabel);
+            this.AnalysisParametersTab.Controls.Add(this.interpolationLabel);
+            this.AnalysisParametersTab.Controls.Add(this.toDate);
+            this.AnalysisParametersTab.Controls.Add(this.fromDate);
+            this.AnalysisParametersTab.Controls.Add(this.toLabel);
+            this.AnalysisParametersTab.Controls.Add(this.fromLabel);
+            this.AnalysisParametersTab.Controls.Add(this.DateRangeLabel);
+            this.AnalysisParametersTab.Controls.Add(this.SouthernHighlands);
+            this.AnalysisParametersTab.Controls.Add(this.UlanLine);
+            this.AnalysisParametersTab.Controls.Add(this.Tarcoola2Kalgoorlie);
+            this.AnalysisParametersTab.Controls.Add(this.Melbourne2Cootamundra);
+            this.AnalysisParametersTab.Controls.Add(this.Macarthur2Botany);
+            this.AnalysisParametersTab.Controls.Add(this.GunnedahBasin);
+            this.AnalysisParametersTab.Controls.Add(this.CulleranRanges);
+            this.AnalysisParametersTab.Controls.Add(this.TestLabel);
+            this.AnalysisParametersTab.Controls.Add(this.includeAListOfTrainsToExclude);
+            this.AnalysisParametersTab.Controls.Add(this.trainListFile);
+            this.AnalysisParametersTab.Controls.Add(this.selectTrainFile);
+            this.AnalysisParametersTab.Controls.Add(this.temporarySpeedRestrictionFile);
+            this.AnalysisParametersTab.Controls.Add(this.selectTSRFile);
+            this.AnalysisParametersTab.Controls.Add(this.GeometryFile);
+            this.AnalysisParametersTab.Controls.Add(this.selectGeometryFile);
+            this.AnalysisParametersTab.Controls.Add(this.IceDataFile);
+            this.AnalysisParametersTab.Controls.Add(this.selectDataFile);
+            this.AnalysisParametersTab.Location = new System.Drawing.Point(4, 22);
+            this.AnalysisParametersTab.Name = "AnalysisParametersTab";
+            this.AnalysisParametersTab.Padding = new System.Windows.Forms.Padding(3);
+            this.AnalysisParametersTab.Size = new System.Drawing.Size(1076, 490);
+            this.AnalysisParametersTab.TabIndex = 0;
+            this.AnalysisParametersTab.Text = "Analyis Parameters";
+            this.AnalysisParametersTab.UseVisualStyleBackColor = true;
             // 
             // SouthernHighlands
             // 
             this.SouthernHighlands.AutoSize = true;
-            this.SouthernHighlands.Location = new System.Drawing.Point(865, 258);
+            this.SouthernHighlands.Location = new System.Drawing.Point(865, 198);
             this.SouthernHighlands.Name = "SouthernHighlands";
             this.SouthernHighlands.Size = new System.Drawing.Size(119, 17);
             this.SouthernHighlands.TabIndex = 17;
@@ -205,7 +217,7 @@
             // UlanLine
             // 
             this.UlanLine.AutoSize = true;
-            this.UlanLine.Location = new System.Drawing.Point(865, 235);
+            this.UlanLine.Location = new System.Drawing.Point(865, 175);
             this.UlanLine.Name = "UlanLine";
             this.UlanLine.Size = new System.Drawing.Size(71, 17);
             this.UlanLine.TabIndex = 16;
@@ -216,7 +228,7 @@
             // Tarcoola2Kalgoorlie
             // 
             this.Tarcoola2Kalgoorlie.AutoSize = true;
-            this.Tarcoola2Kalgoorlie.Location = new System.Drawing.Point(865, 212);
+            this.Tarcoola2Kalgoorlie.Location = new System.Drawing.Point(865, 152);
             this.Tarcoola2Kalgoorlie.Name = "Tarcoola2Kalgoorlie";
             this.Tarcoola2Kalgoorlie.Size = new System.Drawing.Size(129, 17);
             this.Tarcoola2Kalgoorlie.TabIndex = 15;
@@ -227,7 +239,7 @@
             // Melbourne2Cootamundra
             // 
             this.Melbourne2Cootamundra.AutoSize = true;
-            this.Melbourne2Cootamundra.Location = new System.Drawing.Point(865, 189);
+            this.Melbourne2Cootamundra.Location = new System.Drawing.Point(865, 129);
             this.Melbourne2Cootamundra.Name = "Melbourne2Cootamundra";
             this.Melbourne2Cootamundra.Size = new System.Drawing.Size(154, 17);
             this.Melbourne2Cootamundra.TabIndex = 14;
@@ -238,7 +250,7 @@
             // Macarthur2Botany
             // 
             this.Macarthur2Botany.AutoSize = true;
-            this.Macarthur2Botany.Location = new System.Drawing.Point(865, 166);
+            this.Macarthur2Botany.Location = new System.Drawing.Point(865, 106);
             this.Macarthur2Botany.Name = "Macarthur2Botany";
             this.Macarthur2Botany.Size = new System.Drawing.Size(122, 17);
             this.Macarthur2Botany.TabIndex = 13;
@@ -249,7 +261,7 @@
             // GunnedahBasin
             // 
             this.GunnedahBasin.AutoSize = true;
-            this.GunnedahBasin.Location = new System.Drawing.Point(865, 143);
+            this.GunnedahBasin.Location = new System.Drawing.Point(865, 83);
             this.GunnedahBasin.Name = "GunnedahBasin";
             this.GunnedahBasin.Size = new System.Drawing.Size(105, 17);
             this.GunnedahBasin.TabIndex = 12;
@@ -260,7 +272,7 @@
             // CulleranRanges
             // 
             this.CulleranRanges.AutoSize = true;
-            this.CulleranRanges.Location = new System.Drawing.Point(865, 120);
+            this.CulleranRanges.Location = new System.Drawing.Point(865, 60);
             this.CulleranRanges.Name = "CulleranRanges";
             this.CulleranRanges.Size = new System.Drawing.Size(104, 17);
             this.CulleranRanges.TabIndex = 11;
@@ -271,7 +283,7 @@
             // TestLabel
             // 
             this.TestLabel.AutoSize = true;
-            this.TestLabel.Location = new System.Drawing.Point(862, 96);
+            this.TestLabel.Location = new System.Drawing.Point(862, 36);
             this.TestLabel.Name = "TestLabel";
             this.TestLabel.Size = new System.Drawing.Size(117, 13);
             this.TestLabel.TabIndex = 10;
@@ -280,7 +292,7 @@
             // includeAListOfTrainsToExclude
             // 
             this.includeAListOfTrainsToExclude.AutoSize = true;
-            this.includeAListOfTrainsToExclude.Location = new System.Drawing.Point(17, 284);
+            this.includeAListOfTrainsToExclude.Location = new System.Drawing.Point(17, 225);
             this.includeAListOfTrainsToExclude.Name = "includeAListOfTrainsToExclude";
             this.includeAListOfTrainsToExclude.Size = new System.Drawing.Size(118, 17);
             this.includeAListOfTrainsToExclude.TabIndex = 9;
@@ -290,7 +302,7 @@
             // trainListFile
             // 
             this.trainListFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.trainListFile.Location = new System.Drawing.Point(178, 253);
+            this.trainListFile.Location = new System.Drawing.Point(178, 194);
             this.trainListFile.Name = "trainListFile";
             this.trainListFile.Size = new System.Drawing.Size(573, 20);
             this.trainListFile.TabIndex = 7;
@@ -298,7 +310,7 @@
             // 
             // selectTrainFile
             // 
-            this.selectTrainFile.Location = new System.Drawing.Point(17, 246);
+            this.selectTrainFile.Location = new System.Drawing.Point(17, 187);
             this.selectTrainFile.Name = "selectTrainFile";
             this.selectTrainFile.Size = new System.Drawing.Size(155, 32);
             this.selectTrainFile.TabIndex = 6;
@@ -309,7 +321,7 @@
             // temporarySpeedRestrictionFile
             // 
             this.temporarySpeedRestrictionFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.temporarySpeedRestrictionFile.Location = new System.Drawing.Point(178, 193);
+            this.temporarySpeedRestrictionFile.Location = new System.Drawing.Point(178, 134);
             this.temporarySpeedRestrictionFile.Name = "temporarySpeedRestrictionFile";
             this.temporarySpeedRestrictionFile.Size = new System.Drawing.Size(573, 20);
             this.temporarySpeedRestrictionFile.TabIndex = 5;
@@ -317,7 +329,7 @@
             // 
             // selectTSRFile
             // 
-            this.selectTSRFile.Location = new System.Drawing.Point(17, 186);
+            this.selectTSRFile.Location = new System.Drawing.Point(17, 127);
             this.selectTSRFile.Name = "selectTSRFile";
             this.selectTSRFile.Size = new System.Drawing.Size(155, 32);
             this.selectTSRFile.TabIndex = 4;
@@ -328,7 +340,7 @@
             // GeometryFile
             // 
             this.GeometryFile.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.GeometryFile.Location = new System.Drawing.Point(178, 143);
+            this.GeometryFile.Location = new System.Drawing.Point(178, 84);
             this.GeometryFile.Name = "GeometryFile";
             this.GeometryFile.Size = new System.Drawing.Size(573, 20);
             this.GeometryFile.TabIndex = 3;
@@ -336,7 +348,7 @@
             // 
             // selectGeometryFile
             // 
-            this.selectGeometryFile.Location = new System.Drawing.Point(17, 136);
+            this.selectGeometryFile.Location = new System.Drawing.Point(17, 77);
             this.selectGeometryFile.Name = "selectGeometryFile";
             this.selectGeometryFile.Size = new System.Drawing.Size(155, 32);
             this.selectGeometryFile.TabIndex = 2;
@@ -363,366 +375,49 @@
             this.selectDataFile.UseVisualStyleBackColor = true;
             this.selectDataFile.Click += new System.EventHandler(this.selectDataFile_Click);
             // 
-            // processingTab
-            // 
-            this.processingTab.Controls.Add(this.toDate);
-            this.processingTab.Controls.Add(this.fromDate);
-            this.processingTab.Controls.Add(this.timeSeparation);
-            this.processingTab.Controls.Add(this.TSRWindowBoundary);
-            this.processingTab.Controls.Add(this.dataSeparation);
-            this.processingTab.Controls.Add(this.loopSpeedThreshold);
-            this.processingTab.Controls.Add(this.minimumJourneyDistance);
-            this.processingTab.Controls.Add(this.loopBoundaryThreshold);
-            this.processingTab.Controls.Add(this.interpolationInterval);
-            this.processingTab.Controls.Add(this.endInterpolationKm);
-            this.processingTab.Controls.Add(this.startInterpolationKm);
-            this.processingTab.Controls.Add(this.toLongitude);
-            this.processingTab.Controls.Add(this.toLatitude);
-            this.processingTab.Controls.Add(this.fromLongitude);
-            this.processingTab.Controls.Add(this.fromLatitude);
-            this.processingTab.Controls.Add(this.leftLongitudeLabel);
-            this.processingTab.Controls.Add(this.leftLatitudeLabel);
-            this.processingTab.Controls.Add(this.toLabel);
-            this.processingTab.Controls.Add(this.fromLabel);
-            this.processingTab.Controls.Add(this.loopSpeedLabel);
-            this.processingTab.Controls.Add(this.TSRLabel);
-            this.processingTab.Controls.Add(this.leftLocationLabel);
-            this.processingTab.Controls.Add(this.rightLocationLabel);
-            this.processingTab.Controls.Add(this.startKmLabel);
-            this.processingTab.Controls.Add(this.minDistanceLabel);
-            this.processingTab.Controls.Add(this.dataSeparationLabel);
-            this.processingTab.Controls.Add(this.timeSeparationLabel);
-            this.processingTab.Controls.Add(this.endKmLabel);
-            this.processingTab.Controls.Add(this.label3loopBoundarylabel);
-            this.processingTab.Controls.Add(this.interpolationLabel);
-            this.processingTab.Controls.Add(this.GeographicBoxLabel);
-            this.processingTab.Controls.Add(this.DateRangeLabel);
-            this.processingTab.Location = new System.Drawing.Point(4, 22);
-            this.processingTab.Name = "processingTab";
-            this.processingTab.Padding = new System.Windows.Forms.Padding(3);
-            this.processingTab.Size = new System.Drawing.Size(1076, 490);
-            this.processingTab.TabIndex = 1;
-            this.processingTab.Text = "Processing Parameters";
-            this.processingTab.UseVisualStyleBackColor = true;
-            // 
-            // toDate
-            // 
-            this.toDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDate.Location = new System.Drawing.Point(481, 46);
-            this.toDate.Name = "toDate";
-            this.toDate.Size = new System.Drawing.Size(100, 20);
-            this.toDate.TabIndex = 31;
-            this.toDate.Value = new System.DateTime(2017, 6, 1, 0, 0, 0, 0);
-            // 
-            // fromDate
-            // 
-            this.fromDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDate.Location = new System.Drawing.Point(287, 46);
-            this.fromDate.Name = "fromDate";
-            this.fromDate.Size = new System.Drawing.Size(100, 20);
-            this.fromDate.TabIndex = 30;
-            this.fromDate.Value = new System.DateTime(2017, 1, 1, 0, 0, 0, 0);
-            // 
-            // timeSeparation
-            // 
-            this.timeSeparation.Location = new System.Drawing.Point(287, 300);
-            this.timeSeparation.Name = "timeSeparation";
-            this.timeSeparation.Size = new System.Drawing.Size(100, 20);
-            this.timeSeparation.TabIndex = 29;
-            this.timeSeparation.Text = "10";
-            // 
-            // TSRWindowBoundary
-            // 
-            this.TSRWindowBoundary.Location = new System.Drawing.Point(661, 300);
-            this.TSRWindowBoundary.Name = "TSRWindowBoundary";
-            this.TSRWindowBoundary.Size = new System.Drawing.Size(100, 20);
-            this.TSRWindowBoundary.TabIndex = 28;
-            this.TSRWindowBoundary.Text = "1";
-            // 
-            // dataSeparation
-            // 
-            this.dataSeparation.Location = new System.Drawing.Point(287, 274);
-            this.dataSeparation.Name = "dataSeparation";
-            this.dataSeparation.Size = new System.Drawing.Size(100, 20);
-            this.dataSeparation.TabIndex = 27;
-            this.dataSeparation.Text = "4";
-            // 
-            // loopSpeedThreshold
-            // 
-            this.loopSpeedThreshold.Location = new System.Drawing.Point(661, 274);
-            this.loopSpeedThreshold.Name = "loopSpeedThreshold";
-            this.loopSpeedThreshold.Size = new System.Drawing.Size(100, 20);
-            this.loopSpeedThreshold.TabIndex = 26;
-            this.loopSpeedThreshold.Text = "50";
-            // 
-            // minimumJourneyDistance
-            // 
-            this.minimumJourneyDistance.Location = new System.Drawing.Point(287, 248);
-            this.minimumJourneyDistance.Name = "minimumJourneyDistance";
-            this.minimumJourneyDistance.Size = new System.Drawing.Size(100, 20);
-            this.minimumJourneyDistance.TabIndex = 25;
-            this.minimumJourneyDistance.Text = "100";
-            // 
-            // loopBoundaryThreshold
-            // 
-            this.loopBoundaryThreshold.Location = new System.Drawing.Point(661, 248);
-            this.loopBoundaryThreshold.Name = "loopBoundaryThreshold";
-            this.loopBoundaryThreshold.Size = new System.Drawing.Size(100, 20);
-            this.loopBoundaryThreshold.TabIndex = 24;
-            this.loopBoundaryThreshold.Text = "1";
-            // 
-            // interpolationInterval
-            // 
-            this.interpolationInterval.Location = new System.Drawing.Point(287, 222);
-            this.interpolationInterval.Name = "interpolationInterval";
-            this.interpolationInterval.Size = new System.Drawing.Size(100, 20);
-            this.interpolationInterval.TabIndex = 23;
-            this.interpolationInterval.Text = "50";
-            // 
-            // endInterpolationKm
-            // 
-            this.endInterpolationKm.Location = new System.Drawing.Point(661, 196);
-            this.endInterpolationKm.Name = "endInterpolationKm";
-            this.endInterpolationKm.Size = new System.Drawing.Size(100, 20);
-            this.endInterpolationKm.TabIndex = 22;
-            this.endInterpolationKm.Text = "460";
-            // 
-            // startInterpolationKm
-            // 
-            this.startInterpolationKm.Location = new System.Drawing.Point(287, 196);
-            this.startInterpolationKm.Name = "startInterpolationKm";
-            this.startInterpolationKm.Size = new System.Drawing.Size(100, 20);
-            this.startInterpolationKm.TabIndex = 21;
-            this.startInterpolationKm.Text = "280";
-            // 
-            // toLongitude
-            // 
-            this.toLongitude.Location = new System.Drawing.Point(481, 137);
-            this.toLongitude.Name = "toLongitude";
-            this.toLongitude.Size = new System.Drawing.Size(100, 20);
-            this.toLongitude.TabIndex = 20;
-            this.toLongitude.Text = "152";
-            // 
-            // toLatitude
-            // 
-            this.toLatitude.Location = new System.Drawing.Point(287, 137);
-            this.toLatitude.Name = "toLatitude";
-            this.toLatitude.Size = new System.Drawing.Size(100, 20);
-            this.toLatitude.TabIndex = 19;
-            this.toLatitude.Text = "-40";
-            // 
-            // fromLongitude
-            // 
-            this.fromLongitude.Location = new System.Drawing.Point(481, 111);
-            this.fromLongitude.Name = "fromLongitude";
-            this.fromLongitude.Size = new System.Drawing.Size(100, 20);
-            this.fromLongitude.TabIndex = 18;
-            this.fromLongitude.Text = "110";
-            // 
-            // fromLatitude
-            // 
-            this.fromLatitude.Location = new System.Drawing.Point(287, 111);
-            this.fromLatitude.Name = "fromLatitude";
-            this.fromLatitude.Size = new System.Drawing.Size(100, 20);
-            this.fromLatitude.TabIndex = 17;
-            this.fromLatitude.Text = "-10";
-            // 
-            // leftLongitudeLabel
-            // 
-            this.leftLongitudeLabel.AutoSize = true;
-            this.leftLongitudeLabel.Location = new System.Drawing.Point(478, 88);
-            this.leftLongitudeLabel.Name = "leftLongitudeLabel";
-            this.leftLongitudeLabel.Size = new System.Drawing.Size(57, 13);
-            this.leftLongitudeLabel.TabIndex = 16;
-            this.leftLongitudeLabel.Text = "Longitude:";
-            // 
-            // leftLatitudeLabel
-            // 
-            this.leftLatitudeLabel.AutoSize = true;
-            this.leftLatitudeLabel.Location = new System.Drawing.Point(284, 88);
-            this.leftLatitudeLabel.Name = "leftLatitudeLabel";
-            this.leftLatitudeLabel.Size = new System.Drawing.Size(48, 13);
-            this.leftLatitudeLabel.TabIndex = 15;
-            this.leftLatitudeLabel.Text = "Latitude:";
-            // 
-            // toLabel
-            // 
-            this.toLabel.AutoSize = true;
-            this.toLabel.Location = new System.Drawing.Point(478, 18);
-            this.toLabel.Name = "toLabel";
-            this.toLabel.Size = new System.Drawing.Size(23, 13);
-            this.toLabel.TabIndex = 14;
-            this.toLabel.Text = "To:";
-            // 
-            // fromLabel
-            // 
-            this.fromLabel.AutoSize = true;
-            this.fromLabel.Location = new System.Drawing.Point(284, 18);
-            this.fromLabel.Name = "fromLabel";
-            this.fromLabel.Size = new System.Drawing.Size(33, 13);
-            this.fromLabel.TabIndex = 13;
-            this.fromLabel.Text = "From:";
-            // 
-            // loopSpeedLabel
-            // 
-            this.loopSpeedLabel.AutoSize = true;
-            this.loopSpeedLabel.Location = new System.Drawing.Point(478, 277);
-            this.loopSpeedLabel.Name = "loopSpeedLabel";
-            this.loopSpeedLabel.Size = new System.Drawing.Size(132, 13);
-            this.loopSpeedLabel.TabIndex = 12;
-            this.loopSpeedLabel.Text = "Loop Speed Threshold (%)";
-            // 
-            // TSRLabel
-            // 
-            this.TSRLabel.AutoSize = true;
-            this.TSRLabel.Location = new System.Drawing.Point(478, 303);
-            this.TSRLabel.Name = "TSRLabel";
-            this.TSRLabel.Size = new System.Drawing.Size(94, 13);
-            this.TSRLabel.TabIndex = 11;
-            this.TSRLabel.Text = "TSR Window (km)";
-            // 
-            // leftLocationLabel
-            // 
-            this.leftLocationLabel.AutoSize = true;
-            this.leftLocationLabel.Location = new System.Drawing.Point(96, 114);
-            this.leftLocationLabel.Name = "leftLocationLabel";
-            this.leftLocationLabel.Size = new System.Drawing.Size(94, 13);
-            this.leftLocationLabel.TabIndex = 10;
-            this.leftLocationLabel.Text = "Top Left Location:";
-            // 
-            // rightLocationLabel
-            // 
-            this.rightLocationLabel.AutoSize = true;
-            this.rightLocationLabel.Location = new System.Drawing.Point(96, 140);
-            this.rightLocationLabel.Name = "rightLocationLabel";
-            this.rightLocationLabel.Size = new System.Drawing.Size(115, 13);
-            this.rightLocationLabel.TabIndex = 9;
-            this.rightLocationLabel.Text = "Bottom Right Location:";
-            // 
-            // startKmLabel
-            // 
-            this.startKmLabel.AutoSize = true;
-            this.startKmLabel.Location = new System.Drawing.Point(31, 199);
-            this.startKmLabel.Name = "startKmLabel";
-            this.startKmLabel.Size = new System.Drawing.Size(116, 13);
-            this.startKmLabel.TabIndex = 8;
-            this.startKmLabel.Text = "Start Kilometreage (km)";
-            // 
-            // minDistanceLabel
-            // 
-            this.minDistanceLabel.AutoSize = true;
-            this.minDistanceLabel.Location = new System.Drawing.Point(31, 251);
-            this.minDistanceLabel.Name = "minDistanceLabel";
-            this.minDistanceLabel.Size = new System.Drawing.Size(149, 13);
-            this.minDistanceLabel.TabIndex = 7;
-            this.minDistanceLabel.Text = "Minimum Travel Distance (km)";
-            // 
-            // dataSeparationLabel
-            // 
-            this.dataSeparationLabel.AutoSize = true;
-            this.dataSeparationLabel.Location = new System.Drawing.Point(31, 277);
-            this.dataSeparationLabel.Name = "dataSeparationLabel";
-            this.dataSeparationLabel.Size = new System.Drawing.Size(107, 13);
-            this.dataSeparationLabel.TabIndex = 6;
-            this.dataSeparationLabel.Text = "Data Separation (km)";
-            // 
-            // timeSeparationLabel
-            // 
-            this.timeSeparationLabel.AutoSize = true;
-            this.timeSeparationLabel.Location = new System.Drawing.Point(31, 303);
-            this.timeSeparationLabel.Name = "timeSeparationLabel";
-            this.timeSeparationLabel.Size = new System.Drawing.Size(99, 13);
-            this.timeSeparationLabel.TabIndex = 5;
-            this.timeSeparationLabel.Text = "Time Separation (h)";
-            // 
-            // endKmLabel
-            // 
-            this.endKmLabel.AutoSize = true;
-            this.endKmLabel.Location = new System.Drawing.Point(478, 199);
-            this.endKmLabel.Name = "endKmLabel";
-            this.endKmLabel.Size = new System.Drawing.Size(109, 13);
-            this.endKmLabel.TabIndex = 4;
-            this.endKmLabel.Text = "End interpolation (km)";
-            // 
-            // label3loopBoundarylabel
-            // 
-            this.label3loopBoundarylabel.AutoSize = true;
-            this.label3loopBoundarylabel.Location = new System.Drawing.Point(478, 251);
-            this.label3loopBoundarylabel.Name = "label3loopBoundarylabel";
-            this.label3loopBoundarylabel.Size = new System.Drawing.Size(152, 13);
-            this.label3loopBoundarylabel.TabIndex = 3;
-            this.label3loopBoundarylabel.Text = "Loop Boundary Threshold (km)";
-            // 
-            // interpolationLabel
-            // 
-            this.interpolationLabel.AutoSize = true;
-            this.interpolationLabel.Location = new System.Drawing.Point(31, 225);
-            this.interpolationLabel.Name = "interpolationLabel";
-            this.interpolationLabel.Size = new System.Drawing.Size(120, 13);
-            this.interpolationLabel.TabIndex = 2;
-            this.interpolationLabel.Text = "Interpolation Interval (m)";
-            // 
-            // GeographicBoxLabel
-            // 
-            this.GeographicBoxLabel.AutoSize = true;
-            this.GeographicBoxLabel.Location = new System.Drawing.Point(31, 88);
-            this.GeographicBoxLabel.Name = "GeographicBoxLabel";
-            this.GeographicBoxLabel.Size = new System.Drawing.Size(127, 13);
-            this.GeographicBoxLabel.TabIndex = 1;
-            this.GeographicBoxLabel.Text = "Geographic Confinement:";
-            // 
-            // DateRangeLabel
-            // 
-            this.DateRangeLabel.AutoSize = true;
-            this.DateRangeLabel.Location = new System.Drawing.Point(31, 52);
-            this.DateRangeLabel.Name = "DateRangeLabel";
-            this.DateRangeLabel.Size = new System.Drawing.Size(68, 13);
-            this.DateRangeLabel.TabIndex = 0;
-            this.DateRangeLabel.Text = "Date Range:";
-            // 
-            // simulationParametersTab
-            // 
-            this.simulationParametersTab.Controls.Add(this.SimulationP2WRatioLabel);
-            this.simulationParametersTab.Controls.Add(this.combinedDecreasingTrainCount);
-            this.simulationParametersTab.Controls.Add(this.catagory2DecreasingTrainCount);
-            this.simulationParametersTab.Controls.Add(this.catagory1DecreasingTrainCount);
-            this.simulationParametersTab.Controls.Add(this.combinedDecreasingPowerToWeightRatio);
-            this.simulationParametersTab.Controls.Add(this.catagory2DecreasingPowerToWeightRatio);
-            this.simulationParametersTab.Controls.Add(this.catagory1DecreasingPowerToWeightRatio);
-            this.simulationParametersTab.Controls.Add(this.combinedIncreasingTrainCount);
-            this.simulationParametersTab.Controls.Add(this.catagory2IncreasingTrainCount);
-            this.simulationParametersTab.Controls.Add(this.catagory1IncreasingTrainCount);
-            this.simulationParametersTab.Controls.Add(this.combinedIncreasingPowerToWeightRatio);
-            this.simulationParametersTab.Controls.Add(this.catagory2IncreasingPowerToWeightRatio);
-            this.simulationParametersTab.Controls.Add(this.catagory1IncreasingPowerToWeightRatio);
-            this.simulationParametersTab.Controls.Add(this.countLabel2);
-            this.simulationParametersTab.Controls.Add(this.PWRatioLabel2);
-            this.simulationParametersTab.Controls.Add(this.countLabel1);
-            this.simulationParametersTab.Controls.Add(this.PWRatioLabel1);
-            this.simulationParametersTab.Controls.Add(this.simulationPowerToWeightRatios);
-            this.simulationParametersTab.Controls.Add(this.catagory2UpperBound);
-            this.simulationParametersTab.Controls.Add(this.catagory2LowerBound);
-            this.simulationParametersTab.Controls.Add(this.catagory1UpperBound);
-            this.simulationParametersTab.Controls.Add(this.catagory1LowerBound);
-            this.simulationParametersTab.Controls.Add(this.powerToWeightLabel);
-            this.simulationParametersTab.Controls.Add(this.simICEDataFile);
-            this.simulationParametersTab.Controls.Add(this.combinedLabel);
-            this.simulationParametersTab.Controls.Add(this.simCatagory2Label);
-            this.simulationParametersTab.Controls.Add(this.simCatagory1Label);
-            this.simulationParametersTab.Controls.Add(this.decreasingLabel);
-            this.simulationParametersTab.Controls.Add(this.increasingLabel);
-            this.simulationParametersTab.Controls.Add(this.upperBoundLabel);
-            this.simulationParametersTab.Controls.Add(this.lowerBoundLabel);
-            this.simulationParametersTab.Controls.Add(this.catagory2Label);
-            this.simulationParametersTab.Controls.Add(this.catagory1Label);
-            this.simulationParametersTab.Controls.Add(this.dataFileLabel);
-            this.simulationParametersTab.Location = new System.Drawing.Point(4, 22);
-            this.simulationParametersTab.Name = "simulationParametersTab";
-            this.simulationParametersTab.Padding = new System.Windows.Forms.Padding(3);
-            this.simulationParametersTab.Size = new System.Drawing.Size(1076, 490);
-            this.simulationParametersTab.TabIndex = 2;
-            this.simulationParametersTab.Text = "Simulation Parameters";
-            this.simulationParametersTab.UseVisualStyleBackColor = true;
+            // powerToWeightParametersTab
+            // 
+            this.powerToWeightParametersTab.Controls.Add(this.SimulationP2WRatioLabel);
+            this.powerToWeightParametersTab.Controls.Add(this.combinedDecreasingTrainCount);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory2DecreasingTrainCount);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory1DecreasingTrainCount);
+            this.powerToWeightParametersTab.Controls.Add(this.combinedDecreasingPowerToWeightRatio);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory2DecreasingPowerToWeightRatio);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory1DecreasingPowerToWeightRatio);
+            this.powerToWeightParametersTab.Controls.Add(this.combinedIncreasingTrainCount);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory2IncreasingTrainCount);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory1IncreasingTrainCount);
+            this.powerToWeightParametersTab.Controls.Add(this.combinedIncreasingPowerToWeightRatio);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory2IncreasingPowerToWeightRatio);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory1IncreasingPowerToWeightRatio);
+            this.powerToWeightParametersTab.Controls.Add(this.countLabel2);
+            this.powerToWeightParametersTab.Controls.Add(this.PWRatioLabel2);
+            this.powerToWeightParametersTab.Controls.Add(this.countLabel1);
+            this.powerToWeightParametersTab.Controls.Add(this.PWRatioLabel1);
+            this.powerToWeightParametersTab.Controls.Add(this.simulationPowerToWeightRatios);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory2UpperBound);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory2LowerBound);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory1UpperBound);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory1LowerBound);
+            this.powerToWeightParametersTab.Controls.Add(this.powerToWeightLabel);
+            this.powerToWeightParametersTab.Controls.Add(this.simICEDataFile);
+            this.powerToWeightParametersTab.Controls.Add(this.combinedLabel);
+            this.powerToWeightParametersTab.Controls.Add(this.simCatagory2Label);
+            this.powerToWeightParametersTab.Controls.Add(this.simCatagory1Label);
+            this.powerToWeightParametersTab.Controls.Add(this.decreasingLabel);
+            this.powerToWeightParametersTab.Controls.Add(this.increasingLabel);
+            this.powerToWeightParametersTab.Controls.Add(this.upperBoundLabel);
+            this.powerToWeightParametersTab.Controls.Add(this.lowerBoundLabel);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory2Label);
+            this.powerToWeightParametersTab.Controls.Add(this.catagory1Label);
+            this.powerToWeightParametersTab.Controls.Add(this.dataFileLabel);
+            this.powerToWeightParametersTab.Location = new System.Drawing.Point(4, 22);
+            this.powerToWeightParametersTab.Name = "powerToWeightParametersTab";
+            this.powerToWeightParametersTab.Padding = new System.Windows.Forms.Padding(3);
+            this.powerToWeightParametersTab.Size = new System.Drawing.Size(1076, 490);
+            this.powerToWeightParametersTab.TabIndex = 2;
+            this.powerToWeightParametersTab.Text = "Power to Weight Parameters";
+            this.powerToWeightParametersTab.UseVisualStyleBackColor = true;
             // 
             // SimulationP2WRatioLabel
             // 
@@ -1103,11 +798,23 @@
             // 
             this.Operator3Catagory.FormattingEnabled = true;
             this.Operator3Catagory.Items.AddRange(new object[] {
-            "Pacific National",
-            "Aurizon",
-            "Freightliner",
             "ARTC",
-            "QUBE"});
+            "Aurizon",
+            "City Rail",
+            "Countrylink",
+            "Freightliner",
+            "Great Southern Rail",
+            "Interail",
+            "Lauchlan Valley Rail Society",
+            "Pacific National",
+            "QUBE",
+            "Rail Corp",
+            "SCT",
+            "Southern Shorthaul Rail",
+            "Sydney Rail Service",
+            "The Rail Motor Service",
+            "V Line Passenger",
+            "Group Remaining"});
             this.Operator3Catagory.Location = new System.Drawing.Point(745, 268);
             this.Operator3Catagory.Margin = new System.Windows.Forms.Padding(2);
             this.Operator3Catagory.Name = "Operator3Catagory";
@@ -1140,11 +847,23 @@
             // 
             this.Operator2Catagory.FormattingEnabled = true;
             this.Operator2Catagory.Items.AddRange(new object[] {
-            "Pacific National",
-            "Aurizon",
-            "Freightliner",
             "ARTC",
-            "QUBE"});
+            "Aurizon",
+            "City Rail",
+            "Countrylink",
+            "Freightliner",
+            "Great Southern Rail",
+            "Interail",
+            "Lauchlan Valley Rail Society",
+            "Pacific National",
+            "QUBE",
+            "Rail Corp",
+            "SCT",
+            "Southern Shorthaul Rail",
+            "Sydney Rail Service",
+            "The Rail Motor Service",
+            "V Line Passenger",
+            "Group Remaining"});
             this.Operator2Catagory.Location = new System.Drawing.Point(745, 170);
             this.Operator2Catagory.Margin = new System.Windows.Forms.Padding(2);
             this.Operator2Catagory.Name = "Operator2Catagory";
@@ -1177,11 +896,23 @@
             // 
             this.Operator1Catagory.FormattingEnabled = true;
             this.Operator1Catagory.Items.AddRange(new object[] {
-            "Pacific National",
-            "Aurizon",
-            "Freightliner",
             "ARTC",
-            "QUBE"});
+            "Aurizon",
+            "City Rail",
+            "Countrylink",
+            "Freightliner",
+            "Great Southern Rail",
+            "Interail",
+            "Lauchlan Valley Rail Society",
+            "Pacific National",
+            "QUBE",
+            "Rail Corp",
+            "SCT",
+            "Southern Shorthaul Rail",
+            "Sydney Rail Service",
+            "The Rail Motor Service",
+            "V Line Passenger",
+            "Group Remaining"});
             this.Operator1Catagory.Location = new System.Drawing.Point(745, 69);
             this.Operator1Catagory.Margin = new System.Windows.Forms.Padding(2);
             this.Operator1Catagory.Name = "Operator1Catagory";
@@ -1398,21 +1129,219 @@
             this.catagory1IncreasingSimulationFile.TabIndex = 0;
             this.catagory1IncreasingSimulationFile.Text = "<Required>";
             // 
+            // toDate
+            // 
+            this.toDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.toDate.Location = new System.Drawing.Point(464, 275);
+            this.toDate.Name = "toDate";
+            this.toDate.Size = new System.Drawing.Size(100, 20);
+            this.toDate.TabIndex = 36;
+            this.toDate.Value = new System.DateTime(2017, 6, 1, 0, 0, 0, 0);
+            // 
+            // fromDate
+            // 
+            this.fromDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.fromDate.Location = new System.Drawing.Point(270, 275);
+            this.fromDate.Name = "fromDate";
+            this.fromDate.Size = new System.Drawing.Size(100, 20);
+            this.fromDate.TabIndex = 35;
+            this.fromDate.Value = new System.DateTime(2017, 1, 1, 0, 0, 0, 0);
+            // 
+            // toLabel
+            // 
+            this.toLabel.AutoSize = true;
+            this.toLabel.Location = new System.Drawing.Point(461, 247);
+            this.toLabel.Name = "toLabel";
+            this.toLabel.Size = new System.Drawing.Size(23, 13);
+            this.toLabel.TabIndex = 34;
+            this.toLabel.Text = "To:";
+            // 
+            // fromLabel
+            // 
+            this.fromLabel.AutoSize = true;
+            this.fromLabel.Location = new System.Drawing.Point(267, 247);
+            this.fromLabel.Name = "fromLabel";
+            this.fromLabel.Size = new System.Drawing.Size(33, 13);
+            this.fromLabel.TabIndex = 33;
+            this.fromLabel.Text = "From:";
+            // 
+            // DateRangeLabel
+            // 
+            this.DateRangeLabel.AutoSize = true;
+            this.DateRangeLabel.Location = new System.Drawing.Point(14, 281);
+            this.DateRangeLabel.Name = "DateRangeLabel";
+            this.DateRangeLabel.Size = new System.Drawing.Size(68, 13);
+            this.DateRangeLabel.TabIndex = 32;
+            this.DateRangeLabel.Text = "Date Range:";
+            // 
+            // timeSeparation
+            // 
+            this.timeSeparation.Location = new System.Drawing.Point(270, 417);
+            this.timeSeparation.Name = "timeSeparation";
+            this.timeSeparation.Size = new System.Drawing.Size(100, 20);
+            this.timeSeparation.TabIndex = 54;
+            this.timeSeparation.Text = "10";
+            // 
+            // TSRWindowBoundary
+            // 
+            this.TSRWindowBoundary.Location = new System.Drawing.Point(644, 417);
+            this.TSRWindowBoundary.Name = "TSRWindowBoundary";
+            this.TSRWindowBoundary.Size = new System.Drawing.Size(100, 20);
+            this.TSRWindowBoundary.TabIndex = 53;
+            this.TSRWindowBoundary.Text = "1";
+            // 
+            // dataSeparation
+            // 
+            this.dataSeparation.Location = new System.Drawing.Point(270, 391);
+            this.dataSeparation.Name = "dataSeparation";
+            this.dataSeparation.Size = new System.Drawing.Size(100, 20);
+            this.dataSeparation.TabIndex = 52;
+            this.dataSeparation.Text = "4";
+            // 
+            // loopSpeedThreshold
+            // 
+            this.loopSpeedThreshold.Location = new System.Drawing.Point(644, 391);
+            this.loopSpeedThreshold.Name = "loopSpeedThreshold";
+            this.loopSpeedThreshold.Size = new System.Drawing.Size(100, 20);
+            this.loopSpeedThreshold.TabIndex = 51;
+            this.loopSpeedThreshold.Text = "50";
+            // 
+            // minimumJourneyDistance
+            // 
+            this.minimumJourneyDistance.Location = new System.Drawing.Point(270, 365);
+            this.minimumJourneyDistance.Name = "minimumJourneyDistance";
+            this.minimumJourneyDistance.Size = new System.Drawing.Size(100, 20);
+            this.minimumJourneyDistance.TabIndex = 50;
+            this.minimumJourneyDistance.Text = "100";
+            // 
+            // loopBoundaryThreshold
+            // 
+            this.loopBoundaryThreshold.Location = new System.Drawing.Point(644, 365);
+            this.loopBoundaryThreshold.Name = "loopBoundaryThreshold";
+            this.loopBoundaryThreshold.Size = new System.Drawing.Size(100, 20);
+            this.loopBoundaryThreshold.TabIndex = 49;
+            this.loopBoundaryThreshold.Text = "1";
+            // 
+            // interpolationInterval
+            // 
+            this.interpolationInterval.Location = new System.Drawing.Point(270, 339);
+            this.interpolationInterval.Name = "interpolationInterval";
+            this.interpolationInterval.Size = new System.Drawing.Size(100, 20);
+            this.interpolationInterval.TabIndex = 48;
+            this.interpolationInterval.Text = "50";
+            // 
+            // endInterpolationKm
+            // 
+            this.endInterpolationKm.Location = new System.Drawing.Point(644, 313);
+            this.endInterpolationKm.Name = "endInterpolationKm";
+            this.endInterpolationKm.Size = new System.Drawing.Size(100, 20);
+            this.endInterpolationKm.TabIndex = 47;
+            this.endInterpolationKm.Text = "460";
+            // 
+            // startInterpolationKm
+            // 
+            this.startInterpolationKm.Location = new System.Drawing.Point(270, 313);
+            this.startInterpolationKm.Name = "startInterpolationKm";
+            this.startInterpolationKm.Size = new System.Drawing.Size(100, 20);
+            this.startInterpolationKm.TabIndex = 46;
+            this.startInterpolationKm.Text = "280";
+            // 
+            // loopSpeedLabel
+            // 
+            this.loopSpeedLabel.AutoSize = true;
+            this.loopSpeedLabel.Location = new System.Drawing.Point(461, 394);
+            this.loopSpeedLabel.Name = "loopSpeedLabel";
+            this.loopSpeedLabel.Size = new System.Drawing.Size(132, 13);
+            this.loopSpeedLabel.TabIndex = 45;
+            this.loopSpeedLabel.Text = "Loop Speed Threshold (%)";
+            // 
+            // TSRLabel
+            // 
+            this.TSRLabel.AutoSize = true;
+            this.TSRLabel.Location = new System.Drawing.Point(461, 420);
+            this.TSRLabel.Name = "TSRLabel";
+            this.TSRLabel.Size = new System.Drawing.Size(94, 13);
+            this.TSRLabel.TabIndex = 44;
+            this.TSRLabel.Text = "TSR Window (km)";
+            // 
+            // startKmLabel
+            // 
+            this.startKmLabel.AutoSize = true;
+            this.startKmLabel.Location = new System.Drawing.Point(14, 316);
+            this.startKmLabel.Name = "startKmLabel";
+            this.startKmLabel.Size = new System.Drawing.Size(116, 13);
+            this.startKmLabel.TabIndex = 43;
+            this.startKmLabel.Text = "Start Kilometreage (km)";
+            // 
+            // minDistanceLabel
+            // 
+            this.minDistanceLabel.AutoSize = true;
+            this.minDistanceLabel.Location = new System.Drawing.Point(14, 368);
+            this.minDistanceLabel.Name = "minDistanceLabel";
+            this.minDistanceLabel.Size = new System.Drawing.Size(149, 13);
+            this.minDistanceLabel.TabIndex = 42;
+            this.minDistanceLabel.Text = "Minimum Travel Distance (km)";
+            // 
+            // dataSeparationLabel
+            // 
+            this.dataSeparationLabel.AutoSize = true;
+            this.dataSeparationLabel.Location = new System.Drawing.Point(14, 394);
+            this.dataSeparationLabel.Name = "dataSeparationLabel";
+            this.dataSeparationLabel.Size = new System.Drawing.Size(107, 13);
+            this.dataSeparationLabel.TabIndex = 41;
+            this.dataSeparationLabel.Text = "Data Separation (km)";
+            // 
+            // timeSeparationLabel
+            // 
+            this.timeSeparationLabel.AutoSize = true;
+            this.timeSeparationLabel.Location = new System.Drawing.Point(14, 420);
+            this.timeSeparationLabel.Name = "timeSeparationLabel";
+            this.timeSeparationLabel.Size = new System.Drawing.Size(99, 13);
+            this.timeSeparationLabel.TabIndex = 40;
+            this.timeSeparationLabel.Text = "Time Separation (h)";
+            // 
+            // endKmLabel
+            // 
+            this.endKmLabel.AutoSize = true;
+            this.endKmLabel.Location = new System.Drawing.Point(461, 316);
+            this.endKmLabel.Name = "endKmLabel";
+            this.endKmLabel.Size = new System.Drawing.Size(109, 13);
+            this.endKmLabel.TabIndex = 39;
+            this.endKmLabel.Text = "End interpolation (km)";
+            // 
+            // label3loopBoundarylabel
+            // 
+            this.label3loopBoundarylabel.AutoSize = true;
+            this.label3loopBoundarylabel.Location = new System.Drawing.Point(461, 368);
+            this.label3loopBoundarylabel.Name = "label3loopBoundarylabel";
+            this.label3loopBoundarylabel.Size = new System.Drawing.Size(152, 13);
+            this.label3loopBoundarylabel.TabIndex = 38;
+            this.label3loopBoundarylabel.Text = "Loop Boundary Threshold (km)";
+            // 
+            // interpolationLabel
+            // 
+            this.interpolationLabel.AutoSize = true;
+            this.interpolationLabel.Location = new System.Drawing.Point(14, 342);
+            this.interpolationLabel.Name = "interpolationLabel";
+            this.interpolationLabel.Size = new System.Drawing.Size(120, 13);
+            this.interpolationLabel.TabIndex = 37;
+            this.interpolationLabel.Text = "Interpolation Interval (m)";
+            // 
             // TrainPerformance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1099, 540);
             this.Controls.Add(this.simulationTab);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TrainPerformance";
+            this.RightToLeftLayout = true;
             this.Text = "Form1";
             this.simulationTab.ResumeLayout(false);
-            this.fileSelectionTab.ResumeLayout(false);
-            this.fileSelectionTab.PerformLayout();
-            this.processingTab.ResumeLayout(false);
-            this.processingTab.PerformLayout();
-            this.simulationParametersTab.ResumeLayout(false);
-            this.simulationParametersTab.PerformLayout();
+            this.AnalysisParametersTab.ResumeLayout(false);
+            this.AnalysisParametersTab.PerformLayout();
+            this.powerToWeightParametersTab.ResumeLayout(false);
+            this.powerToWeightParametersTab.PerformLayout();
             this.simualtionFileTab.ResumeLayout(false);
             this.simualtionFileTab.PerformLayout();
             this.ResumeLayout(false);
@@ -1422,7 +1351,7 @@
         #endregion
 
         private System.Windows.Forms.TabControl simulationTab;
-        private System.Windows.Forms.TabPage fileSelectionTab;
+        private System.Windows.Forms.TabPage AnalysisParametersTab;
         private System.Windows.Forms.CheckBox includeAListOfTrainsToExclude;
         private System.Windows.Forms.TextBox trainListFile;
         private System.Windows.Forms.Button selectTrainFile;
@@ -1432,41 +1361,8 @@
         private System.Windows.Forms.Button selectGeometryFile;
         private System.Windows.Forms.TextBox IceDataFile;
         private System.Windows.Forms.Button selectDataFile;
-        private System.Windows.Forms.TabPage processingTab;
-        private System.Windows.Forms.TabPage simulationParametersTab;
+        private System.Windows.Forms.TabPage powerToWeightParametersTab;
         private System.Windows.Forms.TabPage simualtionFileTab;
-        private System.Windows.Forms.Label leftLocationLabel;
-        private System.Windows.Forms.Label rightLocationLabel;
-        private System.Windows.Forms.Label startKmLabel;
-        private System.Windows.Forms.Label minDistanceLabel;
-        private System.Windows.Forms.Label dataSeparationLabel;
-        private System.Windows.Forms.Label timeSeparationLabel;
-        private System.Windows.Forms.Label endKmLabel;
-        private System.Windows.Forms.Label label3loopBoundarylabel;
-        private System.Windows.Forms.Label interpolationLabel;
-        private System.Windows.Forms.Label GeographicBoxLabel;
-        private System.Windows.Forms.Label DateRangeLabel;
-        private System.Windows.Forms.Label leftLongitudeLabel;
-        private System.Windows.Forms.Label leftLatitudeLabel;
-        private System.Windows.Forms.Label toLabel;
-        private System.Windows.Forms.Label fromLabel;
-        private System.Windows.Forms.Label loopSpeedLabel;
-        private System.Windows.Forms.Label TSRLabel;
-        private System.Windows.Forms.TextBox timeSeparation;
-        private System.Windows.Forms.TextBox TSRWindowBoundary;
-        private System.Windows.Forms.TextBox dataSeparation;
-        private System.Windows.Forms.TextBox loopSpeedThreshold;
-        private System.Windows.Forms.TextBox minimumJourneyDistance;
-        private System.Windows.Forms.TextBox loopBoundaryThreshold;
-        private System.Windows.Forms.TextBox interpolationInterval;
-        private System.Windows.Forms.TextBox endInterpolationKm;
-        private System.Windows.Forms.TextBox startInterpolationKm;
-        private System.Windows.Forms.TextBox toLongitude;
-        private System.Windows.Forms.TextBox toLatitude;
-        private System.Windows.Forms.TextBox fromLongitude;
-        private System.Windows.Forms.TextBox fromLatitude;
-        private System.Windows.Forms.DateTimePicker toDate;
-        private System.Windows.Forms.DateTimePicker fromDate;
         private System.Windows.Forms.Label combinedDecreasingTrainCount;
         private System.Windows.Forms.Label catagory2DecreasingTrainCount;
         private System.Windows.Forms.Label catagory1DecreasingTrainCount;
@@ -1538,6 +1434,29 @@
         private System.Windows.Forms.ComboBox Commodity1Catagory;
         private System.Windows.Forms.CheckBox powerToWeightRatioAnalysis;
         private System.Windows.Forms.CheckBox SouthernHighlands;
+        private System.Windows.Forms.TextBox timeSeparation;
+        private System.Windows.Forms.TextBox TSRWindowBoundary;
+        private System.Windows.Forms.TextBox dataSeparation;
+        private System.Windows.Forms.TextBox loopSpeedThreshold;
+        private System.Windows.Forms.TextBox minimumJourneyDistance;
+        private System.Windows.Forms.TextBox loopBoundaryThreshold;
+        private System.Windows.Forms.TextBox interpolationInterval;
+        private System.Windows.Forms.TextBox endInterpolationKm;
+        private System.Windows.Forms.TextBox startInterpolationKm;
+        private System.Windows.Forms.Label loopSpeedLabel;
+        private System.Windows.Forms.Label TSRLabel;
+        private System.Windows.Forms.Label startKmLabel;
+        private System.Windows.Forms.Label minDistanceLabel;
+        private System.Windows.Forms.Label dataSeparationLabel;
+        private System.Windows.Forms.Label timeSeparationLabel;
+        private System.Windows.Forms.Label endKmLabel;
+        private System.Windows.Forms.Label label3loopBoundarylabel;
+        private System.Windows.Forms.Label interpolationLabel;
+        private System.Windows.Forms.DateTimePicker toDate;
+        private System.Windows.Forms.DateTimePicker fromDate;
+        private System.Windows.Forms.Label toLabel;
+        private System.Windows.Forms.Label fromLabel;
+        private System.Windows.Forms.Label DateRangeLabel;
 
     }
 }
