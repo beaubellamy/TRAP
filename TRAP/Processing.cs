@@ -496,8 +496,9 @@ namespace TRAP
                 /* Determine the current location and elevation of the alignemnt at this point. */
                 kmPost = Settings.startKm + Settings.interval / 1000 * journeyIdx;
                 altitude = trackGeometry[TrainPerformance.track.findClosestTrackGeometryPoint(trackGeometry, kmPost)].elevation;
-
+                
                 speed.Clear();
+                TSRList.Clear();
                 sum = 0;
 
                 /* Cycle through each train in the list. */
@@ -559,7 +560,7 @@ namespace TRAP
                     if (speed.Count() == 0 || sum == 0)
                         aveSpeed = 0;
                     else
-                        aveSpeed = speed.Where(x => x > 0.0).Average();
+                        aveSpeed = speed.Where(x => x >= 0.0).Average();
                 }
 
                 /* Add to each list for this location. */
@@ -884,19 +885,19 @@ namespace TRAP
                 Settings.dateRange[0] > Settings.dateRange[1])
                 return false;
 
-            if (Settings.topLeftLocation == null ||
-                Settings.topLeftLocation.latitude > -10 ||      /* Australian top left boundary */
-                Settings.topLeftLocation.longitude < 110 ||
-                Settings.topLeftLocation.latitude > -10 ||      /* Australian top right boundary */
-                Settings.topLeftLocation.longitude > 155)
-                return false;
+            //if (Settings.topLeftLocation == null ||
+            //    Settings.topLeftLocation.latitude > -10 ||      /* Australian top left boundary */
+            //    Settings.topLeftLocation.longitude < 110 ||
+            //    Settings.topLeftLocation.latitude > -10 ||      /* Australian top right boundary */
+            //    Settings.topLeftLocation.longitude > 155)
+            //    return false;
 
-            if (Settings.bottomRightLocation == null ||
-                Settings.bottomRightLocation.latitude < -40 ||      /* Australian bottom left boundary */
-                Settings.bottomRightLocation.longitude < 110 ||
-                Settings.bottomRightLocation.latitude < -40 ||      /* Australian bottom right boundary */
-                Settings.bottomRightLocation.longitude > 155)
-                return false;
+            //if (Settings.bottomRightLocation == null ||
+            //    Settings.bottomRightLocation.latitude < -40 ||      /* Australian bottom left boundary */
+            //    Settings.bottomRightLocation.longitude < 110 ||
+            //    Settings.bottomRightLocation.latitude < -40 ||      /* Australian bottom right boundary */
+            //    Settings.bottomRightLocation.longitude > 155)
+            //    return false;
 
             if (Settings.startKm < 0 || Settings.startKm > Settings.endKm)
                 return false;

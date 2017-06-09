@@ -88,8 +88,9 @@ namespace TRAP
                     /* Check if the train is in the exclude list */
                     includeTrain = excludeTrainList.Contains(TrainID);
 
-                    if (latitude < Settings.topLeftLocation.latitude && latitude > Settings.bottomRightLocation.latitude &&
-                        longitude > Settings.topLeftLocation.longitude && longitude < Settings.bottomRightLocation.longitude &&
+                    if (
+                        //latitude < Settings.topLeftLocation.latitude && latitude > Settings.bottomRightLocation.latitude &&
+                        //longitude > Settings.topLeftLocation.longitude && longitude < Settings.bottomRightLocation.longitude &&
                         dateTime >= Settings.dateRange[0] && dateTime < Settings.dateRange[1] &&
                         !includeTrain)
                     {
