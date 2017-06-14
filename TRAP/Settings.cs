@@ -7,8 +7,8 @@ using TRAP;
 
 namespace Globalsettings
 {
-    /* A list of available analysis seperation catagories. */
-    public enum analysisCatagory { TrainOperator, TrainCommodity, TrainPowerToWeight , Unknown};
+    /* A list of available analysis seperation Categories. */
+    public enum analysisCategory { TrainOperator, TrainCommodity, TrainPowerToWeight , Unknown};
 
     public static class FileSettings
     {
@@ -17,7 +17,7 @@ namespace Globalsettings
         public static string geometryFile = null;
         public static string temporarySpeedRestrictionFile = null;
         public static string trainListFile = null;                  /* File only required if includeAListOfTrainsToExclude is TRUE. */
-        /* Default number of simulation catagories is 3, hence, the default number of simualtion files is 6, one for each direction */
+        /* Default number of simulation Categories is 3, hence, the default number of simulation files is 6, one for each direction */
         public static List<string> simulationFiles = new List<string>(new string[6]);
         public static string aggregatedDestination = null;
 
@@ -32,35 +32,33 @@ namespace Globalsettings
         public static GeoLocation bottomRightLocation;      /* Bottom right corner of the geographic box describing the included data. */
         public static bool includeAListOfTrainsToExclude;   /* Is a list of trains that are to be excluded available. */
 
-        ///* Corridor dependant / Analysis parameters */
+        /* Corridor dependant / Analysis parameters */
         public static double startKm;                       /* Start km for interpoaltion data. */
         public static double endKm;                         /* End km for interpolation data. */
         public static double interval;                      /* Interpolation interval (metres). */
         public static double minimumJourneyDistance;        /* Minimum distance of a train journey to be considered valid. */
 
-        ///* Processing parameters */
+        /* Processing parameters */
         public static double loopSpeedThreshold;            /* Cuttoff for the simulation speed, when comparing the train to the simualted train. */
         public static double loopBoundaryThreshold;         /* Distance either side of the loop to be considered within the loop boundary (km). */
         public static double TSRwindowBoundary;              /* Distance either side of the TSR location to be considered within the TSR boundary (km). */
         public static double timeThreshold;                 /* Minimum time between data points to be considered a seperate train. */
         public static double distanceThreshold;             /* Minimum ditance between successive data points. */
 
-        ///* Simulation Parameters */
-        public static double catagory1LowerBound;        /* The lower bound cuttoff for the underpowered trains. */
-        public static double catagory1UpperBound;        /* The upper bound cuttoff for the underpowered trains. */
-        public static double catagory2LowerBound;         /* The lower bound cuttoff for the overpowered trains. */
-        public static double catagory2UpperBound;         /* The upper bound cuttoff for the overpowered trains. */
-        //public static double combinedLowerBound;            /* The lower bound cuttoff for the combined trains. */
-        //public static double combinedUpperBound;            /* The upper bound cuttoff for the combined trains. */
+        /* Simulation Parameters */
+        public static double Category1LowerBound;        /* The lower bound cuttoff for the underpowered trains. */
+        public static double Category1UpperBound;        /* The upper bound cuttoff for the underpowered trains. */
+        public static double Category2LowerBound;         /* The lower bound cuttoff for the overpowered trains. */
+        public static double Category2UpperBound;         /* The upper bound cuttoff for the overpowered trains. */
         
 
-        public static analysisCatagory analysisCatagory;
-        public static trainOperator catagory1Operator = trainOperator.Unknown;
-        public static trainOperator catagory2Operator = trainOperator.Unknown;
-        public static trainOperator catagory3Operator = trainOperator.Unknown;
-        public static trainCommodity catagory1Commodity = trainCommodity.Unknown;
-        public static trainCommodity catagory2Commodity = trainCommodity.Unknown;
-        public static trainCommodity catagory3Commodity = trainCommodity.Unknown;
+        public static analysisCategory analysisCategory;
+        public static trainOperator Category1Operator = trainOperator.Unknown;
+        public static trainOperator Category2Operator = trainOperator.Unknown;
+        public static trainOperator Category3Operator = trainOperator.Unknown;
+        public static trainCommodity Category1Commodity = trainCommodity.Unknown;
+        public static trainCommodity Category2Commodity = trainCommodity.Unknown;
+        public static trainCommodity Category3Commodity = trainCommodity.Unknown;
 
         
     }

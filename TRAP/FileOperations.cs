@@ -41,7 +41,7 @@ namespace TRAP
             double latitude = 0.0;
             double longitude = 0.0;
             DateTime dateTime = DateTime.MinValue;
-            catagory catagory = catagory.Unknown;
+            Category Category = Category.Unknown;
 
             bool header = true;
             bool includeTrain = true;
@@ -71,7 +71,7 @@ namespace TRAP
 
                     /* Ensure values are valid while reading them out. */
                     double.TryParse(fields[9], out speed);
-                    double.TryParse(fields[8], out kmPost);
+                    double.TryParse(fields[8], out kmPost);                                       
                     double.TryParse(fields[0], out latitude);
                     double.TryParse(fields[2], out longitude);
                     DateTime.TryParse(fields[3], out dateTime);
@@ -88,10 +88,7 @@ namespace TRAP
                     /* Check if the train is in the exclude list */
                     includeTrain = excludeTrainList.Contains(TrainID);
 
-                    if (
-                        //latitude < Settings.topLeftLocation.latitude && latitude > Settings.bottomRightLocation.latitude &&
-                        //longitude > Settings.topLeftLocation.longitude && longitude < Settings.bottomRightLocation.longitude &&
-                        dateTime >= Settings.dateRange[0] && dateTime < Settings.dateRange[1] &&
+                    if (dateTime >= Settings.dateRange[0] && dateTime < Settings.dateRange[1] &&
                         !includeTrain)
                     {
                         TrainRecord record = new TrainRecord(TrainID, locoID, dateTime, new GeoLocation(latitude, longitude), trainOperator, commodity, kmPost, speed, powerToWeight);
@@ -111,7 +108,7 @@ namespace TRAP
         /// </summary>
         /// <param name="filename">The simulation filename.</param>
         /// <returns>The list of data for the simualted train.</returns>
-        public static Train readSimulationData(string filename, catagory simulationCatagory, direction direction)
+        public static Train readSimulationData(string filename, Category simulationCategory, direction direction)
         {
 
             /* Read all the lines of the data file. */
@@ -150,7 +147,6 @@ namespace TRAP
                 else
                 {
                     /* Add the properties to their respsective fields. */
-
                     double.TryParse(fields[3], out elevation);
                     double.TryParse(fields[9], out speed);
                     double.TryParse(fields[14], out kilometreage);
@@ -165,13 +161,15 @@ namespace TRAP
                         else
                             dateTime = dateTime.AddSeconds(time);
                     }
+
                     /* Add the record to the simulated journey. */
                     TrainJourney item = new TrainJourney(new GeoLocation(latitude, longitude), dateTime, speed, kilometreage, kilometreage, elevation);
                     simulatedJourney.Add(item);
                 }
             }
+
             /* Create the simulated train. */
-            Train simulatedTrain = new Train(simulatedJourney, simulationCatagory, direction);
+            Train simulatedTrain = new Train(simulatedJourney, simulationCategory, direction);
 
             /* Return the list of records. */
             return simulatedTrain;
@@ -390,7 +388,6 @@ namespace TRAP
         {
 
             /* Create the microsfot excel references. */
-            //Application excel;
             _Workbook workbook;
             _Worksheet worksheet;
 
@@ -516,7 +513,6 @@ namespace TRAP
             _Workbook workbook = excel.Workbooks.Add("");
             _Worksheet worksheet;
 
-
             /* Extract the statistics */
             /* Note: there is no check to confimr the order in which the statistics values are listed. */
             string[,] statisticsHeader = { { "Statistics:" }, 
@@ -527,10 +523,10 @@ namespace TRAP
                                          { "P/W standard Deviation" } };
             string[,] totalStatistics = new string[statisticsHeader.GetLength(0), stats.Count()];
 
-            /* Extract the statistics for each analysis catagory */
+            /* Extract the statistics for each analysis Category */
             for (int index = 0; index < stats.Count(); index++)
             {
-                totalStatistics[0, index] = stats[index].catagory;
+                totalStatistics[0, index] = stats[index].Category;
                 totalStatistics[1, index] = stats[index].numberOfTrains.ToString();
                 totalStatistics[2, index] = stats[index].averageDistanceTravelled.ToString();
                 totalStatistics[3, index] = stats[index].averageSpeed.ToString();
@@ -540,20 +536,24 @@ namespace TRAP
             }
 
             /* Create the headers for the data. */
-            List<string> headerString = new List<string>();
+            List<string> directionHeader = new List<string>();      /* Direction of each train. */
+            List<string> headerString = new List<string>();         /* Category of each train. */
+            directionHeader.Add("");
             headerString.Add("kilometerage");
+            directionHeader.Add("");
             headerString.Add("Elevation");
-
+            
             for (int trainIdx = 0; trainIdx < averageTrains.Count(); trainIdx++)
             {
-                headerString.Add(averageTrains[trainIdx].trainCatagory.ToString() + " " +averageTrains[trainIdx].direction.ToString());
+                directionHeader.Add(averageTrains[trainIdx].direction.ToString());
+                headerString.Add(averageTrains[trainIdx].trainCategory.ToString());
             }
             headerString.Add("Loops");
             headerString.Add("TSRs");
             
             /* Pagenate the data for writing to excel. */
             int numberOfPoints = averageTrains[0].kilometreage.Count();
-            int headerOffset = statisticsHeader.GetLength(0) + 4;
+            int headerOffset = statisticsHeader.GetLength(0) + 3;
 
             /* Deconstruct the train details into excel columns. */
             double[,] kilometerage = new double[numberOfPoints, 1];
@@ -582,7 +582,7 @@ namespace TRAP
                 if (averageTrains[0].isInTSRboundary[i])
                     isTSRhere[i, 0] = "TSR Boundary";
 
-                /* Extract the average speed for each analysis catagory */
+                /* Extract the average speed for each analysis Category */
                 for (int j = 0; j < averageTrains.Count(); j++)
                 {
                     averageSpeedArray[i, j] = averageTrains[j].averageSpeed[i];
@@ -590,7 +590,7 @@ namespace TRAP
 
             }
 
-            /* Display the statistics for each catagory. */
+            /* Display the statistics for each Category. */
             int column = 3;
             Range topLeft = worksheet.Cells[statisticsHeader.GetLength(1), column];
             Range bottomRight = worksheet.Cells[statisticsHeader.GetLength(0), column + totalStatistics.GetLength(1) - 1];
@@ -601,10 +601,14 @@ namespace TRAP
 
             /* Set the data header. */
             topLeft = worksheet.Cells[headerOffset, 1];
-            bottomRight = worksheet.Cells[headerOffset, averageTrains.Count() +4];
+            bottomRight = worksheet.Cells[headerOffset, averageTrains.Count() +2];
+            worksheet.get_Range(topLeft, bottomRight).Value2 = directionHeader.ToArray();
+
+            topLeft = worksheet.Cells[headerOffset+1, 1];
+            bottomRight = worksheet.Cells[headerOffset+1, averageTrains.Count() + 4];
             worksheet.get_Range(topLeft, bottomRight).Value2 = headerString.ToArray();
 
-            int dataOffset = headerOffset+1;
+            int dataOffset = headerOffset+2;
             /* Write the data to the active excel workseet. */
             worksheet.get_Range("A" + dataOffset, "A" + (dataOffset + numberOfPoints-1)).Value2 = kilometerage;
             worksheet.get_Range("B" + dataOffset, "B" + (dataOffset + numberOfPoints-1)).Value2 = elevation;
@@ -613,12 +617,12 @@ namespace TRAP
             bottomRight = worksheet.Cells[dataOffset + numberOfPoints-1, column + averageTrains.Count() - 1];
             worksheet.get_Range(topLeft, bottomRight).Value2 = averageSpeedArray;
 
-            /* Increment the column. */
+            /* Increment the column for loop data. */
             topLeft = worksheet.Cells[dataOffset, column + averageTrains.Count()];
             bottomRight = worksheet.Cells[dataOffset + numberOfPoints-1, column + averageTrains.Count()];
             worksheet.get_Range(topLeft, bottomRight).Value2 = isLoophere;
 
-            /* Increment the column. */
+            /* Increment the column for TSR data. */
             topLeft = worksheet.Cells[dataOffset, column + averageTrains.Count() + 1];
             bottomRight = worksheet.Cells[dataOffset + numberOfPoints-1, column + averageTrains.Count() + 1];
             worksheet.get_Range(topLeft, bottomRight).Value2 = isTSRhere;
@@ -643,9 +647,7 @@ namespace TRAP
             workbook.Close();
 
             return;
-
-
-
+            
         }
 
         /// <summary>
@@ -700,7 +702,7 @@ namespace TRAP
         /// <returns>A train commodity class identifying the commodity.</returns>
         private static trainCommodity getCommodity(string commodity)
         {
-            /* List of indivual commidities available seperated into commodity types. */
+            /* List of individual commodities available seperated into commodity types. */
             string[] Clinker = { "Clinker" };
             string[] Coal = { "Coal Export", "Containersied Coal" };
             string[] Freight = { "General Freight" };
@@ -711,7 +713,7 @@ namespace TRAP
             string[] Steel = { "Steel" };
             string[] Work = { "Unspecified Commodity" };
 
-            /* Compare each commidty to the supplied string to identify the correct commodity. */
+            /* Compare each commodity to the supplied string to identify the correct commodity. */
             if (Clinker.Contains(commodity))
                 return trainCommodity.Clinker;
             else if (Coal.Contains(commodity))
@@ -741,6 +743,7 @@ namespace TRAP
         /// <returns>True if the file is already open.</returns>
         public static void isFileOpen(string filename)
         {
+            Tools tool = new Tools();
             FileStream stream = null;
 
             /* Can the file be opened and read. */
@@ -748,10 +751,10 @@ namespace TRAP
             {
                 stream = System.IO.File.Open(filename, FileMode.Open, FileAccess.Read);
             }
-            catch (IOException)
+            catch (IOException e)
             {
                 /* File is already opended and locked for reading. */
-                //tool.messageBox(e.Message + ":\n\nClose the file and Start again.");
+                tool.messageBox(e.Message + ":\n\nClose the file and Start again.");
                 Environment.Exit(0);
             }
             finally

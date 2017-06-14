@@ -26,6 +26,7 @@ namespace TRAP
             /* initialise the form. */
             InitializeComponent();
 
+            /* Set current version. */
             string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             this.Text = "TRAP: "+version;
         }
@@ -126,13 +127,14 @@ namespace TRAP
                 return;
             }
 
+            /* Set the power to weight ratios of the average trains that need to be simualted. */
             if (TrainRecords.Where(t => t.powerToWeight == 0).Count() == TrainRecords.Count())
             {
-                catagory1IncreasingPowerToWeightRatio.Text = "0";
-                catagory1DecreasingPowerToWeightRatio.Text = "0";
+                Category1IncreasingPowerToWeightRatio.Text = "0";
+                Category1DecreasingPowerToWeightRatio.Text = "0";
 
-                catagory2IncreasingPowerToWeightRatio.Text = "0";
-                catagory2DecreasingPowerToWeightRatio.Text = "0";
+                Category2IncreasingPowerToWeightRatio.Text = "0";
+                Category2DecreasingPowerToWeightRatio.Text = "0";
 
                 combinedIncreasingPowerToWeightRatio.Text = "0";
                 combinedDecreasingPowerToWeightRatio.Text = "0";
@@ -153,39 +155,39 @@ namespace TRAP
                 
 
                 /* Calculate the avareage power to weight ratio for a given band and train direction. */
-                catagory1IncreasingPowerToWeightRatio.Text = string.Format("{0:#.000}", averagePowerToWeightRatio(CleanTrainRecords, Settings.catagory1LowerBound, Settings.catagory1UpperBound, direction.IncreasingKm));
-                catagory1DecreasingPowerToWeightRatio.Text = string.Format("{0:#.000}", averagePowerToWeightRatio(CleanTrainRecords, Settings.catagory1LowerBound, Settings.catagory1UpperBound, direction.DecreasingKm));
+                Category1IncreasingPowerToWeightRatio.Text = string.Format("{0:#.000}", averagePowerToWeightRatio(CleanTrainRecords, Settings.Category1LowerBound, Settings.Category1UpperBound, direction.IncreasingKm));
+                Category1DecreasingPowerToWeightRatio.Text = string.Format("{0:#.000}", averagePowerToWeightRatio(CleanTrainRecords, Settings.Category1LowerBound, Settings.Category1UpperBound, direction.DecreasingKm));
 
-                catagory2IncreasingPowerToWeightRatio.Text = string.Format("{0:#.000}", averagePowerToWeightRatio(CleanTrainRecords, Settings.catagory2LowerBound, Settings.catagory2UpperBound, direction.IncreasingKm));
-                catagory2DecreasingPowerToWeightRatio.Text = string.Format("{0:#.000}", averagePowerToWeightRatio(CleanTrainRecords, Settings.catagory2LowerBound, Settings.catagory2UpperBound, direction.DecreasingKm));
+                Category2IncreasingPowerToWeightRatio.Text = string.Format("{0:#.000}", averagePowerToWeightRatio(CleanTrainRecords, Settings.Category2LowerBound, Settings.Category2UpperBound, direction.IncreasingKm));
+                Category2DecreasingPowerToWeightRatio.Text = string.Format("{0:#.000}", averagePowerToWeightRatio(CleanTrainRecords, Settings.Category2LowerBound, Settings.Category2UpperBound, direction.DecreasingKm));
 
-                combinedIncreasingPowerToWeightRatio.Text = string.Format("{0:#.000}", averagePowerToWeightRatio(CleanTrainRecords, Settings.catagory1LowerBound, Settings.catagory2UpperBound, direction.IncreasingKm));
-                combinedDecreasingPowerToWeightRatio.Text = string.Format("{0:#.000}", averagePowerToWeightRatio(CleanTrainRecords, Settings.catagory1LowerBound, Settings.catagory2UpperBound, direction.DecreasingKm));
+                combinedIncreasingPowerToWeightRatio.Text = string.Format("{0:#.000}", averagePowerToWeightRatio(CleanTrainRecords, Settings.Category1LowerBound, Settings.Category2UpperBound, direction.IncreasingKm));
+                combinedDecreasingPowerToWeightRatio.Text = string.Format("{0:#.000}", averagePowerToWeightRatio(CleanTrainRecords, Settings.Category1LowerBound, Settings.Category2UpperBound, direction.DecreasingKm));
 
 
-                /* Populate the counts for each train catagory. */
-                catagory1IncreasingTrainCount.Text = CleanTrainRecords.Where(t => t.trainDirection == direction.IncreasingKm).
-                                                Where(t => t.powerToWeight > Settings.catagory1LowerBound).
-                                                Where(t => t.powerToWeight <= Settings.catagory1UpperBound).Count().ToString();
-                catagory1DecreasingTrainCount.Text = CleanTrainRecords.Where(t => t.trainDirection == direction.DecreasingKm).
-                                                Where(t => t.powerToWeight > Settings.catagory1LowerBound).
-                                                Where(t => t.powerToWeight <= Settings.catagory1UpperBound).Count().ToString();
-                catagory2IncreasingTrainCount.Text = CleanTrainRecords.Where(t => t.trainDirection == direction.IncreasingKm).
-                                                Where(t => t.powerToWeight > Settings.catagory2LowerBound).
-                                                Where(t => t.powerToWeight <= Settings.catagory2UpperBound).Count().ToString();
-                catagory2DecreasingTrainCount.Text = CleanTrainRecords.Where(t => t.trainDirection == direction.DecreasingKm).
-                                                Where(t => t.powerToWeight > Settings.catagory2LowerBound).
-                                                Where(t => t.powerToWeight <= Settings.catagory2UpperBound).Count().ToString();
+                /* Populate the counts for each train Category. */
+                Category1IncreasingTrainCount.Text = CleanTrainRecords.Where(t => t.trainDirection == direction.IncreasingKm).
+                                                Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                                Where(t => t.powerToWeight <= Settings.Category1UpperBound).Count().ToString();
+                Category1DecreasingTrainCount.Text = CleanTrainRecords.Where(t => t.trainDirection == direction.DecreasingKm).
+                                                Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                                Where(t => t.powerToWeight <= Settings.Category1UpperBound).Count().ToString();
+                Category2IncreasingTrainCount.Text = CleanTrainRecords.Where(t => t.trainDirection == direction.IncreasingKm).
+                                                Where(t => t.powerToWeight > Settings.Category2LowerBound).
+                                                Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
+                Category2DecreasingTrainCount.Text = CleanTrainRecords.Where(t => t.trainDirection == direction.DecreasingKm).
+                                                Where(t => t.powerToWeight > Settings.Category2LowerBound).
+                                                Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
 
                 combinedIncreasingTrainCount.Text = CleanTrainRecords.Where(t => t.trainDirection == direction.IncreasingKm).
-                                                Where(t => t.powerToWeight > Settings.catagory1LowerBound).
-                                                Where(t => t.powerToWeight <= Settings.catagory2UpperBound).Count().ToString();
+                                                Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                                Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
                 combinedDecreasingTrainCount.Text = CleanTrainRecords.Where(t => t.trainDirection == direction.DecreasingKm).
-                                                Where(t => t.powerToWeight > Settings.catagory1LowerBound).
-                                                Where(t => t.powerToWeight <= Settings.catagory2UpperBound).Count().ToString();
+                                                Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                                Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
 
                 /* Need to run the simulaions based on the average power to weight ratios before continueing with the analysis. */
-                SimulationP2WRatioLabel.Text = "Run Simualtions based on these power to weight ratios";
+                SimulationP2WRatioLabel.Text = "Run Simulations based on these power to weight ratios";
 
             }
 
@@ -193,70 +195,70 @@ namespace TRAP
         }
 
         /// <summary>
-        /// Select the simulation file for catagory 1 characteristics in the increasing km direction.
+        /// Select the simulation file for Category 1 characteristics in the increasing km direction.
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void selectCatagory1IncreasingSimulation_Click(object sender, EventArgs e)
+        private void selectCategory1IncreasingSimulation_Click(object sender, EventArgs e)
         {
             /* Set the simulation file parameters and insert into the list at the correct index. */
-            setSimulationFile(catagory1IncreasingSimulationFile, 0);
+            setSimulationFile(Category1IncreasingSimulationFile, 0);
             
         }
 
         /// <summary>
-        /// Select the simulation file for catagory 1 characteristics in the decreasing km direction.
+        /// Select the simulation file for Category 1 characteristics in the decreasing km direction.
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void selectCatagory1DecreasingSimulation_Click(object sender, EventArgs e)
+        private void selectCategory1DecreasingSimulation_Click(object sender, EventArgs e)
         {
             /* Set the simulation file parameters and insert into the list at the correct index. */
-            setSimulationFile(catagory1DecreasingSimulationFile, 1);
+            setSimulationFile(Category1DecreasingSimulationFile, 1);
         }
 
         /// <summary>
-        /// Select the simulation file for catagory 2 characteristics in the increasing km direction.
+        /// Select the simulation file for Category 2 characteristics in the increasing km direction.
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void selectCatagory2IncreasingSimulation_Click(object sender, EventArgs e)
+        private void selectCategory2IncreasingSimulation_Click(object sender, EventArgs e)
         {
             /* Set the simulation file parameters and insert into the list at the correct index. */
-            setSimulationFile(catagory2IncreasingSimulationFile, 2);
+            setSimulationFile(Category2IncreasingSimulationFile, 2);
         }
 
         /// <summary>
-        /// Select the simulation file for catagory 2 characteristics in the decreasing km direction.
+        /// Select the simulation file for Category 2 characteristics in the decreasing km direction.
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void selectCatagory2DecreasingSimulation_Click(object sender, EventArgs e)
+        private void selectCategory2DecreasingSimulation_Click(object sender, EventArgs e)
         {
             /* Set the simulation file parameters and insert into the list at the correct index. */
-            setSimulationFile(catagory2DecreasingSimulationFile, 3);
+            setSimulationFile(Category2DecreasingSimulationFile, 3);
         }
 
         /// <summary>
-        /// Select the simulation file for catagory 3 characteristics in the increasing km direction.
+        /// Select the simulation file for Category 3 characteristics in the increasing km direction.
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void selectCatagory3IncreasingSimulation_Click(object sender, EventArgs e)
+        private void selectCategory3IncreasingSimulation_Click(object sender, EventArgs e)
         {
             /* Set the simulation file parameters and insert into the list at the correct index. */
-            setSimulationFile(catagory3IncreasingSimulationFile, 4);
+            setSimulationFile(Category3IncreasingSimulationFile, 4);
         }
 
         /// <summary>
-        /// Select the simulation file for catagory 3 characteristics in the decreasing km direction.
+        /// Select the simulation file for Category 3 characteristics in the decreasing km direction.
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void selectCatagory3DecreasingSimulation_Click(object sender, EventArgs e)
+        private void selectCategory3DecreasingSimulation_Click(object sender, EventArgs e)
         {
             /* Set the simulation file parameters and insert into the list at the correct index. */
-            setSimulationFile(catagory3DecreasingSimulationFile, 5);
+            setSimulationFile(Category3DecreasingSimulationFile, 5);
         }
                 
         /// <summary>
@@ -268,8 +270,8 @@ namespace TRAP
         {
             string filename = null;
             string direction = null;
-            /* Extract the simualtion catagory. */
-            string catagory = getSimulationCatagory(index);
+            /* Extract the simulation Category. */
+            string Category = getSimulationCategory(index);
             
             /* Determine the direction of the simulation. */
             if ((index % 2) == 0)
@@ -278,49 +280,48 @@ namespace TRAP
                 direction = "decreasing";
 
             /* Create a meaningful string to help user identify the correct file. */
-            string browseString = "Select the " + catagory + " " + direction + " km simulation file.";
+            string browseString = "Select the " + Category + " " + direction + " km simulation file.";
 
             /* Select the simulation file using the browser and insert into the simulation file list. */
             filename = tool.browseFile(browseString);
-            //FileSettings.simulationFiles.Insert(index, filename);
             FileSettings.simulationFiles[index] = filename;
             simulationFile.Text = Path.GetFileName(filename);
             simulationFile.ForeColor = System.Drawing.Color.Black;
         }
 
         /// <summary>
-        /// Identify the simulation catagory based on the index in the list.
+        /// Identify the simulation Category based on the index in the list.
         /// </summary>
-        /// <param name="index">Index of the simualtion catagory</param>
-        /// <returns>A string identifying the simualtion catagory.</returns>
-        private string getSimulationCatagory(int index)
+        /// <param name="index">Index of the simulation Category</param>
+        /// <returns>A string identifying the simulation Category.</returns>
+        private string getSimulationCategory(int index)
         {
-            /* Identify which simualtion catagory is being selected. */
-            if ((Operator1Catagory.SelectedItem != null || Operator2Catagory.SelectedItem != null || Operator3Catagory.SelectedItem != null) &&
-                (Operator1Catagory.Text != "" || Operator2Catagory.Text != "" || Operator3Catagory.Text != ""))
+            /* Identify which simulation Category is being selected. */
+            if ((Operator1Category.SelectedItem != null || Operator2Category.SelectedItem != null || Operator3Category.SelectedItem != null) &&
+                (Operator1Category.Text != "" || Operator2Category.Text != "" || Operator3Category.Text != ""))
             {
                 /* Return the appropriate operator. */
                 if (index < 2)
-                    return Operator1Catagory.SelectedItem.ToString();
+                    return Operator1Category.SelectedItem.ToString();
                 else if (index < 4)
-                    return Operator2Catagory.SelectedItem.ToString();
+                    return Operator2Category.SelectedItem.ToString();
                 else
-                    return Operator3Catagory.SelectedItem.ToString();
+                    return Operator3Category.SelectedItem.ToString();
             }
-            else if ((Commodity1Catagory.SelectedItem != null || Commodity2Catagory.SelectedItem != null || Commodity3Catagory.SelectedItem != null) &&
-                (Commodity1Catagory.Text != "" || Commodity2Catagory.Text != "" || Commodity3Catagory.Text != ""))
+            else if ((Commodity1Category.SelectedItem != null || Commodity2Category.SelectedItem != null || Commodity3Category.SelectedItem != null) &&
+                (Commodity1Category.Text != "" || Commodity2Category.Text != "" || Commodity3Category.Text != ""))
             {
                 /* Return the appropriate Commodity. */
                 if (index < 2)
-                    return Commodity1Catagory.SelectedItem.ToString();
+                    return Commodity1Category.SelectedItem.ToString();
                 else if (index < 4)
-                    return Commodity2Catagory.SelectedItem.ToString();
+                    return Commodity2Category.SelectedItem.ToString();
                 else
-                    return Commodity3Catagory.SelectedItem.ToString();
+                    return Commodity3Category.SelectedItem.ToString();
             }
             else
             {
-                /* Return the appropriate power to weight catagory. */
+                /* Return the appropriate power to weight Category. */
                 if (index < 2)
                     return "Underpowered";
                 else if (index < 4)
@@ -373,26 +374,26 @@ namespace TRAP
             Console.WriteLine("RunTime " + elapsedTime);
 
 
-            /* Populate the counts for each train catagory. */
-            catagory1IncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
-                                            Where(t => t.powerToWeight > Settings.catagory1LowerBound).
-                                            Where(t => t.powerToWeight <= Settings.catagory1UpperBound).Count().ToString();
-            catagory1DecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
-                                            Where(t => t.powerToWeight > Settings.catagory1LowerBound).
-                                            Where(t => t.powerToWeight <= Settings.catagory1UpperBound).Count().ToString();
-            catagory2IncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
-                                            Where(t => t.powerToWeight > Settings.catagory2LowerBound).
-                                            Where(t => t.powerToWeight <= Settings.catagory2UpperBound).Count().ToString();
-            catagory2DecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
-                                            Where(t => t.powerToWeight > Settings.catagory2LowerBound).
-                                            Where(t => t.powerToWeight <= Settings.catagory2UpperBound).Count().ToString();
+            /* Populate the counts for each train Category. */
+            Category1IncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
+                                            Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                            Where(t => t.powerToWeight <= Settings.Category1UpperBound).Count().ToString();
+            Category1DecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
+                                            Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                            Where(t => t.powerToWeight <= Settings.Category1UpperBound).Count().ToString();
+            Category2IncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
+                                            Where(t => t.powerToWeight > Settings.Category2LowerBound).
+                                            Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
+            Category2DecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
+                                            Where(t => t.powerToWeight > Settings.Category2LowerBound).
+                                            Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
 
             combinedIncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
-                                            Where(t => t.powerToWeight > Settings.catagory1LowerBound).
-                                            Where(t => t.powerToWeight <= Settings.catagory2UpperBound).Count().ToString();
+                                            Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                            Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
             combinedDecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
-                                            Where(t => t.powerToWeight > Settings.catagory1LowerBound).
-                                            Where(t => t.powerToWeight <= Settings.catagory2UpperBound).Count().ToString();
+                                            Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                            Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
 
             executionTime.Text = elapsedTime;
 
@@ -438,32 +439,6 @@ namespace TRAP
         /// </summary>
         /// <returns>A 2-element array containig the start and end date to consider.</returns>
         public DateTime[] getDateRange() { return new DateTime[2] { fromDate.Value, toDate.Value }; }
-
-        /// <summary>
-        /// Extract the top left corner of the geographic box.
-        /// </summary>
-        /// <returns>A geographic location describing the top left corner of the box.</returns>
-        //public GeoLocation getTopLeftLocation()
-        //{
-        //    double latitude, longitude;
-        //    if (double.TryParse(fromLatitude.Text, out latitude) && (double.TryParse(fromLongitude.Text, out longitude)))
-        //        return new GeoLocation(latitude, longitude);
-
-        //    return new GeoLocation(0, 0);
-        //}
-
-        /// <summary>
-        /// Extract the bottom right corner of the geographic box.
-        /// </summary>
-        /// <returns>A geographic location describing the bottom right corner of the box.</returns>
-        //public GeoLocation getBottomRightLocation()
-        //{
-        //    double latitude, longitude;
-        //    if (double.TryParse(toLatitude.Text, out latitude) && (double.TryParse(toLongitude.Text, out longitude)))
-        //        return new GeoLocation(latitude, longitude);
-
-        //    return new GeoLocation(0, 0);
-        //}
 
         /// <summary>
         /// Extract the value of the includeAListOfTrainsToExclude flag.
@@ -592,10 +567,10 @@ namespace TRAP
         /// Extract the lower bound value of the power to weight ratio for the underpowered trains.
         /// </summary>
         /// <returns>The lower bound power to weight ratio.</returns>
-        public double getCatagory1LowerBound()
+        public double getCategory1LowerBound()
         {
             double p2W;
-            if (double.TryParse(catagory1LowerBound.Text, out p2W))
+            if (double.TryParse(Category1LowerBound.Text, out p2W))
                 return p2W;
 
             return 0;
@@ -605,10 +580,10 @@ namespace TRAP
         /// Extract the upper bound value of the power to weight ratio for the underpowered trains.
         /// </summary>
         /// <returns>The upper bound power to weight ratio.</returns>
-        public double getCatagory1UpperBound()
+        public double getCategory1UpperBound()
         {
             double p2W;
-            if (double.TryParse(catagory1UpperBound.Text, out p2W))
+            if (double.TryParse(Category1UpperBound.Text, out p2W))
                 return p2W;
 
             return 0;
@@ -618,10 +593,10 @@ namespace TRAP
         /// Extract the lower bound value of the power to weight ratio for the overpowered trains.
         /// </summary>
         /// <returns>The lower bound power to weight ratio.</returns>
-        public double getCatagory2LowerBound()
+        public double getCategory2LowerBound()
         {
             double p2W;
-            if (double.TryParse(catagory2LowerBound.Text, out p2W))
+            if (double.TryParse(Category2LowerBound.Text, out p2W))
                 return p2W;
 
             return 0;
@@ -631,20 +606,14 @@ namespace TRAP
         /// Extract the upper bound value of the power to weight ratio for the overpowered trains.
         /// </summary>
         /// <returns>The upper bound power to weight ratio.</returns>
-        public double getCatagory2UpperBound()
+        public double getCategory2UpperBound()
         {
             double p2W;
-            if (double.TryParse(catagory2UpperBound.Text, out p2W))
+            if (double.TryParse(Category2UpperBound.Text, out p2W))
                 return p2W;
 
             return 0;
         }
-
-        /// <summary>
-        /// Extract the value of the HunterValleyRegion flag.
-        /// </summary>
-        /// <returns>The value of the boolean flag.</returns>
-        //public bool getHunterValleyRegion() { return HunterValley.Checked; }
 
         /// <summary>
         /// Extract the value of the powerToWeightRatioAnalysis flag.
@@ -653,7 +622,7 @@ namespace TRAP
         public bool getPowerToWeightRatioAnalysis() { return powerToWeightRatioAnalysis.Checked; }
         
         /// <summary>
-        /// Set the labels associated to the power to weight ratio analysis catagory.
+        /// Set the labels associated to the power to weight ratio analysis Category.
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
@@ -661,50 +630,50 @@ namespace TRAP
         {
             if (powerToWeightRatioAnalysis.Checked)
             {
-                /* Set the default commodity and train operator catagories. */
+                /* Set the default commodity and train operator Categories. */
                 setDefaultCommodityAnalysisParameters();
                 setDefaultOperatorAnalysisParameters();
 
                 /* Set the power to weight ratio labels. */
-                catagory1SimualtionLabel.Text = "Underpowered";
-                catagory2SimualtionLabel.Text = "Overpowered";
-                catagory3SimualtionLabel.Text = "Alternative";
+                Category1SimulationLabel.Text = "Underpowered";
+                Category2SimulationLabel.Text = "Overpowered";
+                Category3SimulationLabel.Text = "Alternative";
             }
 
 
         }
         
         /// <summary>
-        /// Extract the analysis catagory.
+        /// Extract the analysis Category.
         /// </summary>
-        /// <returns>The analysis catagory</returns>
-        public analysisCatagory getAnalysisCatagory()
+        /// <returns>The analysis Category</returns>
+        public analysisCategory getAnalysisCategory()
         {
             if (getPowerToWeightRatioAnalysis())
-                return analysisCatagory.TrainPowerToWeight;
+                return analysisCategory.TrainPowerToWeight;
             
-            if (getOperator1Catagory() != trainOperator.Unknown)
-                return analysisCatagory.TrainOperator;
+            if (getOperator1Category() != trainOperator.Unknown)
+                return analysisCategory.TrainOperator;
 
-            if (getCommodity1Catagory() != trainCommodity.Unknown)
-                return analysisCatagory.TrainCommodity;
+            if (getCommodity1Category() != trainCommodity.Unknown)
+                return analysisCategory.TrainCommodity;
 
-            return analysisCatagory.Unknown;
+            return analysisCategory.Unknown;
         }
 
         /// <summary>
-        /// Extact the value for the operator 1 analysis catagory.
+        /// Extact the value for the operator 1 analysis Category.
         /// </summary>
-        /// <returns>The train operator describing the first analysis catagory.</returns>
-        public trainOperator getOperator1Catagory()
+        /// <returns>The train operator describing the first analysis Category.</returns>
+        public trainOperator getOperator1Category()
         {
-            /* Convert operator catagory to train operator. */
+            /* Convert operator Category to train operator. */
             List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
 
             foreach (trainOperator Operator in operatorList)
             {
-                if (Operator1Catagory.SelectedItem != null &&
-                    Operator1Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                if (Operator1Category.SelectedItem != null &&
+                    Operator1Category.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
                     return Operator;
                 
             }
@@ -713,18 +682,18 @@ namespace TRAP
         }
 
         /// <summary>
-        /// Extact the value for the second operator analysis catagory.
+        /// Extact the value for the second operator analysis Category.
         /// </summary>
-        /// <returns>The train operator describing the second analysis catagory.</returns>
-        public trainOperator getOperator2Catagory()
+        /// <returns>The train operator describing the second analysis Category.</returns>
+        public trainOperator getOperator2Category()
         {
-            /* Convert operator catagory to train operator. */
+            /* Convert operator Category to train operator. */
             List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
 
             foreach (trainOperator Operator in operatorList)
             {
-                if (Operator2Catagory.SelectedItem != null &&
-                    Operator2Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                if (Operator2Category.SelectedItem != null &&
+                    Operator2Category.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
                     return Operator;
             }
 
@@ -732,18 +701,18 @@ namespace TRAP
         }
 
         /// <summary>
-        /// Extact the value for the third operator analysis catagory.
+        /// Extact the value for the third operator analysis Category.
         /// </summary>
-        /// <returns>The train operator describing the third analysis catagory.</returns>
-        public trainOperator getOperator3Catagory()
+        /// <returns>The train operator describing the third analysis Category.</returns>
+        public trainOperator getOperator3Category()
         {
-            /* Convert operator catagory to train operator. */
+            /* Convert operator Category to train operator. */
             List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
 
             foreach (trainOperator Operator in operatorList)
             {
-                if (Operator3Catagory.SelectedItem != null &&
-                    Operator3Catagory.SelectedItem.ToString().Replace(" ",string.Empty).Equals(Operator.ToString()))
+                if (Operator3Category.SelectedItem != null &&
+                    Operator3Category.SelectedItem.ToString().Replace(" ",string.Empty).Equals(Operator.ToString()))
                     return Operator;
             }
 
@@ -751,81 +720,80 @@ namespace TRAP
         }
 
         /// <summary>
-        /// Extact the value for the first commodity analysis catagory.
+        /// Extact the value for the first commodity analysis Category.
         /// </summary>
-        /// <returns>The train operator describing the first analysis catagory.</returns>
-        public trainCommodity getCommodity1Catagory()
+        /// <returns>The train operator describing the first analysis Category.</returns>
+        public trainCommodity getCommodity1Category()
         {
             /* Convert string to train operator. */
             List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
 
             foreach (trainCommodity commodity in commodityList)
             {
-                if (Commodity1Catagory.SelectedItem != null &&
-                    Commodity1Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                if (Commodity1Category.SelectedItem != null &&
+                    Commodity1Category.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
                     return commodity;
             }
             return trainCommodity.Unknown;
         }
 
         /// <summary>
-        /// Extact the value for the second commodity analysis catagory.
+        /// Extact the value for the second commodity analysis Category.
         /// </summary>
-        /// <returns>The train operator describing the second analysis catagory.</returns>
-        public trainCommodity getCommodity2Catagory()
+        /// <returns>The train operator describing the second analysis Category.</returns>
+        public trainCommodity getCommodity2Category()
         {
             /* Convert string to train operator. */
             List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
 
             foreach (trainCommodity commodity in commodityList)
             {
-                if (Commodity2Catagory.SelectedItem != null &&
-                    Commodity2Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                if (Commodity2Category.SelectedItem != null &&
+                    Commodity2Category.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
                     return commodity;
             }
             return trainCommodity.Unknown;
         }
 
         /// <summary>
-        /// Extact the value for the third commodity analysis catagory.
+        /// Extact the value for the third commodity analysis Category.
         /// </summary>
-        /// <returns>The train operator describing the third analysis catagory.</returns>
-        public trainCommodity getCommodity3Catagory()
+        /// <returns>The train operator describing the third analysis Category.</returns>
+        public trainCommodity getCommodity3Category()
         {
             /* Convert string to train operator. */
             List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
 
             foreach (trainCommodity commodity in commodityList)
             {
-                if (Commodity3Catagory.SelectedItem != null &&
-                    Commodity3Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                if (Commodity3Category.SelectedItem != null &&
+                    Commodity3Category.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
                     return commodity;
             }
             return trainCommodity.Unknown;
         }
 
         /// <summary>
-        /// Convert the analysis catagory to the appropriate train operator.
+        /// Convert the analysis Category to the appropriate train operator.
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void Operator1Catagory_SelectedValueChanged(object sender, EventArgs e)
+        private void Operator1Category_SelectedValueChanged(object sender, EventArgs e)
         {
-            /* Set the analysis catagory to train operator. */
-            Settings.analysisCatagory = analysisCatagory.TrainOperator;
+            /* Set the analysis Category to train operator. */
+            Settings.analysisCategory = analysisCategory.TrainOperator;
 
-            /* Convert operator catagory to train operator. */
+            /* Convert operator Category to train operator. */
             List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
 
             foreach (trainOperator Operator in operatorList)
             {
-                /* Match the string of the analysis catagory to the train operator. */
-                //if (Operator1Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
-                if (Operator1Catagory.Text.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
-                    Settings.catagory1Operator = Operator;
+                /* Match the string of the analysis Category to the train operator. */
+                if (Operator1Category.Text.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                    Settings.Category1Operator = Operator;
             }
 
-            catagory1SimualtionLabel.Text = Settings.catagory1Operator.ToString();
+            Category1SimulationLabel.Text = Settings.Category1Operator.ToString();
 
             /* Set other anaylsis parameters to default */
             powerToWeightRatioAnalysis.Checked = false;
@@ -834,26 +802,25 @@ namespace TRAP
         }
 
         /// <summary>
-        /// Convert the analysis catagory to the appropriate train operator.
+        /// Convert the analysis Category to the appropriate train operator.
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void Operator2Catagory_SelectedValueChanged(object sender, EventArgs e)
+        private void Operator2Category_SelectedValueChanged(object sender, EventArgs e)
         {
-            /* Set the analysis catagory to train operator. */
-            Settings.analysisCatagory = analysisCatagory.TrainOperator;
+            /* Set the analysis Category to train operator. */
+            Settings.analysisCategory = analysisCategory.TrainOperator;
 
-            /* Convert operator catagory to train operator. */
+            /* Convert operator Category to train operator. */
             List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
 
             foreach (trainOperator Operator in operatorList)
             {
-                /* Match the string of the analysis catagory to the train operator. */
-                //if (Operator2Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
-                if (Operator2Catagory.Text.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
-                        Settings.catagory2Operator = Operator;
+                /* Match the string of the analysis Category to the train operator. */
+                if (Operator2Category.Text.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                        Settings.Category2Operator = Operator;
             }
-            catagory2SimualtionLabel.Text = Settings.catagory2Operator.ToString();
+            Category2SimulationLabel.Text = Settings.Category2Operator.ToString();
 
             /* Set other anaylsis parameters to default */
             powerToWeightRatioAnalysis.Checked = false;
@@ -862,26 +829,25 @@ namespace TRAP
         }
 
         /// <summary>
-        /// Convert the analysis catagory to the appropriate train operator.
+        /// Convert the analysis Category to the appropriate train operator.
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void Operator3Catagory_SelectedIndexChanged(object sender, EventArgs e)
+        private void Operator3Category_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /* Set the analysis catagory to train operator. */
-            Settings.analysisCatagory = analysisCatagory.TrainOperator;
+            /* Set the analysis Category to train operator. */
+            Settings.analysisCategory = analysisCategory.TrainOperator;
 
-            /* Convert operator catagory to train operator. */
+            /* Convert operator Category to train operator. */
             List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
 
             foreach (trainOperator Operator in operatorList)
             {
-                /* Match the string of the analysis catagory to the train operator. */
-                //if (Operator3Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
-                if (Operator3Catagory.Text.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
-                    Settings.catagory3Operator = Operator;
+                /* Match the string of the analysis Category to the train operator. */
+                if (Operator3Category.Text.ToString().Replace(" ", string.Empty).Equals(Operator.ToString()))
+                    Settings.Category3Operator = Operator;
             }
-            catagory3SimualtionLabel.Text = Settings.catagory3Operator.ToString();
+            Category3SimulationLabel.Text = Settings.Category3Operator.ToString();
 
             /* Set other anaylsis parameters to default */
             powerToWeightRatioAnalysis.Checked = false;
@@ -890,26 +856,25 @@ namespace TRAP
         }
 
         /// <summary>
-        /// Convert the analysis catagory to the appropriate commodity.
+        /// Convert the analysis Category to the appropriate commodity.
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void Commodity1Catagory_SelectedIndexChanged(object sender, EventArgs e)
+        private void Commodity1Category_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /* Set the analysis catagory to train commodity. */
-            Settings.analysisCatagory = analysisCatagory.TrainCommodity;
+            /* Set the analysis Category to train commodity. */
+            Settings.analysisCategory = analysisCategory.TrainCommodity;
 
             /* Convert string to train operator. */
             List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
 
             foreach (trainCommodity commodity in commodityList)
             {
-                /* Match the string of the analysis catagory to the commodity. */
-                //if (Commodity1Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
-                if (Commodity1Catagory.Text.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
-                    Settings.catagory1Commodity = commodity;
+                /* Match the string of the analysis Category to the commodity. */
+                if (Commodity1Category.Text.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                    Settings.Category1Commodity = commodity;
             }
-            catagory1SimualtionLabel.Text = Settings.catagory1Commodity.ToString();
+            Category1SimulationLabel.Text = Settings.Category1Commodity.ToString();
 
             /* Set other anaylsis parameters to default */
             powerToWeightRatioAnalysis.Checked = false;
@@ -918,26 +883,25 @@ namespace TRAP
         }
 
         /// <summary>
-        /// Convert the analysis catagory to the appropriate commodity.
+        /// Convert the analysis Category to the appropriate commodity.
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void Commodity2Catagory_SelectedIndexChanged(object sender, EventArgs e)
+        private void Commodity2Category_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /* Set the analysis catagory to train commodity. */
-            Settings.analysisCatagory = analysisCatagory.TrainCommodity;
+            /* Set the analysis Category to train commodity. */
+            Settings.analysisCategory = analysisCategory.TrainCommodity;
 
             /* Convert string to train operator. */
             List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
 
             foreach (trainCommodity commodity in commodityList)
             {
-                /* Match the string of the analysis catagory to the commodity. */
-                //if (Commodity2Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
-                if (Commodity2Catagory.Text.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
-                    Settings.catagory2Commodity = commodity;
+                /* Match the string of the analysis Category to the commodity. */
+                if (Commodity2Category.Text.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                    Settings.Category2Commodity = commodity;
             }
-            catagory2SimualtionLabel.Text = Settings.catagory2Commodity.ToString();
+            Category2SimulationLabel.Text = Settings.Category2Commodity.ToString();
 
             /* Set other anaylsis parameters to default */
             powerToWeightRatioAnalysis.Checked = false;
@@ -946,26 +910,25 @@ namespace TRAP
         }
 
         /// <summary>
-        /// Convert the analysis catagory to the appropriate commodity.
+        /// Convert the analysis Category to the appropriate commodity.
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void Commodity3Catagory_SelectedIndexChanged(object sender, EventArgs e)
+        private void Commodity3Category_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /* Set the analysis catagory to train commodity. */
-            Settings.analysisCatagory = analysisCatagory.TrainCommodity;
+            /* Set the analysis Category to train commodity. */
+            Settings.analysisCategory = analysisCategory.TrainCommodity;
 
             /* Convert string to train operator. */
             List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
 
             foreach (trainCommodity commodity in commodityList)
             {
-                /* Match the string of the analysis catagory to the commodity. */
-                //if (Commodity3Catagory.SelectedItem.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
-                if (Commodity3Catagory.Text.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
-                    Settings.catagory3Commodity = commodity;
+                /* Match the string of the analysis Category to the commodity. */
+                if (Commodity3Category.Text.ToString().Replace(" ", string.Empty).Equals(commodity.ToString()))
+                    Settings.Category3Commodity = commodity;
             }
-            catagory3SimualtionLabel.Text = Settings.catagory3Commodity.ToString();
+            Category3SimulationLabel.Text = Settings.Category3Commodity.ToString();
 
             /* Set other anaylsis parameters to default */
             powerToWeightRatioAnalysis.Checked = false;
@@ -978,14 +941,14 @@ namespace TRAP
         /// </summary>
         private void setDefaultCommodityAnalysisParameters()
         {
-            Commodity1Catagory.SelectedItem = "";
-            Commodity1Catagory.Text = "";
+            Commodity1Category.SelectedItem = "";
+            Commodity1Category.Text = "";
 
-            Commodity2Catagory.SelectedItem = "";
-            Commodity2Catagory.Text = "";
+            Commodity2Category.SelectedItem = "";
+            Commodity2Category.Text = "";
 
-            Commodity3Catagory.SelectedItem = "";
-            Commodity3Catagory.Text = "";
+            Commodity3Category.SelectedItem = "";
+            Commodity3Category.Text = "";
         }
 
         /// <summary>
@@ -993,14 +956,14 @@ namespace TRAP
         /// </summary>
         private void setDefaultOperatorAnalysisParameters()
         {
-            Operator1Catagory.SelectedItem = "";
-            Operator1Catagory.Text = "";
+            Operator1Category.SelectedItem = "";
+            Operator1Category.Text = "";
 
-            Operator2Catagory.SelectedItem = "";
-            Operator2Catagory.Text = "";
+            Operator2Category.SelectedItem = "";
+            Operator2Category.Text = "";
 
-            Operator3Catagory.SelectedItem = "";
-            Operator3Catagory.Text = "";
+            Operator3Category.SelectedItem = "";
+            Operator3Category.Text = "";
         }
 
         /// <summary>
@@ -1031,28 +994,28 @@ namespace TRAP
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Increasing 3.31_ThuW1.csv";
-            catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Decreasing 3.33_TueW1.csv";
-            catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Increasing 4.8_FriW1.csv";
-            catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Decreasing 4.68_WedW1.csv";
-            catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             //FileSettings.simulationFiles[4] = "";
-            //catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            //catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             //FileSettings.simulationFiles[5] = "";
-            //catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            //catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
 
             /* Destination Folder */
@@ -1064,7 +1027,7 @@ namespace TRAP
             fromDate.Value = new DateTime(2016, 1, 1);
             toDate.Value = new DateTime(2016,4,1);
 
-            /* Interpoaltion parameters */
+            /* Interpolation parameters */
             includeAListOfTrainsToExclude.Checked = false;
 
             startInterpolationKm.Text = "220";
@@ -1078,29 +1041,29 @@ namespace TRAP
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
-            catagory1LowerBound.Text = "2";
-            catagory1UpperBound.Text = "4";
-            catagory2LowerBound.Text = "4";
-            catagory2UpperBound.Text = "6";
+            /* Power to weight ratio boundaries. */
+            powerToWeightRatioAnalysis.Checked = true;
+            Category1LowerBound.Text = "2";
+            Category1UpperBound.Text = "4";
+            Category2LowerBound.Text = "4";
+            Category2UpperBound.Text = "6";
 
             /* Anlaysis Parameters */
-            powerToWeightRatioAnalysis.Checked = true;
+            Settings.analysisCategory = analysisCategory.TrainPowerToWeight;
 
-            Settings.analysisCatagory = analysisCatagory.TrainPowerToWeight;
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
 
-            Operator1Catagory.SelectedItem = "Underpowered";
-            Settings.catagory1Operator = trainOperator.Unknown;
-            Operator2Catagory.SelectedItem = "Overpowered";
-            Settings.catagory2Operator = trainOperator.Unknown;
-            Operator3Catagory.SelectedItem = null;
-            Settings.catagory3Operator = trainOperator.Unknown;
-
-            Commodity1Catagory.SelectedItem = null;
-            Settings.catagory1Commodity = trainCommodity.Unknown;
-            Commodity2Catagory.SelectedItem = null;
-            Settings.catagory2Commodity = trainCommodity.Unknown;
-            Commodity3Catagory.SelectedItem = null;
-            Settings.catagory3Commodity = trainCommodity.Unknown;
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
             
         }
 
@@ -1132,28 +1095,28 @@ namespace TRAP
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Increasing.csv";
-            catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Decreasing.csv";
-            catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Aurizon-Increasing-60.csv";
-            catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Aurizon-Decreasing.csv";
-            catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             //FileSettings.simulationFiles[4] = "";
-            //catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            //catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             //FileSettings.simulationFiles[5] = "";
-            //catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            //catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
 
             /* Destination Folder */
@@ -1179,29 +1142,29 @@ namespace TRAP
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
-            catagory1LowerBound.Text = "0";
-            catagory1UpperBound.Text = "100";
-            catagory2LowerBound.Text = "100";
-            catagory2UpperBound.Text = "200";
+            Category1LowerBound.Text = "0";
+            Category1UpperBound.Text = "100";
+            Category2LowerBound.Text = "100";
+            Category2UpperBound.Text = "200";
 
             /* Anlaysis Parameters */
             powerToWeightRatioAnalysis.Checked = false;
 
-            Settings.analysisCatagory = analysisCatagory.TrainOperator;
+            Settings.analysisCategory = analysisCategory.TrainOperator;
 
-            Operator1Catagory.SelectedItem = "Pacific National";
-            Settings.catagory1Operator = trainOperator.PacificNational;
-            Operator2Catagory.SelectedItem = "Aurizon";
-            Settings.catagory2Operator = trainOperator.Aurizon;
-            Operator3Catagory.SelectedItem = null;
-            Settings.catagory3Operator = trainOperator.Unknown;
+            Operator1Category.SelectedItem = "Pacific National";
+            Settings.Category1Operator = trainOperator.PacificNational;
+            Operator2Category.SelectedItem = "Aurizon";
+            Settings.Category2Operator = trainOperator.Aurizon;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
 
-            Commodity1Catagory.SelectedItem = null;
-            Settings.catagory1Commodity = trainCommodity.Unknown;
-            Commodity2Catagory.SelectedItem = null;
-            Settings.catagory2Commodity = trainCommodity.Unknown;
-            Commodity3Catagory.SelectedItem = null;
-            Settings.catagory3Commodity = trainCommodity.Unknown;
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
         /// <summary>
@@ -1233,28 +1196,28 @@ namespace TRAP
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Botany to Macarthur - increasing - 3.33_ThuW1.csv";
-            catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany - decreasing - 3.20_SatW1.csv";
-            catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Botany to Macarthur - increasing - 7.87_ThuW1.csv";
-            catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany - decreasing - 6.97_SatW1.csv";
-            catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             //FileSettings.simulationFiles[4] = "";
-            //catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            //catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             //FileSettings.simulationFiles[5] = "";
-            //catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            //catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
 
             /* Destination Folder */
@@ -1280,29 +1243,29 @@ namespace TRAP
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
-            catagory1LowerBound.Text = "1.5";
-            catagory1UpperBound.Text = "4.5";
-            catagory2LowerBound.Text = "4.5";
-            catagory2UpperBound.Text = "11.5";
-
-            /* Anlaysis Parameters */
+            /* Power to weight ratio boundaries. */
             powerToWeightRatioAnalysis.Checked = true;
+            Category1LowerBound.Text = "1.5";
+            Category1UpperBound.Text = "4.5";
+            Category2LowerBound.Text = "4.5";
+            Category2UpperBound.Text = "11.5";
 
-            Settings.analysisCatagory = analysisCatagory.TrainPowerToWeight;
+            /* Anlaysis Parameters */            
+            Settings.analysisCategory = analysisCategory.TrainPowerToWeight;
 
-            Operator1Catagory.SelectedItem = null;
-            Settings.catagory1Operator = trainOperator.Unknown;
-            Operator2Catagory.SelectedItem = null;
-            Settings.catagory2Operator = trainOperator.Unknown;
-            Operator3Catagory.SelectedItem = null;
-            Settings.catagory3Operator = trainOperator.Unknown;
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
 
-            Commodity1Catagory.SelectedItem = null;
-            Settings.catagory1Commodity = trainCommodity.Unknown;
-            Commodity2Catagory.SelectedItem = null;
-            Settings.catagory2Commodity = trainCommodity.Unknown;
-            Commodity3Catagory.SelectedItem = null;
-            Settings.catagory3Commodity = trainCommodity.Unknown;
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
         /// <summary>
@@ -1334,28 +1297,28 @@ namespace TRAP
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Increasing sim 3.5.csv";
-            catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\decreasing sim 3.5.csv";
-            catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Increasing sim 4.6.csv";
-            catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\decreasing sim 4.6.csv";
-            catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             //FileSettings.simulationFiles[4] = "";
-            //catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            //catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             //FileSettings.simulationFiles[5] = "";
-            //catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            //catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
 
             /* Destination Folder */
@@ -1381,29 +1344,29 @@ namespace TRAP
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
-            catagory1LowerBound.Text = "2.5";
-            catagory1UpperBound.Text = "4";
-            catagory2LowerBound.Text = "4";
-            catagory2UpperBound.Text = "5.5";
-
-            /* Anlaysis Parameters */
+            /* Power to weight ratio boundaries. */
             powerToWeightRatioAnalysis.Checked = true;
+            Category1LowerBound.Text = "2.5";
+            Category1UpperBound.Text = "4";
+            Category2LowerBound.Text = "4";
+            Category2UpperBound.Text = "5.5";
 
-            Settings.analysisCatagory = analysisCatagory.TrainPowerToWeight;
+            /* Anlaysis Parameters */            
+            Settings.analysisCategory = analysisCategory.TrainPowerToWeight;
 
-            Operator1Catagory.SelectedItem = null;
-            Settings.catagory1Operator = trainOperator.Unknown;
-            Operator2Catagory.SelectedItem = null;
-            Settings.catagory2Operator = trainOperator.Unknown;
-            Operator3Catagory.SelectedItem = null;
-            Settings.catagory3Operator = trainOperator.Unknown;
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
 
-            Commodity1Catagory.SelectedItem = null;
-            Settings.catagory1Commodity = trainCommodity.Unknown;
-            Commodity2Catagory.SelectedItem = null;
-            Settings.catagory2Commodity = trainCommodity.Unknown;
-            Commodity3Catagory.SelectedItem = null;
-            Settings.catagory3Commodity = trainCommodity.Unknown;
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
         /// <summary>
@@ -1435,28 +1398,28 @@ namespace TRAP
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 2.2_ThuW1.csv";
-            catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 2.6_SunW1.csv";
-            catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 3.4_FriW1.csv";
-            catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 3.5_MonW1.csv";
-            catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             //FileSettings.simulationFiles[4] = "";
-            //catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            //catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             //FileSettings.simulationFiles[5] = "";
-            //catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            //catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
 
             /* Destination Folder */
@@ -1482,29 +1445,29 @@ namespace TRAP
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
-            catagory1LowerBound.Text = "1.5";
-            catagory1UpperBound.Text = "3";
-            catagory2LowerBound.Text = "3";
-            catagory2UpperBound.Text = "4";
-
-            /* Anlaysis Parameters */
+            /* Power to weight ratio boudnaries. */
             powerToWeightRatioAnalysis.Checked = true;
+            Category1LowerBound.Text = "1.5";
+            Category1UpperBound.Text = "3";
+            Category2LowerBound.Text = "3";
+            Category2UpperBound.Text = "4";
 
-            Settings.analysisCatagory = analysisCatagory.TrainPowerToWeight;
+            /* Anlaysis Parameters */            
+            Settings.analysisCategory = analysisCategory.TrainPowerToWeight;
 
-            Operator1Catagory.SelectedItem = null;
-            Settings.catagory1Operator = trainOperator.Unknown;
-            Operator2Catagory.SelectedItem = null;
-            Settings.catagory2Operator = trainOperator.Unknown;
-            Operator3Catagory.SelectedItem = null;
-            Settings.catagory3Operator = trainOperator.Unknown;
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
 
-            Commodity1Catagory.SelectedItem = null;
-            Settings.catagory1Commodity = trainCommodity.Unknown;
-            Commodity2Catagory.SelectedItem = null;
-            Settings.catagory2Commodity = trainCommodity.Unknown;
-            Commodity3Catagory.SelectedItem = null;
-            Settings.catagory3Commodity = trainCommodity.Unknown;
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
         /// <summary>
@@ -1535,28 +1498,28 @@ namespace TRAP
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Pacific National - Increasing.csv";
-            catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Pacific National - Decreasing.csv";
-            catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Aurizon - Increasing.csv";
-            catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Aurizon - Decreasing.csv";
-            catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Freightliner - Increasing.csv";
-            catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Freightliner - Decreasing.csv";
-            catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
 
             /* Destination Folder */
@@ -1582,29 +1545,29 @@ namespace TRAP
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
-            catagory1LowerBound.Text = "0";
-            catagory1UpperBound.Text = "100";
-            catagory2LowerBound.Text = "100";
-            catagory2UpperBound.Text = "200";
+            Category1LowerBound.Text = "0";
+            Category1UpperBound.Text = "100";
+            Category2LowerBound.Text = "100";
+            Category2UpperBound.Text = "200";
 
             /* Anlaysis Parameters */
             powerToWeightRatioAnalysis.Checked = false;
 
-            Settings.analysisCatagory = analysisCatagory.TrainOperator;
+            Settings.analysisCategory = analysisCategory.TrainOperator;
 
-            Operator1Catagory.SelectedItem = "Pacific National";
-            Settings.catagory1Operator = trainOperator.PacificNational;
-            Operator2Catagory.SelectedItem = "Aurizon";
-            Settings.catagory2Operator = trainOperator.Aurizon;
-            Operator3Catagory.SelectedItem = "Freightliner";
-            Settings.catagory3Operator = trainOperator.Freightliner;
+            Operator1Category.SelectedItem = "Pacific National";
+            Settings.Category1Operator = trainOperator.PacificNational;
+            Operator2Category.SelectedItem = "Aurizon";
+            Settings.Category2Operator = trainOperator.Aurizon;
+            Operator3Category.SelectedItem = "Freightliner";
+            Settings.Category3Operator = trainOperator.Freightliner;
 
-            Commodity1Catagory.SelectedItem = null;
-            Settings.catagory1Commodity = trainCommodity.Unknown;
-            Commodity2Catagory.SelectedItem = null;
-            Settings.catagory2Commodity = trainCommodity.Unknown;
-            Commodity3Catagory.SelectedItem = null;
-            Settings.catagory3Commodity = trainCommodity.Unknown;
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
         }
         
         /// <summary>
@@ -1636,28 +1599,28 @@ namespace TRAP
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\CityRail Passenger-Increasing.csv";
-            catagory1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            catagory1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\CityRail Passenger-Decreasing.csv";
-            catagory1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            catagory1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\CountryLink Passenger-Increasing.csv";
-            catagory2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            catagory2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\CountryLink Passenger-Decreasing.csv";
-            catagory2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            catagory2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Increasing.csv";
-            catagory3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            catagory3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
             FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Decreasing.csv";
-            catagory3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            catagory3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
 
             /* Destination Folder */
@@ -1683,32 +1646,134 @@ namespace TRAP
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
-            catagory1LowerBound.Text = "0";
-            catagory1UpperBound.Text = "0";
-            catagory2LowerBound.Text = "0";
-            catagory2UpperBound.Text = "0";
+            Category1LowerBound.Text = "0";
+            Category1UpperBound.Text = "0";
+            Category2LowerBound.Text = "0";
+            Category2UpperBound.Text = "0";
 
             /* Anlaysis Parameters */
             powerToWeightRatioAnalysis.Checked = false;
 
-            Settings.analysisCatagory = analysisCatagory.TrainOperator;
+            Settings.analysisCategory = analysisCategory.TrainOperator;
 
-            Operator1Catagory.SelectedItem = "City Rail";
-            Settings.catagory1Operator = trainOperator.CityRail;
-            Operator2Catagory.SelectedItem = "Countrylink";
-            Settings.catagory2Operator = trainOperator.Countrylink;
-            Operator3Catagory.SelectedItem = "Group Remaining";
-            Settings.catagory3Operator = trainOperator.GroupRemaining;
+            Operator1Category.SelectedItem = "City Rail";
+            Settings.Category1Operator = trainOperator.CityRail;
+            Operator2Category.SelectedItem = "Countrylink";
+            Settings.Category2Operator = trainOperator.Countrylink;
+            Operator3Category.SelectedItem = "Group Remaining";
+            Settings.Category3Operator = trainOperator.GroupRemaining;
 
-            Commodity1Catagory.SelectedItem = null;
-            Settings.catagory1Commodity = trainCommodity.Unknown;
-            Commodity2Catagory.SelectedItem = null;
-            Settings.catagory2Commodity = trainCommodity.Unknown;
-            Commodity3Catagory.SelectedItem = null;
-            Settings.catagory3Commodity = trainCommodity.Unknown;
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
         
         }
-        
+
+        /// <summary>
+        /// This function sets all the testing parameters for the Macarthur to Port Kembla
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void setPortKemblaParameters(object sender, EventArgs e)
+        {
+
+            /* Data File */
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Port Kembla to Moss Vale data.txt";
+
+            IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+            simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+
+            IceDataFile.ForeColor = System.Drawing.Color.Black;
+            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Geometry File */
+            FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Port Kembla to Moss Vale Geometry.csv";
+            GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
+            GeometryFile.ForeColor = System.Drawing.Color.Black;
+
+            /* TSR File */
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Port Kembla to  Moss Vale TSR.csv";
+            temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
+            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Simulation files */
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Coal-Increasing.csv";
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Coal-Decreasing.csv";
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Grain-Increasing.csv";
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Grain-Decreasing.csv";
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Minerals-Increasing.csv";
+            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Minerals-Decreasing.csv";
+            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+
+            /* Destination Folder */
+            FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale";
+            resultsDestination.Text = FileSettings.aggregatedDestination;
+            resultsDestination.ForeColor = System.Drawing.Color.Black;
+
+            /* Settings */
+            fromDate.Value = new DateTime(2016, 1, 1);
+            toDate.Value = new DateTime(2017, 6, 1);
+
+            /* Interpolation parameters. */
+            includeAListOfTrainsToExclude.Checked = false;
+
+            startInterpolationKm.Text = "80";
+            endInterpolationKm.Text = "160";
+            interpolationInterval.Text = "50";
+            minimumJourneyDistance.Text = "50";
+            dataSeparation.Text = "4";
+            timeSeparation.Text = "10";
+
+            loopBoundaryThreshold.Text = "1";
+            loopSpeedThreshold.Text = "50";
+            TSRWindowBoundary.Text = "1";
+
+            Category1LowerBound.Text = "0";
+            Category1UpperBound.Text = "0";
+            Category2LowerBound.Text = "0";
+            Category2UpperBound.Text = "0";
+
+            /* Anlaysis Parameters */
+            powerToWeightRatioAnalysis.Checked = false;
+
+            Settings.analysisCategory = analysisCategory.TrainOperator;
+
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
+
+            Commodity1Category.SelectedItem = "Coal";
+            Settings.Category1Commodity = trainCommodity.Coal;
+            Commodity2Category.SelectedItem = "Grain";
+            Settings.Category2Commodity = trainCommodity.Grain;
+            Commodity3Category.SelectedItem = "Mineral";
+            Settings.Category3Commodity = trainCommodity.Mineral;
+
+        }
+
         /// <summary>
         /// Function determines if the testing parameters for Culleran Ranges need 
         /// to be set or resets to default settings.
@@ -1800,7 +1865,7 @@ namespace TRAP
         }
 
         /// <summary>
-        /// Function determines if the testing parameters for Tarcoola to Kalgoorlie need 
+        /// Function determines if the testing parameters for the Southern Highlands need 
         /// to be set or resets to default settings.
         /// </summary>
         /// <param name="sender">The object container.</param>
@@ -1810,6 +1875,21 @@ namespace TRAP
             /* If Tarcoola to Kalgoorlie testing flag is checked, set the appropriate parameters. */
             if (SouthernHighlands.Checked)
                 setSouthernHighlandsParameters(sender, e);
+            else
+                resetDefaultParameters();
+        }
+
+        /// <summary>
+        /// Function determines if the testing parameters for Port Kembla need 
+        /// to be set or resets to default settings.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void PortKembla_CheckedChanged(object sender, EventArgs e)
+        {
+            /* If Tarcoola to Kalgoorlie testing flag is checked, set the appropriate parameters. */
+            if (PortKembla.Checked)
+                setPortKemblaParameters(sender, e);
             else
                 resetDefaultParameters();
         }
@@ -1839,23 +1919,23 @@ namespace TRAP
 
             /* Simulation files */
             FileSettings.simulationFiles = new List<string>(new string[6]);
-            catagory1IncreasingSimulationFile.Text = "<Required>";
-            catagory1IncreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
+            Category1IncreasingSimulationFile.Text = "<Required>";
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
 
-            catagory1DecreasingSimulationFile.Text = "<Required>";
-            catagory1DecreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
+            Category1DecreasingSimulationFile.Text = "<Required>";
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
 
-            catagory2IncreasingSimulationFile.Text = "<Required>";
-            catagory2IncreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
+            Category2IncreasingSimulationFile.Text = "<Required>";
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
 
-            catagory2DecreasingSimulationFile.Text = "<Required>";
-            catagory2DecreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
+            Category2DecreasingSimulationFile.Text = "<Required>";
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
 
-            catagory3IncreasingSimulationFile.Text = "<Optional>";
-            catagory3IncreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
+            Category3IncreasingSimulationFile.Text = "<Optional>";
+            Category3IncreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
 
-            catagory3DecreasingSimulationFile.Text = "<Optional>";
-            catagory3DecreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
+            Category3DecreasingSimulationFile.Text = "<Optional>";
+            Category3DecreasingSimulationFile.ForeColor = SystemColors.InactiveCaptionText;
 
 
 
@@ -1882,35 +1962,35 @@ namespace TRAP
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
-            catagory1LowerBound.Text = "0";
-            catagory1UpperBound.Text = "0";
-            catagory2LowerBound.Text = "0";
-            catagory2UpperBound.Text = "0";
+            Category1LowerBound.Text = "0";
+            Category1UpperBound.Text = "0";
+            Category2LowerBound.Text = "0";
+            Category2UpperBound.Text = "0";
 
             /* Analysis parameters. */
             powerToWeightRatioAnalysis.Checked = false;
 
-            Settings.analysisCatagory = analysisCatagory.Unknown;
+            Settings.analysisCategory = analysisCategory.Unknown;
 
-            Operator1Catagory.SelectedItem = null;
-            Operator1Catagory.Text = "";
-            Settings.catagory1Operator = trainOperator.Unknown;
-            Operator2Catagory.SelectedItem = null;
-            Operator2Catagory.Text = "";
-            Settings.catagory2Operator = trainOperator.Unknown;
-            Operator3Catagory.SelectedItem = null;
-            Operator3Catagory.Text = "";
-            Settings.catagory3Operator = trainOperator.Unknown;
+            Operator1Category.SelectedItem = null;
+            Operator1Category.Text = "";
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Operator2Category.Text = "";
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Operator3Category.Text = "";
+            Settings.Category3Operator = trainOperator.Unknown;
 
-            Commodity1Catagory.SelectedItem = null;
-            Commodity1Catagory.Text = "";
-            Settings.catagory1Commodity = trainCommodity.Unknown;
-            Commodity2Catagory.SelectedItem = null;
-            Commodity2Catagory.Text = "";
-            Settings.catagory2Commodity = trainCommodity.Unknown;
-            Commodity3Catagory.SelectedItem = null;
-            Commodity3Catagory.Text = "";
-            Settings.catagory3Commodity = trainCommodity.Unknown;
+            Commodity1Category.SelectedItem = null;
+            Commodity1Category.Text = "";
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Commodity2Category.Text = "";
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Commodity3Category.Text = "";
+            Settings.Category3Commodity = trainCommodity.Unknown;
 
         }
 

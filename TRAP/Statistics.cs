@@ -9,7 +9,7 @@ namespace TRAP
     class Statistics
     {
 
-        public string catagory;
+        public string Category;
         public double numberOfTrains;
         public double averageDistanceTravelled;
         public double averageSpeed;
@@ -33,7 +33,7 @@ namespace TRAP
 
             if (trains.Count() == 0)
             {
-                stats.catagory = "Empty";
+                stats.Category = "Empty";
                 stats.numberOfTrains = 0;
                 stats.averageDistanceTravelled = 0;
                 stats.averageSpeed = 0;
@@ -43,7 +43,7 @@ namespace TRAP
             else
             {
                 
-                stats.catagory = trains[0].catagory.ToString() + " " + trains[0].trainDirection.ToString();
+                stats.Category = trains[0].Category.ToString() + " " + trains[0].trainDirection.ToString();
 
                 /* Extract the number of trains in the list */
                 stats.numberOfTrains = trains.Count();

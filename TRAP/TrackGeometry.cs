@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace TRAP
 {
+
     public class TrackGeometry
     {
+        /* Create a tools Class. */
+        Tools tool = new Tools();
+        /* Create a processing Class. */
+        Processing processing = new Processing();
+
 
         public int corridorNumber;
         public string corridorName;
@@ -18,12 +24,7 @@ namespace TRAP
         public bool isLoopHere;
         public double temporarySpeedRestriction;
         public bool isTSRHere;
-
-        /* Create a tools Class. */
-        Tools tool = new Tools();
-        /* Create a processing Class. */
-        Processing processing = new Processing();
-
+                
         /* Constructors */
 
         /// <summary>
@@ -146,9 +147,9 @@ namespace TRAP
         public void matchTrainLocationToTrackGeometry(List<TrainJourney> TrainJourney, List<TrackGeometry> track)
         {
             foreach (TrainJourney journey in TrainJourney)
-            {
+            {// was .kmpost
                 /* Find the closest km marker in the track geometry to the current train location. */
-                journey.kmPost = findClosestTrackGeometryPoint(track, journey.location);
+                journey.kilometreage = findClosestTrackGeometryPoint(track, journey.location);
 
             }
 

@@ -445,7 +445,7 @@ namespace TRAP
                 }
 
                 /* Add the interpolated list to the list of new train objects. */
-                Train trainItem = new Train(trains[trainIdx].catagory,trains[trainIdx].trainID, trains[trainIdx].locoID, 
+                Train trainItem = new Train(trains[trainIdx].Category,trains[trainIdx].trainID, trains[trainIdx].locoID, 
                     trains[trainIdx].trainOperator, trains[trainIdx].commodity, trains[trainIdx].powerToWeight, 
                     interpolatedJourney, trains[trainIdx].trainDirection);
                     
@@ -461,10 +461,10 @@ namespace TRAP
         /// Calculate the aggregated average speed of all trains.
         /// </summary>
         /// <param name="trains">A list of trains to be aggregated in a single group.</param>
-        /// <param name="catagorySim">The simulted train for the specified analysis catagory.</param>
+        /// <param name="CategorySim">The simulted train for the specified analysis Category.</param>
         /// <param name="trackGeometry">The track alignment information for the train journey.</param>
         /// <returns>An average train containing information about the average speed at each location.</returns>
-        public AverageTrain averageTrain(List<Train> trains, List<TrainJourney> catagorySim, List<TrackGeometry> trackGeometry)
+        public AverageTrain averageTrain(List<Train> trains, List<TrainJourney> CategorySim, List<TrackGeometry> trackGeometry)
         {
 
             bool loopBoundary = false;
@@ -513,17 +513,17 @@ namespace TRAP
                         TSRList.Add(false);
                         /* Is the train within a loop boundary */
                         if (!isTrainInLoopBoundary(train, journey.kilometreage))
-                        {// train is NOT in loop
+                        {
                             loopBoundary = false;
 
                             speed.Add(journey.speed);
                             sum = sum + journey.speed;
                         }
                         else
-                        {// train is IN loop
+                        {
                             loopBoundary = true;
 
-                            if (journey.speed > (Settings.loopSpeedThreshold * catagorySim[journeyIdx].speed))
+                            if (journey.speed > (Settings.loopSpeedThreshold * CategorySim[journeyIdx].speed))
                             {
                                 speed.Add(journey.speed);
                                 sum = sum + journey.speed;
@@ -539,7 +539,7 @@ namespace TRAP
                         /* We dont want to include the speed in the aggregation if the train is within the
                          * bundaries of a TSR and is forced to slow down.  
                          */
-
+                        
                     }
 
                 }
@@ -553,14 +553,14 @@ namespace TRAP
 
                 /* If the TSR applied for the whole analysis period, the simulation speed is used. */
                 if (TSRtrue == TSRList.Count())
-                    aveSpeed = catagorySim[journeyIdx].speed;
+                    aveSpeed = CategorySim[journeyIdx].speed;
                 else
                 {
                     /* Calculate the average speed at each location. */
-                    if (speed.Count() == 0 || sum == 0)
+                    if (speed.Count() == 0|| sum == 0)
                         aveSpeed = 0;
                     else
-                        aveSpeed = speed.Where(x => x >= 0.0).Average();
+                        aveSpeed = speed.Where(x => x > 0.0).Average();
                 }
 
                 /* Add to each list for this location. */
@@ -574,7 +574,7 @@ namespace TRAP
             }
             
             /* Create the new average train object. */
-            AverageTrain averageTrain = new AverageTrain(trains[0].catagory, trains[0].trainDirection, trains.Count() ,kilometreage, elevation, averageSpeed, isInLoopBoundary, isInTSRboundary);
+            AverageTrain averageTrain = new AverageTrain(trains[0].Category, trains[0].trainDirection, trains.Count() ,kilometreage, elevation, averageSpeed, isInLoopBoundary, isInTSRboundary);
 
             return averageTrain;
 
@@ -582,11 +582,11 @@ namespace TRAP
 
         /// <summary>
         /// Calculate the weighted average of all simulations. This simulation is then used for 
-        /// comparison when calculating the combined catagories (weighted average train).
+        /// comparison when calculating the combined Categories (weighted average train).
         /// </summary>
-        /// <param name="simulations">List of simulations for each catagory analysed.</param>
+        /// <param name="simulations">List of simulations for each Category analysed.</param>
         /// <param name="averageTrains">A List of the average train data, only used for the weighting.</param>
-        /// <returns>A list of average train data describing the combined catagories.</returns>
+        /// <returns>A list of average train data describing the combined Categories.</returns>
         public static List<Train> getWeightedAverageSimulation(List<Train> simulations, List<AverageTrain> averageTrains)
         {
             /* The list of trains (2) that will be returned */
@@ -613,7 +613,7 @@ namespace TRAP
                  */
                 if (simulations.Count() == 4)
                 {
-                    /* Assumes 2 individual catagories for increasing and decreasing directions. */
+                    /* Assumes 2 individual Categories for increasing and decreasing directions. */
                     speedIncreasing = (simulations[0].journey[journeyIdx].speed * averageTrains[0].trainCount +
                         simulations[2].journey[journeyIdx].speed * averageTrains[2].trainCount) / increasingTrainCount;
 
@@ -622,7 +622,7 @@ namespace TRAP
                 }
                 else if (simulations.Count() == 6)
                 {
-                    /* Assumes 3 individual catagories for increasing and decreasing directions. */
+                    /* Assumes 3 individual Categories for increasing and decreasing directions. */
                     speedIncreasing = (simulations[0].journey[journeyIdx].speed * averageTrains[0].trainCount +
                            simulations[2].journey[journeyIdx].speed * averageTrains[2].trainCount +
                            simulations[4].journey[journeyIdx].speed * averageTrains[4].trainCount) / increasingTrainCount;
@@ -633,7 +633,7 @@ namespace TRAP
                 }
                 else
                 {
-                    /* Assumes 4 individual catagories for increasing and decreasing directions. */
+                    /* Assumes 4 individual Categories for increasing and decreasing directions. */
                     speedIncreasing = (simulations[0].journey[journeyIdx].speed * averageTrains[0].trainCount +
                            simulations[2].journey[journeyIdx].speed * averageTrains[2].trainCount +
                            simulations[4].journey[journeyIdx].speed * averageTrains[4].trainCount +
@@ -662,9 +662,9 @@ namespace TRAP
             }
 
             /* Add the weighted average trains to the list */
-            Train itemInc = new Train(increasingJourney, catagory.Simulated, direction.IncreasingKm);
+            Train itemInc = new Train(increasingJourney, Category.Simulated, direction.IncreasingKm);
             weightedAvergeTrain.Add(itemInc);
-            Train itemDec = new Train(decreasingJourney, catagory.Simulated, direction.DecreasingKm);
+            Train itemDec = new Train(decreasingJourney, Category.Simulated, direction.DecreasingKm);
             weightedAvergeTrain.Add(itemDec);
             
             return weightedAvergeTrain;
@@ -844,8 +844,6 @@ namespace TRAP
 
             /* Extract the form parameters. */
             Settings.dateRange = form.getDateRange();
-            //Settings.topLeftLocation = form.getTopLeftLocation();
-            //Settings.bottomRightLocation = form.getBottomRightLocation();
             Settings.includeAListOfTrainsToExclude = form.getTrainListExcludeFlag();
             Settings.startKm = form.getStartKm();
             Settings.endKm = form.getEndKm();
@@ -856,20 +854,17 @@ namespace TRAP
             Settings.TSRwindowBoundary = form.getTSRWindow();
             Settings.timeThreshold = form.getTimeSeparation();
             Settings.distanceThreshold = form.getDataSeparation();
-            Settings.catagory1LowerBound = form.getCatagory1LowerBound();
-            Settings.catagory1UpperBound = form.getCatagory1UpperBound();
-            Settings.catagory2LowerBound = form.getCatagory2LowerBound();
-            Settings.catagory2UpperBound = form.getCatagory2UpperBound();
-            //Settings.combinedLowerBound = form.getUnderpoweredLowerBound();
-            //Settings.combinedUpperBound = form.getOvderpoweredUpperBound();
-            //Settings.HunterValleyRegion = form.getHunterValleyRegion();
-            Settings.analysisCatagory = form.getAnalysisCatagory();
-            Settings.catagory1Commodity = form.getCommodity1Catagory();
-            Settings.catagory1Operator = form.getOperator1Catagory();
-            Settings.catagory2Commodity = form.getCommodity2Catagory();
-            Settings.catagory2Operator = form.getOperator2Catagory();
-            Settings.catagory3Commodity = form.getCommodity3Catagory();
-            Settings.catagory3Operator = form.getOperator3Catagory();
+            Settings.Category1LowerBound = form.getCategory1LowerBound();
+            Settings.Category1UpperBound = form.getCategory1UpperBound();
+            Settings.Category2LowerBound = form.getCategory2LowerBound();
+            Settings.Category2UpperBound = form.getCategory2UpperBound();
+            Settings.analysisCategory = form.getAnalysisCategory();
+            Settings.Category1Commodity = form.getCommodity1Category();
+            Settings.Category1Operator = form.getOperator1Category();
+            Settings.Category2Commodity = form.getCommodity2Category();
+            Settings.Category2Operator = form.getOperator2Category();
+            Settings.Category3Commodity = form.getCommodity3Category();
+            Settings.Category3Operator = form.getOperator3Category();
 
         }
 
@@ -884,20 +879,6 @@ namespace TRAP
                 Settings.dateRange[0] > DateTime.Today || Settings.dateRange[1] > DateTime.Today ||
                 Settings.dateRange[0] > Settings.dateRange[1])
                 return false;
-
-            //if (Settings.topLeftLocation == null ||
-            //    Settings.topLeftLocation.latitude > -10 ||      /* Australian top left boundary */
-            //    Settings.topLeftLocation.longitude < 110 ||
-            //    Settings.topLeftLocation.latitude > -10 ||      /* Australian top right boundary */
-            //    Settings.topLeftLocation.longitude > 155)
-            //    return false;
-
-            //if (Settings.bottomRightLocation == null ||
-            //    Settings.bottomRightLocation.latitude < -40 ||      /* Australian bottom left boundary */
-            //    Settings.bottomRightLocation.longitude < 110 ||
-            //    Settings.bottomRightLocation.latitude < -40 ||      /* Australian bottom right boundary */
-            //    Settings.bottomRightLocation.longitude > 155)
-            //    return false;
 
             if (Settings.startKm < 0 || Settings.startKm > Settings.endKm)
                 return false;
@@ -926,16 +907,16 @@ namespace TRAP
             if (Settings.distanceThreshold < 0)
                 return false;
 
-            if (Settings.catagory1LowerBound < 0)
+            if (Settings.Category1LowerBound < 0)
                 return false;
 
-            if (Settings.catagory1UpperBound < 0)
+            if (Settings.Category1UpperBound < 0)
                 return false;
 
-            if (Settings.catagory2LowerBound < 0)
+            if (Settings.Category2LowerBound < 0)
                 return false;
 
-            if (Settings.catagory2UpperBound < 0)
+            if (Settings.Category2UpperBound < 0)
                 return false;
 
             return true;
