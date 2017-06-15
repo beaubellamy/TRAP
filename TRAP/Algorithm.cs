@@ -20,9 +20,9 @@ namespace TRAP
     /// </summary>
     public enum trainOperator
     {
-        ARTC, Aurizon, CityRail, Countrylink, Freightliner, GreatSouthernRail, Interail, LauchlanValleyRailSociety,
-        PacificNational, QUBE, RailCorp, SCT, SouthernShorthaulRail, SydneyRailService, TheRailMotorService, VLinePassenger, 
-        GroupRemaining, Combined, Simulated, Unknown
+        ARTC, Aurizon, AustralianRailwaysHistoricalSociety, CityRail, Countrylink, Freightliner, GreatSouthernRail, Interail, 
+        JohnHollandRail, LauchlanValleyRailSociety, PacificNational, QUBE, RailTransportMuseum, RailCorp, SCT, SouthernShorthaulRail, 
+        SydneyRailService, TheRailMotorService, VLinePassenger, GroupRemaining, Combined, Simulated, Unknown
     };
 
     /// <summary>
@@ -39,10 +39,16 @@ namespace TRAP
     /// </summary>
     public enum Category
     {
-        ARTC, Aurizon, CityRail, Countrylink, Freightliner, GreatSouthernRail, Interail, LauchlanValleyRailSociety,
-        PacificNational, QUBE, RailCorp, SCT, SouthernShorthaulRail, SydneyRailService, TheRailMotorService, VLinePassenger,
-        Combined, Actual, GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, GroupRemaining,
-        Underpowered, Overpowered, Alternative, Simulated, Unknown
+        /* Train Operators. */
+        ARTC, Aurizon, AustralianRailwaysHistoricalSociety, CityRail, Countrylink, Freightliner, GreatSouthernRail, Interail,
+        JohnHollandRail, LauchlanValleyRailSociety, PacificNational, QUBE, RailTransportMuseum, RailCorp, SCT, SouthernShorthaulRail,
+        SydneyRailService, TheRailMotorSociety, VLinePassenger, 
+        /* Commodities. */
+        GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, GroupRemaining,
+        /* Power to weight catagories. */
+        Underpowered, Overpowered, Alternative, 
+        /* Other */
+        Combined, Actual, Simulated, Unknown
     };
         
 

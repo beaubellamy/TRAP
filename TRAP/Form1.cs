@@ -1,4 +1,7 @@
-﻿using System;
+﻿/* uncomment when testing mutliple corridors overnight. */
+//#define TESTING 
+
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +19,7 @@ namespace TRAP
 {
     public partial class TrainPerformance : Form
     {
-        
+
         public static Tools tool = new Tools();
         public static Processing processing = new Processing();
         public static TrackGeometry track = new TrackGeometry();
@@ -29,6 +32,23 @@ namespace TRAP
             /* Set current version. */
             string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             this.Text = "TRAP: "+version;
+
+            /* When testing multiple corridors in one run. - Designed for overnight use */
+#if (TESTING)
+            object sender = new object();
+            EventArgs e = new EventArgs();
+
+            //runCulleranRanges(sender, e);             /* Insufficient TSR data */ 
+            runGunnedBasin(sender, e);                  // Run Time: 01:06:43.43
+            runUlanLine(sender, e);                     // Run Time: 01:20:22.35
+            //runMacarthurToBotany(sender, e);          /* The data is not in the correct format */ 
+            //runMelbourneToCootamundra(sender, e);     /* The data is not in the correct format */ 
+            //runTarcoolaToKalgoorlie(sender, e);       /* The data is not in the correct format */ 
+            runSouthernHighlands(sender, e);            // Run Time: 01:15:35.47
+            runPortKembla(sender, e);                   // Run Time: 00:11:44.02
+#endif
+
+
         }
 
         /// <summary>
@@ -397,7 +417,10 @@ namespace TRAP
 
             executionTime.Text = elapsedTime;
 
-            tool.messageBox("Program Complete.");
+#if (!TESTING)
+            tool.messageBox("Program Complete.");      
+#endif
+
         }
 
         /// <summary>
@@ -1529,7 +1552,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2017,6,1);
+            toDate.Value = new DateTime(2017,6,10);
 
             /* Interpolation Parameters. */
             includeAListOfTrainsToExclude.Checked = false;
@@ -1629,8 +1652,8 @@ namespace TRAP
             resultsDestination.ForeColor = System.Drawing.Color.Black;
 
             /* Settings */
-            fromDate.Value = new DateTime(2016, 1, 1);
-            toDate.Value = new DateTime(2016, 3, 1);
+            fromDate.Value = new DateTime(2017, 1, 1);
+            toDate.Value = new DateTime(2017, 6, 10);
 
             /* Interpolation parameters. */
             includeAListOfTrainsToExclude.Checked = false;
@@ -1732,7 +1755,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2016, 1, 1);
-            toDate.Value = new DateTime(2017, 6, 1);
+            toDate.Value = new DateTime(2017, 6, 10);
 
             /* Interpolation parameters. */
             includeAListOfTrainsToExclude.Checked = false;
@@ -1994,6 +2017,200 @@ namespace TRAP
 
         }
 
-        
+
+        /// <summary>
+        /// Set Cullerin Ranges parameters and Execute the analysis without the interacting with the form.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void runCulleranRanges(object sender, EventArgs e)
+        {
+            /* Start a timer */
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            
+            /* Set the analysis parameters. */
+            setCulleranRangesParameters(sender, e);
+            /* Simualte pressing execute button. */
+            Execute_Click(sender, e);
+
+            timer.Stop();
+
+            /* Display the run time. */
+            TimeSpan ts = timer.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            Console.WriteLine("Culleran ranges RunTime " + elapsedTime);
+        }
+
+        /// <summary>
+        /// Set Gunnedah Basin parameters and Execute the analysis without the interacting with the form.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void runGunnedBasin(object sender, EventArgs e)
+        {
+            /* Start a timer */
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+
+            /* Set the analysis parameters. */
+            setGunnedahBasinParameters(sender, e);
+            /* Simualte pressing execute button. */
+            Execute_Click(sender, e);
+
+            timer.Stop();
+
+            /* Display the run time. */
+            TimeSpan ts = timer.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            Console.WriteLine("Gunnedah basin RunTime " + elapsedTime);
+        }
+
+        /// <summary>
+        /// Set Ulan Line parameters and Execute the analysis without the interacting with the form.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void runUlanLine(object sender, EventArgs e)
+        {
+            /* Start a timer */
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+
+            /* Set the analysis parameters. */
+            setUlanLineParameters(sender, e);
+            /* Simualte pressing execute button. */
+            Execute_Click(sender, e);
+
+            timer.Stop();
+
+            /* Display the run time. */
+            TimeSpan ts = timer.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            Console.WriteLine("Ulan Line RunTime " + elapsedTime);
+        }
+
+        /// <summary>
+        /// Set Macarthur to Port Botany parameters and Execute the analysis without the interacting with the form.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void runMacarthurToBotany(object sender, EventArgs e)
+        {
+            /* Start a timer */
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+
+            /* Set the analysis parameters. */
+            setMacartur2BotanyParameters(sender, e);
+            /* Simualte pressing execute button. */
+            Execute_Click(sender, e);
+
+            timer.Stop();
+
+            /* Display the run time. */
+            TimeSpan ts = timer.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            Console.WriteLine("Macarthur to Port Botany RunTime " + elapsedTime);
+        }
+
+        /// <summary>
+        /// Set Melbourne to Cootamundra parameters and Execute the analysis without the interacting with the form.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void runMelbourneToCootamundra(object sender, EventArgs e)
+        {
+            /* Start a timer */
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+
+            /* Set the analysis parameters. */
+            setMelbourne2CootamundraParameters(sender, e);
+            /* Simualte pressing execute button. */
+            Execute_Click(sender, e);
+
+            timer.Stop();
+
+            /* Display the run time. */
+            TimeSpan ts = timer.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            Console.WriteLine("Melbourne to Cootamundra RunTime " + elapsedTime);
+        }
+
+        /// <summary>
+        /// Set Tarcoola to Kalgoorlie parameters and Execute the analysis without the interacting with the form.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void runTarcoolaToKalgoorlie(object sender, EventArgs e)
+        {
+            /* Start a timer */
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+
+            /* Set the analysis parameters. */
+            setTarcoola2KalgoorlieParameters(sender, e);
+            /* Simualte pressing execute button. */
+            Execute_Click(sender, e);
+
+            timer.Stop();
+
+            /* Display the run time. */
+            TimeSpan ts = timer.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            Console.WriteLine("Tarcoola to Kalgoorlie RunTime " + elapsedTime);
+        }
+
+        /// <summary>
+        /// Set Southern Highlands parameters and Execute the analysis without the interacting with the form.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void runSouthernHighlands(object sender, EventArgs e)
+        {
+            /* Start a timer */
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+
+            /* Set the analysis parameters. */
+            setSouthernHighlandsParameters(sender, e);
+            /* Simualte pressing execute button. */
+            Execute_Click(sender, e);
+
+            timer.Stop();
+
+            /* Display the run time. */
+            TimeSpan ts = timer.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            Console.WriteLine("Southern Highlands RunTime " + elapsedTime);
+        }
+
+        /// <summary>
+        /// Set port Kembla parameters and Execute the analysis without the interacting with the form.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void runPortKembla(object sender, EventArgs e)
+        {
+            /* Start a timer */
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+
+            /* Set the analysis parameters. */
+            setPortKemblaParameters(sender, e);
+            /* Simualte pressing execute button. */
+            Execute_Click(sender, e);
+
+            timer.Stop();
+
+            /* Display the run time. */
+            TimeSpan ts = timer.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            Console.WriteLine("Port Kembla RunTime " + elapsedTime);
+        }
+
+
+
     }
 }

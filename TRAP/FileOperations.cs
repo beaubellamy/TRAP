@@ -28,6 +28,7 @@ namespace TRAP
 
             /* Seperate the fields. */
             string[] fields = lines[0].Split(delimeters);
+            int operatorStringLength = 6;
 
             /* Initialise the fields of interest. */
             string TrainID = "none";
@@ -62,9 +63,11 @@ namespace TRAP
                     TrainID = fields[6];
                     locoID = fields[1];
 
-                    if (fields[4].Count() >= 3)
-                        subOperator = fields[4].Substring(0, 3);
-
+                    if (fields[4].Count() >= operatorStringLength)
+                        subOperator = fields[4].Substring(0, operatorStringLength);
+                    else                    
+                        subOperator = fields[4].PadRight(operatorStringLength);
+                    
                     trainOperator = getOperator(subOperator);
 
                     commodity = getCommodity(fields[5]);
@@ -654,41 +657,51 @@ namespace TRAP
         /// Identify the train operator from the first few letters of the field.
         /// </summary>
         /// <param name="shortOperator">The first few letters of the operator field.</param>
-        /// <returns>A train operator class identifying the train operator.</returns>
+        /// <returns>A train operator object identifying the train operator.</returns>
         private static trainOperator getOperator(string shortOperator)
         {
             /* Compare each train operator to the supplied string to identify the correct operator. */
-            if (shortOperator.Equals("Aus", StringComparison.OrdinalIgnoreCase))
+            if (shortOperator.Equals("Austra", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.ARTC;
-            else if (shortOperator.Equals("Aur", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("ARTC  ", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.ARTC;
+            else if (shortOperator.Equals("Aust R", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.AustralianRailwaysHistoricalSociety;            
+            else if (shortOperator.Equals("Aurizo", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.Aurizon;
-            else if (shortOperator.Equals("Cit", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("City R", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.CityRail;
-            else if (shortOperator.Equals("Cou", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("Countr", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.Countrylink;
-            else if (shortOperator.Equals("Fre", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("Freigh", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.Freightliner;
-            else if (shortOperator.Equals("Gre", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("Great ", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.GreatSouthernRail;
-            else if (shortOperator.Equals("int", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("intera", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.Interail;
-            else if (shortOperator.Equals("Lau", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("John H", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.JohnHollandRail;
+            else if (shortOperator.Equals("Lauchl", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.LauchlanValleyRailSociety;
-            else if (shortOperator.Equals("Pac", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("Pac Na", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.PacificNational;
-            else if (shortOperator.Equals("QUB", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("Pacifi", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.PacificNational;
+            else if (shortOperator.Equals("QUBE L", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.QUBE;
-            else if (shortOperator.Equals("Rai", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("RailCo", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.RailCorp;
-            else if (shortOperator.Equals("SCT", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("Rail T", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.RailTransportMuseum;
+            else if (shortOperator.Equals("SCT   ", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.SCT;
-            else if (shortOperator.Equals("Sou", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("Southe", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.SouthernShorthaulRail;
-            else if (shortOperator.Equals("Syd", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("Sydney", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.SydneyRailService;
-            else if (shortOperator.Equals("The", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("TheRai", StringComparison.OrdinalIgnoreCase)) 
                 return trainOperator.TheRailMotorService;
-            else if (shortOperator.Equals("V L", StringComparison.OrdinalIgnoreCase))
+            else if (shortOperator.Equals("V Line", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.VLinePassenger;
             else
                 return trainOperator.Unknown;
@@ -699,12 +712,12 @@ namespace TRAP
         /// Identify the commodity from the first few letters of the field.
         /// </summary>
         /// <param name="commodity">The first few letters of the operator field.</param>
-        /// <returns>A train commodity class identifying the commodity.</returns>
+        /// <returns>A train commodity object identifying the commodity.</returns>
         private static trainCommodity getCommodity(string commodity)
         {
             /* List of individual commodities available seperated into commodity types. */
             string[] Clinker = { "Clinker" };
-            string[] Coal = { "Coal Export", "Containersied Coal" };
+            string[] Coal = { "Coal", "Coal Export", "Containersied Coal", "Coal Domestic"};
             string[] Freight = { "General Freight" };
             string[] Grain = { "Grain" };
             string[] Intermodal = { "Intermodal" };
