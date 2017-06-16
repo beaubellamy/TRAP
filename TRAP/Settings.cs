@@ -30,7 +30,7 @@ namespace Globalsettings
         public static DateTime[] dateRange;                 /* Date range of data to include. */
         public static GeoLocation topLeftLocation;          /* Top left corner of the geographic box describing the included data. */
         public static GeoLocation bottomRightLocation;      /* Bottom right corner of the geographic box describing the included data. */
-        public static bool includeAListOfTrainsToExclude;   /* Is a list of trains that are to be excluded available. */
+        public static bool excludeListOfTrains;             /* Is a list of trains that are to be excluded available. */
 
         /* Corridor dependant / Analysis parameters */
         public static double startKm;                       /* Start km for interpoaltion data. */
@@ -41,15 +41,15 @@ namespace Globalsettings
         /* Processing parameters */
         public static double loopSpeedThreshold;            /* Cuttoff for the simulation speed, when comparing the train to the simualted train. */
         public static double loopBoundaryThreshold;         /* Distance either side of the loop to be considered within the loop boundary (km). */
-        public static double TSRwindowBoundary;              /* Distance either side of the TSR location to be considered within the TSR boundary (km). */
+        public static double TSRwindowBoundary;             /* Distance either side of the TSR location to be considered within the TSR boundary (km). */
         public static double timeThreshold;                 /* Minimum time between data points to be considered a seperate train. */
         public static double distanceThreshold;             /* Minimum ditance between successive data points. */
 
         /* Simulation Parameters */
-        public static double Category1LowerBound;        /* The lower bound cuttoff for the underpowered trains. */
-        public static double Category1UpperBound;        /* The upper bound cuttoff for the underpowered trains. */
-        public static double Category2LowerBound;         /* The lower bound cuttoff for the overpowered trains. */
-        public static double Category2UpperBound;         /* The upper bound cuttoff for the overpowered trains. */
+        public static double Category1LowerBound;           /* The lower bound cuttoff for the underpowered trains. */
+        public static double Category1UpperBound;           /* The upper bound cuttoff for the underpowered trains. */
+        public static double Category2LowerBound;           /* The lower bound cuttoff for the overpowered trains. */
+        public static double Category2UpperBound;           /* The upper bound cuttoff for the overpowered trains. */
         
 
         public static analysisCategory analysisCategory;

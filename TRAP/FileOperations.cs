@@ -18,7 +18,7 @@ namespace TRAP
         /// <param name="filename">Filename of the data file.</param>
         /// <param name="excludeTrainList">List of trains to exclude.</param>
         /// <returns>List of train records describing each point in a trains journey.</returns>
-        public static List<TrainRecord> readICEData(string filename, List<string> excludeTrainList)
+        public static List<TrainRecord> readICEData(string filename, List<string> trainList)
         {
             /* Read all the lines of the data file. */
             isFileOpen(filename);
@@ -28,6 +28,7 @@ namespace TRAP
 
             /* Seperate the fields. */
             string[] fields = lines[0].Split(delimeters);
+            /* Minimum length of the operator string to distinguisg between them. */
             int operatorStringLength = 6;
 
             /* Initialise the fields of interest. */
@@ -89,10 +90,18 @@ namespace TRAP
                      */
 
                     /* Check if the train is in the exclude list */
-                    includeTrain = excludeTrainList.Contains(TrainID);
+                    if (Settings.excludeListOfTrains)
+                        includeTrain = !trainList.Contains(TrainID);
+                    else
+                    {
+                        if (trainList.Count() > 0)
+                            includeTrain = trainList.Contains(TrainID);
+                        else
+                            includeTrain = true;
+                    }
 
                     if (dateTime >= Settings.dateRange[0] && dateTime < Settings.dateRange[1] &&
-                        !includeTrain)
+                        includeTrain)
                     {
                         TrainRecord record = new TrainRecord(TrainID, locoID, dateTime, new GeoLocation(latitude, longitude), trainOperator, commodity, kmPost, speed, powerToWeight);
                         IceRecord.Add(record);

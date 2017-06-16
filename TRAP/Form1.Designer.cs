@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrainPerformance));
             this.simulationTab = new System.Windows.Forms.TabControl();
             this.AnalysisParametersTab = new System.Windows.Forms.TabPage();
+            this.PortKembla = new System.Windows.Forms.CheckBox();
             this.timeSeparation = new System.Windows.Forms.TextBox();
             this.TSRWindowBoundary = new System.Windows.Forms.TextBox();
             this.dataSeparation = new System.Windows.Forms.TextBox();
@@ -62,7 +63,7 @@
             this.GunnedahBasin = new System.Windows.Forms.CheckBox();
             this.CulleranRanges = new System.Windows.Forms.CheckBox();
             this.TestLabel = new System.Windows.Forms.Label();
-            this.includeAListOfTrainsToExclude = new System.Windows.Forms.CheckBox();
+            this.excludeListOfTrains = new System.Windows.Forms.CheckBox();
             this.trainListFile = new System.Windows.Forms.TextBox();
             this.selectTrainFile = new System.Windows.Forms.Button();
             this.temporarySpeedRestrictionFile = new System.Windows.Forms.TextBox();
@@ -136,7 +137,6 @@
             this.selectCategory1IncreasingSimulation = new System.Windows.Forms.Button();
             this.Category1SimulationLabel = new System.Windows.Forms.Label();
             this.Category1IncreasingSimulationFile = new System.Windows.Forms.TextBox();
-            this.PortKembla = new System.Windows.Forms.CheckBox();
             this.simulationTab.SuspendLayout();
             this.AnalysisParametersTab.SuspendLayout();
             this.powerToWeightParametersTab.SuspendLayout();
@@ -188,7 +188,7 @@
             this.AnalysisParametersTab.Controls.Add(this.GunnedahBasin);
             this.AnalysisParametersTab.Controls.Add(this.CulleranRanges);
             this.AnalysisParametersTab.Controls.Add(this.TestLabel);
-            this.AnalysisParametersTab.Controls.Add(this.includeAListOfTrainsToExclude);
+            this.AnalysisParametersTab.Controls.Add(this.excludeListOfTrains);
             this.AnalysisParametersTab.Controls.Add(this.trainListFile);
             this.AnalysisParametersTab.Controls.Add(this.selectTrainFile);
             this.AnalysisParametersTab.Controls.Add(this.temporarySpeedRestrictionFile);
@@ -204,6 +204,17 @@
             this.AnalysisParametersTab.TabIndex = 0;
             this.AnalysisParametersTab.Text = "Analyis Parameters";
             this.AnalysisParametersTab.UseVisualStyleBackColor = true;
+            // 
+            // PortKembla
+            // 
+            this.PortKembla.AutoSize = true;
+            this.PortKembla.Location = new System.Drawing.Point(865, 221);
+            this.PortKembla.Name = "PortKembla";
+            this.PortKembla.Size = new System.Drawing.Size(83, 17);
+            this.PortKembla.TabIndex = 55;
+            this.PortKembla.Text = "Port Kembla";
+            this.PortKembla.UseVisualStyleBackColor = true;
+            this.PortKembla.CheckedChanged += new System.EventHandler(this.PortKembla_CheckedChanged);
             // 
             // timeSeparation
             // 
@@ -489,15 +500,15 @@
             this.TestLabel.TabIndex = 10;
             this.TestLabel.Text = "Set Testing Parameters";
             // 
-            // includeAListOfTrainsToExclude
+            // excludeListOfTrains
             // 
-            this.includeAListOfTrainsToExclude.AutoSize = true;
-            this.includeAListOfTrainsToExclude.Location = new System.Drawing.Point(17, 225);
-            this.includeAListOfTrainsToExclude.Name = "includeAListOfTrainsToExclude";
-            this.includeAListOfTrainsToExclude.Size = new System.Drawing.Size(118, 17);
-            this.includeAListOfTrainsToExclude.TabIndex = 9;
-            this.includeAListOfTrainsToExclude.Text = "Exclude trains in list";
-            this.includeAListOfTrainsToExclude.UseVisualStyleBackColor = true;
+            this.excludeListOfTrains.AutoSize = true;
+            this.excludeListOfTrains.Location = new System.Drawing.Point(17, 225);
+            this.excludeListOfTrains.Name = "excludeListOfTrains";
+            this.excludeListOfTrains.Size = new System.Drawing.Size(118, 17);
+            this.excludeListOfTrains.TabIndex = 9;
+            this.excludeListOfTrains.Text = "Exclude trains in list";
+            this.excludeListOfTrains.UseVisualStyleBackColor = true;
             // 
             // trainListFile
             // 
@@ -1335,17 +1346,6 @@
             this.Category1IncreasingSimulationFile.TabIndex = 0;
             this.Category1IncreasingSimulationFile.Text = "<Required>";
             // 
-            // PortKembla
-            // 
-            this.PortKembla.AutoSize = true;
-            this.PortKembla.Location = new System.Drawing.Point(865, 221);
-            this.PortKembla.Name = "PortKembla";
-            this.PortKembla.Size = new System.Drawing.Size(83, 17);
-            this.PortKembla.TabIndex = 55;
-            this.PortKembla.Text = "Port Kembla";
-            this.PortKembla.UseVisualStyleBackColor = true;
-            this.PortKembla.CheckedChanged += new System.EventHandler(this.PortKembla_CheckedChanged);
-            // 
             // TrainPerformance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1371,7 +1371,7 @@
 
         private System.Windows.Forms.TabControl simulationTab;
         private System.Windows.Forms.TabPage AnalysisParametersTab;
-        private System.Windows.Forms.CheckBox includeAListOfTrainsToExclude;
+        private System.Windows.Forms.CheckBox excludeListOfTrains;
         private System.Windows.Forms.TextBox trainListFile;
         private System.Windows.Forms.Button selectTrainFile;
         private System.Windows.Forms.TextBox temporarySpeedRestrictionFile;

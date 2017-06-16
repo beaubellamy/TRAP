@@ -129,7 +129,7 @@ namespace TRAP
             List<string> excludeTrainList = new List<string> { };
 
             /* Populate the exluded train list. */
-            if (Settings.includeAListOfTrainsToExclude)
+            if (Settings.excludeListOfTrains)
                 excludeTrainList = FileOperations.readTrainList(FileSettings.trainListFile);
 
             /* Read in the track gemoetry data. */
@@ -467,7 +467,7 @@ namespace TRAP
         /// Extract the value of the includeAListOfTrainsToExclude flag.
         /// </summary>
         /// <returns>The value of the boolean flag.</returns>
-        public bool getTrainListExcludeFlag() { return includeAListOfTrainsToExclude.Checked; }
+        public bool getTrainListExcludeFlag() { return excludeListOfTrains.Checked; }
 
         /// <summary>
         /// Extract the value of the start km for interpolation.
@@ -1051,7 +1051,7 @@ namespace TRAP
             toDate.Value = new DateTime(2016,4,1);
 
             /* Interpolation parameters */
-            includeAListOfTrainsToExclude.Checked = false;
+            excludeListOfTrains.Checked = false;
 
             startInterpolationKm.Text = "220";
             endInterpolationKm.Text = "320";
@@ -1152,7 +1152,7 @@ namespace TRAP
             toDate.Value = new DateTime(2017,5,1);
 
             /* Interpolation Parameters. */
-            includeAListOfTrainsToExclude.Checked = false;
+            excludeListOfTrains.Checked = false;
 
             startInterpolationKm.Text = "264";
             endInterpolationKm.Text = "541";
@@ -1253,7 +1253,7 @@ namespace TRAP
             toDate.Value = new DateTime(2016,2,1);
 
             /* Interpoaltion Parameters. */
-            includeAListOfTrainsToExclude.Checked = false;
+            excludeListOfTrains.Checked = false;
 
             startInterpolationKm.Text = "5";
             endInterpolationKm.Text = "70";
@@ -1354,7 +1354,7 @@ namespace TRAP
             toDate.Value = new DateTime(2016,4,1);
 
             /* Interpolation Parameters */
-            includeAListOfTrainsToExclude.Checked = false;
+            excludeListOfTrains.Checked = false;
 
             startInterpolationKm.Text = "5";
             endInterpolationKm.Text = "505";
@@ -1455,7 +1455,7 @@ namespace TRAP
             toDate.Value = new DateTime(2016, 2, 1);
 
             /* Interpolation parameters. */
-            includeAListOfTrainsToExclude.Checked = false;
+            excludeListOfTrains.Checked = false;
 
             startInterpolationKm.Text = "950";
             endInterpolationKm.Text = "1400";
@@ -1555,7 +1555,7 @@ namespace TRAP
             toDate.Value = new DateTime(2017,6,10);
 
             /* Interpolation Parameters. */
-            includeAListOfTrainsToExclude.Checked = false;
+            excludeListOfTrains.Checked = false;
 
             startInterpolationKm.Text = "280";
             endInterpolationKm.Text = "460";
@@ -1656,7 +1656,7 @@ namespace TRAP
             toDate.Value = new DateTime(2017, 6, 10);
 
             /* Interpolation parameters. */
-            includeAListOfTrainsToExclude.Checked = false;
+            excludeListOfTrains.Checked = false;
 
             startInterpolationKm.Text = "55";
             endInterpolationKm.Text = "145";
@@ -1758,7 +1758,7 @@ namespace TRAP
             toDate.Value = new DateTime(2017, 6, 10);
 
             /* Interpolation parameters. */
-            includeAListOfTrainsToExclude.Checked = false;
+            excludeListOfTrains.Checked = false;
 
             startInterpolationKm.Text = "80";
             endInterpolationKm.Text = "160";
@@ -1972,7 +1972,7 @@ namespace TRAP
             toDate.Value = new DateTime(2016, 2, 1);
 
             /* Interpolation Parameters */
-            includeAListOfTrainsToExclude.Checked = false;
+            excludeListOfTrains.Checked = false;
 
             startInterpolationKm.Text = "0";
             endInterpolationKm.Text = "100";
@@ -2016,7 +2016,6 @@ namespace TRAP
             Settings.Category3Commodity = trainCommodity.Unknown;
 
         }
-
 
         /// <summary>
         /// Set Cullerin Ranges parameters and Execute the analysis without the interacting with the form.

@@ -534,7 +534,7 @@ namespace TRAP
             List<string> excludeTrainList = new List<string> { };
 
             /* Populate the exluded train list. */
-            if (Settings.includeAListOfTrainsToExclude)
+            if (FileSettings.trainListFile != null)
                 excludeTrainList = FileOperations.readTrainList(FileSettings.trainListFile);
 
             /* Read in the track geometry data. */
@@ -842,8 +842,15 @@ namespace TRAP
             /* Calculate the weighted average train in each direction. */
             if (weightedSimulation.Count() >= 2)
             {
-                averageTrains.Add(processing.averageTrain(increasingCombined, weightedSimulation[0].journey, trackGeometry));
-                averageTrains.Add(processing.averageTrain(decreasingCombined, weightedSimulation[1].journey, trackGeometry));
+                if (increasingCombined.Count() == 0)
+                    averageTrains.Add(createZeroedAverageTrain(Category.Combined, direction.IncreasingKm));
+                else
+                    averageTrains.Add(processing.averageTrain(increasingCombined, weightedSimulation[0].journey, trackGeometry));
+
+                if (decreasingCombined.Count() == 0)
+                    averageTrains.Add(createZeroedAverageTrain(Category.Combined, direction.DecreasingKm));
+                else
+                    averageTrains.Add(processing.averageTrain(decreasingCombined, weightedSimulation[1].journey, trackGeometry));
             }
             else
             {

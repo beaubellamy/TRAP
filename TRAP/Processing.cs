@@ -844,7 +844,7 @@ namespace TRAP
 
             /* Extract the form parameters. */
             Settings.dateRange = form.getDateRange();
-            Settings.includeAListOfTrainsToExclude = form.getTrainListExcludeFlag();
+            Settings.excludeListOfTrains = form.getTrainListExcludeFlag();
             Settings.startKm = form.getStartKm();
             Settings.endKm = form.getEndKm();
             Settings.interval = form.getInterval();
