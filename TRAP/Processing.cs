@@ -539,28 +539,28 @@ namespace TRAP
                         /* We dont want to include the speed in the aggregation if the train is within the
                          * bundaries of a TSR and is forced to slow down.  
                          */
+
                         
                     }
 
                 }
 
-                /* Identify where the TSR's were applied for the average train. */
-                int TSRtrue = TSRList.Where(t => t == true).Count();
-                if (TSRtrue > 0)
-                    TSRBoundary = true;
-                else
-                    TSRBoundary = false;    
-
+                
                 /* If the TSR applied for the whole analysis period, the simulation speed is used. */
-                if (TSRtrue == TSRList.Count())
+                if (TSRList.Where(t => t == true).Count() == TSRList.Count())
+                {
                     aveSpeed = CategorySim[journeyIdx].speed;
+                    TSRBoundary = true;
+                }
                 else
                 {
                     /* Calculate the average speed at each location. */
-                    if (speed.Count() == 0|| sum == 0)
+                    if (speed.Count() == 0 || sum == 0)
                         aveSpeed = 0;
                     else
                         aveSpeed = speed.Where(x => x > 0.0).Average();
+
+                    TSRBoundary = false;
                 }
 
                 /* Add to each list for this location. */

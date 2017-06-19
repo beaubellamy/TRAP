@@ -8,8 +8,7 @@ using Globalsettings;
 namespace TRAP
 {
 
-
-
+        
     /// <summary>
     /// Enumerated direction of the train km's.
     /// </summary>
