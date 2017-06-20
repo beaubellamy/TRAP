@@ -298,6 +298,7 @@ namespace TRAP
         /// <param name="TSRs">A list of TSR objects.</param>
         public void populateAllTrainsTemporarySpeedRestrictions(List<Train> trains, List<TSRObject> TSRs)
         {
+            bool intermediateTSRFlag;
 
             foreach (Train train in trains)
             {
@@ -305,16 +306,21 @@ namespace TRAP
 
                 foreach (TrainJourney journey in train.journey)
                 {
-                    /* Establish the TSR that applies to the train position. */
-                    if (journey.kilometreage > TSRs[tsrIndex].endKm && tsrIndex < TSRs.Count() - 1)
-                        tsrIndex++;
+                    /* Set the TSR flag for the next location. */
+                    intermediateTSRFlag = false;
 
-                    /* Determine if the TSR is applicable to the train by location and date. */
-                    if (journey.kilometreage >= TSRs[tsrIndex].startKm && journey.kilometreage <= TSRs[tsrIndex].endKm &&
-                        journey.dateTime >= TSRs[tsrIndex].IssueDate && journey.dateTime <= TSRs[tsrIndex].LiftedDate)
+                    /* Establish the TSR that applies to the train position. */
+                    for (tsrIndex = 0; tsrIndex < TSRs.Count(); tsrIndex++)
                     {
-                        journey.isTSRHere = true;                        
+                        /* Determine if the TSR is applicable to the train by location and date. */
+                        if (journey.kilometreage >= TSRs[tsrIndex].startKm && journey.kilometreage <= TSRs[tsrIndex].endKm &&
+                            journey.dateTime >= TSRs[tsrIndex].IssueDate && journey.dateTime <= TSRs[tsrIndex].LiftedDate)
+                        {
+                            intermediateTSRFlag = true;
+                        }
                     }
+                    journey.isTSRHere = intermediateTSRFlag;
+
                 }
             }
         }
