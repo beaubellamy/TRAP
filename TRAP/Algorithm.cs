@@ -48,8 +48,7 @@ namespace TRAP
         Underpowered, Overpowered, Alternative, 
         /* Other */
         Combined, Actual, Simulated, Unknown
-    };
-        
+    };        
 
     /// <summary>
     /// A Train class to describe each individual train.
@@ -858,13 +857,10 @@ namespace TRAP
 
                 throw new ArgumentException(error);
             }
-            
-
 
             /* Write the averaged Data to file for inspection. */
             FileOperations.wrtieAverageData(averageTrains, stats);
             
-
             return interpolatedTrains;
         }
 

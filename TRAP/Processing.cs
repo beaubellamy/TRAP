@@ -547,8 +547,6 @@ namespace TRAP
                         /* We dont want to include the speed in the aggregation if the train is within the
                          * bundaries of a TSR and is forced to slow down.  
                          */
-
-                        
                     }
 
                 }
@@ -578,6 +576,7 @@ namespace TRAP
                 isInLoopBoundary.Add(loopBoundary);
                 isInTSRboundary.Add(TSRBoundary);
 
+                /* Accumulate the transit time. */
                 if (!TSRBoundary)
                 {
                     if (aveSpeed > 0)
