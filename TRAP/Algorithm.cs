@@ -8,8 +8,7 @@ using Globalsettings;
 namespace TRAP
 {
 
-
-
+        
     /// <summary>
     /// Enumerated direction of the train km's.
     /// </summary>
@@ -860,6 +859,8 @@ namespace TRAP
                 throw new ArgumentException(error);
             }
             
+
+
             /* Write the averaged Data to file for inspection. */
             FileOperations.wrtieAverageData(averageTrains, stats);
             
