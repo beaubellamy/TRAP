@@ -476,6 +476,8 @@ namespace TRAP
             bool loopBoundary = false;
             bool TSRBoundary = false;
             List<bool> TSRList = new List<bool>();
+            double actualTime = 0;
+            double simulatedTime = 0;
 
             /* Set up the average train journey lists. */
             List<double> kilometreage = new List<double>();
@@ -502,7 +504,7 @@ namespace TRAP
                 /* Determine the current location and elevation of the alignemnt at this point. */
                 kmPost = Settings.startKm + Settings.interval / 1000 * journeyIdx;
                 altitude = trackGeometry[TrainPerformance.track.findClosestTrackGeometryPoint(trackGeometry, kmPost)].elevation;
-                
+
                 speed.Clear();
                 TSRList.Clear();
                 sum = 0;
@@ -545,28 +547,28 @@ namespace TRAP
                         /* We dont want to include the speed in the aggregation if the train is within the
                          * bundaries of a TSR and is forced to slow down.  
                          */
+
                         
                     }
 
                 }
 
-                /* Identify where the TSR's were applied for the average train. */
-                int TSRtrue = TSRList.Where(t => t == true).Count();
-                if (TSRtrue > 0)
-                    TSRBoundary = true;
-                else
-                    TSRBoundary = false;    
-
+                
                 /* If the TSR applied for the whole analysis period, the simulation speed is used. */
-                if (TSRtrue == TSRList.Count())
-                    aveSpeed = CategorySim[journeyIdx].speed;
+                if (TSRList.Where(t => t == true).Count() == TSRList.Count())
+                {
+                    aveSpeed = 0; 
+                    TSRBoundary = true;
+                }
                 else
                 {
                     /* Calculate the average speed at each location. */
-                    if (speed.Count() == 0|| sum == 0)
+                    if (speed.Count() == 0 || sum == 0)
                         aveSpeed = 0;
                     else
                         aveSpeed = speed.Where(x => x > 0.0).Average();
+
+                    TSRBoundary = false;
                 }
 
                 /* Add to each list for this location. */
@@ -576,9 +578,32 @@ namespace TRAP
                 isInLoopBoundary.Add(loopBoundary);
                 isInTSRboundary.Add(TSRBoundary);
 
+                if (!TSRBoundary)
+                {
+                    if (aveSpeed > 0)
+                        actualTime = actualTime + ((Settings.interval / 1000) / aveSpeed);
+
+                    if (CategorySim[journeyIdx].speed > 0)
+                        simulatedTime = simulatedTime + ((Settings.interval / 1000) / CategorySim[journeyIdx].speed);
+                }
+                
 
             }
-            
+
+            /* Calculate the pro-rata ratio for applying the simualted speeds. */
+            Settings.proRataTSRRatio = actualTime / simulatedTime;
+
+            /* Make sure the ratio is less than 1. */
+            if (Settings.proRataTSRRatio > 1)
+                Settings.proRataTSRRatio = 1 / Settings.proRataTSRRatio;
+
+            /* Re-assign the pro-rata speeds to the TSR locations. */
+            for (int index = 0; index < averageSpeed.Count(); index++)
+            {
+                if (isInTSRboundary[index])
+                    averageSpeed[index] = Settings.proRataTSRRatio * CategorySim[index].speed;
+            }
+
             /* Create the new average train object. */
             AverageTrain averageTrain = new AverageTrain(trains[0].Category, trains[0].trainDirection, trains.Count() ,kilometreage, elevation, averageSpeed, isInLoopBoundary, isInTSRboundary);
 

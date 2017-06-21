@@ -50,7 +50,8 @@ namespace Globalsettings
         public static double Category1UpperBound;           /* The upper bound cuttoff for the underpowered trains. */
         public static double Category2LowerBound;           /* The lower bound cuttoff for the overpowered trains. */
         public static double Category2UpperBound;           /* The upper bound cuttoff for the overpowered trains. */
-        
+
+        public static double proRataTSRRatio;               /* The ratio to apply to the simulated speed to replace the actual speed for TSR locations. */
 
         public static analysisCategory analysisCategory;
         public static trainOperator Category1Operator = trainOperator.Unknown;
