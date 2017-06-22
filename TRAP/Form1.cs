@@ -41,9 +41,9 @@ namespace TRAP
             //runCulleranRanges(sender, e);             /* Insufficient TSR data */ 
             runGunnedBasin(sender, e);                  // Run Time: 01:06:43.43
             runUlanLine(sender, e);                     // Run Time: 01:20:22.35
-            //runMacarthurToBotany(sender, e);          /* The data is not in the correct format */ 
-            //runMelbourneToCootamundra(sender, e);     /* The data is not in the correct format */ 
-            //runTarcoolaToKalgoorlie(sender, e);       /* The data is not in the correct format */ 
+            //runMacarthurToBotany(sender, e);          /* Insufficient TSR data */ 
+            //runMelbourneToCootamundra(sender, e);     /* Insufficient TSR data */ 
+            //runTarcoolaToKalgoorlie(sender, e);       /* Insufficient TSR data */ 
             runSouthernHighlands(sender, e);            // Run Time: 01:15:35.47
             runPortKembla(sender, e);                   // Run Time: 00:11:44.02
 #endif
@@ -1199,7 +1199,7 @@ namespace TRAP
         {
 
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany test data.csv";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany data.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
@@ -1300,7 +1300,7 @@ namespace TRAP
         {
 
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Melbourne to Cootamundra test data.csv";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Melbourne to Cootamundra data.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
@@ -1401,7 +1401,7 @@ namespace TRAP
         {
 
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie test data.csv";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie data.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
