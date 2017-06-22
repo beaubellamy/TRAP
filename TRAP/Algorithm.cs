@@ -162,7 +162,7 @@ namespace TRAP
             for (int journeyIdx = 0; journeyIdx < TrainJourney.Count(); journeyIdx++)
             {
                 /* Match the current location with the geometry information. */
-                if (Math.Abs(TrainJourney[journeyIdx].kilometreage - targetKm) * 1e12 < 1)
+                if (Math.Abs(TrainJourney[journeyIdx].kilometreage - targetKm) * 1e10 < 1)
                     return journeyIdx;
             }
 
