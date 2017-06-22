@@ -684,6 +684,8 @@ namespace TRAP
                 return trainOperator.Countrylink;
             else if (shortOperator.Equals("Freigh", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.Freightliner;
+            else if (shortOperator.Equals("Geness", StringComparison.OrdinalIgnoreCase))
+                return trainOperator.GenesseeWyoming;
             else if (shortOperator.Equals("Great ", StringComparison.OrdinalIgnoreCase))
                 return trainOperator.GreatSouthernRail;
             else if (shortOperator.Equals("intera", StringComparison.OrdinalIgnoreCase))
