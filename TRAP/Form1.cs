@@ -1162,8 +1162,8 @@ namespace TRAP
             timeSeparation.Text = "10";
 
             loopBoundaryThreshold.Text = "1";
-            loopSpeedThreshold.Text = "50";
-            TSRWindowBoundary.Text = "1";
+            loopSpeedThreshold.Text = "40";
+            TSRWindowBoundary.Text = "2";
 
             Category1LowerBound.Text = "0";
             Category1UpperBound.Text = "100";
@@ -2209,7 +2209,6 @@ namespace TRAP
             Console.WriteLine("Port Kembla RunTime " + elapsedTime);
         }
 
-
-
+        
     }
 }
