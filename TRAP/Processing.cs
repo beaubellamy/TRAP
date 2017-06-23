@@ -11,12 +11,7 @@ namespace TRAP
     {
         /* Mean radius of the Earth */
         private const double EarthRadius = 6371000.0;   // metres
-        /* Constant time factors. */
-        private const double secPerHour = 3600;
-        private const double secPerDay = 86400;
-        private const double hoursPerDay = 24;
-        private const double minutesPerHour = 60;
-        private const double secPerMinute = 60;
+        
 
 
         /// <summary>
