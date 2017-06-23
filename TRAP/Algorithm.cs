@@ -19,7 +19,7 @@ namespace TRAP
     /// </summary>
     public enum trainOperator
     {
-        ARTC, Aurizon, AustralianRailwaysHistoricalSociety, CityRail, Countrylink, Freightliner, GreatSouthernRail, Interail, 
+        ARTC, Aurizon, AustralianRailwaysHistoricalSociety, CityRail, Countrylink, Freightliner, GenesseeWyoming, GreatSouthernRail, Interail, 
         JohnHollandRail, LauchlanValleyRailSociety, PacificNational, QUBE, RailTransportMuseum, RailCorp, SCT, SouthernShorthaulRail, 
         SydneyRailService, TheRailMotorService, VLinePassenger, GroupRemaining, Combined, Simulated, Unknown
     };
@@ -39,7 +39,7 @@ namespace TRAP
     public enum Category
     {
         /* Train Operators. */
-        ARTC, Aurizon, AustralianRailwaysHistoricalSociety, CityRail, Countrylink, Freightliner, GreatSouthernRail, Interail,
+        ARTC, Aurizon, AustralianRailwaysHistoricalSociety, CityRail, Countrylink, Freightliner, GenesseeWyoming, GreatSouthernRail, Interail,
         JohnHollandRail, LauchlanValleyRailSociety, PacificNational, QUBE, RailTransportMuseum, RailCorp, SCT, SouthernShorthaulRail,
         SydneyRailService, TheRailMotorSociety, VLinePassenger, 
         /* Commodities. */
