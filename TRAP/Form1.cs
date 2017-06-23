@@ -10,7 +10,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading;
+//using System.Threading.Tasks;
 using System.Windows.Forms;
 using Globalsettings;
 using System.Reflection;
@@ -23,6 +24,17 @@ namespace TRAP
         public static Tools tool = new Tools();
         public static Processing processing = new Processing();
         public static TrackGeometry track = new TrackGeometry();
+
+        /* Constant time factors. */
+        public const double secPerHour = 3600;
+        public const double secPerDay = 86400;
+        public const double hoursPerDay = 24;
+        public const double minutesPerHour = 60;
+        public const double secPerMinute = 60;
+
+        /* Timer parameters to keep track of execution time. */
+        private int timeCounter;
+        private bool stopTheClock;
 
         public TrainPerformance()
         {
@@ -50,7 +62,7 @@ namespace TRAP
 
 
         }
-
+        
         /// <summary>
         /// Select the data file that requires processing.
         /// </summary>
@@ -372,6 +384,13 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void Execute_Click(object sender, EventArgs e)
         {
+            /* Create a Timer. */
+            Timer timer = new Timer();
+            timer.Interval = 1000;                      // Set the tick interval to 1 second.
+            timer.Enabled = true;                       // Set the time to be running.
+            timer.Tag = executionTime;                  // Set the timer label
+            timer.Tick += new EventHandler(tickTimer);  // Event handler function.
+
             /* Populate the parameters. */
             processing.populateFormParameters(this);
             /* Validate the form parameters. */
@@ -381,48 +400,70 @@ namespace TRAP
                 return;
             }
 
-            Stopwatch timer = new Stopwatch();
+            /* Start the timer. */
             timer.Start();
 
-            /* Run the train performance analysis. */
-            List<Train> trains = new List<Train>();
-            trains = Algorithm.trainPerformance();
+            /* Set up the background threads to run asynchronously. */
+            BackgroundWorker background = new BackgroundWorker();
 
-            timer.Stop();
-            TimeSpan ts = timer.Elapsed;
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-            Console.WriteLine("RunTime " + elapsedTime);
+            background.DoWork += (backgroundSender, backgroundEvents) =>
+                {
+            
+                    /* Run the train performance analysis. */
+                    List<Train> trains = new List<Train>();
+                    trains = Algorithm.trainPerformance();
 
+                    /* Populate the counts for each train Category. */
+                    if (Settings.analysisCategory == analysisCategory.TrainPowerToWeight)
+                    {
+                        Category1IncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
+                                                        Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                                        Where(t => t.powerToWeight <= Settings.Category1UpperBound).Count().ToString();
+                        Category1DecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
+                                                        Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                                        Where(t => t.powerToWeight <= Settings.Category1UpperBound).Count().ToString();
+                        Category2IncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
+                                                        Where(t => t.powerToWeight > Settings.Category2LowerBound).
+                                                        Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
+                        Category2DecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
+                                                        Where(t => t.powerToWeight > Settings.Category2LowerBound).
+                                                        Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
 
-            /* Populate the counts for each train Category. */
-            Category1IncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
-                                            Where(t => t.powerToWeight > Settings.Category1LowerBound).
-                                            Where(t => t.powerToWeight <= Settings.Category1UpperBound).Count().ToString();
-            Category1DecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
-                                            Where(t => t.powerToWeight > Settings.Category1LowerBound).
-                                            Where(t => t.powerToWeight <= Settings.Category1UpperBound).Count().ToString();
-            Category2IncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
-                                            Where(t => t.powerToWeight > Settings.Category2LowerBound).
-                                            Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
-            Category2DecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
-                                            Where(t => t.powerToWeight > Settings.Category2LowerBound).
-                                            Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
+                        combinedIncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
+                                                        Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                                        Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
+                        combinedDecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
+                                                        Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                                        Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
+                    }
+                    
+                    /*
+                     * else if analysis catagory is train operator
+                     *      set labels to appropriate opperators
+                     *      set the counts of each operator
+                     * else
+                     *      set labels to appropriate commodity
+                     *      set count of each commodity
+                     */
+                };
 
-            combinedIncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
-                                            Where(t => t.powerToWeight > Settings.Category1LowerBound).
-                                            Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
-            combinedDecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
-                                            Where(t => t.powerToWeight > Settings.Category1LowerBound).
-                                            Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
-
-            executionTime.Text = elapsedTime;
+            background.RunWorkerCompleted += (backgroundSender, backgroundEvents) =>
+                {
+                    /* When asynchronous execution complete, reset the timer counter ans stop the clock. */
+                    timeCounter = 0;
+                    stopTheClock = true;
 
 #if (!TESTING)
-            tool.messageBox("Program Complete.");      
+                    tool.messageBox("Program Complete.");
 #endif
 
-        }
+                };
 
+            background.RunWorkerAsync();
+            
+
+        }
+        
         /// <summary>
         /// Calculate the average power to weight ratio of all trains within a band for a given direction of travel.
         /// </summary>
@@ -1161,9 +1202,9 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
+            loopBoundaryThreshold.Text = "2";
             loopSpeedThreshold.Text = "50";
-            TSRWindowBoundary.Text = "1";
+            TSRWindowBoundary.Text = "2";
 
             Category1LowerBound.Text = "0";
             Category1UpperBound.Text = "100";
@@ -2209,7 +2250,36 @@ namespace TRAP
             Console.WriteLine("Port Kembla RunTime " + elapsedTime);
         }
 
+        /// <summary>
+        /// Event Handler function for the timeCounter. 
+        /// This display the dynamic execution time of the program.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        void tickTimer(object sender, EventArgs e)
+        {
+            /* Stop the timer when stopTheClock is set to true. */
+            if (stopTheClock)
+            {
+                ((Timer)sender).Stop();
+                return;
+            }
 
+            /* Increment the timer*/
+            ++timeCounter;
 
+            /* Convert the timeCounter to hours, minutes and seconds. */
+            double hours = timeCounter / secPerHour;
+            double minutes = (hours - (int)hours) * minutesPerHour;
+            double seconds = (minutes - (int)minutes) * secPerMinute;
+
+            /* Format a string for display on the form. */
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", (int)hours, (int)minutes, (int)seconds);
+            ((Label)((Timer)sender).Tag).Text = elapsedTime;
+
+        }
+        
+
+        
     }
 }
