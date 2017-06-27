@@ -858,7 +858,7 @@ namespace TRAP
                 throw new ArgumentException(error);
             }
 
-            /* Write the averaged Data to file for inspection. */
+            /* Write the averaged Data to file for inspection. */            
             FileOperations.wrtieAverageData(averageTrains, stats);
             
             return interpolatedTrains;
