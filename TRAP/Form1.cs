@@ -33,8 +33,8 @@ namespace TRAP
         public const double secPerMinute = 60;
 
         /* Timer parameters to keep track of execution time. */
-        private int timeCounter;
-        private bool stopTheClock;
+        private int timeCounter = 0;
+        private bool stopTheClock = false;
 
         public TrainPerformance()
         {
@@ -59,7 +59,6 @@ namespace TRAP
             runSouthernHighlands(sender, e);            // Run Time: 01:15:35.47
             runPortKembla(sender, e);                   // Run Time: 00:11:44.02
 #endif
-
 
         }
         
@@ -447,20 +446,20 @@ namespace TRAP
                      */
                 };
 
-            background.RunWorkerCompleted += (backgroundSender, backgroundEvents) =>
-                {
-                    /* When asynchronous execution complete, reset the timer counter ans stop the clock. */
-                    timeCounter = 0;
-                    stopTheClock = true;
+                background.RunWorkerCompleted += (backgroundSender, backgroundEvents) =>
+                    {
+                        /* When asynchronous execution complete, reset the timer counter ans stop the clock. */
+                        timeCounter = 0;
+                        stopTheClock = true;
 
 #if (!TESTING)
-                    tool.messageBox("Program Complete.");
+                        tool.messageBox("Program Complete.");
 #endif
+                    };
 
-                };
+                background.RunWorkerAsync();
 
-            background.RunWorkerAsync();
-            
+
 
         }
         
@@ -2262,6 +2261,9 @@ namespace TRAP
             if (stopTheClock)
             {
                 ((Timer)sender).Stop();
+                /* Reset the static timer properties. */
+                timeCounter = 0;
+                stopTheClock = false;
                 return;
             }
 

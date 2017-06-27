@@ -297,15 +297,13 @@ namespace TRAP
 
             foreach (Train train in trains)
             {
-                int tsrIndex = 0;
-
                 foreach (TrainJourney journey in train.journey)
                 {
                     /* Set the TSR flag for the next location. */
                     intermediateTSRFlag = false;
 
                     /* Establish the TSR that applies to the train position. */
-                    for (tsrIndex = 0; tsrIndex < TSRs.Count(); tsrIndex++)
+                    for (int tsrIndex = 0; tsrIndex < TSRs.Count(); tsrIndex++)
                     {
                         /* Determine if the TSR is applicable to the train by location and date. */
                         if (journey.kilometreage >= TSRs[tsrIndex].startKm && journey.kilometreage <= TSRs[tsrIndex].endKm &&
@@ -470,7 +468,9 @@ namespace TRAP
 
             bool loopBoundary = false;
             bool TSRBoundary = false;
+            bool slowTrainsOrTSR = false;
             List<bool> TSRList = new List<bool>();
+            List<bool> slowTrains = new List<bool>();
             double actualTime = 0;
             double simulatedTime = 0;
 
@@ -480,7 +480,7 @@ namespace TRAP
             List<double> averageSpeed = new List<double>();
             List<bool> isInLoopBoundary = new List<bool>();
             List<bool> isInTSRboundary = new List<bool>();
-
+            List<bool> trackSlowTrains = new List<bool>();
 
             double kmPost = 0;
             double altitude = 0;
@@ -502,12 +502,12 @@ namespace TRAP
 
                 speed.Clear();
                 TSRList.Clear();
+                slowTrains.Clear();
                 sum = 0;
-
+                
                 /* Cycle through each train in the list. */
                 foreach (Train train in trains)
                 {
-                    
                     journey = train.journey[journeyIdx];
 
                     /* Does a TSR apply */
@@ -518,6 +518,7 @@ namespace TRAP
                         if (!isTrainInLoopBoundary(train, journey.kilometreage))
                         {
                             loopBoundary = false;
+                            slowTrains.Add(false);
 
                             speed.Add(journey.speed);
                             sum = sum + journey.speed;
@@ -528,17 +529,23 @@ namespace TRAP
 
                             if (journey.speed > (Settings.loopSpeedThreshold * CategorySim[journeyIdx].speed))
                             {
+                                slowTrains.Add(false); 
+                                
                                 speed.Add(journey.speed);
-                                sum = sum + journey.speed;
+                                sum = sum + journey.speed;                                
                             }
-
+                            else
+                            {
+                                /* The train is too slow to include in the analysis. */
+                                slowTrains.Add(true);
+                            }
                         }
 
                     }
                     else
                     {
                         TSRList.Add(true);
-
+                        slowTrains.Add(true);
                         /* We dont want to include the speed in the aggregation if the train is within the
                          * bundaries of a TSR and is forced to slow down.  
                          */
@@ -546,9 +553,14 @@ namespace TRAP
 
                 }
 
-                
+                /* If all trains passing a loop were too slow, track this to allow applying the simulation speed at these locations. */
+                if (slowTrains.Where(t => t == true).Count() == trains.Count())
+                    slowTrainsOrTSR = true;
+                else
+                    slowTrainsOrTSR = false;
+
                 /* If the TSR applied for the whole analysis period, the simulation speed is used. */
-                if (TSRList.Where(t => t == true).Count() == TSRList.Count())
+                if (TSRList.Where(t => t == true).Count() == trains.Count())
                 {
                     aveSpeed = 0; 
                     TSRBoundary = true;
@@ -571,14 +583,17 @@ namespace TRAP
                 isInLoopBoundary.Add(loopBoundary);
                 isInTSRboundary.Add(TSRBoundary);
 
-                /* Accumulate the transit time. */
-                if (!TSRBoundary)
-                {
-                    if (aveSpeed > 0)
-                        actualTime = actualTime + ((Settings.interval / 1000) / aveSpeed);
+                trackSlowTrains.Add(slowTrainsOrTSR);
 
-                    if (CategorySim[journeyIdx].speed > 0)
+                
+                /* Accumulate the transit time. */
+                if (!TSRBoundary || slowTrainsOrTSR)
+                {
+                    if (aveSpeed > 0 && CategorySim[journeyIdx].speed > 0)
+                    {
+                        actualTime = actualTime + ((Settings.interval / 1000) / aveSpeed);
                         simulatedTime = simulatedTime + ((Settings.interval / 1000) / CategorySim[journeyIdx].speed);
+                    }
                 }
                 
 
@@ -591,10 +606,10 @@ namespace TRAP
             if (Settings.proRataTSRRatio > 1)
                 Settings.proRataTSRRatio = 1 / Settings.proRataTSRRatio;
 
-            /* Re-assign the pro-rata speeds to the TSR locations. */
+            /* Re-assign the pro-rata speeds to the TSR locations or the slow train locations. */
             for (int index = 0; index < averageSpeed.Count(); index++)
             {
-                if (isInTSRboundary[index])
+                if (isInTSRboundary[index] || trackSlowTrains[index])
                     averageSpeed[index] = Settings.proRataTSRRatio * CategorySim[index].speed;
             }
 
