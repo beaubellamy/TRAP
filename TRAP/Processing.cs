@@ -509,6 +509,8 @@ namespace TRAP
                 foreach (Train train in trains)
                 {
                     journey = train.journey[journeyIdx];
+                    /* Assume a loop boundary does not apply until we check. */
+                    loopBoundary = true;
 
                     /* Does a TSR apply */
                     if (!withinTemporarySpeedRestrictionBoundaries(train, journey.kilometreage))
@@ -517,7 +519,6 @@ namespace TRAP
                         /* Is the train within a loop boundary */
                         if (!isTrainInLoopBoundary(train, journey.kilometreage))
                         {
-                            loopBoundary = false;
                             slowTrains.Add(false);
 
                             speed.Add(journey.speed);
@@ -544,11 +545,16 @@ namespace TRAP
                     }
                     else
                     {
-                        TSRList.Add(true);
-                        slowTrains.Add(true);
                         /* We dont want to include the speed in the aggregation if the train is within the
                          * bundaries of a TSR and is forced to slow down.  
                          */
+                        TSRList.Add(true);
+                        slowTrains.Add(true);
+
+                        /* Keep track of the loop boundary for later inspection, if neccessary. */
+                        if (isTrainInLoopBoundary(train, journey.kilometreage))
+                            loopBoundary = true;
+                        
                     }
 
                 }
