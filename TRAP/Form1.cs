@@ -10,8 +10,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-//using System.Threading;
-//using System.Threading.Tasks;
 using System.Windows.Forms;
 using Globalsettings;
 using System.Reflection;
