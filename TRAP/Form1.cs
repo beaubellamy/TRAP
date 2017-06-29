@@ -48,12 +48,12 @@ namespace TRAP
             object sender = new object();
             EventArgs e = new EventArgs();
 
-            //runCulleranRanges(sender, e);             /* Insufficient TSR data */ 
-            runGunnedBasin(sender, e);                  // Run Time: 01:06:43.43
-            runUlanLine(sender, e);                     // Run Time: 01:20:22.35
-            //runMacarthurToBotany(sender, e);          /* Insufficient TSR data */ 
-            //runMelbourneToCootamundra(sender, e);     /* Insufficient TSR data */ 
-            //runTarcoolaToKalgoorlie(sender, e);       /* Insufficient TSR data */ 
+            runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:06:38.39
+            runGunnedBasin(sender, e);                  // Run Time: 01:14:02.75
+            runUlanLine(sender, e);                     // Run Time: 01:25:11.60
+            runMacarthurToBotany(sender, e);            /* Insufficient TSR data */ // RunTime 00:30:57.00
+            runMelbourneToCootamundra(sender, e);       /* Insufficient TSR data */ // RunTime 
+            runTarcoolaToKalgoorlie(sender, e);         /* Insufficient TSR data */ // RunTime 
             runSouthernHighlands(sender, e);            // Run Time: 01:15:35.47
             runPortKembla(sender, e);                   // Run Time: 00:11:44.02
 #endif
@@ -446,16 +446,77 @@ namespace TRAP
 
                 background.RunWorkerCompleted += (backgroundSender, backgroundEvents) =>
                     {
+
                         /* When asynchronous execution complete, reset the timer counter ans stop the clock. */
                         timeCounter = 0;
                         stopTheClock = true;
 
-#if (!TESTING)
                         tool.messageBox("Program Complete.");
-#endif
                     };
 
                 background.RunWorkerAsync();
+
+
+
+        }
+
+        /// <summary>
+        /// Allow the testing process to continue without asynchronous execution.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void testExecute(object sender, EventArgs e)
+        {
+
+            /* Populate the parameters. */
+            processing.populateFormParameters(this);
+            /* Validate the form parameters. */
+            if (!processing.areFormParametersValid())
+            {
+                tool.messageBox("One or more parameters are invalid.");
+                return;
+            }
+
+            /* Set up the background threads to run asynchronously. */
+            BackgroundWorker background = new BackgroundWorker();
+
+            /* Run the train performance analysis. */
+            List<Train> trains = new List<Train>();
+            trains = Algorithm.trainPerformance();
+
+            /* Populate the counts for each train Category. */
+            if (Settings.analysisCategory == analysisCategory.TrainPowerToWeight)
+            {
+                Category1IncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
+                                                Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                                Where(t => t.powerToWeight <= Settings.Category1UpperBound).Count().ToString();
+                Category1DecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
+                                                Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                                Where(t => t.powerToWeight <= Settings.Category1UpperBound).Count().ToString();
+                Category2IncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
+                                                Where(t => t.powerToWeight > Settings.Category2LowerBound).
+                                                Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
+                Category2DecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
+                                                Where(t => t.powerToWeight > Settings.Category2LowerBound).
+                                                Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
+
+                combinedIncreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.IncreasingKm).
+                                                Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                                Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
+                combinedDecreasingTrainCount.Text = trains.Where(t => t.trainDirection == direction.DecreasingKm).
+                                                Where(t => t.powerToWeight > Settings.Category1LowerBound).
+                                                Where(t => t.powerToWeight <= Settings.Category2UpperBound).Count().ToString();
+            }
+
+            /*
+             * else if analysis catagory is train operator
+             *      set labels to appropriate opperators
+             *      set the counts of each operator
+             * else
+             *      set labels to appropriate commodity
+             *      set count of each commodity
+             */
+
 
 
 
@@ -1086,7 +1147,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2016, 1, 1);
-            toDate.Value = new DateTime(2016,4,1);
+            toDate.Value = new DateTime(2016,6,1);
 
             /* Interpolation parameters */
             excludeListOfTrains.Checked = false;
@@ -1187,7 +1248,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2017,5,1);
+            toDate.Value = new DateTime(2017,6,1);
 
             /* Interpolation Parameters. */
             excludeListOfTrains.Checked = false;
@@ -1397,7 +1458,7 @@ namespace TRAP
             startInterpolationKm.Text = "5";
             endInterpolationKm.Text = "505";
             interpolationInterval.Text = "50";
-            minimumJourneyDistance.Text = "400";
+            minimumJourneyDistance.Text = "350";
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
@@ -1490,7 +1551,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2016, 1, 1);
-            toDate.Value = new DateTime(2016, 2, 1);
+            toDate.Value = new DateTime(2016, 6, 1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2069,7 +2130,8 @@ namespace TRAP
             /* Set the analysis parameters. */
             setCulleranRangesParameters(sender, e);
             /* Simualte pressing execute button. */
-            Execute_Click(sender, e);
+            //Execute_Click(sender, e);
+            testExecute(sender, e);
 
             timer.Stop();
 
@@ -2093,7 +2155,8 @@ namespace TRAP
             /* Set the analysis parameters. */
             setGunnedahBasinParameters(sender, e);
             /* Simualte pressing execute button. */
-            Execute_Click(sender, e);
+            //Execute_Click(sender, e);
+            testExecute(sender, e);
 
             timer.Stop();
 
@@ -2117,7 +2180,8 @@ namespace TRAP
             /* Set the analysis parameters. */
             setUlanLineParameters(sender, e);
             /* Simualte pressing execute button. */
-            Execute_Click(sender, e);
+            //Execute_Click(sender, e);
+            testExecute(sender, e);
 
             timer.Stop();
 
@@ -2141,7 +2205,8 @@ namespace TRAP
             /* Set the analysis parameters. */
             setMacartur2BotanyParameters(sender, e);
             /* Simualte pressing execute button. */
-            Execute_Click(sender, e);
+            //Execute_Click(sender, e);
+            testExecute(sender, e);
 
             timer.Stop();
 
@@ -2165,7 +2230,8 @@ namespace TRAP
             /* Set the analysis parameters. */
             setMelbourne2CootamundraParameters(sender, e);
             /* Simualte pressing execute button. */
-            Execute_Click(sender, e);
+            //Execute_Click(sender, e);
+            testExecute(sender, e);
 
             timer.Stop();
 
@@ -2189,7 +2255,8 @@ namespace TRAP
             /* Set the analysis parameters. */
             setTarcoola2KalgoorlieParameters(sender, e);
             /* Simualte pressing execute button. */
-            Execute_Click(sender, e);
+            //Execute_Click(sender, e);
+            testExecute(sender, e);
 
             timer.Stop();
 
@@ -2213,7 +2280,8 @@ namespace TRAP
             /* Set the analysis parameters. */
             setSouthernHighlandsParameters(sender, e);
             /* Simualte pressing execute button. */
-            Execute_Click(sender, e);
+            //Execute_Click(sender, e);
+            testExecute(sender, e);
 
             timer.Stop();
 
@@ -2237,7 +2305,8 @@ namespace TRAP
             /* Set the analysis parameters. */
             setPortKemblaParameters(sender, e);
             /* Simualte pressing execute button. */
-            Execute_Click(sender, e);
+            //Execute_Click(sender, e);
+            testExecute(sender, e);
 
             timer.Stop();
 
