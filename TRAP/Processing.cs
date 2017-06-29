@@ -11,8 +11,8 @@ namespace TRAP
     {
         /* Mean radius of the Earth */
         private const double EarthRadius = 6371000.0;   // metres
+        private const double TrainLength = 1.5;         // kilometres
         
-
 
         /// <summary>
         /// Convert degrees in to radians
@@ -510,7 +510,7 @@ namespace TRAP
                 {
                     journey = train.journey[journeyIdx];
                     /* Assume a loop boundary does not apply until we check. */
-                    loopBoundary = true;
+                    loopBoundary = false;
 
                     /* Does a TSR apply */
                     if (!withinTemporarySpeedRestrictionBoundaries(train, journey.kilometreage))
@@ -724,7 +724,6 @@ namespace TRAP
         /// <returns>True, if the train is within the boundaries of the loop window.</returns>
         public bool isTrainInLoopBoundary(Train train, double targetLocation)
         {
-
             /* Find the indecies of the boundaries of the loop. */
             double lookBack = targetLocation - Settings.loopBoundaryThreshold;
             double lookForward = targetLocation + Settings.loopBoundaryThreshold;
@@ -771,6 +770,14 @@ namespace TRAP
             /* Find the indecies of the boundaries of the loop. */
             double lookBack = targetLocation - Settings.TSRwindowBoundary;
             double lookForward = targetLocation + Settings.TSRwindowBoundary;
+            /* Add the train length to the forward direction to mimic the fact that 
+             * the train can not start to accelerate until it has cleared the boundary. 
+             */
+            if (train.trainDirection == direction.IncreasingKm)
+                lookForward += TrainLength;
+            else
+                lookForward -= TrainLength;
+
             int lookBackIdx = train.indexOfgeometryKm(train.journey, lookBack);
             int lookForwardIdx = train.indexOfgeometryKm(train.journey, lookForward);
 
