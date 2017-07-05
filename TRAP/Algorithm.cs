@@ -156,7 +156,7 @@ namespace TRAP
         /// <param name="TrainJourney">List of train details objects containt the journey details of the train.</param>
         /// <param name="targetKm">The target location to find in the geomerty data.</param>
         /// <returns>The index of the target kilometreage in the geomerty data, -1 if the target is not found.</returns>
-        public int indexOfgeometryKm(List<TrainJourney> TrainJourney, double targetKm)
+        public int indexOfGeometryKm(List<TrainJourney> TrainJourney, double targetKm)
         {
             /* Loop through the train journey. */
             for (int journeyIdx = 0; journeyIdx < TrainJourney.Count(); journeyIdx++)
@@ -169,6 +169,36 @@ namespace TRAP
             return -1;
         }
 
+        /// <summary>
+        /// Convert Train object to an averageTrain object.
+        /// </summary>
+        /// <returns>An equivalent average train object.</returns>
+        public AverageTrain ToAverageTrain()
+        {
+            /* Create the average train object. */
+            AverageTrain averageSimulation = new AverageTrain();
+
+            /* Check the current train object is valid. */
+            if (this.journey.Count() == 0)
+                return averageSimulation;
+
+            /* Populate train characteristics. */
+            averageSimulation.trainCategory = this.Category;
+            averageSimulation.direction = this.trainDirection;
+            averageSimulation.trainCount = 1;
+
+            /* Populate the train journey properties. */
+            for (int index = 0; index < this.journey.Count; index++)
+            {
+                averageSimulation.kilometreage.Add(this.journey[index].kilometreage);
+                averageSimulation.elevation.Add(this.journey[index].elevation);
+                averageSimulation.averageSpeed.Add(this.journey[index].speed);
+                averageSimulation.isInLoopBoundary.Add(this.journey[index].isLoopHere);
+                averageSimulation.isInTSRboundary.Add(this.journey[index].isTSRHere);
+            }
+
+            return averageSimulation;
+        }
     }
 
     /// <summary>
@@ -849,6 +879,14 @@ namespace TRAP
                     averageTrains.Add(createZeroedAverageTrain(Category.Combined, direction.DecreasingKm));
                 else
                     averageTrains.Add(processing.averageTrain(decreasingCombined, weightedSimulation[1].journey, trackGeometry));
+
+                averageTrains.Add(weightedSimulation[0].ToAverageTrain());
+                averageTrains.Add(weightedSimulation[1].ToAverageTrain());
+
+                /* Generate statistics for the weighted average trains. */
+                stats.Add(Statistics.generateStats(weightedSimulation[0]));
+                stats.Add(Statistics.generateStats(weightedSimulation[1]));
+
             }
             else
             {
@@ -863,6 +901,8 @@ namespace TRAP
             
             return interpolatedTrains;
         }
+
+        
 
         /// <summary>
         /// This function cleans the data from large gaps in the data and ensures the trains 

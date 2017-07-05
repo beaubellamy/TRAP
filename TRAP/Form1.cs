@@ -48,8 +48,8 @@ namespace TRAP
             object sender = new object();
             EventArgs e = new EventArgs();
 
-            runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:06:38.39
-            runGunnedBasin(sender, e);                  // Run Time: 01:14:02.75
+            //runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:10:38.39
+            //runGunnedBasin(sender, e);                  // Run Time: 01:30:02.75
             runUlanLine(sender, e);                     // Run Time: 01:25:11.60
             runMacarthurToBotany(sender, e);            /* Insufficient TSR data */ // RunTime 00:30:57.00
             runMelbourneToCootamundra(sender, e);       /* Insufficient TSR data */ // RunTime 
@@ -476,9 +476,6 @@ namespace TRAP
                 tool.messageBox("One or more parameters are invalid.");
                 return;
             }
-
-            /* Set up the background threads to run asynchronously. */
-            BackgroundWorker background = new BackgroundWorker();
 
             /* Run the train performance analysis. */
             List<Train> trains = new List<Train>();
@@ -2130,7 +2127,6 @@ namespace TRAP
             /* Set the analysis parameters. */
             setCulleranRangesParameters(sender, e);
             /* Simualte pressing execute button. */
-            //Execute_Click(sender, e);
             testExecute(sender, e);
 
             timer.Stop();
@@ -2155,7 +2151,6 @@ namespace TRAP
             /* Set the analysis parameters. */
             setGunnedahBasinParameters(sender, e);
             /* Simualte pressing execute button. */
-            //Execute_Click(sender, e);
             testExecute(sender, e);
 
             timer.Stop();
@@ -2180,7 +2175,6 @@ namespace TRAP
             /* Set the analysis parameters. */
             setUlanLineParameters(sender, e);
             /* Simualte pressing execute button. */
-            //Execute_Click(sender, e);
             testExecute(sender, e);
 
             timer.Stop();
@@ -2205,7 +2199,6 @@ namespace TRAP
             /* Set the analysis parameters. */
             setMacartur2BotanyParameters(sender, e);
             /* Simualte pressing execute button. */
-            //Execute_Click(sender, e);
             testExecute(sender, e);
 
             timer.Stop();
@@ -2230,7 +2223,6 @@ namespace TRAP
             /* Set the analysis parameters. */
             setMelbourne2CootamundraParameters(sender, e);
             /* Simualte pressing execute button. */
-            //Execute_Click(sender, e);
             testExecute(sender, e);
 
             timer.Stop();
@@ -2255,7 +2247,6 @@ namespace TRAP
             /* Set the analysis parameters. */
             setTarcoola2KalgoorlieParameters(sender, e);
             /* Simualte pressing execute button. */
-            //Execute_Click(sender, e);
             testExecute(sender, e);
 
             timer.Stop();
@@ -2280,7 +2271,6 @@ namespace TRAP
             /* Set the analysis parameters. */
             setSouthernHighlandsParameters(sender, e);
             /* Simualte pressing execute button. */
-            //Execute_Click(sender, e);
             testExecute(sender, e);
 
             timer.Stop();
@@ -2305,7 +2295,6 @@ namespace TRAP
             /* Set the analysis parameters. */
             setPortKemblaParameters(sender, e);
             /* Simualte pressing execute button. */
-            //Execute_Click(sender, e);
             testExecute(sender, e);
 
             timer.Stop();

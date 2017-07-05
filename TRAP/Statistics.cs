@@ -98,6 +98,45 @@ namespace TRAP
             return stats;
             
         }
-        
+
+
+        /// <summary>
+        /// Calculates the statistics of a single train journey, 
+        /// typically used for the simualtion statistics.
+        /// </summary>
+        /// <param name="trains">A single train object.</param>
+        public static Statistics generateStats(Train train)
+        {
+            Statistics stats = new Statistics();
+
+            stats.Category = train.Category.ToString() + " " + train.trainDirection.ToString();
+
+            /* Extract the number of trains in the list */
+            stats.numberOfTrains = 1;
+
+            /* Calculate the distance travelled for each train */
+            double distanceTravelled = 0;
+            if (train.journey.Where(t => t.speed > 0).Count() != 0)
+            {
+                distanceTravelled = (train.journey.Where(t => t.speed > 0).Max(t => t.kilometreage) - train.journey.Where(t => t.speed > 0).Min(t => t.kilometreage));
+                /* Calculate the average speed of the train journey. */
+            }
+
+            /* Calculate the averages. */
+            stats.averageSpeed = train.journey.Where(t => t.speed > 0).Average(t => t.speed);
+            stats.averageDistanceTravelled = distanceTravelled;
+
+            if (train.powerToWeight != null)
+                stats.averagePowerToWeightRatio = train.powerToWeight;
+            else
+                stats.averagePowerToWeightRatio = 0;
+
+            /* Because there is only one train, the standard deviation is not relevant. */
+            stats.standardDeviationP2W = 0; 
+
+
+            return stats;
+
+        }
     }
 }

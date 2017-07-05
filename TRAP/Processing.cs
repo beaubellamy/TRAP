@@ -593,7 +593,7 @@ namespace TRAP
 
                 
                 /* Accumulate the transit time. */
-                if (!TSRBoundary || slowTrainsOrTSR)
+                if (!TSRBoundary || !slowTrainsOrTSR)
                 {
                     if (aveSpeed > 0 && CategorySim[journeyIdx].speed > 0)
                     {
@@ -727,8 +727,8 @@ namespace TRAP
             /* Find the indecies of the boundaries of the loop. */
             double lookBack = targetLocation - Settings.loopBoundaryThreshold;
             double lookForward = targetLocation + Settings.loopBoundaryThreshold;
-            int lookBackIdx = train.indexOfgeometryKm(train.journey, lookBack);
-            int lookForwardIdx = train.indexOfgeometryKm(train.journey, lookForward);
+            int lookBackIdx = train.indexOfGeometryKm(train.journey, lookBack);
+            int lookForwardIdx = train.indexOfGeometryKm(train.journey, lookForward);
 
             /* Check the indecies are valid */
             if (lookBack < Settings.startKm && lookBackIdx == -1)
@@ -778,8 +778,8 @@ namespace TRAP
             else
                 lookForward -= TrainLength;
 
-            int lookBackIdx = train.indexOfgeometryKm(train.journey, lookBack);
-            int lookForwardIdx = train.indexOfgeometryKm(train.journey, lookForward);
+            int lookBackIdx = train.indexOfGeometryKm(train.journey, lookBack);
+            int lookForwardIdx = train.indexOfGeometryKm(train.journey, lookForward);
 
             /* Check the indecies are valid */
             if (lookBack < Settings.startKm && lookBackIdx == -1)
