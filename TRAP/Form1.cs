@@ -1,5 +1,5 @@
 ﻿/* uncomment when testing mutliple corridors overnight. */
-//#define TESTING 
+#define TESTING 
 
 using System;
 using System.IO;
@@ -48,14 +48,16 @@ namespace TRAP
             object sender = new object();
             EventArgs e = new EventArgs();
 
-            //runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:10:38.39
-            //runGunnedBasin(sender, e);                  // Run Time: 01:30:02.75
+            runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:10:38.39
+            runGunnedBasin(sender, e);                  // Run Time: 01:30:02.75
             runUlanLine(sender, e);                     // Run Time: 01:25:11.60
+            runPortKembla(sender, e);                   // Run Time: 00:11:44.02
             runMacarthurToBotany(sender, e);            /* Insufficient TSR data */ // RunTime 00:30:57.00
             runMelbourneToCootamundra(sender, e);       /* Insufficient TSR data */ // RunTime 
             runTarcoolaToKalgoorlie(sender, e);         /* Insufficient TSR data */ // RunTime 
             runSouthernHighlands(sender, e);            // Run Time: 01:15:35.47
-            runPortKembla(sender, e);                   // Run Time: 00:11:44.02
+
+           
 #endif
 
         }
@@ -1092,6 +1094,9 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void setCulleranRangesParameters(object sender, EventArgs e)
         {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
+
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Cullerin Ranges 2016-20170614.txt";
 
@@ -1193,6 +1198,9 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void setGunnedahBasinParameters(object sender, EventArgs e)
         {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
+
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Data 2017-20170529.txt";
 
@@ -1293,6 +1301,8 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void setMacartur2BotanyParameters(object sender, EventArgs e)
         {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
 
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany data.txt";
@@ -1364,6 +1374,7 @@ namespace TRAP
 
             /* Power to weight ratio boundaries. */
             powerToWeightRatioAnalysis.Checked = true;
+
             Category1LowerBound.Text = "1.5";
             Category1UpperBound.Text = "4.5";
             Category2LowerBound.Text = "4.5";
@@ -1394,6 +1405,8 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void setMelbourne2CootamundraParameters(object sender, EventArgs e)
         {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
 
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Melbourne to Cootamundra data.txt";
@@ -1495,6 +1508,8 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void setTarcoola2KalgoorlieParameters(object sender, EventArgs e)
         {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
 
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie data.txt";
@@ -1596,6 +1611,9 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void setUlanLineParameters(object sender, EventArgs e)
         {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Ulan Data 2017-20170531.txt";
 
@@ -1696,6 +1714,8 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void setSouthernHighlandsParameters(object sender, EventArgs e)
         {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
 
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands Data 2016-201706.txt";
@@ -1798,6 +1818,8 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void setPortKemblaParameters(object sender, EventArgs e)
         {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
 
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Port Kembla to Moss Vale data.txt";
