@@ -43,7 +43,7 @@ namespace Globalsettings
         public static double loopBoundaryThreshold;         /* Distance either side of the loop to be considered within the loop boundary (km). */
         public static double TSRwindowBoundary;             /* Distance either side of the TSR location to be considered within the TSR boundary (km). */
         public static double timeThreshold;                 /* Minimum time between data points to be considered a seperate train. */
-        public static double distanceThreshold;             /* Minimum ditance between successive data points. */
+        public static double distanceThreshold;             /* Minimum distance between successive data points. */
 
         /* Simulation Parameters */
         public static double Category1LowerBound;           /* The lower bound cuttoff for the underpowered trains. */
