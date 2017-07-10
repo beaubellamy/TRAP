@@ -1,5 +1,5 @@
 ﻿/* uncomment when testing mutliple corridors overnight. */
-#define TESTING 
+//#define TESTING 
 
 using System;
 using System.IO;
@@ -48,14 +48,14 @@ namespace TRAP
             object sender = new object();
             EventArgs e = new EventArgs();
 
-            runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:10:38.39
-            runGunnedBasin(sender, e);                  // Run Time: 01:30:02.75
-            runUlanLine(sender, e);                     // Run Time: 01:25:11.60
-            runPortKembla(sender, e);                   // Run Time: 00:11:44.02
-            runMacarthurToBotany(sender, e);            /* Insufficient TSR data */ // RunTime 00:30:57.00
-            runMelbourneToCootamundra(sender, e);       /* Insufficient TSR data */ // RunTime 
-            runTarcoolaToKalgoorlie(sender, e);         /* Insufficient TSR data */ // RunTime 
-            runSouthernHighlands(sender, e);            // Run Time: 01:15:35.47
+            runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:09:34.91
+            runGunnedBasin(sender, e);                  // Run Time: 01:22:06.31
+            runUlanLine(sender, e);                     // Run Time: 01:16:18.99
+            runPortKembla(sender, e);                   // Run Time: 00:11:46.52
+            runMacarthurToBotany(sender, e);            /* Insufficient TSR data */ // RunTime 00:07:02.58
+            runMelbourneToCootamundra(sender, e);       /* Insufficient TSR data */ // RunTime 00:49:15.08
+            runTarcoolaToKalgoorlie(sender, e);         /* Insufficient TSR data */ // RunTime 02:02:35.80
+            runSouthernHighlands(sender, e);            // Run Time: 01:13:03.57
 
            
 #endif
@@ -1468,7 +1468,7 @@ namespace TRAP
             startInterpolationKm.Text = "5";
             endInterpolationKm.Text = "505";
             interpolationInterval.Text = "50";
-            minimumJourneyDistance.Text = "350";
+            minimumJourneyDistance.Text = "300";
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 

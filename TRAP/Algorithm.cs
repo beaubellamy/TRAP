@@ -916,6 +916,7 @@ namespace TRAP
             /* Note: this function will not be needed when Enterprise Services delivers the interpolated 
              * date directly to the database. We can access this data directly, then analyse.
              */
+            int a = 0;
 
             bool removeTrain = false;
             double distance = 0;
