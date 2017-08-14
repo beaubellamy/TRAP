@@ -587,7 +587,7 @@ namespace TRAP
             List<trainOperator> operators = TrainRecords.Select(t => t.trainOperator).Distinct().ToList();
             operators.Remove(trainOperator.Unknown);
             int numberOfOperators = operators.Count();
-
+             
 
             /* Create a list of analysis Categories */
             List<Category> simCategories = new List<Category>();
@@ -647,10 +647,8 @@ namespace TRAP
             /* Clean data - remove trains with insufficient data. */
             /******** Should only be required while we are waiting for the data in the prefered format ********/
 
-            //List<Train> testTrainRecords = new List<Train>();
-            //testTrainRecords = MakeTrains(trackGeometry, OrderdTrainRecords, TSRs);
-
             List<Train> CleanTrainRecords = new List<Train>();
+            //CleanTrainRecords = MakeTrains(OrderdTrainRecords, trackGeometry);
             CleanTrainRecords = CleanData(OrderdTrainRecords, trackGeometry);
 
 
@@ -659,7 +657,7 @@ namespace TRAP
             List<Train> interpolatedTrains = new List<Train>();
             interpolatedTrains = processing.interpolateTrainData(CleanTrainRecords, trackGeometry);
             /**************************************************************************************************/
-            
+                        
             /* Populate the trains TSR values after interpolation to gain more granularity with TSR boundary. */
             processing.populateAllTrainsTemporarySpeedRestrictions(interpolatedTrains, TSRs);
 
