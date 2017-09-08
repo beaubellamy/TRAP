@@ -356,9 +356,9 @@
             this.label3loopBoundarylabel.AutoSize = true;
             this.label3loopBoundarylabel.Location = new System.Drawing.Point(461, 368);
             this.label3loopBoundarylabel.Name = "label3loopBoundarylabel";
-            this.label3loopBoundarylabel.Size = new System.Drawing.Size(152, 13);
+            this.label3loopBoundarylabel.Size = new System.Drawing.Size(144, 13);
             this.label3loopBoundarylabel.TabIndex = 38;
-            this.label3loopBoundarylabel.Text = "Loop Boundary Threshold (km)";
+            this.label3loopBoundarylabel.Text = "Loop Boundary Window (km)";
             // 
             // interpolationLabel
             // 
@@ -1436,13 +1436,6 @@
         private System.Windows.Forms.TextBox resultsDestination;
         private System.Windows.Forms.Button resultsDirectory;
         private System.Windows.Forms.Label SimulationP2WRatioLabel;
-        private System.Windows.Forms.CheckBox UlanLine;
-        private System.Windows.Forms.CheckBox Tarcoola2Kalgoorlie;
-        private System.Windows.Forms.CheckBox Melbourne2Cootamundra;
-        private System.Windows.Forms.CheckBox Macarthur2Botany;
-        private System.Windows.Forms.CheckBox GunnedahBasin;
-        private System.Windows.Forms.CheckBox CulleranRanges;
-        private System.Windows.Forms.Label TestLabel;
         private System.Windows.Forms.ComboBox Operator1Category;
         private System.Windows.Forms.Label CommodityLabel;
         private System.Windows.Forms.Label OperatorLabel;
@@ -1452,7 +1445,6 @@
         private System.Windows.Forms.ComboBox Operator2Category;
         private System.Windows.Forms.ComboBox Commodity1Category;
         private System.Windows.Forms.CheckBox powerToWeightRatioAnalysis;
-        private System.Windows.Forms.CheckBox SouthernHighlands;
         private System.Windows.Forms.TextBox timeSeparation;
         private System.Windows.Forms.TextBox TSRWindowBoundary;
         private System.Windows.Forms.TextBox dataSeparation;
@@ -1477,6 +1469,14 @@
         private System.Windows.Forms.Label fromLabel;
         private System.Windows.Forms.Label DateRangeLabel;
         private System.Windows.Forms.CheckBox PortKembla;
+        private System.Windows.Forms.CheckBox SouthernHighlands;
+        private System.Windows.Forms.CheckBox UlanLine;
+        private System.Windows.Forms.CheckBox Tarcoola2Kalgoorlie;
+        private System.Windows.Forms.CheckBox Melbourne2Cootamundra;
+        private System.Windows.Forms.CheckBox Macarthur2Botany;
+        private System.Windows.Forms.CheckBox GunnedahBasin;
+        private System.Windows.Forms.CheckBox CulleranRanges;
+        private System.Windows.Forms.Label TestLabel;
 
     }
 }

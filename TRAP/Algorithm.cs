@@ -5,536 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Globalsettings;
 
+/* Custome Libraries */
+using TrainLibrary;
+using IOLibrary;
+using Statistics;
+
 namespace TRAP
 {
 
-        
-    /// <summary>
-    /// Enumerated direction of the train km's.
-    /// </summary>
-    public enum direction { IncreasingKm, DecreasingKm, Invalid, Unknown };
-
-    /// <summary>
-    /// A List of valid train operators.
-    /// </summary>
-    public enum trainOperator
-    {
-        ARTC, Aurizon, AustralianRailwaysHistoricalSociety, CityRail, Countrylink, Freightliner, GenesseeWyoming, GreatSouthernRail, Interail, 
-        JohnHollandRail, LauchlanValleyRailSociety, PacificNational, QUBE, RailTransportMuseum, RailCorp, SCT, SouthernShorthaulRail, 
-        SydneyRailService, TheRailMotorService, VLinePassenger, GroupRemaining, Combined, Simulated, Unknown
-    };
-
-    /// <summary>
-    /// A list of available commodities.
-    /// </summary>
-    public enum trainCommodity
-    {
-        GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, GroupRemaining, Unknown
-    };
-
-    /// <summary>
-    /// A list of analysis Categories, comprising of train operators, power to weight ratios.
-    /// {TrainOperator List, TrainCommodity, power to weight Categories}
-    /// </summary>
-    public enum Category
-    {
-        /* Train Operators. */
-        ARTC, Aurizon, AustralianRailwaysHistoricalSociety, CityRail, Countrylink, Freightliner, GenesseeWyoming, GreatSouthernRail, Interail,
-        JohnHollandRail, LauchlanValleyRailSociety, PacificNational, QUBE, RailTransportMuseum, RailCorp, SCT, SouthernShorthaulRail,
-        SydneyRailService, TheRailMotorSociety, VLinePassenger, 
-        /* Commodities. */
-        GeneralFreight, Coal, Grain, Mineral, Steel, Clinker, Intermodal, Passenger, Work, GroupRemaining,
-        /* Power to weight catagories. */
-        Underpowered, Overpowered, Alternative, 
-        /* Other */
-        Combined, Actual, Simulated, Unknown
-    };        
-
-    /// <summary>
-    /// A Train class to describe each individual train.
-    /// </summary>
-    public class Train
-    {
-        public Category Category;
-        public string trainID;
-        public string locoID;
-        public trainOperator trainOperator;
-        public trainCommodity commodity;
-        public double powerToWeight;
-        public List<TrainJourney> journey;
-        public direction trainDirection;
-        public bool include;
-
-        /// <summary>
-        /// Default train constructor
-        /// </summary>
-        public Train()
-        {
-            this.Category = Category.Unknown;
-            this.trainID = "none";
-            this.locoID = "none";
-            this.trainOperator = trainOperator.Unknown;
-            this.commodity = trainCommodity.Unknown;
-            this.powerToWeight = 0;
-            this.journey = new List<TrainJourney>();
-            this.trainDirection = direction.Unknown;
-            this.include = false;
-        }
-
-        /// <summary>
-        /// Train constructor for a standard train read from data.
-        /// </summary>
-        /// <param name="Category">Analysis Category, described by operator or power to weight ratio,</param>
-        /// <param name="trainId">The Train ID.</param>
-        /// <param name="locoID">The locomotive ID.</param>
-        /// <param name="trainOperator">Identification of the train operator.</param>
-        /// <param name="commodity">identification of the commidity the train is carrying.</param>
-        /// <param name="power">The power to weight ratio of the train.</param>
-        /// <param name="journey">The list of journey details describing the points along the trains journey.</param>
-        /// <param name="direction">The direction of travel indicated by the direction the kilometreage is progressing.</param>
-        /// <param name="include">A flag indicating if the train is to be include in the analysis.</param>
-        public Train(Category Category, string trainId, string locoID, trainOperator trainOperator, trainCommodity commodity, double power, List<TrainJourney> journey, direction direction, bool include)
-        {
-            this.Category = Category;
-            this.trainID = trainId;
-            this.locoID = locoID;
-            this.trainOperator = trainOperator;
-            this.commodity = commodity;
-            this.powerToWeight = power;
-            this.journey = journey;
-            this.trainDirection = direction;
-            this.include = include;
-        }
-
-        /// <summary>
-        /// Train constructor for the interpolated train data.
-        /// </summary>
-        /// <param name="Category">Analysis Category, described by operator or power to weight ratio,</param>
-        /// <param name="trainId">The Train ID.</param>
-        /// <param name="locoID">The locomotive ID.</param>
-        /// <param name="trainOperator">Identification of the train operator.</param>
-        /// <param name="commodity">identification of the commidity the train is carrying.</param>
-        /// <param name="power">The power to weight ratio of the train.</param>
-        /// <param name="journey">The list of journey details describing the points along the trains journey.</param>
-        /// <param name="direction">The direction of travel indicated by the direction the kilometreage is progressing.</param>
-        public Train(Category Category, string trainId, string locoID, trainOperator trainOperator, trainCommodity commodity, double power, List<TrainJourney> journey, direction direction)
-        {
-            /* Designed for interpolated train */
-            this.Category = Category;
-            this.trainID = trainId;
-            this.locoID = locoID;
-            this.trainOperator = trainOperator;
-            this.commodity = commodity;
-            this.powerToWeight = power;
-            this.journey = journey;
-            this.trainDirection = direction;
-            this.include = true;
-        }
-
-        /// <summary>
-        /// Train constructor for the simiulated train data.
-        /// </summary>
-        /// <param name="journey">The list of journey details describing the points along the trains journey.</param>
-        /// <param name="Category">Analysis Category, described by operator or power to weight ratio,</param>
-        /// <param name="direction">The direction of travel indicated by the direction the kilometreage is progressing.</param>
-        public Train(List<TrainJourney> journey, Category Category, direction direction)
-        {
-            this.Category = Category;
-            this.trainID = "Simulated";
-            this.locoID = "Simulated";
-            this.trainOperator = trainOperator.Simulated;
-            this.commodity = trainCommodity.Unknown;
-            this.powerToWeight = 0;
-            this.journey = journey;
-            this.trainDirection = direction;
-            this.include = true;
-        }
-
-        /// <summary>
-        /// Determine the index of the geomerty data for the supplied kilometreage.
-        /// </summary>
-        /// <param name="TrainJourney">List of train details objects containt the journey details of the train.</param>
-        /// <param name="targetKm">The target location to find in the geomerty data.</param>
-        /// <returns>The index of the target kilometreage in the geomerty data, -1 if the target is not found.</returns>
-        public int indexOfGeometryKm(List<TrainJourney> TrainJourney, double targetKm)
-        {
-            /* Loop through the train journey. */
-            for (int journeyIdx = 0; journeyIdx < TrainJourney.Count(); journeyIdx++)
-            {
-                /* Match the current location with the geometry information. */
-                if (Math.Abs(TrainJourney[journeyIdx].kilometreage - targetKm) * 1e10 < 1)
-                    return journeyIdx;
-            }
-
-            return -1;
-        }
-
-        /// <summary>
-        /// Convert Train object to an averageTrain object.
-        /// </summary>
-        /// <returns>An equivalent average train object.</returns>
-        public AverageTrain ToAverageTrain()
-        {
-            /* Create the average train object. */
-            AverageTrain averageSimulation = new AverageTrain();
-
-            /* Check the current train object is valid. */
-            if (this.journey.Count() == 0)
-                return averageSimulation;
-
-            /* Populate train characteristics. */
-            averageSimulation.trainCategory = this.Category;
-            averageSimulation.direction = this.trainDirection;
-            averageSimulation.trainCount = 1;
-
-            /* Populate the train journey properties. */
-            for (int index = 0; index < this.journey.Count; index++)
-            {
-                averageSimulation.kilometreage.Add(this.journey[index].kilometreage);
-                averageSimulation.elevation.Add(this.journey[index].elevation);
-                averageSimulation.averageSpeed.Add(this.journey[index].speed);
-                averageSimulation.isInLoopBoundary.Add(this.journey[index].isLoopHere);
-                averageSimulation.isInTSRboundary.Add(this.journey[index].isTSRHere);
-            }
-
-            return averageSimulation;
-        }
-    }
-
-    /// <summary>
-    /// A Train Journey class to describe data for each point in trains journey.
-    /// </summary>
-    public class TrainJourney
-    {
-        public GeoLocation location;
-        public DateTime dateTime;
-        public double speed;
-        public double kmPost;
-        public double kilometreage;
-        public double elevation;
-        public bool isLoopHere;
-        public bool isTSRHere;
-
-        /// <summary>
-        /// Default Train journey constructor
-        /// </summary>
-        public TrainJourney()
-        {
-            this.location = new GeoLocation();
-            this.dateTime = DateTime.MinValue;
-            this.speed = 0;
-            this.kmPost = 0;
-            this.kilometreage = 0;
-            this.elevation = 0;
-            this.isLoopHere = false;
-            this.isTSRHere = false;
-        }
-
-        /// <summary>
-        /// Train journey constructor for train record items after processing.
-        /// </summary>
-        /// <param name="record">A train record item containing all the information from the data.</param>
-        public TrainJourney(TrainRecord record)
-        {
-            this.location = record.location;
-            this.dateTime = record.dateTime;
-            this.speed = record.speed;
-            this.kmPost = record.kmPost;
-            this.kilometreage = record.kmPost;
-            this.elevation = 0;
-            this.isLoopHere = false;
-            this.isTSRHere = false;
-        }
-
-        /// <summary>
-        /// Train journey constructor for a standard train, built from the field in the data.
-        /// </summary>
-        /// <param name="location">Geolocation object describing the latitude and longitude of a data point</param>
-        /// <param name="date">Date and time the data point was registered.</param>
-        /// <param name="speed">The instantaneous speed of the train at the time of data recording.</param>
-        /// <param name="kmPost">The closest kilometreage marker to the current position.</param>
-        /// <param name="kilometreage">The calaculated kilometreage of the current train position.</param>
-        /// <param name="elevation">The elevation of the train at the current location, this is taken from the geometry information.</param>
-        /// <param name="loop">Identification of the presence of a loop at the current position.</param>
-        /// <param name="TSR">Identification of the presence of a TSR at the current position.</param>
-        public TrainJourney(GeoLocation location, DateTime date, double speed, double kmPost, double kilometreage, double elevation, bool loop, bool TSR)
-        {
-            this.location = location;
-            this.dateTime = date;
-            this.speed = speed;
-            this.kmPost = kmPost;
-            this.kilometreage = kilometreage;
-            this.elevation = elevation;
-            this.isLoopHere = loop;
-            this.isTSRHere = TSR;
-        }
-
-        /// <summary>
-        /// Train journey constructor for a train after interpolating the data.
-        /// </summary>
-        /// <param name="date">Date and time the data point was registered.</param>
-        /// <param name="speed">The instantaneous speed of the train at the time of data recording.</param>
-        /// <param name="kmPost">The closest kilometreage marker to the current position.</param>
-        /// <param name="kilometreage">The calaculated kilometreage of the current train position.</param>
-        /// <param name="elevation">The elevation of the train at the current location, this is taken from the geometry information.</param>
-        /// <param name="loop">Identification of the presence of a loop at the current position.</param>
-        /// <param name="TSR">Identification of the presence of a TSR at the current position.</param>
-        public TrainJourney(DateTime date, double speed, double kmPost, double virtualKm, double elevation, bool loop, bool TSR)
-        {
-            /* For interpolated Trains */
-            this.location = null;
-            this.dateTime = date;
-            this.speed = speed;
-            this.kmPost = kmPost;
-            this.kilometreage = virtualKm;
-            this.elevation = elevation;
-            this.isLoopHere = loop;
-            this.isTSRHere = TSR;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="location">Geolocation object describing the latitude and longitude of a data point</param>
-        /// <param name="date">Date and time the data point was registered.</param>
-        /// <param name="speed">The instantaneous speed of the train at the time of data recording.</param>
-        /// <param name="kmPost">The closest kilometreage marker to the current position.</param>
-        /// <param name="kilometreage">The calculated kilometreage of the current train position.</param>
-        /// <param name="singleLineKm">The calculated consecutive kilometreage of the current train position.</param>
-        /// <param name="elevation">The elevation of the train at the current location, this is taken from the geometry information.</param>
-        public TrainJourney(GeoLocation location, DateTime date, double speed, double kmPost, double singleLineKm, double elevation)
-        {
-            this.location = location;
-            this.dateTime = date;
-            this.speed = speed;
-            this.kmPost = kmPost;
-            this.kilometreage = singleLineKm;
-            this.elevation = elevation;
-            this.isLoopHere = false;
-            this.isTSRHere = false;
-        }
-
-    }
-
-    /// <summary>
-    /// Train Record class to record each item from the data.
-    /// </summary>
-    public class TrainRecord
-    {
-        public string trainID;
-        public string locoID;
-        public DateTime dateTime;
-        public GeoLocation location;
-        public trainOperator trainOperator;
-        public trainCommodity commodity;
-        public double kmPost;
-        public double speed;
-        public double powerToWeight;
-
-        /// <summary>
-        /// Default train record constructor.
-        /// </summary>
-        public TrainRecord()
-        {
-            this.trainID = null;
-            this.locoID = null;
-            this.dateTime = DateTime.MinValue;
-            this.location = null;
-            this.trainOperator = trainOperator.Unknown;
-            this.commodity = trainCommodity.Unknown;
-            this.kmPost = 0;
-            this.speed = 0;
-            this.powerToWeight = 0;
-        }
-
-        /// <summary>
-        /// Train record constructor, built from the fields in the data file.
-        /// </summary>
-        /// <param name="trainID">The train identification.</param>
-        /// <param name="locoID">The lead locomotive identification</param>
-        /// <param name="time">The data and time the data point was recorded.</param>
-        /// <param name="location">the geographic location of the train.</param>
-        /// <param name="Operator">Identification of the train operator.</param>
-        /// <param name="commodity">Identification of the commodity the tran is carrying.</param>
-        /// <param name="kmPost">The closest kilometreage marker of the current position.</param>
-        /// <param name="speed">The instantaneous speed of the train at the time of recording the data.</param>
-        /// <param name="power">The power to weight ratio of the train.</param>
-        public TrainRecord(string trainID, string locoID, DateTime time, GeoLocation location, trainOperator Operator, trainCommodity commodity, double kmPost, double speed, double power)
-        {
-            this.trainID = trainID;
-            this.locoID = locoID;
-            this.dateTime = time;
-            this.location = location;
-            this.trainOperator = Operator;
-            this.commodity = commodity;
-            this.kmPost = kmPost;
-            this.speed = speed;
-            this.powerToWeight = power;
-        }
-
-
-    }
-
-    /// <summary>
-    /// A class to describe the aggregated train data.
-    /// </summary>
-    public class AverageTrain
-    {
-        public Category trainCategory;
-        public direction direction;
-        public int trainCount;
-        public List<double> kilometreage;
-        public List<double> elevation;
-        public List<double> averageSpeed;
-        public List<bool> isInLoopBoundary;
-        public List<bool> isInTSRboundary;
-
-        /// <summary>
-        /// Default average train constructor.
-        /// </summary>
-        public AverageTrain()
-        {
-            this.trainCategory = Category.Unknown;
-            this.direction = direction.Unknown;
-            this.trainCount = 0;
-            this.kilometreage = new List<double>();
-            this.elevation = new List<double>();
-            this.averageSpeed = new List<double>();
-            this.isInLoopBoundary = new List<bool>();
-            this.isInTSRboundary = new List<bool>();
-        }
-
-        /// <summary>
-        /// Average train constructor built from the aggregated data.
-        /// </summary>
-        /// <param name="Category">The aggregation Category of the average data</param>
-        /// <param name="direction">The direction of travel of the average train.</param>
-        /// <param name="count">The number of train included in the aggregation.</param>
-        /// <param name="kilometreage">A list of interpolated kilometreage of the trains journey.</param>
-        /// <param name="elevation">A list of elevations at the kilometreage points for the trains journey.</param>
-        /// <param name="averageSpeed">The calculted average speed of the train at each kilometreage.</param>
-        /// <param name="loop">Identification if the a loop is withing the boundary threshold of the current position.</param>
-        /// <param name="TSR">Identification if the a TSR is withing the boundary threshold of the current position.</param>
-        public AverageTrain(Category Category, direction direction, int count, List<double> kilometreage, List<double> elevation, List<double> averageSpeed, List<bool> loop, List<bool> TSR)
-        {
-            this.trainCategory = Category;
-            this.direction = direction;
-            this.trainCount = count;
-            this.kilometreage = kilometreage;
-            this.elevation = elevation;
-            this.averageSpeed = averageSpeed;
-            this.isInLoopBoundary = loop;
-            this.isInTSRboundary = TSR;
-        }
-
-    }
-
-    /// <summary>
-    /// A class describing a geographic location with latitude and longitude.
-    /// </summary>
-    public class GeoLocation
-    {
-        /* Latitude and longitude of the location */
-        public double latitude;
-        public double longitude;
-
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public GeoLocation()
-        {
-            // Default: Sydney Harbour Bridge
-            this.latitude = -33.8519;
-            this.longitude = 151.2108;
-        }
-
-        /// <summary>
-        /// Geolocation constructor
-        /// </summary>
-        /// <param name="lat">latitude of the location.</param>
-        /// <param name="lon">longitude of the location.</param>
-        public GeoLocation(double lat, double lon)
-        {
-            this.latitude = lat;
-            this.longitude = lon;
-        }
-
-        /// <summary>
-        /// Geolocation constructor
-        /// </summary>
-        /// <param name="record">Train record item containing the latitude and longitude.</param>
-        public GeoLocation(TrainRecord record)
-        {
-            this.latitude = record.location.latitude;
-            this.longitude = record.location.longitude;
-        }
-
-        /// <summary>
-        /// Geolocation constructor
-        /// </summary>
-        /// <param name="journey">Train journey item containing the latitude and longitude.</param>
-        public GeoLocation(TrainJourney journey)
-        {
-            this.latitude = journey.location.latitude;
-            this.longitude = journey.location.longitude;
-        }
-
-    }
-
-    /// <summary>
-    /// A class describing the parameters associated with a TSR.
-    /// </summary>
-    public class TSRObject
-    {
-        public string Region;
-        public DateTime IssueDate;
-        public DateTime LiftedDate;
-        public double startKm;
-        public double endKm;
-        public double TSRSpeed;
-
-        /// <summary>
-        /// Default TSRObject constructor.
-        /// </summary>
-        public TSRObject()
-        {
-            this.Region = "Unknown";
-            this.IssueDate = DateTime.MinValue;
-            this.LiftedDate = DateTime.MinValue;
-            this.startKm = 0;
-            this.endKm = 0;
-            this.TSRSpeed = 0;
-        }
-
-        /// <summary>
-        /// TSRObject constructor
-        /// </summary>
-        /// <param name="region">Region the TSR is in.</param>
-        /// <param name="issued">The date the TSR was applied.</param>
-        /// <param name="lifted">The Date the TSR was lifted, if applicable.</param>
-        /// <param name="start">The start km of the TSR.</param>
-        /// <param name="finish">The end Km of the TSR.</param>
-        /// <param name="speed">The speed restriction applied to the TSR.</param>
-        public TSRObject(string region, DateTime issued, DateTime lifted, double start, double finish, double speed)
-        {
-            this.Region = region;
-            this.IssueDate = issued;
-            this.LiftedDate = lifted;
-            this.startKm = start;
-            this.endKm = finish;
-            this.TSRSpeed = speed;
-        }
-
-    }
-
-
-
     class Algorithm
     {
-        ///* Create a processing object. */
-        public static Processing processing = new Processing();
-        ///* Create a trackGeometry object. */
-        public static TrackGeometry track = new TrackGeometry();
         
         /// <summary>
         /// Determine the average train performance in both directions based on the supplied 
@@ -553,6 +33,19 @@ namespace TRAP
         /// 
         /// This function produces a file containing the interpolated data for each train 
         /// and a file containing the aggregated information for each analysis Category.
+        /// 
+        /// Authour:
+        /// B. Bellamy
+        /// 
+        /// Version 1.1.0.0
+        /// - Updated application to use the custom software libraries, which includes 
+        /// changes to the interpolation implementation
+        /// - The interpolation now allows the train journey's with small gaps in the data 
+        /// to be retained. The interpolated values within these gaps are not used in any 
+        /// aggregation. This allows for more trains to be counted towards the average 
+        /// performance between the gaps.
+        /// 
+        /// 
         /// </summary>        
         [STAThread]
         public static List<Train> trainPerformance()
@@ -571,11 +64,11 @@ namespace TRAP
 
             /* Read in the TSR information */
             List<TSRObject> TSRs = new List<TSRObject>();
-            TSRs = FileOperations.readTSRFile(FileSettings.temporarySpeedRestrictionFile);
+            TSRs = FileOperations.readTSRFile(FileSettings.temporarySpeedRestrictionFile, Settings.dateRange);
             
             /* Read the data. */
             List<TrainRecord> TrainRecords = new List<TrainRecord>();
-            TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList);
+            TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
 
             if (TrainRecords.Count() == 0)
             {
@@ -601,26 +94,26 @@ namespace TRAP
             else if (Settings.analysisCategory == analysisCategory.TrainOperator)
             {
                 if (Settings.Category1Operator != trainOperator.Unknown)
-                    simCategories.Add(convertTrainOperatorToCategory(Settings.Category1Operator));
+                    simCategories.Add(Processing.convertTrainOperatorToCategory(Settings.Category1Operator));
 
                 if (Settings.Category2Operator != trainOperator.Unknown)
-                    simCategories.Add(convertTrainOperatorToCategory(Settings.Category2Operator));
+                    simCategories.Add(Processing.convertTrainOperatorToCategory(Settings.Category2Operator));
 
                 if (Settings.Category3Operator != trainOperator.Unknown)
-                    simCategories.Add(convertTrainOperatorToCategory(Settings.Category3Operator));
+                    simCategories.Add(Processing.convertTrainOperatorToCategory(Settings.Category3Operator));
 
             }
             else
             {
                 /* analysisCategory is commodities. */
                 if (Settings.Category1Commodity != trainCommodity.Unknown)
-                    simCategories.Add(convertCommodityToCategory(Settings.Category1Commodity));
+                    simCategories.Add(Processing.convertCommodityToCategory(Settings.Category1Commodity));
 
                 if (Settings.Category2Commodity != trainCommodity.Unknown)
-                    simCategories.Add(convertCommodityToCategory(Settings.Category2Commodity));
+                    simCategories.Add(Processing.convertCommodityToCategory(Settings.Category2Commodity));
 
                 if (Settings.Category3Commodity != trainCommodity.Unknown)
-                    simCategories.Add(convertCommodityToCategory(Settings.Category3Commodity));
+                    simCategories.Add(Processing.convertCommodityToCategory(Settings.Category3Commodity));
 
             }
 
@@ -636,7 +129,7 @@ namespace TRAP
             
             /* Interpolate the simulations to the same granularity as the ICE data will be. */
             List<Train> interpolatedSimulations = new List<Train>();
-            interpolatedSimulations = processing.interpolateTrainData(simulatedTrains, trackGeometry);
+            interpolatedSimulations = Processing.interpolateTrainData(simulatedTrains, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval);
             
             /* Sort the data by [trainID, locoID, Date & Time, kmPost]. */
             List<TrainRecord> OrderdTrainRecords = new List<TrainRecord>();
@@ -649,20 +142,22 @@ namespace TRAP
 
             List<Train> CleanTrainRecords = new List<Train>();
             //CleanTrainRecords = MakeTrains(OrderdTrainRecords, trackGeometry);
-            CleanTrainRecords = CleanData(OrderdTrainRecords, trackGeometry);
+            CleanTrainRecords = Processing.CleanData(OrderdTrainRecords, trackGeometry,
+                Settings.timeThreshold, Settings.distanceThreshold, Settings.minimumJourneyDistance, Settings.analysisCategory,
+                Settings.Category1LowerBound, Settings.Category1UpperBound, Settings.Category2LowerBound, Settings.Category2UpperBound);
 
 
             /* Interpolate data */
             /******** Should only be required while we are waiting for the data in the prefered format ********/
             List<Train> interpolatedTrains = new List<Train>();
-            interpolatedTrains = processing.interpolateTrainData(CleanTrainRecords, trackGeometry);
+            interpolatedTrains = Processing.interpolateTrainData(CleanTrainRecords, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval);
             /**************************************************************************************************/
                         
             /* Populate the trains TSR values after interpolation to gain more granularity with TSR boundary. */
-            processing.populateAllTrainsTemporarySpeedRestrictions(interpolatedTrains, TSRs);
+            Processing.populateAllTrainsTemporarySpeedRestrictions(interpolatedTrains, TSRs);
 
             /* Write the interpolated data to file. */
-            FileOperations.writeTrainData(interpolatedTrains);
+            FileOperations.writeTrainData(interpolatedTrains, Settings.startKm, Settings.interval, FileSettings.aggregatedDestination);
 
             /* Create the list of averaged trains */
             List<AverageTrain> averageTrains = new List<AverageTrain>();
@@ -670,7 +165,7 @@ namespace TRAP
             List<Train> increasingTrainCategory = new List<Train>();
             List<Train> decreasingTrainCategory = new List<Train>();
 
-            List<Statistics> stats = new List<Statistics>();
+            List<TrainStatistics> stats = new List<TrainStatistics>();
 
             /* Cycle through each train category. */
             for (int index = 0; index < simCategories.Count(); index++)
@@ -685,7 +180,7 @@ namespace TRAP
                 else if (Settings.analysisCategory == analysisCategory.TrainOperator)
                 {
                     /* Convert the train category to the train operator. */
-                    trainOperator operatorCategory = convertCategoryToTrainOperator(simCategories[index]);
+                    trainOperator operatorCategory = Processing.convertCategoryToTrainOperator(simCategories[index]);
                     
                     /* Create a list for each operator. */
                     if (operatorCategory !=  trainOperator.GroupRemaining)
@@ -704,21 +199,21 @@ namespace TRAP
                             if (groupIdx != index)
                             {
                                 /* Remove the specified operators from the list so they aren't counted twice. */
-                                operatorCategory = convertCategoryToTrainOperator(simCategories[groupIdx]);
+                                operatorCategory = Processing.convertCategoryToTrainOperator(simCategories[groupIdx]);
                                 increasingTrainCategory = increasingTrainCategory.Where(t => t.trainOperator != operatorCategory).ToList();
                                 decreasingTrainCategory = decreasingTrainCategory.Where(t => t.trainOperator != operatorCategory).ToList();
                             }
                         }
                         /* Reset the operator to grouped for the analysis */
-                        setOperatorToGrouped(increasingTrainCategory);
-                        setOperatorToGrouped(decreasingTrainCategory);
+                        Processing.setOperatorToGrouped(increasingTrainCategory);
+                        Processing.setOperatorToGrouped(decreasingTrainCategory);
                     }
 
                 }
                 else
                 {
                     /* Convert the train category to the commodity. */
-                    trainCommodity commodity = convertCategoryToCommodity(simCategories[index]);
+                    trainCommodity commodity = Processing.convertCategoryToCommodity(simCategories[index]);
 
                     /* Create a list for each commodity. */
                     if (commodity != trainCommodity.GroupRemaining)
@@ -737,21 +232,21 @@ namespace TRAP
                             if (groupIdx != index)
                             {
                                 /* Remove the specified commodities from the list so they arent counted twice. */
-                                commodity = convertCategoryToCommodity(simCategories[groupIdx]);
+                                commodity = Processing.convertCategoryToCommodity(simCategories[groupIdx]);
                                 increasingTrainCategory = increasingTrainCategory.Where(t => t.commodity != commodity).ToList();
                                 decreasingTrainCategory = decreasingTrainCategory.Where(t => t.commodity != commodity).ToList();
                             }
                         }
                         /* Reset the operator to grouped for the analysis */
-                        setOperatorToGrouped(increasingTrainCategory);
-                        setOperatorToGrouped(decreasingTrainCategory);
+                        Processing.setOperatorToGrouped(increasingTrainCategory);
+                        Processing.setOperatorToGrouped(decreasingTrainCategory);
                     }
 
                 }
 
                 /* Generate statistics for the lists. */
-                stats.Add(Statistics.generateStats(increasingTrainCategory));
-                stats.Add(Statistics.generateStats(decreasingTrainCategory));
+                stats.Add(TrainStatistics.generateStats(increasingTrainCategory));
+                stats.Add(TrainStatistics.generateStats(decreasingTrainCategory));
 
                 if (increasingTrainCategory.Count() == 0 || decreasingTrainCategory.Count() == 0)
                 {
@@ -761,14 +256,14 @@ namespace TRAP
 
                 /* Aggregate the train lists into an average train consistent with the specified Category. */
                 if (increasingTrainCategory.Count() > 0)
-                    averageTrains.Add(processing.averageTrain(increasingTrainCategory, interpolatedSimulations[index * 2].journey, trackGeometry));
+                    averageTrains.Add(Processing.averageTrain(increasingTrainCategory, interpolatedSimulations[index * 2].journey, trackGeometry,Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold,Settings.TSRwindowBoundary));
                 else
-                    averageTrains.Add(createZeroedAverageTrain(simCategories[index], direction.IncreasingKm));
+                    averageTrains.Add(Processing.createZeroedAverageTrain(simCategories[index], direction.IncreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
                 
                 if (decreasingTrainCategory.Count() > 0)
-                    averageTrains.Add(processing.averageTrain(decreasingTrainCategory, interpolatedSimulations[index * 2 + 1].journey, trackGeometry));
+                    averageTrains.Add(Processing.averageTrain(decreasingTrainCategory, interpolatedSimulations[index * 2 + 1].journey, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
                 else
-                    averageTrains.Add(createZeroedAverageTrain(simCategories[index], direction.DecreasingKm));
+                    averageTrains.Add(Processing.createZeroedAverageTrain(simCategories[index], direction.DecreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
                 
             }
 
@@ -792,8 +287,8 @@ namespace TRAP
                     decreasingCombined.AddRange(decreasingSubList);
                 }
 
-                setOperatorToCombined(increasingCombined);
-                setOperatorToCombined(decreasingCombined);
+                Processing.setOperatorToCombined(increasingCombined);
+                Processing.setOperatorToCombined(decreasingCombined);
                 
             }
             else if (Settings.analysisCategory == analysisCategory.TrainOperator)
@@ -813,14 +308,14 @@ namespace TRAP
                     /* Cycle through each commodity to add to the list. */
                     foreach (Category simCategory in simCategories)
                     {
-                        increasingSubList = interpolatedTrains.Where(t => t.trainOperator == convertCategoryToTrainOperator(simCategory)).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        increasingSubList = interpolatedTrains.Where(t => t.trainOperator == Processing.convertCategoryToTrainOperator(simCategory)).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                         increasingCombined.AddRange(increasingSubList);
-                        decreasingSubList = interpolatedTrains.Where(t => t.trainOperator == convertCategoryToTrainOperator(simCategory)).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                        decreasingSubList = interpolatedTrains.Where(t => t.trainOperator == Processing.convertCategoryToTrainOperator(simCategory)).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
                         decreasingCombined.AddRange(decreasingSubList);
                     }
                 }
-                setOperatorToCombined(increasingCombined);
-                setOperatorToCombined(decreasingCombined);
+                Processing.setOperatorToCombined(increasingCombined);
+                Processing.setOperatorToCombined(decreasingCombined);
 
             }
             else
@@ -840,20 +335,20 @@ namespace TRAP
                     /* Cycle through each commodity to add to the list. */
                     foreach (Category simCategory in simCategories)
                     {
-                        increasingSubList = interpolatedTrains.Where(t => t.commodity == convertCategoryToCommodity(simCategory)).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        increasingSubList = interpolatedTrains.Where(t => t.commodity == Processing.convertCategoryToCommodity(simCategory)).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                         increasingCombined.AddRange(increasingSubList);
-                        decreasingSubList = interpolatedTrains.Where(t => t.commodity == convertCategoryToCommodity(simCategory)).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                        decreasingSubList = interpolatedTrains.Where(t => t.commodity == Processing.convertCategoryToCommodity(simCategory)).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
                         decreasingCombined.AddRange(decreasingSubList);
                     }
                 }
-                setOperatorToCombined(increasingCombined);
-                setOperatorToCombined(decreasingCombined);
+                Processing.setOperatorToCombined(increasingCombined);
+                Processing.setOperatorToCombined(decreasingCombined);
 
             }
 
             /* Generate statistics for the weighted average trains. */
-            stats.Add(Statistics.generateStats(increasingCombined));
-            stats.Add(Statistics.generateStats(decreasingCombined));
+            stats.Add(TrainStatistics.generateStats(increasingCombined));
+            stats.Add(TrainStatistics.generateStats(decreasingCombined));
 
             if (increasingCombined.Count() == 0 || decreasingCombined.Count() == 0)
             {
@@ -869,21 +364,23 @@ namespace TRAP
             if (weightedSimulation.Count() >= 2)
             {
                 if (increasingCombined.Count() == 0)
-                    averageTrains.Add(createZeroedAverageTrain(Category.Combined, direction.IncreasingKm));
+                    averageTrains.Add(Processing.createZeroedAverageTrain(Category.Combined, direction.IncreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
                 else
-                    averageTrains.Add(processing.averageTrain(increasingCombined, weightedSimulation[0].journey, trackGeometry));
+                    averageTrains.Add(Processing.averageTrain(increasingCombined, weightedSimulation[0].journey, trackGeometry, 
+                        Settings.startKm, Settings.endKm, Settings.interval,Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
 
                 if (decreasingCombined.Count() == 0)
-                    averageTrains.Add(createZeroedAverageTrain(Category.Combined, direction.DecreasingKm));
+                    averageTrains.Add(Processing.createZeroedAverageTrain(Category.Combined, direction.DecreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
                 else
-                    averageTrains.Add(processing.averageTrain(decreasingCombined, weightedSimulation[1].journey, trackGeometry));
+                    averageTrains.Add(Processing.averageTrain(decreasingCombined, weightedSimulation[1].journey, trackGeometry, 
+                        Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
 
                 averageTrains.Add(weightedSimulation[0].ToAverageTrain());
                 averageTrains.Add(weightedSimulation[1].ToAverageTrain());
 
                 /* Generate statistics for the weighted average trains. */
-                stats.Add(Statistics.generateStats(weightedSimulation[0]));
-                stats.Add(Statistics.generateStats(weightedSimulation[1]));
+                stats.Add(TrainStatistics.generateStats(weightedSimulation[0]));
+                stats.Add(TrainStatistics.generateStats(weightedSimulation[1]));
 
             }
             else
@@ -895,479 +392,10 @@ namespace TRAP
             }
 
             /* Write the averaged Data to file for inspection. */            
-            FileOperations.wrtieAverageData(averageTrains, stats);
+            FileOperations.wrtieAverageData(averageTrains, stats, FileSettings.aggregatedDestination);
             
             return interpolatedTrains;
         }
-
         
-
-        /// <summary>
-        /// This function cleans the data from large gaps in the data and ensures the trains 
-        /// are all travelling in a single direction with a minimum total distance.
-        /// </summary>
-        /// <param name="record">List of Train record objects</param>
-        /// <param name="trackGeometry">A list of track Geometry objects</param>
-        /// <returns>List of Train objects containing the journey details of each train.</returns>
-        public static List<Train> CleanData(List<TrainRecord> record, List<TrackGeometry> trackGeometry)
-        {
-            /* Note: this function will not be needed when Enterprise Services delivers the interpolated 
-             * date directly to the database. We can access this data directly, then analyse.
-             */
-            int a = 0;
-
-            bool removeTrain = false;
-            double distance = 0;
-            double journeyDistance = 0;
-
-            /* Create the lists for the processed train data. */
-            List<Train> cleanTrainList = new List<Train>();
-            List<TrainJourney> journey = new List<TrainJourney>();
-
-            GeoLocation point1 = null;
-            GeoLocation point2 = null;
-
-            /* Add the first point to the train journey. */
-            journey.Add(new TrainJourney(record[0]));
-
-            for (int trainIndex = 1; trainIndex < record.Count(); trainIndex++)
-            {
-                /* Compare next train details with current train details to establish if its a new train. */
-                if (record[trainIndex].trainID.Equals(record[trainIndex - 1].trainID) &&
-                    record[trainIndex].locoID.Equals(record[trainIndex - 1].locoID) &&
-                    (record[trainIndex].dateTime - record[trainIndex - 1].dateTime).TotalMinutes < Settings.timeThreshold)
-                {
-
-                    /* If the current and previous record represent the same train journey, add it to the list. */
-                    journey.Add(new TrainJourney(record[trainIndex]));
-
-                    point1 = new GeoLocation(record[trainIndex - 1]);
-                    point2 = new GeoLocation(record[trainIndex]);
-
-                    distance = processing.calculateGreatCircleDistance(point1, point2);
-
-                    if (distance > Settings.distanceThreshold)
-                    {
-                        /* If the distance between successive km points is greater than the
-                         * threshold then we want to remove this train from the data. 
-                         */
-                        removeTrain = true;
-                    }
-
-                }
-                else
-                {
-                    /* Check uni directionality of the train */
-                    journey = processing.longestDistanceTravelledInOneDirection(journey, trackGeometry);
-                    /* Calculate the total length of the journey */
-                    journeyDistance = processing.calculateTrainJourneyDistance(journey);
-
-                    /* Populate the train parameters. */
-                    Train item = new Train();
-                    item.journey = journey;
-                    item.trainDirection = processing.getTrainDirection(item);
-
-                    /* remove the train if the direction is not valid. */
-                    if (item.trainDirection == direction.Invalid)
-                        removeTrain = true;
-
-                    /* The end of the train journey has been reached. */
-                    if (!removeTrain && journeyDistance > Settings.minimumJourneyDistance)
-                    {
-                        /* If all points are acceptable and the train travels the minimum distance, 
-                         * add the train journey to the cleaned list. 
-                         */
-                        item.trainID = record[trainIndex - 1].trainID;
-                        item.locoID = record[trainIndex - 1].locoID;
-                        item.trainOperator = record[trainIndex - 1].trainOperator;
-                        item.commodity = record[trainIndex - 1].commodity;
-                        item.powerToWeight = record[trainIndex - 1].powerToWeight;
-
-                        /* Determine the analysis Category. */
-                        if (Settings.analysisCategory == analysisCategory.TrainPowerToWeight)
-                        {
-                            if (item.powerToWeight > Settings.Category1LowerBound && item.powerToWeight <= Settings.Category1UpperBound)
-                                item.Category = Category.Underpowered;
-                            else if (item.powerToWeight > Settings.Category2LowerBound && item.powerToWeight <= Settings.Category2UpperBound)
-                                item.Category = Category.Overpowered;
-                            else
-                                item.Category = Category.Actual;
-
-                        }
-                        else if (Settings.analysisCategory == analysisCategory.TrainOperator)
-                        {
-                            item.Category = convertTrainOperatorToCategory(item.trainOperator);
-                        }
-                        else
-                        {
-                            item.Category = convertCommodityToCategory(item.commodity);
-                        }
-
-
-                        /* Determine the actual km, and populate the loops and TSR information. */
-                        processing.populateGeometryKm(item.journey, trackGeometry);
-                        processing.populateLoopLocations(item.journey, trackGeometry);
-
-                        /* Sort the journey in ascending order. */
-                        item.journey = item.journey.OrderBy(t => t.kilometreage).ToList();
-
-                        cleanTrainList.Add(item);
-
-                    }
-
-                    /* Reset the parameters for the next train. */
-                    removeTrain = false;
-                    journeyDistance = 0;
-                    journey.Clear();
-
-                    /* Add the first record of the new train journey. */
-                    journey.Add(new TrainJourney(record[trainIndex]));
-
-                }
-
-                /* The end of the records have been reached. */
-                if (trainIndex == record.Count() - 1 && !removeTrain)
-                {
-                    /* Check uni directionality of the last train */
-                    journey = processing.longestDistanceTravelledInOneDirection(journey, trackGeometry);
-                    /* Calculate the total length of the journey */
-                    journeyDistance = processing.calculateTrainJourneyDistance(journey);
-                    
-                    /* Populate the train parameters. */
-                    Train lastItem = new Train();
-                    lastItem.journey = journey;
-                    lastItem.trainDirection = processing.getTrainDirection(lastItem);
-
-                    /* remove the train if the direction is not valid. */
-                    if (lastItem.trainDirection == direction.Invalid)
-                        removeTrain = true;
-
-                    if (!removeTrain && journeyDistance > Settings.minimumJourneyDistance)
-                    {
-                        lastItem.trainID = record[trainIndex - 1].trainID;
-                        lastItem.locoID = record[trainIndex - 1].locoID;
-                        lastItem.trainOperator = record[trainIndex - 1].trainOperator;
-                        lastItem.commodity = record[trainIndex - 1].commodity;
-                        lastItem.powerToWeight = record[trainIndex - 1].powerToWeight;
-
-                        /* Determine the analysis Category. */
-                        if (Settings.analysisCategory == analysisCategory.TrainPowerToWeight)
-                        {
-                            if (lastItem.powerToWeight > Settings.Category1LowerBound && lastItem.powerToWeight <= Settings.Category1UpperBound)
-                                lastItem.Category = Category.Underpowered;
-                            else if (lastItem.powerToWeight > Settings.Category2LowerBound && lastItem.powerToWeight <= Settings.Category2UpperBound)
-                                lastItem.Category = Category.Overpowered;
-                            else
-                                lastItem.Category = Category.Actual;
-
-                        }
-                        else if (Settings.analysisCategory == analysisCategory.TrainOperator)
-                        {
-                            lastItem.Category = convertTrainOperatorToCategory(lastItem.trainOperator);
-                        }
-                        else
-                        {
-                            lastItem.Category = convertCommodityToCategory(lastItem.commodity);
-                        }
-
-                        /* If all points are aceptable, add the train journey to the cleaned list. */
-                        processing.populateGeometryKm(lastItem.journey, trackGeometry);
-                        processing.populateLoopLocations(lastItem.journey, trackGeometry);
-
-                        /* Sort the journey in ascending order. */
-                        lastItem.journey = lastItem.journey.OrderBy(t => t.kilometreage).ToList();
-
-                        cleanTrainList.Add(lastItem);
-                    }
-
-                }
-
-            }
-
-            return cleanTrainList;
-
-        }
-        
-        /// <summary>
-        /// This function creates the individual train journeies and adds them to the list. The 
-        /// function ensures the train is consistent and has a single direction of travel.
-        /// </summary>
-        /// <param name="record">List of Train record objects</param>
-        /// <param name="trackGeometry">A list of track Geometry objects</param>
-        /// <returns>List of Train objects containing the journey details of each train.</returns>
-        public static List<Train> MakeTrains(List<TrainRecord> record, List<TrackGeometry> trackGeometry)
-        {
-            /* Note: this function is designed to replace the cleanTrains function when the 
-             * interpolated data is delivered by Enterprise Services.
-             */
-
-            /* Create the lists for the processed train data. */
-            List<Train> TrainList = new List<Train>();
-            List<TrainJourney> journey = new List<TrainJourney>();
-            
-            /* Add the first point to the train journey. */
-            journey.Add(new TrainJourney(record[0]));
-
-            for (int trainIndex = 1; trainIndex < record.Count(); trainIndex++)
-            {
-                /* Compare next train details with current train details to establish if its a new train. */
-                if (record[trainIndex].trainID.Equals(record[trainIndex - 1].trainID) &&
-                    record[trainIndex].locoID.Equals(record[trainIndex - 1].locoID) &&
-                    (record[trainIndex].dateTime - record[trainIndex - 1].dateTime).TotalMinutes < Settings.timeThreshold)
-                {
-
-                    /* If the current and previous record represent the same train journey, add it to the list. */
-                    journey.Add(new TrainJourney(record[trainIndex]));
-
-                }
-                else
-                {
-                    /* The end of the train journey has been reached. */
-
-                    /* Check uni directionality of the train */
-                    journey = processing.longestDistanceTravelledInOneDirection(journey, trackGeometry);
-
-                    /* Assign the train parameters. */
-                    Train item = new Train();
-                    item.journey = journey;
-                    item.trainDirection = processing.getTrainDirection(item);
-                    item.trainID = record[trainIndex - 1].trainID;
-                    item.locoID = record[trainIndex - 1].locoID;
-                    item.trainOperator = record[trainIndex - 1].trainOperator;
-                    item.commodity = record[trainIndex - 1].commodity;
-                    item.powerToWeight = record[trainIndex - 1].powerToWeight;
-
-                    /* Determine the train Category. */
-                    if (Settings.analysisCategory == analysisCategory.TrainPowerToWeight)
-                    {
-                        if (item.powerToWeight > Settings.Category1LowerBound && item.powerToWeight <= Settings.Category1UpperBound)
-                            item.Category = Category.Underpowered;
-                        else if (item.powerToWeight > Settings.Category2LowerBound && item.powerToWeight <= Settings.Category2UpperBound)
-                            item.Category = Category.Overpowered;
-                        else
-                            item.Category = Category.Actual;
-
-                    }
-                    else if (Settings.analysisCategory == analysisCategory.TrainOperator)
-                    {
-                        item.Category = convertTrainOperatorToCategory(item.trainOperator);
-                    }
-                    else
-                    {
-                        item.Category = convertCommodityToCategory(item.commodity);
-                    }
-
-
-                    /* Determine the actual km, and populate the loops information. */
-                    processing.populateGeometryKm(item.journey, trackGeometry);
-                    processing.populateLoopLocations(item.journey, trackGeometry);
-
-                    /* Sort the journey in ascending order. */
-                    item.journey = item.journey.OrderBy(t => t.kilometreage).ToList();
-
-                    TrainList.Add(item);
-
-                    /* Reset the parameters for the next train. */
-                    journey.Clear();
-
-                    /* Add the first record of the new train journey. */
-                    journey.Add(new TrainJourney(record[trainIndex]));
-
-                }
-
-                /* The end of the records have been reached. */
-
-                /* Check uni directionality of the last train */
-                journey = processing.longestDistanceTravelledInOneDirection(journey, trackGeometry);
-
-                /*  Assign the train parameters. */
-                Train lastItem = new Train();
-
-                lastItem.journey = journey;
-                lastItem.trainDirection = processing.getTrainDirection(lastItem);
-
-                lastItem.trainID = record[trainIndex - 1].trainID;
-                lastItem.locoID = record[trainIndex - 1].locoID;
-                lastItem.trainOperator = record[trainIndex - 1].trainOperator;
-                lastItem.commodity = record[trainIndex - 1].commodity;
-                lastItem.powerToWeight = record[trainIndex - 1].powerToWeight;
-
-                /* Determine the train Category. */
-                if (Settings.analysisCategory == analysisCategory.TrainPowerToWeight)
-                {
-                    if (lastItem.powerToWeight > Settings.Category1LowerBound && lastItem.powerToWeight <= Settings.Category1UpperBound)
-                        lastItem.Category = Category.Underpowered;
-                    else if (lastItem.powerToWeight > Settings.Category2LowerBound && lastItem.powerToWeight <= Settings.Category2UpperBound)
-                        lastItem.Category = Category.Overpowered;
-                    else
-                        lastItem.Category = Category.Actual;
-
-                }
-                else if (Settings.analysisCategory == analysisCategory.TrainOperator)
-                {
-                    lastItem.Category = convertTrainOperatorToCategory(lastItem.trainOperator);
-                }
-                else
-                {
-                    lastItem.Category = convertCommodityToCategory(lastItem.commodity);
-                }
-
-                /* Determine the actual km, and populate the loops information.  */
-                processing.populateGeometryKm(lastItem.journey, trackGeometry);
-                processing.populateLoopLocations(lastItem.journey, trackGeometry);
-
-                /* Sort the journey in ascending order. */
-                lastItem.journey = lastItem.journey.OrderBy(t => t.kilometreage).ToList();
-
-                TrainList.Add(lastItem);
-
-            }
-
-            return TrainList;
-        }
-
-        /// <summary>
-        /// Convert The analysis Category to the train Operator.
-        /// </summary>
-        /// <param name="Category">The analsyis Category.</param>
-        /// <returns>The train operator corresponding to the analysis Category.</returns>
-        private static trainOperator convertCategoryToTrainOperator(Category Category)
-        {
-            trainOperator trainOperator = trainOperator.Unknown;
-
-            /* Extract the list of train operators. */
-            List<trainOperator> operatorList = Enum.GetValues(typeof(trainOperator)).Cast<trainOperator>().ToList();
-
-            /* Match the opertor to the Category. */
-            foreach (trainOperator Operator in operatorList)
-            {
-                if (Operator.ToString().Equals(Category.ToString()))
-                    trainOperator = Operator;
-            }
-
-            return trainOperator;
-        }
-
-        /// <summary>
-        /// Convert The train Category to the train commodity.
-        /// </summary>
-        /// <param name="Category">The analsyis Category.</param>
-        /// <returns>The train commodity corresponding to the analysis Category.</returns>
-        private static trainCommodity convertCategoryToCommodity(Category Category)
-        {
-            trainCommodity trainCommodity = trainCommodity.Unknown;
-
-            /* Extract the list of train operators. */
-            List<trainCommodity> commodityList = Enum.GetValues(typeof(trainCommodity)).Cast<trainCommodity>().ToList();
-
-            /* Match the opertor to the Category. */
-            foreach (trainCommodity commodity in commodityList)
-            {
-                if (commodity.ToString().Equals(Category.ToString()))
-                    trainCommodity = commodity;
-            }
-
-            return trainCommodity;
-        }
-
-        /// <summary>
-        /// Convert the train operator to the analysis Category.
-        /// </summary>
-        /// <param name="trainOperator">The train operator.</param>
-        /// <returns>The analysis Category corresponding to the train operator.</returns>
-        private static Category convertTrainOperatorToCategory(trainOperator trainOperator)
-        {
-            Category trainCategory = Category.Unknown;
-
-            /* Extract the list of Categories. */
-            List<Category> CategoryList = Enum.GetValues(typeof(Category)).Cast<Category>().ToList();
-
-            /* Match the Category to the opertor. */
-            foreach (Category cat in CategoryList)
-            {
-                if (cat.ToString().Equals(trainOperator.ToString()))
-                    trainCategory = cat;
-            }
-
-            return trainCategory;
-        }
-
-        /// <summary>
-        /// Convert the train commodity to the analysis Category.
-        /// </summary>
-        /// <param name="trainOperator">The train operator.</param>
-        /// <returns>The analysis Category corresponding to the train operator.</returns>
-        private static Category convertCommodityToCategory(trainCommodity commodity)
-        {
-            Category trainCategory = Category.Unknown;
-
-            /* Extract the list of Categories. */
-            List<Category> CategoryList = Enum.GetValues(typeof(Category)).Cast<Category>().ToList();
-
-            /* Match the Category to the opertor. */
-            foreach (Category cat in CategoryList)
-            {
-                if (cat.ToString().Equals(commodity.ToString()))
-                    trainCategory = cat;
-            }
-
-            return trainCategory;
-        }
-
-        /// <summary>
-        /// Set the Train operator to the combination of the other Categories for full aggregation.
-        /// </summary>
-        /// <param name="combined">The list of trains to convert the operator to combined.</param>
-        private static void setOperatorToCombined(List<Train> combined)
-        {
-            foreach (Train train in combined)
-            {
-                train.Category = Category.Combined;
-            }
-        }
-
-        /// <summary>
-        /// Set the Train operator to the group remaining Categories for full aggregation.
-        /// </summary>
-        /// <param name="combined">The list of trains to convert the operator to grouped.</param>
-        private static void setOperatorToGrouped(List<Train> trains)
-        {
-            foreach (Train train in trains)
-            {
-                train.Category = Category.GroupRemaining;
-            }
-        }
-
-        /// <summary>
-        /// Creates an empty average train when there are no trains in the list to aggregate.
-        /// </summary>
-        /// <param name="trainCategory">The anlaysis Category where there are no trains in the list.</param>
-        /// <param name="direction">The empty trains direction of travel.</param>
-        /// <returns></returns>
-        private static AverageTrain createZeroedAverageTrain(Category trainCategory, direction direction)
-        {
-            /* Determine the number of points in the average train journey. */
-            int size = (int)((Settings.endKm - Settings.startKm) / (Settings.interval / 1000));
-
-            int trainCount = 0;
-            List<double> kilometreage = new List<double>(size);
-            List<double> elevation = new List<double>(size);
-            List<double> averageSpeed = new List<double>(size);
-            List<bool> isInLoopBoundary = new List<bool>(size);
-            List<bool> isInTSRboundary = new List<bool>(size);
-
-            /* Set all properties to 0 or false. */
-            for (int index = 0; index < size; index++)
-            {
-                kilometreage.Add(Settings.startKm + Settings.interval / 1000 * index);
-                elevation.Add(0);
-                averageSpeed.Add(0);
-                isInLoopBoundary.Add(false);
-                isInTSRboundary.Add(false);
-            }
-
-            return new AverageTrain(trainCategory, direction, trainCount, kilometreage, elevation, averageSpeed, isInLoopBoundary, isInTSRboundary);
-        }
-
-    } // Class Algorithm
+    }
 }

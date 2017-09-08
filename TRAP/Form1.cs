@@ -14,14 +14,14 @@ using System.Windows.Forms;
 using Globalsettings;
 using System.Reflection;
 
+/* Custome Libraries */
+using TrainLibrary;
+using IOLibrary;
+
 namespace TRAP
 {
     public partial class TrainPerformance : Form
     {
-
-        public static Tools tool = new Tools();
-        public static Processing processing = new Processing();
-        public static TrackGeometry track = new TrackGeometry();
 
         /* Constant time factors. */
         public const double secPerHour = 3600;
@@ -70,7 +70,9 @@ namespace TRAP
         private void selectDataFile_Click(object sender, EventArgs e)
         {
             /* Select the data file. */
-            FileSettings.dataFile = tool.browseFile("Select the data file.");
+            //FileSettings.dataFile = tool.browseFile("Select the data file.");
+            FileSettings.dataFile = Tools.selectDataFile(caption: "Select the data file.");
+            
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
@@ -86,7 +88,7 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void selectGeometryFile_Click(object sender, EventArgs e)
         {
-            FileSettings.geometryFile = tool.browseFile("Select the geometry file.");
+            FileSettings.geometryFile = Tools.selectDataFile(caption: "Select the geometry file.");
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
             GeometryFile.ForeColor = System.Drawing.Color.Black;
         }
@@ -98,7 +100,7 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void selectTSRFile_Click(object sender, EventArgs e)
         {
-            FileSettings.temporarySpeedRestrictionFile = tool.browseFile("Select the TSR file.");
+            FileSettings.temporarySpeedRestrictionFile = Tools.selectDataFile(caption: "Select the TSR file.");
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
         }
@@ -110,7 +112,7 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         private void selectTrainFile_Click(object sender, EventArgs e)
         {
-            FileSettings.trainListFile = tool.browseFile("Select the train list file.");
+            FileSettings.trainListFile = Tools.selectDataFile(caption: "Select the train list file.");
             trainListFile.Text = Path.GetFileName(FileSettings.trainListFile);
             trainListFile.ForeColor = System.Drawing.Color.Black;
         }
@@ -123,12 +125,12 @@ namespace TRAP
         private void simulationPowerToWeightRatios_Click(object sender, EventArgs e)
         {
             /* Extract the form parameters. */
-            processing.populateFormParameters(this);
-
+            populateFormParameters(this);
+            
             /* Validate the form parameters. */
-            if (!processing.areFormParametersValid())
+            if (!areFormParametersValid())
             {
-                tool.messageBox("One or more parameters are invalid.");
+                Tools.messageBox("One or more parameters are invalid.");
                 return;
             }
 
@@ -149,12 +151,12 @@ namespace TRAP
 
             /* Read the data. */
             List<TrainRecord> TrainRecords = new List<TrainRecord>();
-            TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList);
+            TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
 
 
             if (TrainRecords.Count() == 0)
             {
-                tool.messageBox("There is no data within the specified boundaries.\nCheck the processing parameters.");
+                Tools.messageBox("There is no data within the specified boundaries.\nCheck the processing parameters.");
                 return;
             }
 
@@ -181,7 +183,9 @@ namespace TRAP
                 /* Clean data - remove trains with insufficient data. */
                 /******** Should only be required while we are waiting for the data in the prefered format ********/
                 List<Train> CleanTrainRecords = new List<Train>();
-                CleanTrainRecords = Algorithm.CleanData(OrderdTrainRecords, trackGeometry);
+                CleanTrainRecords = Processing.CleanData(OrderdTrainRecords, trackGeometry, 
+                    Settings.timeThreshold, Settings.distanceThreshold, Settings.minimumJourneyDistance, Settings.analysisCategory, 
+                    Settings.Category1LowerBound, Settings.Category1UpperBound, Settings.Category2LowerBound, Settings.Category2UpperBound);
                 /**************************************************************************************************/
                 
 
@@ -314,7 +318,7 @@ namespace TRAP
             string browseString = "Select the " + Category + " " + direction + " km simulation file.";
 
             /* Select the simulation file using the browser and insert into the simulation file list. */
-            filename = tool.browseFile(browseString);
+            filename = Tools.selectDataFile(caption: browseString);
             FileSettings.simulationFiles[index] = filename;
             simulationFile.Text = Path.GetFileName(filename);
             simulationFile.ForeColor = System.Drawing.Color.Black;
@@ -371,7 +375,7 @@ namespace TRAP
         private void resultsDirectory_Click(object sender, EventArgs e)
         {
             /* Browse the folders for the desired desination folder. */
-            FileSettings.aggregatedDestination = tool.selectFolder();
+            FileSettings.aggregatedDestination = Tools.selectFolder();
             resultsDestination.Text = FileSettings.aggregatedDestination;
             resultsDestination.ForeColor = System.Drawing.Color.Black;
         }
@@ -391,11 +395,11 @@ namespace TRAP
             timer.Tick += new EventHandler(tickTimer);  // Event handler function.
 
             /* Populate the parameters. */
-            processing.populateFormParameters(this);
+            populateFormParameters(this);
             /* Validate the form parameters. */
-            if (!processing.areFormParametersValid())
+            if (!areFormParametersValid())
             {
-                tool.messageBox("One or more parameters are invalid.");
+                Tools.messageBox("One or more parameters are invalid.");
                 return;
             }
 
@@ -453,7 +457,7 @@ namespace TRAP
                         timeCounter = 0;
                         stopTheClock = true;
 
-                        tool.messageBox("Program Complete.");
+                        Tools.messageBox("Program Complete.");
                     };
 
                 background.RunWorkerAsync();
@@ -471,11 +475,11 @@ namespace TRAP
         {
 
             /* Populate the parameters. */
-            processing.populateFormParameters(this);
+            populateFormParameters(this);
             /* Validate the form parameters. */
-            if (!processing.areFormParametersValid())
+            if (!areFormParametersValid())
             {
-                tool.messageBox("One or more parameters are invalid.");
+                Tools.messageBox("One or more parameters are invalid.");
                 return;
             }
 
@@ -1086,6 +1090,96 @@ namespace TRAP
             Operator3Category.SelectedItem = "";
             Operator3Category.Text = "";
         }
+
+        /// <summary>
+        /// Populate the Setting parameters from the form provided.
+        /// </summary>
+        /// <param name="form">The Form object containg the form parameters.</param>
+        public void populateFormParameters(TrainPerformance form)
+        {
+
+            /* Extract the form parameters. */
+            Settings.dateRange = form.getDateRange();
+            Settings.excludeListOfTrains = form.getTrainListExcludeFlag();
+            Settings.startKm = form.getStartKm();
+            Settings.endKm = form.getEndKm();
+            Settings.interval = form.getInterval();
+            Settings.minimumJourneyDistance = form.getJourneydistance();
+            Settings.loopSpeedThreshold = form.getLoopFactor();
+            Settings.loopBoundaryThreshold = form.getLoopBoundary();
+            Settings.TSRwindowBoundary = form.getTSRWindow();
+            Settings.timeThreshold = form.getTimeSeparation();
+            Settings.distanceThreshold = form.getDataSeparation();
+            Settings.Category1LowerBound = form.getCategory1LowerBound();
+            Settings.Category1UpperBound = form.getCategory1UpperBound();
+            Settings.Category2LowerBound = form.getCategory2LowerBound();
+            Settings.Category2UpperBound = form.getCategory2UpperBound();
+            Settings.analysisCategory = form.getAnalysisCategory();
+            Settings.Category1Commodity = form.getCommodity1Category();
+            Settings.Category1Operator = form.getOperator1Category();
+            Settings.Category2Commodity = form.getCommodity2Category();
+            Settings.Category2Operator = form.getOperator2Category();
+            Settings.Category3Commodity = form.getCommodity3Category();
+            Settings.Category3Operator = form.getOperator3Category();
+
+        }
+
+        /// <summary>
+        /// Validate the form parameters are within logical boundaries.
+        /// </summary>
+        /// <returns>True if all parameters are valid.</returns>
+        public bool areFormParametersValid()
+        {
+
+            if (Settings.dateRange == null ||
+                Settings.dateRange[0] > DateTime.Today || Settings.dateRange[1] > DateTime.Today ||
+                Settings.dateRange[0] > Settings.dateRange[1])
+                return false;
+
+            if (Settings.startKm < 0 || Settings.startKm > Settings.endKm)
+                return false;
+
+            if (Settings.endKm < 0 || Settings.endKm < Settings.startKm)
+                return false;
+
+            if (Settings.interval < 0)
+                return false;
+
+            if (Settings.minimumJourneyDistance < 0)
+                return false;
+
+            if (Settings.loopSpeedThreshold < 0 || Settings.loopSpeedThreshold > 100)
+                return false;
+
+            if (Settings.loopBoundaryThreshold < 0)
+                return false;
+
+            if (Settings.TSRwindowBoundary < 0)
+                return false;
+
+            if (Settings.timeThreshold < 0)
+                return false;
+
+            if (Settings.distanceThreshold < 0)
+                return false;
+
+            if (Settings.Category1LowerBound < 0)
+                return false;
+
+            if (Settings.Category1UpperBound < 0)
+                return false;
+
+            if (Settings.Category2LowerBound < 0)
+                return false;
+
+            if (Settings.Category2UpperBound < 0)
+                return false;
+
+            return true;
+
+
+        }
+
 
         /// <summary>
         /// This function sets all the testing parameters for the Cullerin Ranges data
