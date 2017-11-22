@@ -23,7 +23,7 @@ namespace TRAP
         /// ratios, and the commodity the train carries.
         /// 
         /// The loop locations and TSR information is also used to extract the data that 
-        /// corresponds to a train that enteres a loop and is bound by a TSR. If the train 
+        /// corresponds to a train that enters a loop and is bound by a TSR. If the train 
         /// is within the 'loop bounday threshold' and is deemed to be stopping in the loop, 
         /// the data at this location is not included. The train is deemed to be stopping in 
         /// a loop if the train speed drops below the simulated speed multiplied by the 

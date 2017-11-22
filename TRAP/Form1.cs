@@ -769,21 +769,12 @@ namespace TRAP
         }
         
         /// <summary>
-        /// Extract the analysis Category.
+        /// Extract the analysis Category from the Settings.
         /// </summary>
         /// <returns>The analysis Category</returns>
         public analysisCategory getAnalysisCategory()
         {
-            if (getPowerToWeightRatioAnalysis())
-                return analysisCategory.TrainPowerToWeight;
-            
-            if (getOperator1Category() != trainOperator.Unknown)
-                return analysisCategory.TrainOperator;
-
-            if (getCommodity1Category() != trainCommodity.Unknown)
-                return analysisCategory.TrainCommodity;
-
-            return analysisCategory.Unknown;
+            return Settings.analysisCategory;
         }
 
         /// <summary>
@@ -1826,7 +1817,7 @@ namespace TRAP
             GeometryFile.ForeColor = System.Drawing.Color.Black;
 
             /* TSR File */
-            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands TSR 2016-2017.csv";
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands TSR 2016-201706.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
