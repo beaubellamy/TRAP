@@ -80,7 +80,6 @@ namespace TRAP
             List<trainOperator> operators = TrainRecords.Select(t => t.trainOperator).Distinct().ToList();
             operators.Remove(trainOperator.Unknown);
             int numberOfOperators = operators.Count();
-             
 
             /* Create a list of analysis Categories */
             List<Category> simCategories = new List<Category>();
@@ -141,11 +140,10 @@ namespace TRAP
             /******** Should only be required while we are waiting for the data in the prefered format ********/
 
             List<Train> CleanTrainRecords = new List<Train>();
-            //CleanTrainRecords = MakeTrains(OrderdTrainRecords, trackGeometry);
+            //CleanTrainRecords = Processing.MakeTrains(OrderdTrainRecords, trackGeometry,
             CleanTrainRecords = Processing.CleanData(OrderdTrainRecords, trackGeometry,
                 Settings.timeThreshold, Settings.distanceThreshold, Settings.minimumJourneyDistance, Settings.analysisCategory,
                 Settings.Category1LowerBound, Settings.Category1UpperBound, Settings.Category2LowerBound, Settings.Category2UpperBound);
-
 
             /* Interpolate data */
             /******** Should only be required while we are waiting for the data in the prefered format ********/

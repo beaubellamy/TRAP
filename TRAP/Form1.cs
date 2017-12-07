@@ -1803,7 +1803,7 @@ namespace TRAP
             resetDefaultParameters();
 
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands Data 2016-201706.txt";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands Data 2016-201711.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
@@ -1862,7 +1862,7 @@ namespace TRAP
             startInterpolationKm.Text = "55";
             endInterpolationKm.Text = "145";
             interpolationInterval.Text = "50";
-            minimumJourneyDistance.Text = "50";
+            minimumJourneyDistance.Text = "20";     // Reduced from 50 to allow the TM coal trains partial journey to be included.
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
