@@ -889,6 +889,50 @@ namespace TRAP
             return trainCommodity.Unknown;
         }
 
+
+        public trainType getTrainType1Category()
+        {
+            /* Convert string to train operator. */
+            List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
+
+            foreach (trainType trainType in trainTypeList)
+            {
+                if (TrainType1Category.SelectedItem != null &&
+                    TrainType1Category.SelectedItem.ToString().Replace(" - ", string.Empty).Equals(trainType.ToString()))
+                    return trainType;
+            }
+            return trainType.Unknown;
+        }
+
+        public trainType getTrainType2Category()
+        {
+            /* Convert string to train operator. */
+            List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
+
+            foreach (trainType trainType in trainTypeList)
+            {
+                if (TrainType2Category.SelectedItem != null &&
+                    TrainType2Category.SelectedItem.ToString().Replace(" - ", string.Empty).Equals(trainType.ToString()))
+                    return trainType;
+            }
+            return trainType.Unknown;
+        }
+
+        public trainType getTrainType3Category()
+        {
+            /* Convert string to train operator. */
+            List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
+
+            foreach (trainType trainType in trainTypeList)
+            {
+                if (TrainType3Category.SelectedItem != null &&
+                    TrainType3Category.SelectedItem.ToString().Replace(" - ", string.Empty).Equals(trainType.ToString()))
+                    return trainType;
+            }
+            return trainType.Unknown;
+        }
+
+
         /// <summary>
         /// Convert the analysis Category to the appropriate train operator.
         /// </summary>
@@ -1112,6 +1156,9 @@ namespace TRAP
             Settings.Category2Operator = form.getOperator2Category();
             Settings.Category3Commodity = form.getCommodity3Category();
             Settings.Category3Operator = form.getOperator3Category();
+            Settings.Category1TrainType = form.getTrainType1Category();
+            Settings.Category2TrainType = form.getTrainType2Category();
+            Settings.Category3TrainType = form.getTrainType3Category();
 
         }
 
@@ -1689,6 +1736,107 @@ namespace TRAP
             Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
+        private void setTarcoola2KalgoorlieParameters2(object sender, EventArgs e)
+        {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
+
+            /* Data File */
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
+
+            IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+            simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+
+            IceDataFile.ForeColor = System.Drawing.Color.Black;
+            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Geometry File */
+            FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
+            GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
+            GeometryFile.ForeColor = System.Drawing.Color.Black;
+
+            /* TSR File */
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR.csv";
+            temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
+            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Simulation files */
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 3.4_FriW1.csv";
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 3.5_MonW1.csv";
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 3.4_FriW1.csv";
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 3.5_MonW1.csv";
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 3.4_FriW1.csv";
+            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 3.5_MonW1.csv";
+            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+
+            /* Destination Folder */
+            FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
+            resultsDestination.Text = FileSettings.aggregatedDestination;
+            resultsDestination.ForeColor = System.Drawing.Color.Black;
+
+            /* Settings */
+            fromDate.Value = new DateTime(2017, 1, 1);
+            toDate.Value = new DateTime(2017, 2, 1);
+
+            /* Interpolation parameters. */
+            excludeListOfTrains.Checked = false;
+
+            startInterpolationKm.Text = "500";
+            endInterpolationKm.Text = "1700";
+            interpolationInterval.Text = "50";
+            minimumJourneyDistance.Text = "350";
+            dataSeparation.Text = "4";
+            timeSeparation.Text = "10";
+
+            loopBoundaryThreshold.Text = "1";
+            loopSpeedThreshold.Text = "50";
+            TSRWindowBoundary.Text = "1";
+
+            /* Power to weight ratio boudnaries. */
+            powerToWeightRatioAnalysis.Checked = false;
+            
+            /* Anlaysis Parameters */
+            Settings.analysisCategory = analysisCategory.TrainType;
+
+            TrainType1Category.SelectedItem = "Adelaide - Perth";
+            Settings.Category1TrainType = trainType.AdelaidePerth;
+            TrainType2Category.SelectedItem = "Melbourne - Perth";
+            Settings.Category2TrainType = trainType.MelbournePerth;
+            TrainType3Category.SelectedItem = "Perth - Sydney";
+            Settings.Category3TrainType = trainType.PerthSydney;
+
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
+
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
+        }
+
         /// <summary>
         /// This function sets all the testing parameters for the the Ulan line
         /// </summary>
@@ -2085,7 +2233,7 @@ namespace TRAP
         {
             /* If Tarcoola to Kalgoorlie testing flag is checked, set the appropriate parameters. */
             if (Tarcoola2Kalgoorlie.Checked)
-                setTarcoola2KalgoorlieParameters(sender, e);
+                setTarcoola2KalgoorlieParameters2(sender, e);
             else
                 resetDefaultParameters();
         }

@@ -25,8 +25,8 @@ namespace Globalsettings
      } 
  
      public static class Settings 
-     { 
-          
+     {
+                
          /* Data boundaries */ 
          public static DateTime[] dateRange;                 /* Date range of data to include. */ 
          public static GeoLocation topLeftLocation;          /* Top left corner of the geographic box describing the included data. */ 
@@ -60,8 +60,11 @@ namespace Globalsettings
          public static trainOperator Category3Operator = trainOperator.Unknown; 
          public static trainCommodity Category1Commodity = trainCommodity.Unknown; 
          public static trainCommodity Category2Commodity = trainCommodity.Unknown; 
-         public static trainCommodity Category3Commodity = trainCommodity.Unknown; 
-         
+         public static trainCommodity Category3Commodity = trainCommodity.Unknown;
+         public static trainType Category1TrainType = trainType.Unknown;
+         public static trainType Category2TrainType = trainType.Unknown;
+         public static trainType Category3TrainType = trainType.Unknown;
+        
     } 
 
 } 

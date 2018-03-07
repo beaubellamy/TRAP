@@ -102,6 +102,18 @@ namespace TRAP
                     simCategories.Add(Processing.convertTrainOperatorToCategory(Settings.Category3Operator));
 
             }
+            else if (Settings.analysisCategory == analysisCategory.TrainType)
+            {
+                if (Settings.Category1TrainType != trainType.Unknown)
+                    simCategories.Add(Processing.convertTrainTypeToCategory(Settings.Category1TrainType));
+
+                if (Settings.Category2TrainType != trainType.Unknown)
+                    simCategories.Add(Processing.convertTrainTypeToCategory(Settings.Category2TrainType));
+
+                if (Settings.Category3TrainType != trainType.Unknown)
+                    simCategories.Add(Processing.convertTrainTypeToCategory(Settings.Category3TrainType));
+
+            }
             else
             {
                 /* analysisCategory is commodities. */
@@ -173,15 +185,15 @@ namespace TRAP
                     /* Create a list for each category. */
                     increasingTrainCategory = interpolatedTrains.Where(t => t.Category == simCategories[index]).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                     decreasingTrainCategory = interpolatedTrains.Where(t => t.Category == simCategories[index]).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
-                    
+
                 }
                 else if (Settings.analysisCategory == analysisCategory.TrainOperator)
                 {
                     /* Convert the train category to the train operator. */
                     trainOperator operatorCategory = Processing.convertCategoryToTrainOperator(simCategories[index]);
-                    
+
                     /* Create a list for each operator. */
-                    if (operatorCategory !=  trainOperator.GroupRemaining)
+                    if (operatorCategory != trainOperator.GroupRemaining)
                     {
                         increasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                         decreasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
@@ -207,6 +219,38 @@ namespace TRAP
                         Processing.setOperatorToGrouped(decreasingTrainCategory);
                     }
 
+                }
+                else if (Settings.analysisCategory == analysisCategory.TrainType)
+                {
+                    /* Convert the train category to the train operator. */
+                    trainType trainType = Processing.convertCategoryToTrainType(simCategories[index]);
+
+                    /* Create a list for each operator. */
+                    if (trainType != trainType.GroupRemaining)
+                    { 
+                        increasingTrainCategory = interpolatedTrains.Where(t => t.trainType == trainType).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        decreasingTrainCategory = interpolatedTrains.Where(t => t.trainType == trainType).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                    }
+                    else
+                    {
+                        /* Create a list for all operators. */
+                        increasingTrainCategory = interpolatedTrains.Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        decreasingTrainCategory = interpolatedTrains.Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                        for (int groupIdx = 0; groupIdx < simCategories.Count(); groupIdx++)
+                        {
+                            if (groupIdx != index)
+                            {
+                                /* Remove the specified operators from the list so they aren't counted twice. */
+                                trainType = Processing.convertCategoryToTrainType(simCategories[groupIdx]);
+                                increasingTrainCategory = increasingTrainCategory.Where(t => t.trainType != trainType).ToList();
+                                decreasingTrainCategory = decreasingTrainCategory.Where(t => t.trainType != trainType).ToList();
+                            }
+                        }
+                        /* Reset the operator to grouped for the analysis */
+                        Processing.setOperatorToGrouped(increasingTrainCategory);
+                        Processing.setOperatorToGrouped(decreasingTrainCategory);
+                    }
                 }
                 else
                 {
@@ -309,6 +353,33 @@ namespace TRAP
                         increasingSubList = interpolatedTrains.Where(t => t.trainOperator == Processing.convertCategoryToTrainOperator(simCategory)).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                         increasingCombined.AddRange(increasingSubList);
                         decreasingSubList = interpolatedTrains.Where(t => t.trainOperator == Processing.convertCategoryToTrainOperator(simCategory)).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                        decreasingCombined.AddRange(decreasingSubList);
+                    }
+                }
+                Processing.setOperatorToCombined(increasingCombined);
+                Processing.setOperatorToCombined(decreasingCombined);
+
+            }
+            else if (Settings.analysisCategory == analysisCategory.TrainType)
+            {
+                /* Create a list for each direction. */
+                List<Train> increasingSubList = new List<Train>();
+                List<Train> decreasingSubList = new List<Train>();
+
+                /* If all commodities are used, group them in each direction. */
+                if (simCategories.Contains(Category.GroupRemaining))
+                {
+                    increasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                    decreasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                }
+                else
+                {
+                    /* Cycle through each commodity to add to the list. */
+                    foreach (Category simCategory in simCategories)
+                    {
+                        increasingSubList = interpolatedTrains.Where(t => t.trainType == Processing.convertCategoryToTrainType(simCategory)).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        increasingCombined.AddRange(increasingSubList);
+                        decreasingSubList = interpolatedTrains.Where(t => t.trainType == Processing.convertCategoryToTrainType(simCategory)).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
                         decreasingCombined.AddRange(decreasingSubList);
                     }
                 }
