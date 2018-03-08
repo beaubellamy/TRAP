@@ -889,7 +889,10 @@ namespace TRAP
             return trainCommodity.Unknown;
         }
 
-
+        /// <summary>
+        /// Extract the value of the first train type
+        /// </summary>
+        /// <returns>Teh train type describing the first analysis category</returns>
         public trainType getTrainType1Category()
         {
             /* Convert string to train operator. */
@@ -904,6 +907,10 @@ namespace TRAP
             return trainType.Unknown;
         }
 
+        /// <summary>
+        /// Extract the value of the third train type
+        /// </summary>
+        /// <returns>Teh train type describing the third analysis category</returns>
         public trainType getTrainType2Category()
         {
             /* Convert string to train operator. */
@@ -918,6 +925,10 @@ namespace TRAP
             return trainType.Unknown;
         }
 
+        /// <summary>
+        /// Extract the value of the third train type
+        /// </summary>
+        /// <returns>Teh train type describing the third analysis category</returns>
         public trainType getTrainType3Category()
         {
             /* Convert string to train operator. */
@@ -931,8 +942,7 @@ namespace TRAP
             }
             return trainType.Unknown;
         }
-
-
+        
         /// <summary>
         /// Convert the analysis Category to the appropriate train operator.
         /// </summary>
@@ -1217,7 +1227,6 @@ namespace TRAP
 
 
         }
-
 
         /// <summary>
         /// This function sets all the testing parameters for the Cullerin Ranges data
