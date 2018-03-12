@@ -104,6 +104,7 @@ namespace TRAP
             }
             else if (Settings.analysisCategory == analysisCategory.TrainType)
             {
+
                 if (Settings.Category1TrainType != trainType.Unknown)
                     simCategories.Add(Processing.convertTrainTypeToCategory(Settings.Category1TrainType));
 
@@ -241,7 +242,7 @@ namespace TRAP
                         {
                             if (groupIdx != index)
                             {
-                                /* Remove the specified operators from the list so they aren't counted twice. */
+                                /* Remove the specified train types from the list so they aren't counted twice. */
                                 trainType = Processing.convertCategoryToTrainType(simCategories[groupIdx]);
                                 increasingTrainCategory = increasingTrainCategory.Where(t => t.trainType != trainType).ToList();
                                 decreasingTrainCategory = decreasingTrainCategory.Where(t => t.trainType != trainType).ToList();

@@ -138,9 +138,9 @@
             this.Category1SimulationLabel = new System.Windows.Forms.Label();
             this.Category1IncreasingSimulationFile = new System.Windows.Forms.TextBox();
             this.TrainNumberLabel = new System.Windows.Forms.Label();
-            this.TrainType1Category = new System.Windows.Forms.ComboBox();
-            this.TrainType2Category = new System.Windows.Forms.ComboBox();
-            this.TrainType3Category = new System.Windows.Forms.ComboBox();
+            this.trainType1 = new System.Windows.Forms.TextBox();
+            this.trainType2 = new System.Windows.Forms.TextBox();
+            this.trainType3 = new System.Windows.Forms.TextBox();
             this.simulationTab.SuspendLayout();
             this.AnalysisParametersTab.SuspendLayout();
             this.powerToWeightParametersTab.SuspendLayout();
@@ -940,9 +940,9 @@
             // 
             // simulationFileTab
             // 
-            this.simulationFileTab.Controls.Add(this.TrainType3Category);
-            this.simulationFileTab.Controls.Add(this.TrainType2Category);
-            this.simulationFileTab.Controls.Add(this.TrainType1Category);
+            this.simulationFileTab.Controls.Add(this.trainType3);
+            this.simulationFileTab.Controls.Add(this.trainType2);
+            this.simulationFileTab.Controls.Add(this.trainType1);
             this.simulationFileTab.Controls.Add(this.TrainNumberLabel);
             this.simulationFileTab.Controls.Add(this.powerToWeightRatioAnalysis);
             this.simulationFileTab.Controls.Add(this.Commodity3Category);
@@ -1363,86 +1363,29 @@
             this.TrainNumberLabel.TabIndex = 30;
             this.TrainNumberLabel.Text = "Train Type";
             // 
-            // TrainType1Category
+            // trainType1
             // 
-            this.TrainType1Category.FormattingEnabled = true;
-            this.TrainType1Category.Items.AddRange(new object[] {
-            "Melbourne - Perth",
-            "Perth - Melbourne",
-            "Brisbane - Sydney",
-            "Sydney - Brisbane",
-            "Sydney - Melbourne",
-            "Melbourne - Sydney",
-            "Adelaide - Perth",
-            "Perth - Adelaide",
-            "Melbourne - Brisbane",
-            "Brisbane - Melbourne",
-            "Sydney - Perth",
-            "Perth - Sydney",
-            "Perth - Goobang",
-            "Goobang - Perth",
-            "PX",
-            "NonStandard",
-            "GroupRemaining"});
-            this.TrainType1Category.Location = new System.Drawing.Point(643, 69);
-            this.TrainType1Category.Name = "TrainType1Category";
-            this.TrainType1Category.Size = new System.Drawing.Size(95, 21);
-            this.TrainType1Category.TabIndex = 31;
-            this.TrainType1Category.Text = "Select a Train Type";
+            this.trainType1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.trainType1.Location = new System.Drawing.Point(643, 70);
+            this.trainType1.Name = "trainType1";
+            this.trainType1.Size = new System.Drawing.Size(93, 20);
+            this.trainType1.TabIndex = 34;
             // 
-            // TrainType2Category
+            // trainType2
             // 
-            this.TrainType2Category.FormattingEnabled = true;
-            this.TrainType2Category.Items.AddRange(new object[] {
-            "Melbourne - Perth",
-            "Perth - Melbourne",
-            "Brisbane - Sydney",
-            "Sydney - Brisbane",
-            "Sydney - Melbourne",
-            "Melbourne - Sydney",
-            "Adelaide - Perth",
-            "Perth - Adelaide",
-            "Melbourne - Brisbane",
-            "Brisbane - Melbourne",
-            "Sydney - Perth",
-            "Perth - Sydney",
-            "Perth - Goobang",
-            "Goobang - Perth",
-            "PX",
-            "NonStandard",
-            "GroupRemaining"});
-            this.TrainType2Category.Location = new System.Drawing.Point(643, 170);
-            this.TrainType2Category.Name = "TrainType2Category";
-            this.TrainType2Category.Size = new System.Drawing.Size(95, 21);
-            this.TrainType2Category.TabIndex = 32;
-            this.TrainType2Category.Text = "Select a Train Type";
+            this.trainType2.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.trainType2.Location = new System.Drawing.Point(643, 170);
+            this.trainType2.Name = "trainType2";
+            this.trainType2.Size = new System.Drawing.Size(93, 20);
+            this.trainType2.TabIndex = 35;
             // 
-            // TrainType3Category
+            // trainType3
             // 
-            this.TrainType3Category.FormattingEnabled = true;
-            this.TrainType3Category.Items.AddRange(new object[] {
-            "Melbourne - Perth",
-            "Perth - Melbourne",
-            "Brisbane - Sydney",
-            "Sydney - Brisbane",
-            "Sydney - Melbourne",
-            "Melbourne - Sydney",
-            "Adelaide - Perth",
-            "Perth - Adelaide",
-            "Melbourne - Brisbane",
-            "Brisbane - Melbourne",
-            "Sydney - Perth",
-            "Perth - Sydney",
-            "Perth - Goobang",
-            "Goobang - Perth",
-            "PX",
-            "NonStandard",
-            "GroupRemaining"});
-            this.TrainType3Category.Location = new System.Drawing.Point(643, 268);
-            this.TrainType3Category.Name = "TrainType3Category";
-            this.TrainType3Category.Size = new System.Drawing.Size(95, 21);
-            this.TrainType3Category.TabIndex = 33;
-            this.TrainType3Category.Text = "Select a Train Type";
+            this.trainType3.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.trainType3.Location = new System.Drawing.Point(643, 269);
+            this.trainType3.Name = "trainType3";
+            this.trainType3.Size = new System.Drawing.Size(93, 20);
+            this.trainType3.TabIndex = 36;
             // 
             // TrainPerformance
             // 
@@ -1575,10 +1518,10 @@
         private System.Windows.Forms.CheckBox GunnedahBasin;
         private System.Windows.Forms.CheckBox CulleranRanges;
         private System.Windows.Forms.Label TestLabel;
-        private System.Windows.Forms.ComboBox TrainType3Category;
-        private System.Windows.Forms.ComboBox TrainType2Category;
-        private System.Windows.Forms.ComboBox TrainType1Category;
         private System.Windows.Forms.Label TrainNumberLabel;
+        private System.Windows.Forms.TextBox trainType3;
+        private System.Windows.Forms.TextBox trainType2;
+        private System.Windows.Forms.TextBox trainType1;
     }
 }
 

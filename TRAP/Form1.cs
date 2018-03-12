@@ -774,6 +774,15 @@ namespace TRAP
         /// <returns>The analysis Category</returns>
         public analysisCategory getAnalysisCategory()
         {
+            if (powerToWeightRatioAnalysis.Checked)
+                Settings.analysisCategory = analysisCategory.TrainPowerToWeight;
+            else if (Operator1Category.SelectedItem != null)
+                Settings.analysisCategory = analysisCategory.TrainOperator;
+            else if (Commodity1Category.SelectedItem != null)
+                Settings.analysisCategory = analysisCategory.TrainCommodity;
+            else // trainType1.Text
+                Settings.analysisCategory = analysisCategory.TrainType;
+
             return Settings.analysisCategory;
         }
 
@@ -892,16 +901,61 @@ namespace TRAP
         /// <summary>
         /// Extract the value of the first train type
         /// </summary>
-        /// <returns>Teh train type describing the first analysis category</returns>
-        public trainType getTrainType1Category()
+        /// <returns>The train type describing the first analysis category</returns>
+        //public trainType getTrainType1Category()
+        //{
+        //    /* Convert string to train operator. */
+        //    List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
+
+        //    foreach (trainType trainType in trainTypeList)
+        //    {
+        //        if (TrainType1Category.SelectedItem != null &&
+        //            TrainType1Category.SelectedItem.ToString().Replace(" - ", string.Empty).Equals(trainType.ToString()))
+        //            return trainType;
+        //    }
+        //    return trainType.Unknown;
+        //}
+
+        public trainType getTrainType1Category2()
         {
             /* Convert string to train operator. */
             List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
 
             foreach (trainType trainType in trainTypeList)
             {
-                if (TrainType1Category.SelectedItem != null &&
-                    TrainType1Category.SelectedItem.ToString().Replace(" - ", string.Empty).Equals(trainType.ToString()))
+                if (trainType1.Text.Equals(trainType.ToString()))
+                    return trainType;
+            }
+            return trainType.Unknown;
+        }
+
+
+        /// <summary>
+        /// Extract the value of the third train type
+        /// </summary>
+        /// <returns>Teh train type describing the third analysis category</returns>
+        //public trainType getTrainType2Category()
+        //{
+        //    /* Convert string to train operator. */
+        //    List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
+
+        //    foreach (trainType trainType in trainTypeList)
+        //    {
+        //        if (TrainType2Category.SelectedItem != null &&
+        //            TrainType2Category.SelectedItem.ToString().Replace(" - ", string.Empty).Equals(trainType.ToString()))
+        //            return trainType;
+        //    }
+        //    return trainType.Unknown;
+        //}
+
+        public trainType getTrainType2Category2()
+        {
+            /* Convert string to train operator. */
+            List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
+
+            foreach (trainType trainType in trainTypeList)
+            {
+                if (trainType2.Text.Equals(trainType.ToString()))
                     return trainType;
             }
             return trainType.Unknown;
@@ -911,38 +965,33 @@ namespace TRAP
         /// Extract the value of the third train type
         /// </summary>
         /// <returns>Teh train type describing the third analysis category</returns>
-        public trainType getTrainType2Category()
+        //public trainType getTrainType3Category()
+        //{
+        //    /* Convert string to train operator. */
+        //    List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
+
+        //    foreach (trainType trainType in trainTypeList)
+        //    {
+        //        if (TrainType3Category.SelectedItem != null &&
+        //            TrainType3Category.SelectedItem.ToString().Replace(" - ", string.Empty).Equals(trainType.ToString()))
+        //            return trainType;
+        //    }
+        //    return trainType.Unknown;
+        //}
+
+        public trainType getTrainType3Category2()
         {
             /* Convert string to train operator. */
             List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
 
             foreach (trainType trainType in trainTypeList)
             {
-                if (TrainType2Category.SelectedItem != null &&
-                    TrainType2Category.SelectedItem.ToString().Replace(" - ", string.Empty).Equals(trainType.ToString()))
+                if (trainType3.Text.Equals(trainType.ToString()))
                     return trainType;
             }
             return trainType.Unknown;
         }
 
-        /// <summary>
-        /// Extract the value of the third train type
-        /// </summary>
-        /// <returns>Teh train type describing the third analysis category</returns>
-        public trainType getTrainType3Category()
-        {
-            /* Convert string to train operator. */
-            List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
-
-            foreach (trainType trainType in trainTypeList)
-            {
-                if (TrainType3Category.SelectedItem != null &&
-                    TrainType3Category.SelectedItem.ToString().Replace(" - ", string.Empty).Equals(trainType.ToString()))
-                    return trainType;
-            }
-            return trainType.Unknown;
-        }
-        
         /// <summary>
         /// Convert the analysis Category to the appropriate train operator.
         /// </summary>
@@ -1166,9 +1215,10 @@ namespace TRAP
             Settings.Category2Operator = form.getOperator2Category();
             Settings.Category3Commodity = form.getCommodity3Category();
             Settings.Category3Operator = form.getOperator3Category();
-            Settings.Category1TrainType = form.getTrainType1Category();
-            Settings.Category2TrainType = form.getTrainType2Category();
-            Settings.Category3TrainType = form.getTrainType3Category();
+
+            Settings.Category1TrainType = form.getTrainType1Category2();
+            Settings.Category2TrainType = form.getTrainType2Category2();
+            Settings.Category3TrainType = form.getTrainType3Category2();
 
         }
 
@@ -1765,32 +1815,32 @@ namespace TRAP
             GeometryFile.ForeColor = System.Drawing.Color.Black;
 
             /* TSR File */
-            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR.csv";
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
             /* Simulation files */
-            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 3.4_FriW1.csv";
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP2 Steel - increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
             Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 3.5_MonW1.csv";
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP2 Steel - increasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
             Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 3.4_FriW1.csv";
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP4 Intermodal - increasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
             Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 3.5_MonW1.csv";
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP4 Intermodal - increasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
             Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 3.4_FriW1.csv";
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM5 Intermodal - decreasing.csv";
             Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
             Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 3.5_MonW1.csv";
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM5 Intermodal - decreasing.csv";
             Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
             Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
@@ -1824,12 +1874,19 @@ namespace TRAP
             /* Anlaysis Parameters */
             Settings.analysisCategory = analysisCategory.TrainType;
 
-            TrainType1Category.SelectedItem = "Adelaide - Perth";
-            Settings.Category1TrainType = trainType.AdelaidePerth;
-            TrainType2Category.SelectedItem = "Melbourne - Perth";
-            Settings.Category2TrainType = trainType.MelbournePerth;
-            TrainType3Category.SelectedItem = "Perth - Sydney";
-            Settings.Category3TrainType = trainType.PerthSydney;
+            //TrainType1Category.SelectedItem = "Adelaide - Perth";
+            //Settings.Category1TrainType = trainType.AdelaidePerth;
+            //TrainType2Category.SelectedItem = "Melbourne - Perth";
+            //Settings.Category2TrainType = trainType.MelbournePerth;
+            //TrainType3Category.SelectedItem = "Perth - Sydney";
+            //Settings.Category3TrainType = trainType.PerthSydney;
+
+            trainType1.Text = "MP2";
+            Settings.Category1TrainType = trainType.MP2;
+            trainType2.Text = "MP4";
+            Settings.Category2TrainType = trainType.MP4;
+            trainType3.Text = "PM4";
+            Settings.Category3TrainType = trainType.PM4;
 
             Operator1Category.SelectedItem = null;
             Settings.Category1Operator = trainOperator.Unknown;
