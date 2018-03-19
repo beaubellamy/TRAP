@@ -1,5 +1,5 @@
 ﻿/* uncomment when testing mutliple corridors overnight. */
-//#define TESTING 
+#define TESTING 
 
 using System;
 using System.IO;
@@ -48,14 +48,16 @@ namespace TRAP
             object sender = new object();
             EventArgs e = new EventArgs();
 
-            runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:09:34.91
-            runGunnedBasin(sender, e);                  // Run Time: 01:22:06.31
-            runUlanLine(sender, e);                     // Run Time: 01:16:18.99
-            runPortKembla(sender, e);                   // Run Time: 00:11:46.52
-            runMacarthurToBotany(sender, e);            /* Insufficient TSR data */ // RunTime 00:07:02.58
-            runMelbourneToCootamundra(sender, e);       /* Insufficient TSR data */ // RunTime 00:49:15.08
-            runTarcoolaToKalgoorlie(sender, e);         /* Insufficient TSR data */ // RunTime 02:02:35.80
-            runSouthernHighlands(sender, e);            // Run Time: 01:13:03.57
+            runTarcoolaToKalgoorlieBatch(sender, e);
+
+            //runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:09:34.91
+            //runGunnedBasin(sender, e);                  // Run Time: 01:22:06.31
+            //runUlanLine(sender, e);                     // Run Time: 01:16:18.99
+            //runPortKembla(sender, e);                   // Run Time: 00:11:46.52
+            //runMacarthurToBotany(sender, e);            /* Insufficient TSR data */ // RunTime 00:07:02.58
+            //runMelbourneToCootamundra(sender, e);       /* Insufficient TSR data */ // RunTime 00:49:15.08
+            //runTarcoolaToKalgoorlie(sender, e);         /* Insufficient TSR data */ // RunTime 02:02:35.80
+            //runSouthernHighlands(sender, e);            // Run Time: 01:13:03.57
 
            
 #endif
@@ -1901,6 +1903,882 @@ namespace TRAP
             Settings.Category2Commodity = trainCommodity.Unknown;
             Commodity3Category.SelectedItem = null;
             Settings.Category3Commodity = trainCommodity.Unknown;
+        }
+
+
+        private void setTarcoola2KalgoorlieBatch1(object sender, EventArgs e)
+        {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
+
+            /* Data File */
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
+
+            IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+            simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+
+            IceDataFile.ForeColor = System.Drawing.Color.Black;
+            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Geometry File */
+            FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
+            GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
+            GeometryFile.ForeColor = System.Drawing.Color.Black;
+
+            /* TSR File */
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
+            temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
+            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Simulation files */
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\AP1 Steel - increasing.csv";
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\AP1 Steel - increasing.csv";
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\AP2 Steel - increasing.csv";
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\AP2 Steel - increasing.csv";
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\AP8 Indian Pacific - increasing.csv";
+            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\AP8 Indian Pacific - increasing.csv";
+            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+
+            /* Destination Folder */
+            FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
+            resultsDestination.Text = FileSettings.aggregatedDestination;
+            resultsDestination.ForeColor = System.Drawing.Color.Black;
+
+            /* Settings */
+            fromDate.Value = new DateTime(2017, 1, 1);
+            toDate.Value = new DateTime(2018,1,1);
+
+            /* Interpolation parameters. */
+            excludeListOfTrains.Checked = false;
+
+            startInterpolationKm.Text = "500";
+            endInterpolationKm.Text = "1700";
+            interpolationInterval.Text = "50";
+            minimumJourneyDistance.Text = "350";
+            dataSeparation.Text = "4";
+            timeSeparation.Text = "10";
+
+            loopBoundaryThreshold.Text = "1";
+            loopSpeedThreshold.Text = "50";
+            TSRWindowBoundary.Text = "1";
+
+            /* Power to weight ratio boudnaries. */
+            powerToWeightRatioAnalysis.Checked = false;
+
+            /* Anlaysis Parameters */
+            Settings.analysisCategory = analysisCategory.TrainType;
+
+            trainType1.Text = "AP1";
+            Settings.Category1TrainType = trainType.AP1;
+            trainType2.Text = "AP2";
+            Settings.Category2TrainType = trainType.AP2;
+            trainType3.Text = "AP8";
+            Settings.Category3TrainType = trainType.AP8;
+
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
+
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
+        }
+
+        private void setTarcoola2KalgoorlieBatch2(object sender, EventArgs e)
+        {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
+
+            /* Data File */
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
+
+            IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+            simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+
+            IceDataFile.ForeColor = System.Drawing.Color.Black;
+            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Geometry File */
+            FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
+            GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
+            GeometryFile.ForeColor = System.Drawing.Color.Black;
+
+            /* TSR File */
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
+            temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
+            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Simulation files */
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\GP1 SCT Vans - increasing.csv";
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\GP1 SCT Vans - increasing.csv";
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP1 Intermodal - increasing.csv";
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP1 Intermodal - increasing.csv";
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP2 Steel - increasing.csv";
+            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP2 Steel - increasing.csv";
+            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+
+            /* Destination Folder */
+            FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
+            resultsDestination.Text = FileSettings.aggregatedDestination;
+            resultsDestination.ForeColor = System.Drawing.Color.Black;
+
+            /* Settings */
+            fromDate.Value = new DateTime(2017, 1, 1);
+            toDate.Value = new DateTime(2018,1,1);
+
+            /* Interpolation parameters. */
+            excludeListOfTrains.Checked = false;
+
+            startInterpolationKm.Text = "500";
+            endInterpolationKm.Text = "1700";
+            interpolationInterval.Text = "50";
+            minimumJourneyDistance.Text = "350";
+            dataSeparation.Text = "4";
+            timeSeparation.Text = "10";
+
+            loopBoundaryThreshold.Text = "1";
+            loopSpeedThreshold.Text = "50";
+            TSRWindowBoundary.Text = "1";
+
+            /* Power to weight ratio boudnaries. */
+            powerToWeightRatioAnalysis.Checked = false;
+
+            /* Anlaysis Parameters */
+            Settings.analysisCategory = analysisCategory.TrainType;
+
+            trainType1.Text = "GP1";
+            Settings.Category1TrainType = trainType.GP1;
+            trainType2.Text = "MP1";
+            Settings.Category2TrainType = trainType.MP1;
+            trainType3.Text = "MP2";
+            Settings.Category3TrainType = trainType.MP2;
+
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
+
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
+        }
+
+        private void setTarcoola2KalgoorlieBatch3(object sender, EventArgs e)
+        {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
+
+            /* Data File */
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
+
+            IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+            simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+
+            IceDataFile.ForeColor = System.Drawing.Color.Black;
+            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Geometry File */
+            FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
+            GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
+            GeometryFile.ForeColor = System.Drawing.Color.Black;
+
+            /* TSR File */
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
+            temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
+            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Simulation files */
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP4 Intermodal - increasing.csv";
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP4 Intermodal - increasing.csv";
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP5 Intermodal - increasing.csv";
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP5 Intermodal - increasing.csv";
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP7 Express - increasing.csv";
+            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP7 Express - increasing.csv";
+            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+
+            /* Destination Folder */
+            FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
+            resultsDestination.Text = FileSettings.aggregatedDestination;
+            resultsDestination.ForeColor = System.Drawing.Color.Black;
+
+            /* Settings */
+            fromDate.Value = new DateTime(2017, 1, 1);
+            toDate.Value = new DateTime(2018,1,1);
+
+            /* Interpolation parameters. */
+            excludeListOfTrains.Checked = false;
+
+            startInterpolationKm.Text = "500";
+            endInterpolationKm.Text = "1700";
+            interpolationInterval.Text = "50";
+            minimumJourneyDistance.Text = "350";
+            dataSeparation.Text = "4";
+            timeSeparation.Text = "10";
+
+            loopBoundaryThreshold.Text = "1";
+            loopSpeedThreshold.Text = "50";
+            TSRWindowBoundary.Text = "1";
+
+            /* Power to weight ratio boudnaries. */
+            powerToWeightRatioAnalysis.Checked = false;
+
+            /* Anlaysis Parameters */
+            Settings.analysisCategory = analysisCategory.TrainType;
+
+            trainType1.Text = "MP4";
+            Settings.Category1TrainType = trainType.MP4;
+            trainType2.Text = "MP5";
+            Settings.Category2TrainType = trainType.MP5;
+            trainType3.Text = "MP7";
+            Settings.Category3TrainType = trainType.MP7;
+
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
+
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
+        }
+
+        private void setTarcoola2KalgoorlieBatch4(object sender, EventArgs e)
+        {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
+
+            /* Data File */
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
+
+            IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+            simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+
+            IceDataFile.ForeColor = System.Drawing.Color.Black;
+            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Geometry File */
+            FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
+            GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
+            GeometryFile.ForeColor = System.Drawing.Color.Black;
+
+            /* TSR File */
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
+            temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
+            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Simulation files */
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP9 Intermodal - increasing.csv";
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP9 Intermodal - increasing.csv";
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\SP5 Intermodal - increasing.csv";
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\SP5 Intermodal - increasing.csv";
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\SP7 Intermodal - increasing.csv";
+            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\SP7 Intermodal - increasing.csv";
+            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+
+            /* Destination Folder */
+            FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
+            resultsDestination.Text = FileSettings.aggregatedDestination;
+            resultsDestination.ForeColor = System.Drawing.Color.Black;
+
+            /* Settings */
+            fromDate.Value = new DateTime(2017, 1, 1);
+            toDate.Value = new DateTime(2018,1,1);
+
+            /* Interpolation parameters. */
+            excludeListOfTrains.Checked = false;
+
+            startInterpolationKm.Text = "500";
+            endInterpolationKm.Text = "1700";
+            interpolationInterval.Text = "50";
+            minimumJourneyDistance.Text = "350";
+            dataSeparation.Text = "4";
+            timeSeparation.Text = "10";
+
+            loopBoundaryThreshold.Text = "1";
+            loopSpeedThreshold.Text = "50";
+            TSRWindowBoundary.Text = "1";
+
+            /* Power to weight ratio boudnaries. */
+            powerToWeightRatioAnalysis.Checked = false;
+
+            /* Anlaysis Parameters */
+            Settings.analysisCategory = analysisCategory.TrainType;
+
+            trainType1.Text = "MP9";
+            Settings.Category1TrainType = trainType.MP9;
+            trainType2.Text = "SP5";
+            Settings.Category2TrainType = trainType.SP5;
+            trainType3.Text = "SP7";
+            Settings.Category3TrainType = trainType.SP7;
+
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
+
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
+        }
+
+        private void setTarcoola2KalgoorlieBatch5(object sender, EventArgs e)
+        {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
+
+            /* Data File */
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
+
+            IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+            simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+
+            IceDataFile.ForeColor = System.Drawing.Color.Black;
+            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Geometry File */
+            FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
+            GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
+            GeometryFile.ForeColor = System.Drawing.Color.Black;
+
+            /* TSR File */
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
+            temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
+            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Simulation files */
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PA8 Indian Pacific - decreasing.csv";
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PA8 Indian Pacific - decreasing.csv";
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PG1 SCT Vans - decreasing.csv";
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PG1 SCT Vans - decreasing.csv";
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM1 Intermodal - decreasing.csv";
+            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM1 Intermodal - decreasing.csv";
+            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+
+            /* Destination Folder */
+            FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
+            resultsDestination.Text = FileSettings.aggregatedDestination;
+            resultsDestination.ForeColor = System.Drawing.Color.Black;
+
+            /* Settings */
+            fromDate.Value = new DateTime(2017, 1, 1);
+            toDate.Value = new DateTime(2018,1,1);
+
+            /* Interpolation parameters. */
+            excludeListOfTrains.Checked = false;
+
+            startInterpolationKm.Text = "500";
+            endInterpolationKm.Text = "1700";
+            interpolationInterval.Text = "50";
+            minimumJourneyDistance.Text = "350";
+            dataSeparation.Text = "4";
+            timeSeparation.Text = "10";
+
+            loopBoundaryThreshold.Text = "1";
+            loopSpeedThreshold.Text = "50";
+            TSRWindowBoundary.Text = "1";
+
+            /* Power to weight ratio boudnaries. */
+            powerToWeightRatioAnalysis.Checked = false;
+
+            /* Anlaysis Parameters */
+            Settings.analysisCategory = analysisCategory.TrainType;
+
+            trainType1.Text = "PA8";
+            Settings.Category1TrainType = trainType.PA8;
+            trainType2.Text = "PG1";
+            Settings.Category2TrainType = trainType.PG1;
+            trainType3.Text = "PM1";
+            Settings.Category3TrainType = trainType.PM1;
+
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
+
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
+        }
+
+        private void setTarcoola2KalgoorlieBatch6(object sender, EventArgs e)
+        {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
+
+            /* Data File */
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
+
+            IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+            simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+
+            IceDataFile.ForeColor = System.Drawing.Color.Black;
+            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Geometry File */
+            FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
+            GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
+            GeometryFile.ForeColor = System.Drawing.Color.Black;
+
+            /* TSR File */
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
+            temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
+            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Simulation files */
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM4 Intermodal - decreasing.csv";
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM4 Intermodal - decreasing.csv";
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM5 Intermodal - decreasing.csv";
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM5 Intermodal - decreasing.csv";
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM6 Intermodal - decreasing.csv";
+            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM6 Intermodal - decreasing.csv";
+            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+
+            /* Destination Folder */
+            FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
+            resultsDestination.Text = FileSettings.aggregatedDestination;
+            resultsDestination.ForeColor = System.Drawing.Color.Black;
+
+            /* Settings */
+            fromDate.Value = new DateTime(2017, 1, 1);
+            toDate.Value = new DateTime(2018,1,1);
+
+            /* Interpolation parameters. */
+            excludeListOfTrains.Checked = false;
+
+            startInterpolationKm.Text = "500";
+            endInterpolationKm.Text = "1700";
+            interpolationInterval.Text = "50";
+            minimumJourneyDistance.Text = "350";
+            dataSeparation.Text = "4";
+            timeSeparation.Text = "10";
+
+            loopBoundaryThreshold.Text = "1";
+            loopSpeedThreshold.Text = "50";
+            TSRWindowBoundary.Text = "1";
+
+            /* Power to weight ratio boudnaries. */
+            powerToWeightRatioAnalysis.Checked = false;
+
+            /* Anlaysis Parameters */
+            Settings.analysisCategory = analysisCategory.TrainType;
+
+            trainType1.Text = "PM4";
+            Settings.Category1TrainType = trainType.PM4;
+            trainType2.Text = "PM5";
+            Settings.Category2TrainType = trainType.PM5;
+            trainType3.Text = "PM6";
+            Settings.Category3TrainType = trainType.PM6;
+
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
+
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
+        }
+
+        private void setTarcoola2KalgoorlieBatch7(object sender, EventArgs e)
+        {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
+
+            /* Data File */
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
+
+            IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+            simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+
+            IceDataFile.ForeColor = System.Drawing.Color.Black;
+            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Geometry File */
+            FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
+            GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
+            GeometryFile.ForeColor = System.Drawing.Color.Black;
+
+            /* TSR File */
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
+            temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
+            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Simulation files */
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM7 Express - decreasing.csv";
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM7 Express - decreasing.csv";
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM9 Intermodal - decreasing.csv";
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM9 Intermodal - decreasing.csv";
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PS5 Intermodal - decreasing.csv";
+            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PS5 Intermodal - decreasing.csv";
+            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+
+            /* Destination Folder */
+            FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
+            resultsDestination.Text = FileSettings.aggregatedDestination;
+            resultsDestination.ForeColor = System.Drawing.Color.Black;
+
+            /* Settings */
+            fromDate.Value = new DateTime(2017, 1, 1);
+            toDate.Value = new DateTime(2018,1,1);
+
+            /* Interpolation parameters. */
+            excludeListOfTrains.Checked = false;
+
+            startInterpolationKm.Text = "500";
+            endInterpolationKm.Text = "1700";
+            interpolationInterval.Text = "50";
+            minimumJourneyDistance.Text = "350";
+            dataSeparation.Text = "4";
+            timeSeparation.Text = "10";
+
+            loopBoundaryThreshold.Text = "1";
+            loopSpeedThreshold.Text = "50";
+            TSRWindowBoundary.Text = "1";
+
+            /* Power to weight ratio boudnaries. */
+            powerToWeightRatioAnalysis.Checked = false;
+
+            /* Anlaysis Parameters */
+            Settings.analysisCategory = analysisCategory.TrainType;
+
+            trainType1.Text = "PM7";
+            Settings.Category1TrainType = trainType.PM7;
+            trainType2.Text = "PM9";
+            Settings.Category2TrainType = trainType.PM9;
+            trainType3.Text = "PS5";
+            Settings.Category3TrainType = trainType.PS5;
+
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
+
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
+        }
+
+        private void setTarcoola2KalgoorlieBatch8(object sender, EventArgs e)
+        {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
+
+            /* Data File */
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
+
+            IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+            simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+
+            IceDataFile.ForeColor = System.Drawing.Color.Black;
+            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Geometry File */
+            FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
+            GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
+            GeometryFile.ForeColor = System.Drawing.Color.Black;
+
+            /* TSR File */
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
+            temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
+            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Simulation files */
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PS6 Intermodal - decreasing.csv";
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PS6 Intermodal - decreasing.csv";
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PS7 Steel - decreasing.csv";
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PS7 Steel - decreasing.csv";
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PX4 Intermodal - decreasing.csv";
+            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PX4 Intermodal - decreasing.csv";
+            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+
+            /* Destination Folder */
+            FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
+            resultsDestination.Text = FileSettings.aggregatedDestination;
+            resultsDestination.ForeColor = System.Drawing.Color.Black;
+
+            /* Settings */
+            fromDate.Value = new DateTime(2017, 1, 1);
+            toDate.Value = new DateTime(2018,1,1);
+
+            /* Interpolation parameters. */
+            excludeListOfTrains.Checked = false;
+
+            startInterpolationKm.Text = "500";
+            endInterpolationKm.Text = "1700";
+            interpolationInterval.Text = "50";
+            minimumJourneyDistance.Text = "350";
+            dataSeparation.Text = "4";
+            timeSeparation.Text = "10";
+
+            loopBoundaryThreshold.Text = "1";
+            loopSpeedThreshold.Text = "50";
+            TSRWindowBoundary.Text = "1";
+
+            /* Power to weight ratio boudnaries. */
+            powerToWeightRatioAnalysis.Checked = false;
+
+            /* Anlaysis Parameters */
+            Settings.analysisCategory = analysisCategory.TrainType;
+
+            trainType1.Text = "PS6";
+            Settings.Category1TrainType = trainType.PS6;
+            trainType2.Text = "PS7";
+            Settings.Category2TrainType = trainType.PS7;
+            trainType3.Text = "PX4";
+            Settings.Category3TrainType = trainType.PX4;
+
+            Operator1Category.SelectedItem = null;
+            Settings.Category1Operator = trainOperator.Unknown;
+            Operator2Category.SelectedItem = null;
+            Settings.Category2Operator = trainOperator.Unknown;
+            Operator3Category.SelectedItem = null;
+            Settings.Category3Operator = trainOperator.Unknown;
+
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
+        }
+
+        private void runTarcoolaToKalgoorlieBatch(object sender, EventArgs e)
+        {
+            /* Start a timer */
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+
+            /* Set the analysis parameters. */
+            setTarcoola2KalgoorlieBatch1(sender, e);
+            /* Simualte pressing execute button. */
+            testExecute(sender, e);
+            TimeSpan t1 = timer.Elapsed;
+
+            setTarcoola2KalgoorlieBatch2(sender, e);
+            testExecute(sender, e);
+            TimeSpan t2 = timer.Elapsed - t1;
+
+            setTarcoola2KalgoorlieBatch3(sender, e);
+            testExecute(sender, e);
+            TimeSpan t3 = timer.Elapsed - t2 - t1;
+
+            setTarcoola2KalgoorlieBatch4(sender, e);
+            testExecute(sender, e);
+            TimeSpan t4 = timer.Elapsed - t3 - t2 - t1;
+
+            setTarcoola2KalgoorlieBatch5(sender, e);
+            testExecute(sender, e);
+            TimeSpan t5 = timer.Elapsed - t4 - t3 - t2 - t1;
+
+            setTarcoola2KalgoorlieBatch6(sender, e);
+            testExecute(sender, e);
+            TimeSpan t6 = timer.Elapsed - t5 - t4 - t3 - t2 - t1;
+
+            setTarcoola2KalgoorlieBatch7(sender, e);
+            testExecute(sender, e);
+            TimeSpan t7 = timer.Elapsed - t6 - t5 - t4 - t3 - t2 - t1;
+
+            setTarcoola2KalgoorlieBatch8(sender, e);
+            testExecute(sender, e);
+            TimeSpan t8 = timer.Elapsed - t7 - t6 - t5 - t4 - t3 - t2 - t1;
+
+            timer.Stop();
+
+            /* Display the run time. */
+            TimeSpan ts = timer.Elapsed;
+            string batch1Time = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", t1.Hours, t1.Minutes, t1.Seconds, t1.Milliseconds / 10);
+            string batch2Time = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", t2.Hours, t2.Minutes, t2.Seconds, t2.Milliseconds / 10);
+            string batch3Time = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", t3.Hours, t3.Minutes, t3.Seconds, t3.Milliseconds / 10);
+            string batch4Time = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", t4.Hours, t4.Minutes, t4.Seconds, t4.Milliseconds / 10);
+            string batch5Time = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", t5.Hours, t5.Minutes, t5.Seconds, t5.Milliseconds / 10);
+            string batch6Time = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", t6.Hours, t6.Minutes, t6.Seconds, t6.Milliseconds / 10);
+            string batch7Time = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", t7.Hours, t7.Minutes, t7.Seconds, t7.Milliseconds / 10);
+            string batch8Time = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", t8.Hours, t8.Minutes, t8.Seconds, t8.Milliseconds / 10);
+
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+
+            Console.WriteLine("Tarcoola to Kalgoorlie RunTime 1: " + batch1Time);
+            Console.WriteLine("Tarcoola to Kalgoorlie RunTime 2: " + batch2Time);
+            Console.WriteLine("Tarcoola to Kalgoorlie RunTime 3: " + batch3Time);
+            Console.WriteLine("Tarcoola to Kalgoorlie RunTime 4: " + batch4Time);
+            Console.WriteLine("Tarcoola to Kalgoorlie RunTime 5: " + batch5Time);
+            Console.WriteLine("Tarcoola to Kalgoorlie RunTime 6: " + batch6Time);
+            Console.WriteLine("Tarcoola to Kalgoorlie RunTime 7: " + batch7Time);
+            Console.WriteLine("Tarcoola to Kalgoorlie RunTime 8: " + batch8Time);
+
+            Console.WriteLine("Tarcoola to Kalgoorlie RunTime Total" + elapsedTime);
         }
 
         /// <summary>

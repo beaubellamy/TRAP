@@ -107,7 +107,7 @@ namespace TRAP
 
                 if (Settings.Category1TrainType != trainType.Unknown)
                     simCategories.Add(Processing.convertTrainTypeToCategory(Settings.Category1TrainType));
-
+                
                 if (Settings.Category2TrainType != trainType.Unknown)
                     simCategories.Add(Processing.convertTrainTypeToCategory(Settings.Category2TrainType));
 
