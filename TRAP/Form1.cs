@@ -1,5 +1,5 @@
 ﻿/* uncomment when testing mutliple corridors overnight. */
-#define TESTING 
+//#define TESTING 
 
 using System;
 using System.IO;
@@ -9,10 +9,8 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Globalsettings;
-using System.Reflection;
 
 /* Custome Libraries */
 using TrainLibrary;
@@ -48,18 +46,18 @@ namespace TRAP
             object sender = new object();
             EventArgs e = new EventArgs();
 
-            runTarcoolaToKalgoorlieBatch(sender, e);
+            //runTarcoolaToKalgoorlieBatch(sender, e);
 
-            //runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:09:34.91
-            //runGunnedBasin(sender, e);                  // Run Time: 01:22:06.31
-            //runUlanLine(sender, e);                     // Run Time: 01:16:18.99
-            //runPortKembla(sender, e);                   // Run Time: 00:11:46.52
-            //runMacarthurToBotany(sender, e);            /* Insufficient TSR data */ // RunTime 00:07:02.58
-            //runMelbourneToCootamundra(sender, e);       /* Insufficient TSR data */ // RunTime 00:49:15.08
-            //runTarcoolaToKalgoorlie(sender, e);         /* Insufficient TSR data */ // RunTime 02:02:35.80
-            //runSouthernHighlands(sender, e);            // Run Time: 01:13:03.57
+            runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:09:34.91
+            runGunnedBasin(sender, e);                  // Run Time: 01:22:06.31
+            runUlanLine(sender, e);                     // Run Time: 01:16:18.99
+            runPortKembla(sender, e);                   // Run Time: 00:11:46.52
+            runMacarthurToBotany(sender, e);            /* Insufficient TSR data */ // RunTime 00:07:02.58
+            runMelbourneToCootamundra(sender, e);       /* Insufficient TSR data */ // RunTime 00:49:15.08
+            runTarcoolaToKalgoorlie(sender, e);         /* Insufficient TSR data */ // RunTime 02:02:35.80
+            runSouthernHighlands(sender, e);            // Run Time: 01:13:03.57
 
-           
+
 #endif
 
         }
@@ -904,21 +902,7 @@ namespace TRAP
         /// Extract the value of the first train type
         /// </summary>
         /// <returns>The train type describing the first analysis category</returns>
-        //public trainType getTrainType1Category()
-        //{
-        //    /* Convert string to train operator. */
-        //    List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
-
-        //    foreach (trainType trainType in trainTypeList)
-        //    {
-        //        if (TrainType1Category.SelectedItem != null &&
-        //            TrainType1Category.SelectedItem.ToString().Replace(" - ", string.Empty).Equals(trainType.ToString()))
-        //            return trainType;
-        //    }
-        //    return trainType.Unknown;
-        //}
-
-        public trainType getTrainType1Category2()
+        public trainType getTrainType1Category()
         {
             /* Convert string to train operator. */
             List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
@@ -935,22 +919,8 @@ namespace TRAP
         /// <summary>
         /// Extract the value of the third train type
         /// </summary>
-        /// <returns>Teh train type describing the third analysis category</returns>
-        //public trainType getTrainType2Category()
-        //{
-        //    /* Convert string to train operator. */
-        //    List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
-
-        //    foreach (trainType trainType in trainTypeList)
-        //    {
-        //        if (TrainType2Category.SelectedItem != null &&
-        //            TrainType2Category.SelectedItem.ToString().Replace(" - ", string.Empty).Equals(trainType.ToString()))
-        //            return trainType;
-        //    }
-        //    return trainType.Unknown;
-        //}
-
-        public trainType getTrainType2Category2()
+        /// <returns>The train type describing the third analysis category</returns>
+        public trainType getTrainType2Category()
         {
             /* Convert string to train operator. */
             List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
@@ -966,22 +936,8 @@ namespace TRAP
         /// <summary>
         /// Extract the value of the third train type
         /// </summary>
-        /// <returns>Teh train type describing the third analysis category</returns>
-        //public trainType getTrainType3Category()
-        //{
-        //    /* Convert string to train operator. */
-        //    List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
-
-        //    foreach (trainType trainType in trainTypeList)
-        //    {
-        //        if (TrainType3Category.SelectedItem != null &&
-        //            TrainType3Category.SelectedItem.ToString().Replace(" - ", string.Empty).Equals(trainType.ToString()))
-        //            return trainType;
-        //    }
-        //    return trainType.Unknown;
-        //}
-
-        public trainType getTrainType3Category2()
+        /// <returns>The train type describing the third analysis category</returns>
+        public trainType getTrainType3Category()
         {
             /* Convert string to train operator. */
             List<trainType> trainTypeList = Enum.GetValues(typeof(trainType)).Cast<trainType>().ToList();
@@ -1217,10 +1173,9 @@ namespace TRAP
             Settings.Category2Operator = form.getOperator2Category();
             Settings.Category3Commodity = form.getCommodity3Category();
             Settings.Category3Operator = form.getOperator3Category();
-
-            Settings.Category1TrainType = form.getTrainType1Category2();
-            Settings.Category2TrainType = form.getTrainType2Category2();
-            Settings.Category3TrainType = form.getTrainType3Category2();
+            Settings.Category1TrainType = form.getTrainType1Category();
+            Settings.Category2TrainType = form.getTrainType2Category();
+            Settings.Category3TrainType = form.getTrainType3Category();
 
         }
 
@@ -1797,6 +1752,12 @@ namespace TRAP
             Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
+        /// <summary>
+        /// This function sets all the testing parameters for the full length of the 
+        /// Tarcoola to Kalgoorlie data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setTarcoola2KalgoorlieParameters2(object sender, EventArgs e)
         {
             /* Reset default parameters before setting new scenario parameters. */
@@ -1905,7 +1866,12 @@ namespace TRAP
             Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
-
+        /// <summary>
+        /// This function sets the first batch of Tarcoola to Kalgoorlie data for 
+        /// processing the 22 known train types.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setTarcoola2KalgoorlieBatch1(object sender, EventArgs e)
         {
             /* Reset default parameters before setting new scenario parameters. */
@@ -2007,6 +1973,12 @@ namespace TRAP
             Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
+        /// <summary>
+        /// This function sets the second batch of Tarcoola to Kalgoorlie data for 
+        /// processing the 22 known train types.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setTarcoola2KalgoorlieBatch2(object sender, EventArgs e)
         {
             /* Reset default parameters before setting new scenario parameters. */
@@ -2108,6 +2080,12 @@ namespace TRAP
             Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
+        /// <summary>
+        /// This function sets the third batch of Tarcoola to Kalgoorlie data for 
+        /// processing the 22 known train types.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setTarcoola2KalgoorlieBatch3(object sender, EventArgs e)
         {
             /* Reset default parameters before setting new scenario parameters. */
@@ -2209,6 +2187,12 @@ namespace TRAP
             Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
+        /// <summary>
+        /// This function sets the fourth batch of Tarcoola to Kalgoorlie data for 
+        /// processing the 22 known train types.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setTarcoola2KalgoorlieBatch4(object sender, EventArgs e)
         {
             /* Reset default parameters before setting new scenario parameters. */
@@ -2310,6 +2294,12 @@ namespace TRAP
             Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
+        /// <summary>
+        /// This function sets the fifth batch of Tarcoola to Kalgoorlie data for 
+        /// processing the 22 known train types.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setTarcoola2KalgoorlieBatch5(object sender, EventArgs e)
         {
             /* Reset default parameters before setting new scenario parameters. */
@@ -2411,6 +2401,12 @@ namespace TRAP
             Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
+        /// <summary>
+        /// This function sets the six batch of Tarcoola to Kalgoorlie data for 
+        /// processing the 22 known train types.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setTarcoola2KalgoorlieBatch6(object sender, EventArgs e)
         {
             /* Reset default parameters before setting new scenario parameters. */
@@ -2512,6 +2508,12 @@ namespace TRAP
             Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
+        /// <summary>
+        /// This function sets the seventh batch of Tarcoola to Kalgoorlie data for 
+        /// processing the 22 known train types.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setTarcoola2KalgoorlieBatch7(object sender, EventArgs e)
         {
             /* Reset default parameters before setting new scenario parameters. */
@@ -2613,6 +2615,12 @@ namespace TRAP
             Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
+        /// <summary>
+        /// This function sets the eightth batch of Tarcoola to Kalgoorlie data for 
+        /// processing the 22 known train types.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setTarcoola2KalgoorlieBatch8(object sender, EventArgs e)
         {
             /* Reset default parameters before setting new scenario parameters. */
@@ -2714,6 +2722,11 @@ namespace TRAP
             Settings.Category3Commodity = trainCommodity.Unknown;
         }
 
+        /// <summary>
+        /// This function runs through the 8 batched settings to process all 22 known train types.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void runTarcoolaToKalgoorlieBatch(object sender, EventArgs e)
         {
             /* Start a timer */

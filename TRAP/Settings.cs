@@ -1,9 +1,5 @@
 ﻿using System; 
 using System.Collections.Generic; 
-using System.Linq; 
-using System.Text; 
-using System.Threading.Tasks; 
-using TRAP;
 
 /* Custom libraries */
 using TrainLibrary;
@@ -65,9 +61,6 @@ namespace Globalsettings
         public static trainType Category2TrainType = trainType.Unknown;
         public static trainType Category3TrainType = trainType.Unknown;
 
-        public static string trainType1 = null;
-        public static string trainType2 = null;
-        public static string trainType3 = null;
 
     }
 
