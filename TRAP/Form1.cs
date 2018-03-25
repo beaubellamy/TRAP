@@ -1963,7 +1963,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2018,1,1);
+            toDate.Value = new DateTime(2017,7,1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2064,7 +2064,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2018,1,1);
+            toDate.Value = new DateTime(2017,7,1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2165,7 +2165,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2018,1,1);
+            toDate.Value = new DateTime(2017,7,1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2266,7 +2266,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2018,1,1);
+            toDate.Value = new DateTime(2017,7,1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2367,7 +2367,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2018,1,1);
+            toDate.Value = new DateTime(2017,7,1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2468,7 +2468,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2018,1,1);
+            toDate.Value = new DateTime(2017,7,1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2569,7 +2569,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2018,1,1);
+            toDate.Value = new DateTime(2017,7,1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2670,7 +2670,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2018,1,1);
+            toDate.Value = new DateTime(2017,7,1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
