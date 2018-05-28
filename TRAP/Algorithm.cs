@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Globalsettings;
 
 /* Custome Libraries */
@@ -102,6 +100,19 @@ namespace TRAP
                     simCategories.Add(Processing.convertTrainOperatorToCategory(Settings.Category3Operator));
 
             }
+            else if (Settings.analysisCategory == analysisCategory.TrainType)
+            {
+
+                if (Settings.Category1TrainType != trainType.Unknown)
+                    simCategories.Add(Processing.convertTrainTypeToCategory(Settings.Category1TrainType));
+                
+                if (Settings.Category2TrainType != trainType.Unknown)
+                    simCategories.Add(Processing.convertTrainTypeToCategory(Settings.Category2TrainType));
+
+                if (Settings.Category3TrainType != trainType.Unknown)
+                    simCategories.Add(Processing.convertTrainTypeToCategory(Settings.Category3TrainType));
+
+            }
             else
             {
                 /* analysisCategory is commodities. */
@@ -145,12 +156,16 @@ namespace TRAP
                 Settings.timeThreshold, Settings.distanceThreshold, Settings.minimumJourneyDistance, Settings.analysisCategory,
                 Settings.Category1LowerBound, Settings.Category1UpperBound, Settings.Category2LowerBound, Settings.Category2UpperBound);
 
+            /* Write the raw train data to file. */
+            //FileOperations.writeRawTrainDataWithTime(CleanTrainRecords, FileSettings.aggregatedDestination);
+
             /* Interpolate data */
             /******** Should only be required while we are waiting for the data in the prefered format ********/
             List<Train> interpolatedTrains = new List<Train>();
             interpolatedTrains = Processing.interpolateTrainData(CleanTrainRecords, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval);
+            //interpolatedTrains = Processing.interpolateTrainDataWithGaps(CleanTrainRecords, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval);
             /**************************************************************************************************/
-                        
+
             /* Populate the trains TSR values after interpolation to gain more granularity with TSR boundary. */
             Processing.populateAllTrainsTemporarySpeedRestrictions(interpolatedTrains, TSRs);
 
@@ -173,15 +188,15 @@ namespace TRAP
                     /* Create a list for each category. */
                     increasingTrainCategory = interpolatedTrains.Where(t => t.Category == simCategories[index]).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                     decreasingTrainCategory = interpolatedTrains.Where(t => t.Category == simCategories[index]).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
-                    
+
                 }
                 else if (Settings.analysisCategory == analysisCategory.TrainOperator)
                 {
                     /* Convert the train category to the train operator. */
                     trainOperator operatorCategory = Processing.convertCategoryToTrainOperator(simCategories[index]);
-                    
+
                     /* Create a list for each operator. */
-                    if (operatorCategory !=  trainOperator.GroupRemaining)
+                    if (operatorCategory != trainOperator.GroupRemaining)
                     {
                         increasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                         decreasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
@@ -207,6 +222,38 @@ namespace TRAP
                         Processing.setOperatorToGrouped(decreasingTrainCategory);
                     }
 
+                }
+                else if (Settings.analysisCategory == analysisCategory.TrainType)
+                {
+                    /* Convert the train category to the train operator. */
+                    trainType trainType = Processing.convertCategoryToTrainType(simCategories[index]);
+
+                    /* Create a list for each operator. */
+                    if (trainType != trainType.GroupRemaining)
+                    { 
+                        increasingTrainCategory = interpolatedTrains.Where(t => t.trainType == trainType).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        decreasingTrainCategory = interpolatedTrains.Where(t => t.trainType == trainType).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                    }
+                    else
+                    {
+                        /* Create a list for all operators. */
+                        increasingTrainCategory = interpolatedTrains.Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        decreasingTrainCategory = interpolatedTrains.Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                        for (int groupIdx = 0; groupIdx < simCategories.Count(); groupIdx++)
+                        {
+                            if (groupIdx != index)
+                            {
+                                /* Remove the specified train types from the list so they aren't counted twice. */
+                                trainType = Processing.convertCategoryToTrainType(simCategories[groupIdx]);
+                                increasingTrainCategory = increasingTrainCategory.Where(t => t.trainType != trainType).ToList();
+                                decreasingTrainCategory = decreasingTrainCategory.Where(t => t.trainType != trainType).ToList();
+                            }
+                        }
+                        /* Reset the operator to grouped for the analysis */
+                        Processing.setOperatorToGrouped(increasingTrainCategory);
+                        Processing.setOperatorToGrouped(decreasingTrainCategory);
+                    }
                 }
                 else
                 {
@@ -255,11 +302,13 @@ namespace TRAP
                 /* Aggregate the train lists into an average train consistent with the specified Category. */
                 if (increasingTrainCategory.Count() > 0)
                     averageTrains.Add(Processing.averageTrain(increasingTrainCategory, interpolatedSimulations[index * 2].journey, trackGeometry,Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold,Settings.TSRwindowBoundary));
+                    //averageTrains.Add(Processing.averageTrainStoppingAtLoops(increasingTrainCategory, interpolatedSimulations[index * 2].journey, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
                 else
                     averageTrains.Add(Processing.createZeroedAverageTrain(simCategories[index], direction.IncreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
                 
                 if (decreasingTrainCategory.Count() > 0)
                     averageTrains.Add(Processing.averageTrain(decreasingTrainCategory, interpolatedSimulations[index * 2 + 1].journey, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
+                    //averageTrains.Add(Processing.averageTrainStoppingAtLoops(decreasingTrainCategory, interpolatedSimulations[index * 2 + 1].journey, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
                 else
                     averageTrains.Add(Processing.createZeroedAverageTrain(simCategories[index], direction.DecreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
                 
@@ -316,6 +365,33 @@ namespace TRAP
                 Processing.setOperatorToCombined(decreasingCombined);
 
             }
+            else if (Settings.analysisCategory == analysisCategory.TrainType)
+            {
+                /* Create a list for each direction. */
+                List<Train> increasingSubList = new List<Train>();
+                List<Train> decreasingSubList = new List<Train>();
+
+                /* If all commodities are used, group them in each direction. */
+                if (simCategories.Contains(Category.GroupRemaining))
+                {
+                    increasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                    decreasingCombined = interpolatedTrains.Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                }
+                else
+                {
+                    /* Cycle through each commodity to add to the list. */
+                    foreach (Category simCategory in simCategories)
+                    {
+                        increasingSubList = interpolatedTrains.Where(t => t.trainType == Processing.convertCategoryToTrainType(simCategory)).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        increasingCombined.AddRange(increasingSubList);
+                        decreasingSubList = interpolatedTrains.Where(t => t.trainType == Processing.convertCategoryToTrainType(simCategory)).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+                        decreasingCombined.AddRange(decreasingSubList);
+                    }
+                }
+                Processing.setOperatorToCombined(increasingCombined);
+                Processing.setOperatorToCombined(decreasingCombined);
+
+            }
             else
             {
                 /* Create a list for each direction. */
@@ -364,14 +440,18 @@ namespace TRAP
                 if (increasingCombined.Count() == 0)
                     averageTrains.Add(Processing.createZeroedAverageTrain(Category.Combined, direction.IncreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
                 else
-                    averageTrains.Add(Processing.averageTrain(increasingCombined, weightedSimulation[0].journey, trackGeometry, 
-                        Settings.startKm, Settings.endKm, Settings.interval,Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
+                    averageTrains.Add(Processing.averageTrain(increasingCombined, weightedSimulation[0].journey, trackGeometry,
+                        Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
+                    //averageTrains.Add(Processing.averageTrainStoppingAtLoops(increasingCombined, weightedSimulation[0].journey, trackGeometry,
+                    //                Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
 
                 if (decreasingCombined.Count() == 0)
                     averageTrains.Add(Processing.createZeroedAverageTrain(Category.Combined, direction.DecreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
                 else
-                    averageTrains.Add(Processing.averageTrain(decreasingCombined, weightedSimulation[1].journey, trackGeometry, 
+                    averageTrains.Add(Processing.averageTrain(decreasingCombined, weightedSimulation[1].journey, trackGeometry,
                         Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
+                    //averageTrains.Add(Processing.averageTrainStoppingAtLoops(decreasingCombined, weightedSimulation[1].journey, trackGeometry,
+                    //    Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
 
                 averageTrains.Add(weightedSimulation[0].ToAverageTrain());
                 averageTrains.Add(weightedSimulation[1].ToAverageTrain());
