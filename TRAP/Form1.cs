@@ -46,22 +46,22 @@ namespace TRAP
             object sender = new object();
             EventArgs e = new EventArgs();
 
-            //runTarcoolaToKalgoorlieBatch(sender, e);
+            runTarcoolaToKalgoorlieBatch(sender, e);
 
-            runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:09:34.91
-            runGunnedBasin(sender, e);                  // Run Time: 01:22:06.31
-            runUlanLine(sender, e);                     // Run Time: 01:16:18.99
-            runPortKembla(sender, e);                   // Run Time: 00:11:46.52
-            runMacarthurToBotany(sender, e);            /* Insufficient TSR data */ // RunTime 00:07:02.58
-            runMelbourneToCootamundra(sender, e);       /* Insufficient TSR data */ // RunTime 00:49:15.08
-            runTarcoolaToKalgoorlie(sender, e);         /* Insufficient TSR data */ // RunTime 02:02:35.80
-            runSouthernHighlands(sender, e);            // Run Time: 01:13:03.57
+            //runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:09:34.91
+            //runGunnedBasin(sender, e);                  // Run Time: 01:22:06.31
+            //runUlanLine(sender, e);                     // Run Time: 01:16:18.99
+            //runPortKembla(sender, e);                   // Run Time: 00:11:46.52
+            //runMacarthurToBotany(sender, e);            /* Insufficient TSR data */ // RunTime 00:07:02.58
+            //runMelbourneToCootamundra(sender, e);       /* Insufficient TSR data */ // RunTime 00:49:15.08
+            //runTarcoolaToKalgoorlie(sender, e);         /* Insufficient TSR data */ // RunTime 02:02:35.80
+            //runSouthernHighlands(sender, e);            // Run Time: 01:13:03.57
 
 
 #endif
 
         }
-        
+
         /// <summary>
         /// Select the data file that requires processing.
         /// </summary>
@@ -1309,7 +1309,7 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
+            loopBoundaryThreshold.Text = "2";
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
@@ -1516,7 +1516,7 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
+            loopBoundaryThreshold.Text = "2";
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
@@ -1620,7 +1620,7 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
+            loopBoundaryThreshold.Text = "2";
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
@@ -1723,7 +1723,7 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
+            loopBoundaryThreshold.Text = "2";
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
@@ -1783,29 +1783,29 @@ namespace TRAP
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
             /* Simulation files */
-            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP2 Steel - increasing.csv";
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\GP1 SCT Vans - increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
             Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP2 Steel - increasing.csv";
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\GP1 SCT Vans - increasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
             Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP4 Intermodal - increasing.csv";
-            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP4 Intermodal - increasing.csv";
+            //Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            //Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP4 Intermodal - increasing.csv";
-            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP4 Intermodal - increasing.csv";
+            //Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            //Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM5 Intermodal - decreasing.csv";
-            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP5 Intermodal - increasing.csv";
+            //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM5 Intermodal - decreasing.csv";
-            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP5 Intermodal - increasing.csv";
+            //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
 
             /* Destination Folder */
@@ -1827,7 +1827,7 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
+            loopBoundaryThreshold.Text = "2";
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
@@ -1844,12 +1844,12 @@ namespace TRAP
             //TrainType3Category.SelectedItem = "Perth - Sydney";
             //Settings.Category3TrainType = trainType.PerthSydney;
 
-            trainType1.Text = "MP2";
-            Settings.Category1TrainType = trainType.MP2;
-            trainType2.Text = "MP4";
-            Settings.Category2TrainType = trainType.MP4;
-            trainType3.Text = "PM4";
-            Settings.Category3TrainType = trainType.PM4;
+            trainType1.Text = "GP1";
+            Settings.Category1TrainType = trainType.GP1;
+            trainType2.Text = null;
+            Settings.Category2TrainType = trainType.Unknown;
+            trainType3.Text = null;
+            Settings.Category3TrainType = trainType.Unknown;
 
             Operator1Category.SelectedItem = null;
             Settings.Category1Operator = trainOperator.Unknown;
@@ -1929,7 +1929,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2017,7,1);
+            toDate.Value = new DateTime(2017, 7, 1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -1941,8 +1941,8 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
-            loopSpeedThreshold.Text = "50";
+            loopBoundaryThreshold.Text = "8";
+            loopSpeedThreshold.Text = "80";
             TSRWindowBoundary.Text = "1";
 
             /* Power to weight ratio boudnaries. */
@@ -2036,7 +2036,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2017,7,1);
+            toDate.Value = new DateTime(2017, 7, 1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2048,8 +2048,8 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
-            loopSpeedThreshold.Text = "50";
+            loopBoundaryThreshold.Text = "8";
+            loopSpeedThreshold.Text = "80";
             TSRWindowBoundary.Text = "1";
 
             /* Power to weight ratio boudnaries. */
@@ -2143,7 +2143,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2017,7,1);
+            toDate.Value = new DateTime(2017, 7, 1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2155,8 +2155,8 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
-            loopSpeedThreshold.Text = "50";
+            loopBoundaryThreshold.Text = "8";
+            loopSpeedThreshold.Text = "80";
             TSRWindowBoundary.Text = "1";
 
             /* Power to weight ratio boudnaries. */
@@ -2250,7 +2250,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2017,7,1);
+            toDate.Value = new DateTime(2017, 7, 1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2262,8 +2262,8 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
-            loopSpeedThreshold.Text = "50";
+            loopBoundaryThreshold.Text = "8";
+            loopSpeedThreshold.Text = "80";
             TSRWindowBoundary.Text = "1";
 
             /* Power to weight ratio boudnaries. */
@@ -2357,7 +2357,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2017,7,1);
+            toDate.Value = new DateTime(2017, 7, 1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2369,8 +2369,8 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
-            loopSpeedThreshold.Text = "50";
+            loopBoundaryThreshold.Text = "8";
+            loopSpeedThreshold.Text = "80";
             TSRWindowBoundary.Text = "1";
 
             /* Power to weight ratio boudnaries. */
@@ -2432,11 +2432,11 @@ namespace TRAP
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
             /* Simulation files */
-            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM4 Intermodal - decreasing.csv";
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM4 Steel - decreasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
             Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM4 Intermodal - decreasing.csv";
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM4 Steel - decreasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
             Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
@@ -2464,7 +2464,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2017,7,1);
+            toDate.Value = new DateTime(2017, 7, 1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2476,8 +2476,8 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
-            loopSpeedThreshold.Text = "50";
+            loopBoundaryThreshold.Text = "8";
+            loopSpeedThreshold.Text = "80";
             TSRWindowBoundary.Text = "1";
 
             /* Power to weight ratio boudnaries. */
@@ -2555,13 +2555,13 @@ namespace TRAP
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
             Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PS5 Intermodal - decreasing.csv";
-            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\GP1 SCT Vans - increasing.csv";
+            //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PS5 Intermodal - decreasing.csv";
-            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\GP1 SCT Vans - increasing.csv";
+            //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
 
             /* Destination Folder */
@@ -2571,7 +2571,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2017,7,1);
+            toDate.Value = new DateTime(2017, 7, 1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2583,8 +2583,8 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
-            loopSpeedThreshold.Text = "50";
+            loopBoundaryThreshold.Text = "8";
+            loopSpeedThreshold.Text = "80";
             TSRWindowBoundary.Text = "1";
 
             /* Power to weight ratio boudnaries. */
@@ -2597,8 +2597,8 @@ namespace TRAP
             Settings.Category1TrainType = trainType.PM7;
             trainType2.Text = "PM9";
             Settings.Category2TrainType = trainType.PM9;
-            trainType3.Text = "PS5";
-            Settings.Category3TrainType = trainType.PS5;
+            trainType3.Text = null;
+            Settings.Category3TrainType = trainType.Unknown;
 
             Operator1Category.SelectedItem = null;
             Settings.Category1Operator = trainOperator.Unknown;
@@ -2678,7 +2678,7 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2017,7,1);
+            toDate.Value = new DateTime(2017, 7, 1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
@@ -2690,8 +2690,8 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
-            loopSpeedThreshold.Text = "50";
+            loopBoundaryThreshold.Text = "8";
+            loopSpeedThreshold.Text = "80";
             TSRWindowBoundary.Text = "1";
 
             /* Power to weight ratio boudnaries. */
@@ -2780,7 +2780,7 @@ namespace TRAP
             string batch7Time = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", t7.Hours, t7.Minutes, t7.Seconds, t7.Milliseconds / 10);
             string batch8Time = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", t8.Hours, t8.Minutes, t8.Seconds, t8.Milliseconds / 10);
 
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}:{3:00}.{4:00}", ts.Days, ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
 
             Console.WriteLine("Tarcoola to Kalgoorlie RunTime 1: " + batch1Time);
             Console.WriteLine("Tarcoola to Kalgoorlie RunTime 2: " + batch2Time);
@@ -2791,7 +2791,7 @@ namespace TRAP
             Console.WriteLine("Tarcoola to Kalgoorlie RunTime 7: " + batch7Time);
             Console.WriteLine("Tarcoola to Kalgoorlie RunTime 8: " + batch8Time);
 
-            Console.WriteLine("Tarcoola to Kalgoorlie RunTime Total" + elapsedTime);
+            Console.WriteLine("Tarcoola to Kalgoorlie RunTime Total: " + elapsedTime);
         }
 
         /// <summary>
@@ -2868,7 +2868,7 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
+            loopBoundaryThreshold.Text = "2";
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
@@ -2971,7 +2971,7 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
+            loopBoundaryThreshold.Text = "2";
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
@@ -3075,7 +3075,7 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
+            loopBoundaryThreshold.Text = "2";
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
@@ -3289,7 +3289,7 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "1";
+            loopBoundaryThreshold.Text = "2";
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
@@ -3457,7 +3457,7 @@ namespace TRAP
             timer.Start();
 
             /* Set the analysis parameters. */
-            setTarcoola2KalgoorlieParameters(sender, e);
+            setTarcoola2KalgoorlieParameters2(sender, e);
             /* Simualte pressing execute button. */
             testExecute(sender, e);
 
