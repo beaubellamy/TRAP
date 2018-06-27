@@ -73,12 +73,12 @@ namespace TRAP
                 //tool.messageBox("There are no records in the list to analyse.", "No trains available.");
                 return new List<Train>();
             }
-
+                        
             /* Identify the number of operators. */
             List<trainOperator> operators = TrainRecords.Select(t => t.trainOperator).Distinct().ToList();
             operators.Remove(trainOperator.Unknown);
             int numberOfOperators = operators.Count();
-
+                        
             /* Create a list of analysis Categories */
             List<Category> simCategories = new List<Category>();
 
@@ -140,12 +140,12 @@ namespace TRAP
             /* Interpolate the simulations to the same granularity as the ICE data will be. */
             List<Train> interpolatedSimulations = new List<Train>();
             interpolatedSimulations = Processing.interpolateTrainData(simulatedTrains, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval);
-            
+
             /* Sort the data by [trainID, locoID, Date & Time, kmPost]. */
             List<TrainRecord> OrderdTrainRecords = new List<TrainRecord>();
             OrderdTrainRecords = TrainRecords.OrderBy(t => t.trainID).ThenBy(t => t.locoID).ThenBy(t => t.dateTime).ThenBy(t => t.kmPost).ToList();
 
-
+            
             /**************************************************************************************************/
             /* Clean data - remove trains with insufficient data. */
             /******** Should only be required while we are waiting for the data in the prefered format ********/
@@ -158,7 +158,7 @@ namespace TRAP
 
             /* Write the raw train data to file. */
             //FileOperations.writeRawTrainDataWithTime(CleanTrainRecords, FileSettings.aggregatedDestination);
-
+                        
             /* Interpolate data */
             /******** Should only be required while we are waiting for the data in the prefered format ********/
             List<Train> interpolatedTrains = new List<Train>();
