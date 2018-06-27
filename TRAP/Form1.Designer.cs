@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrainPerformance));
             this.simulationTab = new System.Windows.Forms.TabControl();
             this.AnalysisParametersTab = new System.Windows.Forms.TabPage();
+            this.IgnoreGaps = new System.Windows.Forms.CheckBox();
             this.PortKembla = new System.Windows.Forms.CheckBox();
             this.timeSeparation = new System.Windows.Forms.TextBox();
             this.TSRWindowBoundary = new System.Windows.Forms.TextBox();
@@ -108,6 +109,10 @@
             this.Category1Label = new System.Windows.Forms.Label();
             this.dataFileLabel = new System.Windows.Forms.Label();
             this.simulationFileTab = new System.Windows.Forms.TabPage();
+            this.trainType3 = new System.Windows.Forms.TextBox();
+            this.trainType2 = new System.Windows.Forms.TextBox();
+            this.trainType1 = new System.Windows.Forms.TextBox();
+            this.TrainNumberLabel = new System.Windows.Forms.Label();
             this.powerToWeightRatioAnalysis = new System.Windows.Forms.CheckBox();
             this.Commodity3Category = new System.Windows.Forms.ComboBox();
             this.Operator3Category = new System.Windows.Forms.ComboBox();
@@ -137,10 +142,6 @@
             this.selectCategory1IncreasingSimulation = new System.Windows.Forms.Button();
             this.Category1SimulationLabel = new System.Windows.Forms.Label();
             this.Category1IncreasingSimulationFile = new System.Windows.Forms.TextBox();
-            this.TrainNumberLabel = new System.Windows.Forms.Label();
-            this.trainType1 = new System.Windows.Forms.TextBox();
-            this.trainType2 = new System.Windows.Forms.TextBox();
-            this.trainType3 = new System.Windows.Forms.TextBox();
             this.simulationTab.SuspendLayout();
             this.AnalysisParametersTab.SuspendLayout();
             this.powerToWeightParametersTab.SuspendLayout();
@@ -160,6 +161,7 @@
             // 
             // AnalysisParametersTab
             // 
+            this.AnalysisParametersTab.Controls.Add(this.IgnoreGaps);
             this.AnalysisParametersTab.Controls.Add(this.PortKembla);
             this.AnalysisParametersTab.Controls.Add(this.timeSeparation);
             this.AnalysisParametersTab.Controls.Add(this.TSRWindowBoundary);
@@ -208,6 +210,16 @@
             this.AnalysisParametersTab.TabIndex = 0;
             this.AnalysisParametersTab.Text = "Analyis Parameters";
             this.AnalysisParametersTab.UseVisualStyleBackColor = true;
+            // 
+            // IgnoreGaps
+            // 
+            this.IgnoreGaps.AutoSize = true;
+            this.IgnoreGaps.Location = new System.Drawing.Point(376, 342);
+            this.IgnoreGaps.Name = "IgnoreGaps";
+            this.IgnoreGaps.Size = new System.Drawing.Size(192, 17);
+            this.IgnoreGaps.TabIndex = 56;
+            this.IgnoreGaps.Text = "Ignore the gaps during interpolation";
+            this.IgnoreGaps.UseVisualStyleBackColor = true;
             // 
             // PortKembla
             // 
@@ -981,6 +993,39 @@
             this.simulationFileTab.Text = "Simulation File Selection";
             this.simulationFileTab.UseVisualStyleBackColor = true;
             // 
+            // trainType3
+            // 
+            this.trainType3.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.trainType3.Location = new System.Drawing.Point(643, 269);
+            this.trainType3.Name = "trainType3";
+            this.trainType3.Size = new System.Drawing.Size(93, 20);
+            this.trainType3.TabIndex = 36;
+            // 
+            // trainType2
+            // 
+            this.trainType2.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.trainType2.Location = new System.Drawing.Point(643, 170);
+            this.trainType2.Name = "trainType2";
+            this.trainType2.Size = new System.Drawing.Size(93, 20);
+            this.trainType2.TabIndex = 35;
+            // 
+            // trainType1
+            // 
+            this.trainType1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.trainType1.Location = new System.Drawing.Point(643, 70);
+            this.trainType1.Name = "trainType1";
+            this.trainType1.Size = new System.Drawing.Size(93, 20);
+            this.trainType1.TabIndex = 34;
+            // 
+            // TrainNumberLabel
+            // 
+            this.TrainNumberLabel.AutoSize = true;
+            this.TrainNumberLabel.Location = new System.Drawing.Point(642, 15);
+            this.TrainNumberLabel.Name = "TrainNumberLabel";
+            this.TrainNumberLabel.Size = new System.Drawing.Size(58, 13);
+            this.TrainNumberLabel.TabIndex = 30;
+            this.TrainNumberLabel.Text = "Train Type";
+            // 
             // powerToWeightRatioAnalysis
             // 
             this.powerToWeightRatioAnalysis.AutoSize = true;
@@ -1354,39 +1399,6 @@
             this.Category1IncreasingSimulationFile.TabIndex = 0;
             this.Category1IncreasingSimulationFile.Text = "<Required>";
             // 
-            // TrainNumberLabel
-            // 
-            this.TrainNumberLabel.AutoSize = true;
-            this.TrainNumberLabel.Location = new System.Drawing.Point(642, 15);
-            this.TrainNumberLabel.Name = "TrainNumberLabel";
-            this.TrainNumberLabel.Size = new System.Drawing.Size(58, 13);
-            this.TrainNumberLabel.TabIndex = 30;
-            this.TrainNumberLabel.Text = "Train Type";
-            // 
-            // trainType1
-            // 
-            this.trainType1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.trainType1.Location = new System.Drawing.Point(643, 70);
-            this.trainType1.Name = "trainType1";
-            this.trainType1.Size = new System.Drawing.Size(93, 20);
-            this.trainType1.TabIndex = 34;
-            // 
-            // trainType2
-            // 
-            this.trainType2.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.trainType2.Location = new System.Drawing.Point(643, 170);
-            this.trainType2.Name = "trainType2";
-            this.trainType2.Size = new System.Drawing.Size(93, 20);
-            this.trainType2.TabIndex = 35;
-            // 
-            // trainType3
-            // 
-            this.trainType3.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.trainType3.Location = new System.Drawing.Point(643, 269);
-            this.trainType3.Name = "trainType3";
-            this.trainType3.Size = new System.Drawing.Size(93, 20);
-            this.trainType3.TabIndex = 36;
-            // 
             // TrainPerformance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1522,6 +1534,7 @@
         private System.Windows.Forms.TextBox trainType3;
         private System.Windows.Forms.TextBox trainType2;
         private System.Windows.Forms.TextBox trainType1;
+        private System.Windows.Forms.CheckBox IgnoreGaps;
     }
 }
 

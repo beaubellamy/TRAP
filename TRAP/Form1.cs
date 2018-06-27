@@ -611,6 +611,12 @@ namespace TRAP
         }
 
         /// <summary>
+        /// Extract the value of the ignore gaps during interpolation flag.
+        /// </summary>
+        /// <returns>The value of the boolean flag.</returns>
+        public bool getIgnoreGapsFlag() { return IgnoreGaps.Checked; }
+        
+        /// <summary>
         /// Extract the value of the minimum journey distance threshold.
         /// </summary>
         /// <returns>The minimum distance of the train journey.</returns>
@@ -1156,6 +1162,7 @@ namespace TRAP
             Settings.startKm = form.getStartKm();
             Settings.endKm = form.getEndKm();
             Settings.interval = form.getInterval();
+            Settings.ignoreGaps = form.getIgnoreGapsFlag();
             Settings.minimumJourneyDistance = form.getJourneydistance();
             Settings.loopSpeedThreshold = form.getLoopFactor();
             Settings.loopBoundaryThreshold = form.getLoopBoundary();
@@ -3555,7 +3562,6 @@ namespace TRAP
             ((Label)((Timer)sender).Tag).Text = elapsedTime;
 
         }
-        
 
         
     }

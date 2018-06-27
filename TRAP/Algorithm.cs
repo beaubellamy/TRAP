@@ -145,11 +145,7 @@ namespace TRAP
             List<TrainRecord> OrderdTrainRecords = new List<TrainRecord>();
             OrderdTrainRecords = TrainRecords.OrderBy(t => t.trainID).ThenBy(t => t.locoID).ThenBy(t => t.dateTime).ThenBy(t => t.kmPost).ToList();
 
-            
-            /**************************************************************************************************/
-            /* Clean data - remove trains with insufficient data. */
-            /******** Should only be required while we are waiting for the data in the prefered format ********/
-
+            /* Clean the data */
             List<Train> CleanTrainRecords = new List<Train>();
             //CleanTrainRecords = Processing.MakeTrains(OrderdTrainRecords, trackGeometry,
             CleanTrainRecords = Processing.CleanData(OrderdTrainRecords, trackGeometry,
@@ -160,12 +156,14 @@ namespace TRAP
             //FileOperations.writeRawTrainDataWithTime(CleanTrainRecords, FileSettings.aggregatedDestination);
                         
             /* Interpolate data */
-            /******** Should only be required while we are waiting for the data in the prefered format ********/
             List<Train> interpolatedTrains = new List<Train>();
-            interpolatedTrains = Processing.interpolateTrainData(CleanTrainRecords, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval);
-            //interpolatedTrains = Processing.interpolateTrainDataWithGaps(CleanTrainRecords, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval);
-            /**************************************************************************************************/
-
+            if (!Settings.ignoreGaps)
+                /* Standard interpolation method */
+                interpolatedTrains = Processing.interpolateTrainData(CleanTrainRecords, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval);
+            else
+                /* Interpolation method does not interpolate through the gaps. (typically used with MakeTrains function) */
+                interpolatedTrains = Processing.interpolateTrainDataWithGaps(CleanTrainRecords, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval);
+           
             /* Populate the trains TSR values after interpolation to gain more granularity with TSR boundary. */
             Processing.populateAllTrainsTemporarySpeedRestrictions(interpolatedTrains, TSRs);
 
