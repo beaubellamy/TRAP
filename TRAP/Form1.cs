@@ -49,7 +49,7 @@ namespace TRAP
             runTarcoolaToKalgoorlieBatch(sender, e);
 
             //runCulleranRanges(sender, e);               /* Insufficient TSR data */ // RunTime 00:09:34.91
-            //runGunnedBasin(sender, e);                  // Run Time: 01:22:06.31
+            //runGunnedahBasin(sender, e);                  // Run Time: 01:22:06.31
             //runUlanLine(sender, e);                     // Run Time: 01:16:18.99
             //runPortKembla(sender, e);                   // Run Time: 00:11:46.52
             //runMacarthurToBotany(sender, e);            /* Insufficient TSR data */ // RunTime 00:07:02.58
@@ -1350,7 +1350,7 @@ namespace TRAP
             resetDefaultParameters();
 
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Data 2017-20170529.txt";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Data 201711-201805.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
@@ -1364,7 +1364,7 @@ namespace TRAP
             GeometryFile.ForeColor = System.Drawing.Color.Black;
 
             /* TSR File */
-            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin TSR.csv";
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin MTP - TSR.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
@@ -1400,16 +1400,16 @@ namespace TRAP
             resultsDestination.ForeColor = System.Drawing.Color.Black;
 
             /* Settings */
-            fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2017,6,1);
+            fromDate.Value = new DateTime(2017, 11, 1);
+            toDate.Value = new DateTime(2018,2,18);
 
             /* Interpolation Parameters. */
             excludeListOfTrains.Checked = false;
 
-            startInterpolationKm.Text = "264";
-            endInterpolationKm.Text = "541";
+            startInterpolationKm.Text = "280";
+            endInterpolationKm.Text = "540";
             interpolationInterval.Text = "50";
-            minimumJourneyDistance.Text = "250";
+            minimumJourneyDistance.Text = "50";
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
@@ -2927,29 +2927,29 @@ namespace TRAP
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
             /* Simulation files */
-            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\CityRail Passenger-Increasing.csv";
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
             Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\CityRail Passenger-Decreasing.csv";
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Decreasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
             Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\CountryLink Passenger-Increasing.csv";
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Increasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
             Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\CountryLink Passenger-Decreasing.csv";
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Decreasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
             Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Increasing.csv";
-            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Increasing.csv";
+            //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Decreasing.csv";
-            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Decreasing.csv";
+            //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
 
             /* Destination Folder */
@@ -2985,12 +2985,19 @@ namespace TRAP
 
             Settings.analysisCategory = analysisCategory.TrainOperator;
 
-            Operator1Category.SelectedItem = "City Rail";
-            Settings.Category1Operator = trainOperator.CityRail;
-            Operator2Category.SelectedItem = "Countrylink";
-            Settings.Category2Operator = trainOperator.Countrylink;
-            Operator3Category.SelectedItem = "Group Remaining";
-            Settings.Category3Operator = trainOperator.GroupRemaining;
+            trainType1.Text = "MB4";
+            Settings.Category1TrainType = trainType.MB4;
+            trainType2.Text = "BM4";
+            Settings.Category2TrainType = trainType.BM4;
+            trainType3.Text = null;
+            Settings.Category3TrainType = trainType.Unknown;
+
+            //Operator1Category.SelectedItem = "City Rail";
+            //Settings.Category1Operator = trainOperator.CityRail;
+            //Operator2Category.SelectedItem = "Countrylink";
+            //Settings.Category2Operator = trainOperator.Countrylink;
+            //Operator3Category.SelectedItem = "Group Remaining";
+            //Settings.Category3Operator = trainOperator.GroupRemaining;
 
             Commodity1Category.SelectedItem = null;
             Settings.Category1Commodity = trainCommodity.Unknown;
@@ -3354,7 +3361,7 @@ namespace TRAP
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void runGunnedBasin(object sender, EventArgs e)
+        private void runGunnedahBasin(object sender, EventArgs e)
         {
             /* Start a timer */
             Stopwatch timer = new Stopwatch();
