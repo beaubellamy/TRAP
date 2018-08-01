@@ -3555,8 +3555,5 @@ namespace TRAP
             ((Label)((Timer)sender).Tag).Text = elapsedTime;
 
         }
-        
-
-        
     }
 }
