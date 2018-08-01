@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrainPerformance));
             this.simulationTab = new System.Windows.Forms.TabControl();
             this.AnalysisParametersTab = new System.Windows.Forms.TabPage();
+            this.IgnoreGaps = new System.Windows.Forms.CheckBox();
             this.PortKembla = new System.Windows.Forms.CheckBox();
             this.timeSeparation = new System.Windows.Forms.TextBox();
             this.TSRWindowBoundary = new System.Windows.Forms.TextBox();
@@ -108,11 +109,12 @@
             this.Category1Label = new System.Windows.Forms.Label();
             this.dataFileLabel = new System.Windows.Forms.Label();
             this.simulationFileTab = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.AnalysisLabel = new System.Windows.Forms.Label();
             this.trainType3 = new System.Windows.Forms.TextBox();
             this.trainType2 = new System.Windows.Forms.TextBox();
             this.trainType1 = new System.Windows.Forms.TextBox();
             this.TrainNumberLabel = new System.Windows.Forms.Label();
-            this.powerToWeightRatioAnalysis = new System.Windows.Forms.CheckBox();
             this.Commodity3Category = new System.Windows.Forms.ComboBox();
             this.Operator3Category = new System.Windows.Forms.ComboBox();
             this.Commodity2Category = new System.Windows.Forms.ComboBox();
@@ -121,6 +123,7 @@
             this.Operator1Category = new System.Windows.Forms.ComboBox();
             this.CommodityLabel = new System.Windows.Forms.Label();
             this.OperatorLabel = new System.Windows.Forms.Label();
+            this.powerToWeightRatioAnalysis = new System.Windows.Forms.CheckBox();
             this.Execute = new System.Windows.Forms.Button();
             this.executionTime = new System.Windows.Forms.Label();
             this.ExecitionTimeLabel = new System.Windows.Forms.Label();
@@ -141,8 +144,6 @@
             this.selectCategory1IncreasingSimulation = new System.Windows.Forms.Button();
             this.Category1SimulationLabel = new System.Windows.Forms.Label();
             this.Category1IncreasingSimulationFile = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.AnalysisLabel = new System.Windows.Forms.Label();
             this.simulationTab.SuspendLayout();
             this.AnalysisParametersTab.SuspendLayout();
             this.powerToWeightParametersTab.SuspendLayout();
@@ -163,6 +164,7 @@
             // 
             // AnalysisParametersTab
             // 
+            this.AnalysisParametersTab.Controls.Add(this.IgnoreGaps);
             this.AnalysisParametersTab.Controls.Add(this.PortKembla);
             this.AnalysisParametersTab.Controls.Add(this.timeSeparation);
             this.AnalysisParametersTab.Controls.Add(this.TSRWindowBoundary);
@@ -212,6 +214,17 @@
             this.AnalysisParametersTab.Text = "Analyis Parameters";
             this.AnalysisParametersTab.UseVisualStyleBackColor = true;
             // 
+            // IgnoreGaps
+            // 
+            this.IgnoreGaps.AutoSize = true;
+            this.IgnoreGaps.Location = new System.Drawing.Point(17, 383);
+            this.IgnoreGaps.Name = "IgnoreGaps";
+            this.IgnoreGaps.Size = new System.Drawing.Size(143, 17);
+            this.IgnoreGaps.TabIndex = 56;
+            this.IgnoreGaps.Text = "Ignore large gaps in data";
+            this.IgnoreGaps.UseVisualStyleBackColor = true;
+            this.IgnoreGaps.CheckedChanged += new System.EventHandler(this.IgnoreGaps_CheckedChanged);
+            // 
             // PortKembla
             // 
             this.PortKembla.AutoSize = true;
@@ -225,7 +238,7 @@
             // 
             // timeSeparation
             // 
-            this.timeSeparation.Location = new System.Drawing.Point(270, 417);
+            this.timeSeparation.Location = new System.Drawing.Point(719, 358);
             this.timeSeparation.Name = "timeSeparation";
             this.timeSeparation.Size = new System.Drawing.Size(100, 20);
             this.timeSeparation.TabIndex = 54;
@@ -233,7 +246,7 @@
             // 
             // TSRWindowBoundary
             // 
-            this.TSRWindowBoundary.Location = new System.Drawing.Point(644, 417);
+            this.TSRWindowBoundary.Location = new System.Drawing.Point(719, 428);
             this.TSRWindowBoundary.Name = "TSRWindowBoundary";
             this.TSRWindowBoundary.Size = new System.Drawing.Size(100, 20);
             this.TSRWindowBoundary.TabIndex = 53;
@@ -241,7 +254,7 @@
             // 
             // dataSeparation
             // 
-            this.dataSeparation.Location = new System.Drawing.Point(270, 391);
+            this.dataSeparation.Location = new System.Drawing.Point(719, 336);
             this.dataSeparation.Name = "dataSeparation";
             this.dataSeparation.Size = new System.Drawing.Size(100, 20);
             this.dataSeparation.TabIndex = 52;
@@ -249,7 +262,7 @@
             // 
             // loopSpeedThreshold
             // 
-            this.loopSpeedThreshold.Location = new System.Drawing.Point(644, 391);
+            this.loopSpeedThreshold.Location = new System.Drawing.Point(719, 402);
             this.loopSpeedThreshold.Name = "loopSpeedThreshold";
             this.loopSpeedThreshold.Size = new System.Drawing.Size(100, 20);
             this.loopSpeedThreshold.TabIndex = 51;
@@ -257,7 +270,7 @@
             // 
             // minimumJourneyDistance
             // 
-            this.minimumJourneyDistance.Location = new System.Drawing.Point(270, 365);
+            this.minimumJourneyDistance.Location = new System.Drawing.Point(718, 313);
             this.minimumJourneyDistance.Name = "minimumJourneyDistance";
             this.minimumJourneyDistance.Size = new System.Drawing.Size(100, 20);
             this.minimumJourneyDistance.TabIndex = 50;
@@ -265,7 +278,7 @@
             // 
             // loopBoundaryThreshold
             // 
-            this.loopBoundaryThreshold.Location = new System.Drawing.Point(644, 365);
+            this.loopBoundaryThreshold.Location = new System.Drawing.Point(719, 381);
             this.loopBoundaryThreshold.Name = "loopBoundaryThreshold";
             this.loopBoundaryThreshold.Size = new System.Drawing.Size(100, 20);
             this.loopBoundaryThreshold.TabIndex = 49;
@@ -273,7 +286,7 @@
             // 
             // interpolationInterval
             // 
-            this.interpolationInterval.Location = new System.Drawing.Point(270, 339);
+            this.interpolationInterval.Location = new System.Drawing.Point(270, 358);
             this.interpolationInterval.Name = "interpolationInterval";
             this.interpolationInterval.Size = new System.Drawing.Size(100, 20);
             this.interpolationInterval.TabIndex = 48;
@@ -281,7 +294,7 @@
             // 
             // endInterpolationKm
             // 
-            this.endInterpolationKm.Location = new System.Drawing.Point(644, 313);
+            this.endInterpolationKm.Location = new System.Drawing.Point(270, 336);
             this.endInterpolationKm.Name = "endInterpolationKm";
             this.endInterpolationKm.Size = new System.Drawing.Size(100, 20);
             this.endInterpolationKm.TabIndex = 47;
@@ -298,7 +311,7 @@
             // loopSpeedLabel
             // 
             this.loopSpeedLabel.AutoSize = true;
-            this.loopSpeedLabel.Location = new System.Drawing.Point(461, 394);
+            this.loopSpeedLabel.Location = new System.Drawing.Point(461, 405);
             this.loopSpeedLabel.Name = "loopSpeedLabel";
             this.loopSpeedLabel.Size = new System.Drawing.Size(132, 13);
             this.loopSpeedLabel.TabIndex = 45;
@@ -307,7 +320,7 @@
             // TSRLabel
             // 
             this.TSRLabel.AutoSize = true;
-            this.TSRLabel.Location = new System.Drawing.Point(461, 420);
+            this.TSRLabel.Location = new System.Drawing.Point(461, 431);
             this.TSRLabel.Name = "TSRLabel";
             this.TSRLabel.Size = new System.Drawing.Size(94, 13);
             this.TSRLabel.TabIndex = 44;
@@ -325,7 +338,7 @@
             // minDistanceLabel
             // 
             this.minDistanceLabel.AutoSize = true;
-            this.minDistanceLabel.Location = new System.Drawing.Point(14, 368);
+            this.minDistanceLabel.Location = new System.Drawing.Point(461, 316);
             this.minDistanceLabel.Name = "minDistanceLabel";
             this.minDistanceLabel.Size = new System.Drawing.Size(149, 13);
             this.minDistanceLabel.TabIndex = 42;
@@ -334,7 +347,7 @@
             // dataSeparationLabel
             // 
             this.dataSeparationLabel.AutoSize = true;
-            this.dataSeparationLabel.Location = new System.Drawing.Point(14, 394);
+            this.dataSeparationLabel.Location = new System.Drawing.Point(461, 339);
             this.dataSeparationLabel.Name = "dataSeparationLabel";
             this.dataSeparationLabel.Size = new System.Drawing.Size(107, 13);
             this.dataSeparationLabel.TabIndex = 41;
@@ -343,7 +356,7 @@
             // timeSeparationLabel
             // 
             this.timeSeparationLabel.AutoSize = true;
-            this.timeSeparationLabel.Location = new System.Drawing.Point(14, 420);
+            this.timeSeparationLabel.Location = new System.Drawing.Point(461, 361);
             this.timeSeparationLabel.Name = "timeSeparationLabel";
             this.timeSeparationLabel.Size = new System.Drawing.Size(99, 13);
             this.timeSeparationLabel.TabIndex = 40;
@@ -352,7 +365,7 @@
             // endKmLabel
             // 
             this.endKmLabel.AutoSize = true;
-            this.endKmLabel.Location = new System.Drawing.Point(461, 316);
+            this.endKmLabel.Location = new System.Drawing.Point(14, 339);
             this.endKmLabel.Name = "endKmLabel";
             this.endKmLabel.Size = new System.Drawing.Size(109, 13);
             this.endKmLabel.TabIndex = 39;
@@ -361,7 +374,7 @@
             // label3loopBoundarylabel
             // 
             this.label3loopBoundarylabel.AutoSize = true;
-            this.label3loopBoundarylabel.Location = new System.Drawing.Point(461, 368);
+            this.label3loopBoundarylabel.Location = new System.Drawing.Point(461, 384);
             this.label3loopBoundarylabel.Name = "label3loopBoundarylabel";
             this.label3loopBoundarylabel.Size = new System.Drawing.Size(144, 13);
             this.label3loopBoundarylabel.TabIndex = 38;
@@ -370,7 +383,7 @@
             // interpolationLabel
             // 
             this.interpolationLabel.AutoSize = true;
-            this.interpolationLabel.Location = new System.Drawing.Point(14, 342);
+            this.interpolationLabel.Location = new System.Drawing.Point(14, 361);
             this.interpolationLabel.Name = "interpolationLabel";
             this.interpolationLabel.Size = new System.Drawing.Size(120, 13);
             this.interpolationLabel.TabIndex = 37;
@@ -973,6 +986,36 @@
             this.simulationFileTab.Text = "Simulation File Selection";
             this.simulationFileTab.UseVisualStyleBackColor = true;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.AnalysisLabel);
+            this.panel1.Controls.Add(this.trainType3);
+            this.panel1.Controls.Add(this.trainType2);
+            this.panel1.Controls.Add(this.trainType1);
+            this.panel1.Controls.Add(this.TrainNumberLabel);
+            this.panel1.Controls.Add(this.Commodity3Category);
+            this.panel1.Controls.Add(this.Operator3Category);
+            this.panel1.Controls.Add(this.Commodity2Category);
+            this.panel1.Controls.Add(this.Operator2Category);
+            this.panel1.Controls.Add(this.Commodity1Category);
+            this.panel1.Controls.Add(this.Operator1Category);
+            this.panel1.Controls.Add(this.CommodityLabel);
+            this.panel1.Controls.Add(this.OperatorLabel);
+            this.panel1.Location = new System.Drawing.Point(638, 11);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(408, 361);
+            this.panel1.TabIndex = 37;
+            // 
+            // AnalysisLabel
+            // 
+            this.AnalysisLabel.AutoSize = true;
+            this.AnalysisLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnalysisLabel.Location = new System.Drawing.Point(116, 0);
+            this.AnalysisLabel.Name = "AnalysisLabel";
+            this.AnalysisLabel.Size = new System.Drawing.Size(121, 17);
+            this.AnalysisLabel.TabIndex = 37;
+            this.AnalysisLabel.Text = "Analysis Category";
+            // 
             // trainType3
             // 
             this.trainType3.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -1005,18 +1048,6 @@
             this.TrainNumberLabel.Size = new System.Drawing.Size(58, 13);
             this.TrainNumberLabel.TabIndex = 30;
             this.TrainNumberLabel.Text = "Train Type";
-            // 
-            // powerToWeightRatioAnalysis
-            // 
-            this.powerToWeightRatioAnalysis.AutoSize = true;
-            this.powerToWeightRatioAnalysis.Location = new System.Drawing.Point(480, 15);
-            this.powerToWeightRatioAnalysis.Margin = new System.Windows.Forms.Padding(2);
-            this.powerToWeightRatioAnalysis.Name = "powerToWeightRatioAnalysis";
-            this.powerToWeightRatioAnalysis.Size = new System.Drawing.Size(138, 17);
-            this.powerToWeightRatioAnalysis.TabIndex = 29;
-            this.powerToWeightRatioAnalysis.Text = "Power to Weight Ratios";
-            this.powerToWeightRatioAnalysis.UseVisualStyleBackColor = true;
-            this.powerToWeightRatioAnalysis.CheckedChanged += new System.EventHandler(this.powerToWeightRatioAnalysis_CheckedChanged);
             // 
             // Commodity3Category
             // 
@@ -1190,6 +1221,18 @@
             this.OperatorLabel.Size = new System.Drawing.Size(75, 13);
             this.OperatorLabel.TabIndex = 21;
             this.OperatorLabel.Text = "Train Operator";
+            // 
+            // powerToWeightRatioAnalysis
+            // 
+            this.powerToWeightRatioAnalysis.AutoSize = true;
+            this.powerToWeightRatioAnalysis.Location = new System.Drawing.Point(480, 15);
+            this.powerToWeightRatioAnalysis.Margin = new System.Windows.Forms.Padding(2);
+            this.powerToWeightRatioAnalysis.Name = "powerToWeightRatioAnalysis";
+            this.powerToWeightRatioAnalysis.Size = new System.Drawing.Size(138, 17);
+            this.powerToWeightRatioAnalysis.TabIndex = 29;
+            this.powerToWeightRatioAnalysis.Text = "Power to Weight Ratios";
+            this.powerToWeightRatioAnalysis.UseVisualStyleBackColor = true;
+            this.powerToWeightRatioAnalysis.CheckedChanged += new System.EventHandler(this.powerToWeightRatioAnalysis_CheckedChanged);
             // 
             // Execute
             // 
@@ -1379,36 +1422,6 @@
             this.Category1IncreasingSimulationFile.TabIndex = 0;
             this.Category1IncreasingSimulationFile.Text = "<Required>";
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.AnalysisLabel);
-            this.panel1.Controls.Add(this.trainType3);
-            this.panel1.Controls.Add(this.trainType2);
-            this.panel1.Controls.Add(this.trainType1);
-            this.panel1.Controls.Add(this.TrainNumberLabel);
-            this.panel1.Controls.Add(this.Commodity3Category);
-            this.panel1.Controls.Add(this.Operator3Category);
-            this.panel1.Controls.Add(this.Commodity2Category);
-            this.panel1.Controls.Add(this.Operator2Category);
-            this.panel1.Controls.Add(this.Commodity1Category);
-            this.panel1.Controls.Add(this.Operator1Category);
-            this.panel1.Controls.Add(this.CommodityLabel);
-            this.panel1.Controls.Add(this.OperatorLabel);
-            this.panel1.Location = new System.Drawing.Point(638, 11);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(408, 361);
-            this.panel1.TabIndex = 37;
-            // 
-            // AnalysisLabel
-            // 
-            this.AnalysisLabel.AutoSize = true;
-            this.AnalysisLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AnalysisLabel.Location = new System.Drawing.Point(116, 0);
-            this.AnalysisLabel.Name = "AnalysisLabel";
-            this.AnalysisLabel.Size = new System.Drawing.Size(121, 17);
-            this.AnalysisLabel.TabIndex = 37;
-            this.AnalysisLabel.Text = "Analysis Category";
-            // 
             // TrainPerformance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1548,6 +1561,7 @@
         private System.Windows.Forms.TextBox trainType1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label AnalysisLabel;
+        private System.Windows.Forms.CheckBox IgnoreGaps;
     }
 }
 

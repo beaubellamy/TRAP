@@ -157,7 +157,7 @@ namespace TRAP
                         
             /* Interpolate data */
             List<Train> interpolatedTrains = new List<Train>();
-            if (!Settings.ignoreGaps)
+            if (!Settings.IgnoreGaps)
                 /* Standard interpolation method */
                 interpolatedTrains = Processing.interpolateTrainData(CleanTrainRecords, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval);
             else

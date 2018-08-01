@@ -572,6 +572,12 @@ namespace TRAP
         public bool getTrainListExcludeFlag() { return excludeListOfTrains.Checked; }
 
         /// <summary>
+        /// Extract the value of the ignore gaps during interpolation flag.
+        /// </summary>
+        /// <returns>The value of the boolean flag.</returns>
+        public bool getIgnoreGapsFlag() { return IgnoreGaps.Checked; }
+
+        /// <summary>
         /// Extract the value of the start km for interpolation.
         /// </summary>
         /// <returns>The start km.</returns>
@@ -610,6 +616,7 @@ namespace TRAP
             return 0;
         }
 
+        
         /// <summary>
         /// Extract the value of the minimum journey distance threshold.
         /// </summary>
@@ -1156,6 +1163,7 @@ namespace TRAP
             Settings.startKm = form.getStartKm();
             Settings.endKm = form.getEndKm();
             Settings.interval = form.getInterval();
+            Settings.IgnoreGaps = form.getIgnoreGapsFlag();
             Settings.minimumJourneyDistance = form.getJourneydistance();
             Settings.loopSpeedThreshold = form.getLoopFactor();
             Settings.loopBoundaryThreshold = form.getLoopBoundary();
@@ -1301,6 +1309,7 @@ namespace TRAP
 
             /* Interpolation parameters */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "220";
             endInterpolationKm.Text = "320";
@@ -1405,6 +1414,7 @@ namespace TRAP
 
             /* Interpolation Parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "280";
             endInterpolationKm.Text = "540";
@@ -1508,6 +1518,7 @@ namespace TRAP
 
             /* Interpoaltion Parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "5";
             endInterpolationKm.Text = "70";
@@ -1612,6 +1623,7 @@ namespace TRAP
 
             /* Interpolation Parameters */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "5";
             endInterpolationKm.Text = "505";
@@ -1715,6 +1727,7 @@ namespace TRAP
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "950";
             endInterpolationKm.Text = "1400";
@@ -1819,6 +1832,7 @@ namespace TRAP
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -1933,6 +1947,7 @@ namespace TRAP
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2040,6 +2055,7 @@ namespace TRAP
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2147,6 +2163,7 @@ namespace TRAP
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2254,6 +2271,7 @@ namespace TRAP
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2361,6 +2379,7 @@ namespace TRAP
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2468,6 +2487,7 @@ namespace TRAP
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2575,6 +2595,7 @@ namespace TRAP
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2682,6 +2703,7 @@ namespace TRAP
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2860,6 +2882,7 @@ namespace TRAP
 
             /* Interpolation Parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "280";
             endInterpolationKm.Text = "460";
@@ -2963,6 +2986,7 @@ namespace TRAP
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "55";
             endInterpolationKm.Text = "145";
@@ -3074,6 +3098,7 @@ namespace TRAP
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "80";
             endInterpolationKm.Text = "160";
@@ -3288,6 +3313,7 @@ namespace TRAP
 
             /* Interpolation Parameters */
             excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "0";
             endInterpolationKm.Text = "100";
@@ -3532,28 +3558,18 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         void tickTimer(object sender, EventArgs e)
         {
-            /* Stop the timer when stopTheClock is set to true. */
-            if (stopTheClock)
-            {
-                ((Timer)sender).Stop();
-                /* Reset the static timer properties. */
-                timeCounter = 0;
-                stopTheClock = false;
-                return;
-            }
 
-            /* Increment the timer*/
-            ++timeCounter;
+        }
 
-            /* Convert the timeCounter to hours, minutes and seconds. */
-            double hours = timeCounter / secPerHour;
-            double minutes = (hours - (int)hours) * minutesPerHour;
-            double seconds = (minutes - (int)minutes) * secPerMinute;
+        
 
-            /* Format a string for display on the form. */
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", (int)hours, (int)minutes, (int)seconds);
-            ((Label)((Timer)sender).Tag).Text = elapsedTime;
-
+        private void IgnoreGaps_CheckedChanged(object sender, EventArgs e)
+        {
+            /* If Culleran Ranges tesging flag is checked, set the appropriate parameters. */
+            if (CulleranRanges.Checked)
+                setCulleranRangesParameters(sender, e);
+            else
+                resetDefaultParameters();
         }
     }
 }

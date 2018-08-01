@@ -33,7 +33,7 @@ namespace Globalsettings
         public static double startKm;                       /* Start km for interpoaltion data. */
         public static double endKm;                         /* End km for interpolation data. */
         public static double interval;                      /* Interpolation interval (metres). */
-        public static bool ignoreGaps;                      /* Will the interpolation ignore gaps in the data (ie. gaps wont be interpolated through) */
+        public static bool IgnoreGaps;                      /* Will the interpolation ignore gaps in the data (ie. gaps wont be interpolated through) */
         public static double minimumJourneyDistance;        /* Minimum distance of a train journey to be considered valid. */
 
         /* Processing parameters */
