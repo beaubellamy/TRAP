@@ -109,21 +109,6 @@
             this.Category1Label = new System.Windows.Forms.Label();
             this.dataFileLabel = new System.Windows.Forms.Label();
             this.simulationFileTab = new System.Windows.Forms.TabPage();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.AnalysisLabel = new System.Windows.Forms.Label();
-            this.trainType3 = new System.Windows.Forms.TextBox();
-            this.trainType2 = new System.Windows.Forms.TextBox();
-            this.trainType1 = new System.Windows.Forms.TextBox();
-            this.TrainNumberLabel = new System.Windows.Forms.Label();
-            this.Commodity3Category = new System.Windows.Forms.ComboBox();
-            this.Operator3Category = new System.Windows.Forms.ComboBox();
-            this.Commodity2Category = new System.Windows.Forms.ComboBox();
-            this.Operator2Category = new System.Windows.Forms.ComboBox();
-            this.Commodity1Category = new System.Windows.Forms.ComboBox();
-            this.Operator1Category = new System.Windows.Forms.ComboBox();
-            this.CommodityLabel = new System.Windows.Forms.Label();
-            this.OperatorLabel = new System.Windows.Forms.Label();
-            this.powerToWeightRatioAnalysis = new System.Windows.Forms.CheckBox();
             this.Execute = new System.Windows.Forms.Button();
             this.executionTime = new System.Windows.Forms.Label();
             this.ExecitionTimeLabel = new System.Windows.Forms.Label();
@@ -144,6 +129,21 @@
             this.selectCategory1IncreasingSimulation = new System.Windows.Forms.Button();
             this.Category1SimulationLabel = new System.Windows.Forms.Label();
             this.Category1IncreasingSimulationFile = new System.Windows.Forms.TextBox();
+            this.OperatorLabel = new System.Windows.Forms.Label();
+            this.CommodityLabel = new System.Windows.Forms.Label();
+            this.Operator1Category = new System.Windows.Forms.ComboBox();
+            this.Commodity1Category = new System.Windows.Forms.ComboBox();
+            this.Operator2Category = new System.Windows.Forms.ComboBox();
+            this.Commodity2Category = new System.Windows.Forms.ComboBox();
+            this.Operator3Category = new System.Windows.Forms.ComboBox();
+            this.Commodity3Category = new System.Windows.Forms.ComboBox();
+            this.TrainNumberLabel = new System.Windows.Forms.Label();
+            this.trainType1 = new System.Windows.Forms.TextBox();
+            this.trainType2 = new System.Windows.Forms.TextBox();
+            this.trainType3 = new System.Windows.Forms.TextBox();
+            this.powerToWeightRatioAnalysis = new System.Windows.Forms.CheckBox();
+            this.AnalysisLabel = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.simulationTab.SuspendLayout();
             this.AnalysisParametersTab.SuspendLayout();
             this.powerToWeightParametersTab.SuspendLayout();
@@ -217,7 +217,7 @@
             // IgnoreGaps
             // 
             this.IgnoreGaps.AutoSize = true;
-            this.IgnoreGaps.Location = new System.Drawing.Point(17, 383);
+            this.IgnoreGaps.Location = new System.Drawing.Point(464, 360);
             this.IgnoreGaps.Name = "IgnoreGaps";
             this.IgnoreGaps.Size = new System.Drawing.Size(143, 17);
             this.IgnoreGaps.TabIndex = 56;
@@ -238,7 +238,7 @@
             // 
             // timeSeparation
             // 
-            this.timeSeparation.Location = new System.Drawing.Point(719, 358);
+            this.timeSeparation.Location = new System.Drawing.Point(719, 377);
             this.timeSeparation.Name = "timeSeparation";
             this.timeSeparation.Size = new System.Drawing.Size(100, 20);
             this.timeSeparation.TabIndex = 54;
@@ -246,7 +246,7 @@
             // 
             // TSRWindowBoundary
             // 
-            this.TSRWindowBoundary.Location = new System.Drawing.Point(719, 428);
+            this.TSRWindowBoundary.Location = new System.Drawing.Point(719, 447);
             this.TSRWindowBoundary.Name = "TSRWindowBoundary";
             this.TSRWindowBoundary.Size = new System.Drawing.Size(100, 20);
             this.TSRWindowBoundary.TabIndex = 53;
@@ -262,7 +262,7 @@
             // 
             // loopSpeedThreshold
             // 
-            this.loopSpeedThreshold.Location = new System.Drawing.Point(719, 402);
+            this.loopSpeedThreshold.Location = new System.Drawing.Point(719, 421);
             this.loopSpeedThreshold.Name = "loopSpeedThreshold";
             this.loopSpeedThreshold.Size = new System.Drawing.Size(100, 20);
             this.loopSpeedThreshold.TabIndex = 51;
@@ -278,7 +278,7 @@
             // 
             // loopBoundaryThreshold
             // 
-            this.loopBoundaryThreshold.Location = new System.Drawing.Point(719, 381);
+            this.loopBoundaryThreshold.Location = new System.Drawing.Point(719, 400);
             this.loopBoundaryThreshold.Name = "loopBoundaryThreshold";
             this.loopBoundaryThreshold.Size = new System.Drawing.Size(100, 20);
             this.loopBoundaryThreshold.TabIndex = 49;
@@ -311,7 +311,7 @@
             // loopSpeedLabel
             // 
             this.loopSpeedLabel.AutoSize = true;
-            this.loopSpeedLabel.Location = new System.Drawing.Point(461, 405);
+            this.loopSpeedLabel.Location = new System.Drawing.Point(461, 424);
             this.loopSpeedLabel.Name = "loopSpeedLabel";
             this.loopSpeedLabel.Size = new System.Drawing.Size(132, 13);
             this.loopSpeedLabel.TabIndex = 45;
@@ -320,7 +320,7 @@
             // TSRLabel
             // 
             this.TSRLabel.AutoSize = true;
-            this.TSRLabel.Location = new System.Drawing.Point(461, 431);
+            this.TSRLabel.Location = new System.Drawing.Point(461, 450);
             this.TSRLabel.Name = "TSRLabel";
             this.TSRLabel.Size = new System.Drawing.Size(94, 13);
             this.TSRLabel.TabIndex = 44;
@@ -356,7 +356,7 @@
             // timeSeparationLabel
             // 
             this.timeSeparationLabel.AutoSize = true;
-            this.timeSeparationLabel.Location = new System.Drawing.Point(461, 361);
+            this.timeSeparationLabel.Location = new System.Drawing.Point(461, 380);
             this.timeSeparationLabel.Name = "timeSeparationLabel";
             this.timeSeparationLabel.Size = new System.Drawing.Size(99, 13);
             this.timeSeparationLabel.TabIndex = 40;
@@ -374,7 +374,7 @@
             // label3loopBoundarylabel
             // 
             this.label3loopBoundarylabel.AutoSize = true;
-            this.label3loopBoundarylabel.Location = new System.Drawing.Point(461, 384);
+            this.label3loopBoundarylabel.Location = new System.Drawing.Point(461, 403);
             this.label3loopBoundarylabel.Name = "label3loopBoundarylabel";
             this.label3loopBoundarylabel.Size = new System.Drawing.Size(144, 13);
             this.label3loopBoundarylabel.TabIndex = 38;
@@ -957,7 +957,6 @@
             // simulationFileTab
             // 
             this.simulationFileTab.Controls.Add(this.panel1);
-            this.simulationFileTab.Controls.Add(this.powerToWeightRatioAnalysis);
             this.simulationFileTab.Controls.Add(this.Execute);
             this.simulationFileTab.Controls.Add(this.executionTime);
             this.simulationFileTab.Controls.Add(this.ExecitionTimeLabel);
@@ -985,254 +984,6 @@
             this.simulationFileTab.TabIndex = 3;
             this.simulationFileTab.Text = "Simulation File Selection";
             this.simulationFileTab.UseVisualStyleBackColor = true;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.AnalysisLabel);
-            this.panel1.Controls.Add(this.trainType3);
-            this.panel1.Controls.Add(this.trainType2);
-            this.panel1.Controls.Add(this.trainType1);
-            this.panel1.Controls.Add(this.TrainNumberLabel);
-            this.panel1.Controls.Add(this.Commodity3Category);
-            this.panel1.Controls.Add(this.Operator3Category);
-            this.panel1.Controls.Add(this.Commodity2Category);
-            this.panel1.Controls.Add(this.Operator2Category);
-            this.panel1.Controls.Add(this.Commodity1Category);
-            this.panel1.Controls.Add(this.Operator1Category);
-            this.panel1.Controls.Add(this.CommodityLabel);
-            this.panel1.Controls.Add(this.OperatorLabel);
-            this.panel1.Location = new System.Drawing.Point(638, 11);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(408, 361);
-            this.panel1.TabIndex = 37;
-            // 
-            // AnalysisLabel
-            // 
-            this.AnalysisLabel.AutoSize = true;
-            this.AnalysisLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AnalysisLabel.Location = new System.Drawing.Point(116, 0);
-            this.AnalysisLabel.Name = "AnalysisLabel";
-            this.AnalysisLabel.Size = new System.Drawing.Size(121, 17);
-            this.AnalysisLabel.TabIndex = 37;
-            this.AnalysisLabel.Text = "Analysis Category";
-            // 
-            // trainType3
-            // 
-            this.trainType3.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.trainType3.Location = new System.Drawing.Point(5, 258);
-            this.trainType3.Name = "trainType3";
-            this.trainType3.Size = new System.Drawing.Size(93, 20);
-            this.trainType3.TabIndex = 36;
-            // 
-            // trainType2
-            // 
-            this.trainType2.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.trainType2.Location = new System.Drawing.Point(5, 159);
-            this.trainType2.Name = "trainType2";
-            this.trainType2.Size = new System.Drawing.Size(93, 20);
-            this.trainType2.TabIndex = 35;
-            // 
-            // trainType1
-            // 
-            this.trainType1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.trainType1.Location = new System.Drawing.Point(5, 59);
-            this.trainType1.Name = "trainType1";
-            this.trainType1.Size = new System.Drawing.Size(93, 20);
-            this.trainType1.TabIndex = 34;
-            // 
-            // TrainNumberLabel
-            // 
-            this.TrainNumberLabel.AutoSize = true;
-            this.TrainNumberLabel.Location = new System.Drawing.Point(3, 20);
-            this.TrainNumberLabel.Name = "TrainNumberLabel";
-            this.TrainNumberLabel.Size = new System.Drawing.Size(58, 13);
-            this.TrainNumberLabel.TabIndex = 30;
-            this.TrainNumberLabel.Text = "Train Type";
-            // 
-            // Commodity3Category
-            // 
-            this.Commodity3Category.FormattingEnabled = true;
-            this.Commodity3Category.Items.AddRange(new object[] {
-            "Steel",
-            "Clinker",
-            "Mineral",
-            "Grain",
-            "General Freight",
-            "Intermodal",
-            "Passenger",
-            "Coal",
-            "Work",
-            "Group Remaining"});
-            this.Commodity3Category.Location = new System.Drawing.Point(249, 257);
-            this.Commodity3Category.Margin = new System.Windows.Forms.Padding(2);
-            this.Commodity3Category.Name = "Commodity3Category";
-            this.Commodity3Category.Size = new System.Drawing.Size(119, 21);
-            this.Commodity3Category.TabIndex = 28;
-            this.Commodity3Category.Text = "Select a Commodity";
-            this.Commodity3Category.SelectedIndexChanged += new System.EventHandler(this.Commodity3Category_SelectedIndexChanged);
-            // 
-            // Operator3Category
-            // 
-            this.Operator3Category.FormattingEnabled = true;
-            this.Operator3Category.Items.AddRange(new object[] {
-            "ARTC",
-            "Aurizon",
-            "City Rail",
-            "Countrylink",
-            "Freightliner",
-            "Great Southern Rail",
-            "Interail",
-            "Lauchlan Valley Rail Society",
-            "Pacific National",
-            "QUBE",
-            "Rail Corp",
-            "SCT",
-            "Southern Shorthaul Rail",
-            "Sydney Rail Service",
-            "The Rail Motor Service",
-            "V Line Passenger",
-            "Group Remaining"});
-            this.Operator3Category.Location = new System.Drawing.Point(118, 257);
-            this.Operator3Category.Margin = new System.Windows.Forms.Padding(2);
-            this.Operator3Category.Name = "Operator3Category";
-            this.Operator3Category.Size = new System.Drawing.Size(115, 21);
-            this.Operator3Category.TabIndex = 27;
-            this.Operator3Category.Text = "Select an Operator";
-            this.Operator3Category.SelectedIndexChanged += new System.EventHandler(this.Operator3Category_SelectedIndexChanged);
-            // 
-            // Commodity2Category
-            // 
-            this.Commodity2Category.FormattingEnabled = true;
-            this.Commodity2Category.Items.AddRange(new object[] {
-            "Steel",
-            "Clinker",
-            "Mineral",
-            "Grain",
-            "General Freight",
-            "Intermodal",
-            "Passenger",
-            "Coal",
-            "Work",
-            "Group Remaining"});
-            this.Commodity2Category.Location = new System.Drawing.Point(249, 159);
-            this.Commodity2Category.Margin = new System.Windows.Forms.Padding(2);
-            this.Commodity2Category.Name = "Commodity2Category";
-            this.Commodity2Category.Size = new System.Drawing.Size(119, 21);
-            this.Commodity2Category.TabIndex = 26;
-            this.Commodity2Category.Text = "Select a Commodity";
-            this.Commodity2Category.SelectedIndexChanged += new System.EventHandler(this.Commodity2Category_SelectedIndexChanged);
-            // 
-            // Operator2Category
-            // 
-            this.Operator2Category.FormattingEnabled = true;
-            this.Operator2Category.Items.AddRange(new object[] {
-            "ARTC",
-            "Aurizon",
-            "City Rail",
-            "Countrylink",
-            "Freightliner",
-            "Great Southern Rail",
-            "Interail",
-            "Lauchlan Valley Rail Society",
-            "Pacific National",
-            "QUBE",
-            "Rail Corp",
-            "SCT",
-            "Southern Shorthaul Rail",
-            "Sydney Rail Service",
-            "The Rail Motor Service",
-            "V Line Passenger",
-            "Group Remaining"});
-            this.Operator2Category.Location = new System.Drawing.Point(118, 159);
-            this.Operator2Category.Margin = new System.Windows.Forms.Padding(2);
-            this.Operator2Category.Name = "Operator2Category";
-            this.Operator2Category.Size = new System.Drawing.Size(115, 21);
-            this.Operator2Category.TabIndex = 25;
-            this.Operator2Category.Text = "Select an Operator";
-            this.Operator2Category.SelectedValueChanged += new System.EventHandler(this.Operator2Category_SelectedValueChanged);
-            // 
-            // Commodity1Category
-            // 
-            this.Commodity1Category.FormattingEnabled = true;
-            this.Commodity1Category.Items.AddRange(new object[] {
-            "Steel",
-            "Clinker",
-            "Mineral",
-            "Grain",
-            "General Freight",
-            "Intermodal",
-            "Passenger",
-            "Coal",
-            "Work",
-            "Group Remaining"});
-            this.Commodity1Category.Location = new System.Drawing.Point(249, 58);
-            this.Commodity1Category.Margin = new System.Windows.Forms.Padding(2);
-            this.Commodity1Category.Name = "Commodity1Category";
-            this.Commodity1Category.Size = new System.Drawing.Size(119, 21);
-            this.Commodity1Category.TabIndex = 24;
-            this.Commodity1Category.Text = "Select a Commodity";
-            this.Commodity1Category.SelectedIndexChanged += new System.EventHandler(this.Commodity1Category_SelectedIndexChanged);
-            // 
-            // Operator1Category
-            // 
-            this.Operator1Category.FormattingEnabled = true;
-            this.Operator1Category.Items.AddRange(new object[] {
-            "ARTC",
-            "Aurizon",
-            "City Rail",
-            "Countrylink",
-            "Freightliner",
-            "Great Southern Rail",
-            "Interail",
-            "Lauchlan Valley Rail Society",
-            "Pacific National",
-            "QUBE",
-            "Rail Corp",
-            "SCT",
-            "Southern Shorthaul Rail",
-            "Sydney Rail Service",
-            "The Rail Motor Service",
-            "V Line Passenger",
-            "Group Remaining"});
-            this.Operator1Category.Location = new System.Drawing.Point(119, 58);
-            this.Operator1Category.Margin = new System.Windows.Forms.Padding(2);
-            this.Operator1Category.Name = "Operator1Category";
-            this.Operator1Category.Size = new System.Drawing.Size(114, 21);
-            this.Operator1Category.TabIndex = 23;
-            this.Operator1Category.Text = "Select an Operator";
-            this.Operator1Category.SelectedValueChanged += new System.EventHandler(this.Operator1Category_SelectedValueChanged);
-            // 
-            // CommodityLabel
-            // 
-            this.CommodityLabel.AutoSize = true;
-            this.CommodityLabel.Location = new System.Drawing.Point(246, 20);
-            this.CommodityLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.CommodityLabel.Name = "CommodityLabel";
-            this.CommodityLabel.Size = new System.Drawing.Size(58, 13);
-            this.CommodityLabel.TabIndex = 22;
-            this.CommodityLabel.Text = "Commodity";
-            // 
-            // OperatorLabel
-            // 
-            this.OperatorLabel.AutoSize = true;
-            this.OperatorLabel.Location = new System.Drawing.Point(116, 20);
-            this.OperatorLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.OperatorLabel.Name = "OperatorLabel";
-            this.OperatorLabel.Size = new System.Drawing.Size(75, 13);
-            this.OperatorLabel.TabIndex = 21;
-            this.OperatorLabel.Text = "Train Operator";
-            // 
-            // powerToWeightRatioAnalysis
-            // 
-            this.powerToWeightRatioAnalysis.AutoSize = true;
-            this.powerToWeightRatioAnalysis.Location = new System.Drawing.Point(480, 15);
-            this.powerToWeightRatioAnalysis.Margin = new System.Windows.Forms.Padding(2);
-            this.powerToWeightRatioAnalysis.Name = "powerToWeightRatioAnalysis";
-            this.powerToWeightRatioAnalysis.Size = new System.Drawing.Size(138, 17);
-            this.powerToWeightRatioAnalysis.TabIndex = 29;
-            this.powerToWeightRatioAnalysis.Text = "Power to Weight Ratios";
-            this.powerToWeightRatioAnalysis.UseVisualStyleBackColor = true;
-            this.powerToWeightRatioAnalysis.CheckedChanged += new System.EventHandler(this.powerToWeightRatioAnalysis_CheckedChanged);
             // 
             // Execute
             // 
@@ -1422,6 +1173,255 @@
             this.Category1IncreasingSimulationFile.TabIndex = 0;
             this.Category1IncreasingSimulationFile.Text = "<Required>";
             // 
+            // OperatorLabel
+            // 
+            this.OperatorLabel.AutoSize = true;
+            this.OperatorLabel.Location = new System.Drawing.Point(116, 20);
+            this.OperatorLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.OperatorLabel.Name = "OperatorLabel";
+            this.OperatorLabel.Size = new System.Drawing.Size(75, 13);
+            this.OperatorLabel.TabIndex = 21;
+            this.OperatorLabel.Text = "Train Operator";
+            // 
+            // CommodityLabel
+            // 
+            this.CommodityLabel.AutoSize = true;
+            this.CommodityLabel.Location = new System.Drawing.Point(246, 20);
+            this.CommodityLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.CommodityLabel.Name = "CommodityLabel";
+            this.CommodityLabel.Size = new System.Drawing.Size(58, 13);
+            this.CommodityLabel.TabIndex = 22;
+            this.CommodityLabel.Text = "Commodity";
+            // 
+            // Operator1Category
+            // 
+            this.Operator1Category.FormattingEnabled = true;
+            this.Operator1Category.Items.AddRange(new object[] {
+            "ARTC",
+            "Aurizon",
+            "City Rail",
+            "Countrylink",
+            "Freightliner",
+            "Great Southern Rail",
+            "Interail",
+            "Lauchlan Valley Rail Society",
+            "Pacific National",
+            "QUBE",
+            "Rail Corp",
+            "SCT",
+            "Southern Shorthaul Rail",
+            "Sydney Rail Service",
+            "The Rail Motor Service",
+            "V Line Passenger",
+            "Group Remaining"});
+            this.Operator1Category.Location = new System.Drawing.Point(118, 59);
+            this.Operator1Category.Margin = new System.Windows.Forms.Padding(2);
+            this.Operator1Category.Name = "Operator1Category";
+            this.Operator1Category.Size = new System.Drawing.Size(114, 21);
+            this.Operator1Category.TabIndex = 23;
+            this.Operator1Category.Text = "Select an Operator";
+            this.Operator1Category.SelectedValueChanged += new System.EventHandler(this.Operator1Category_SelectedValueChanged);
+            // 
+            // Commodity1Category
+            // 
+            this.Commodity1Category.FormattingEnabled = true;
+            this.Commodity1Category.Items.AddRange(new object[] {
+            "Steel",
+            "Clinker",
+            "Mineral",
+            "Grain",
+            "General Freight",
+            "Intermodal",
+            "Passenger",
+            "Coal",
+            "Work",
+            "Group Remaining"});
+            this.Commodity1Category.Location = new System.Drawing.Point(249, 58);
+            this.Commodity1Category.Margin = new System.Windows.Forms.Padding(2);
+            this.Commodity1Category.Name = "Commodity1Category";
+            this.Commodity1Category.Size = new System.Drawing.Size(119, 21);
+            this.Commodity1Category.TabIndex = 24;
+            this.Commodity1Category.Text = "Select a Commodity";
+            this.Commodity1Category.SelectedIndexChanged += new System.EventHandler(this.Commodity1Category_SelectedIndexChanged);
+            // 
+            // Operator2Category
+            // 
+            this.Operator2Category.FormattingEnabled = true;
+            this.Operator2Category.Items.AddRange(new object[] {
+            "ARTC",
+            "Aurizon",
+            "City Rail",
+            "Countrylink",
+            "Freightliner",
+            "Great Southern Rail",
+            "Interail",
+            "Lauchlan Valley Rail Society",
+            "Pacific National",
+            "QUBE",
+            "Rail Corp",
+            "SCT",
+            "Southern Shorthaul Rail",
+            "Sydney Rail Service",
+            "The Rail Motor Service",
+            "V Line Passenger",
+            "Group Remaining"});
+            this.Operator2Category.Location = new System.Drawing.Point(118, 159);
+            this.Operator2Category.Margin = new System.Windows.Forms.Padding(2);
+            this.Operator2Category.Name = "Operator2Category";
+            this.Operator2Category.Size = new System.Drawing.Size(115, 21);
+            this.Operator2Category.TabIndex = 25;
+            this.Operator2Category.Text = "Select an Operator";
+            this.Operator2Category.SelectedValueChanged += new System.EventHandler(this.Operator2Category_SelectedValueChanged);
+            // 
+            // Commodity2Category
+            // 
+            this.Commodity2Category.FormattingEnabled = true;
+            this.Commodity2Category.Items.AddRange(new object[] {
+            "Steel",
+            "Clinker",
+            "Mineral",
+            "Grain",
+            "General Freight",
+            "Intermodal",
+            "Passenger",
+            "Coal",
+            "Work",
+            "Group Remaining"});
+            this.Commodity2Category.Location = new System.Drawing.Point(249, 159);
+            this.Commodity2Category.Margin = new System.Windows.Forms.Padding(2);
+            this.Commodity2Category.Name = "Commodity2Category";
+            this.Commodity2Category.Size = new System.Drawing.Size(119, 21);
+            this.Commodity2Category.TabIndex = 26;
+            this.Commodity2Category.Text = "Select a Commodity";
+            this.Commodity2Category.SelectedIndexChanged += new System.EventHandler(this.Commodity2Category_SelectedIndexChanged);
+            // 
+            // Operator3Category
+            // 
+            this.Operator3Category.FormattingEnabled = true;
+            this.Operator3Category.Items.AddRange(new object[] {
+            "ARTC",
+            "Aurizon",
+            "City Rail",
+            "Countrylink",
+            "Freightliner",
+            "Great Southern Rail",
+            "Interail",
+            "Lauchlan Valley Rail Society",
+            "Pacific National",
+            "QUBE",
+            "Rail Corp",
+            "SCT",
+            "Southern Shorthaul Rail",
+            "Sydney Rail Service",
+            "The Rail Motor Service",
+            "V Line Passenger",
+            "Group Remaining"});
+            this.Operator3Category.Location = new System.Drawing.Point(118, 257);
+            this.Operator3Category.Margin = new System.Windows.Forms.Padding(2);
+            this.Operator3Category.Name = "Operator3Category";
+            this.Operator3Category.Size = new System.Drawing.Size(115, 21);
+            this.Operator3Category.TabIndex = 27;
+            this.Operator3Category.Text = "Select an Operator";
+            this.Operator3Category.SelectedIndexChanged += new System.EventHandler(this.Operator3Category_SelectedIndexChanged);
+            // 
+            // Commodity3Category
+            // 
+            this.Commodity3Category.FormattingEnabled = true;
+            this.Commodity3Category.Items.AddRange(new object[] {
+            "Steel",
+            "Clinker",
+            "Mineral",
+            "Grain",
+            "General Freight",
+            "Intermodal",
+            "Passenger",
+            "Coal",
+            "Work",
+            "Group Remaining"});
+            this.Commodity3Category.Location = new System.Drawing.Point(249, 257);
+            this.Commodity3Category.Margin = new System.Windows.Forms.Padding(2);
+            this.Commodity3Category.Name = "Commodity3Category";
+            this.Commodity3Category.Size = new System.Drawing.Size(119, 21);
+            this.Commodity3Category.TabIndex = 28;
+            this.Commodity3Category.Text = "Select a Commodity";
+            this.Commodity3Category.SelectedIndexChanged += new System.EventHandler(this.Commodity3Category_SelectedIndexChanged);
+            // 
+            // TrainNumberLabel
+            // 
+            this.TrainNumberLabel.AutoSize = true;
+            this.TrainNumberLabel.Location = new System.Drawing.Point(3, 20);
+            this.TrainNumberLabel.Name = "TrainNumberLabel";
+            this.TrainNumberLabel.Size = new System.Drawing.Size(58, 13);
+            this.TrainNumberLabel.TabIndex = 30;
+            this.TrainNumberLabel.Text = "Train Type";
+            // 
+            // trainType1
+            // 
+            this.trainType1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.trainType1.Location = new System.Drawing.Point(5, 59);
+            this.trainType1.Name = "trainType1";
+            this.trainType1.Size = new System.Drawing.Size(93, 20);
+            this.trainType1.TabIndex = 34;
+            // 
+            // trainType2
+            // 
+            this.trainType2.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.trainType2.Location = new System.Drawing.Point(5, 159);
+            this.trainType2.Name = "trainType2";
+            this.trainType2.Size = new System.Drawing.Size(93, 20);
+            this.trainType2.TabIndex = 35;
+            // 
+            // trainType3
+            // 
+            this.trainType3.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.trainType3.Location = new System.Drawing.Point(5, 258);
+            this.trainType3.Name = "trainType3";
+            this.trainType3.Size = new System.Drawing.Size(93, 20);
+            this.trainType3.TabIndex = 36;
+            // 
+            // powerToWeightRatioAnalysis
+            // 
+            this.powerToWeightRatioAnalysis.AutoSize = true;
+            this.powerToWeightRatioAnalysis.Location = new System.Drawing.Point(118, 320);
+            this.powerToWeightRatioAnalysis.Margin = new System.Windows.Forms.Padding(2);
+            this.powerToWeightRatioAnalysis.Name = "powerToWeightRatioAnalysis";
+            this.powerToWeightRatioAnalysis.Size = new System.Drawing.Size(138, 17);
+            this.powerToWeightRatioAnalysis.TabIndex = 29;
+            this.powerToWeightRatioAnalysis.Text = "Power to Weight Ratios";
+            this.powerToWeightRatioAnalysis.UseVisualStyleBackColor = true;
+            this.powerToWeightRatioAnalysis.CheckedChanged += new System.EventHandler(this.powerToWeightRatioAnalysis_CheckedChanged);
+            // 
+            // AnalysisLabel
+            // 
+            this.AnalysisLabel.AutoSize = true;
+            this.AnalysisLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnalysisLabel.Location = new System.Drawing.Point(116, -4);
+            this.AnalysisLabel.Name = "AnalysisLabel";
+            this.AnalysisLabel.Size = new System.Drawing.Size(121, 17);
+            this.AnalysisLabel.TabIndex = 37;
+            this.AnalysisLabel.Text = "Analysis Category";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.AnalysisLabel);
+            this.panel1.Controls.Add(this.powerToWeightRatioAnalysis);
+            this.panel1.Controls.Add(this.trainType3);
+            this.panel1.Controls.Add(this.trainType2);
+            this.panel1.Controls.Add(this.trainType1);
+            this.panel1.Controls.Add(this.TrainNumberLabel);
+            this.panel1.Controls.Add(this.Commodity3Category);
+            this.panel1.Controls.Add(this.Operator3Category);
+            this.panel1.Controls.Add(this.Commodity2Category);
+            this.panel1.Controls.Add(this.Operator2Category);
+            this.panel1.Controls.Add(this.Commodity1Category);
+            this.panel1.Controls.Add(this.Operator1Category);
+            this.panel1.Controls.Add(this.CommodityLabel);
+            this.panel1.Controls.Add(this.OperatorLabel);
+            this.panel1.Location = new System.Drawing.Point(648, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(408, 367);
+            this.panel1.TabIndex = 37;
+            // 
             // TrainPerformance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1514,15 +1514,6 @@
         private System.Windows.Forms.TextBox resultsDestination;
         private System.Windows.Forms.Button resultsDirectory;
         private System.Windows.Forms.Label SimulationP2WRatioLabel;
-        private System.Windows.Forms.ComboBox Operator1Category;
-        private System.Windows.Forms.Label CommodityLabel;
-        private System.Windows.Forms.Label OperatorLabel;
-        private System.Windows.Forms.ComboBox Commodity3Category;
-        private System.Windows.Forms.ComboBox Operator3Category;
-        private System.Windows.Forms.ComboBox Commodity2Category;
-        private System.Windows.Forms.ComboBox Operator2Category;
-        private System.Windows.Forms.ComboBox Commodity1Category;
-        private System.Windows.Forms.CheckBox powerToWeightRatioAnalysis;
         private System.Windows.Forms.TextBox timeSeparation;
         private System.Windows.Forms.TextBox TSRWindowBoundary;
         private System.Windows.Forms.TextBox dataSeparation;
@@ -1555,13 +1546,22 @@
         private System.Windows.Forms.CheckBox GunnedahBasin;
         private System.Windows.Forms.CheckBox CulleranRanges;
         private System.Windows.Forms.Label TestLabel;
-        private System.Windows.Forms.Label TrainNumberLabel;
+        private System.Windows.Forms.CheckBox IgnoreGaps;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label AnalysisLabel;
+        private System.Windows.Forms.CheckBox powerToWeightRatioAnalysis;
         private System.Windows.Forms.TextBox trainType3;
         private System.Windows.Forms.TextBox trainType2;
         private System.Windows.Forms.TextBox trainType1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label AnalysisLabel;
-        private System.Windows.Forms.CheckBox IgnoreGaps;
+        private System.Windows.Forms.Label TrainNumberLabel;
+        private System.Windows.Forms.ComboBox Commodity3Category;
+        private System.Windows.Forms.ComboBox Operator3Category;
+        private System.Windows.Forms.ComboBox Commodity2Category;
+        private System.Windows.Forms.ComboBox Operator2Category;
+        private System.Windows.Forms.ComboBox Commodity1Category;
+        private System.Windows.Forms.ComboBox Operator1Category;
+        private System.Windows.Forms.Label CommodityLabel;
+        private System.Windows.Forms.Label OperatorLabel;
     }
 }
 
