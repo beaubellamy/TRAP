@@ -468,7 +468,7 @@ namespace TRAP
             }
 
             /* Write the averaged Data to file for inspection. */            
-            FileOperations.wrtieAverageData(averageTrains, stats, FileSettings.aggregatedDestination);
+            FileOperations.writeAverageData(averageTrains, stats, FileSettings.aggregatedDestination);
             
             return interpolatedTrains;
         }
