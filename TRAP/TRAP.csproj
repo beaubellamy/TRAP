@@ -91,9 +91,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TrainLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Software Libraries\IOLibrary\IOLibrary\bin\x64\Debug\TrainLibrary.dll</HintPath>
+    <Reference Include="TrainLibrary">
+      <HintPath>..\..\Software Libraries\TrainLibrary\TrainLibrary\bin\x64\Debug\TrainLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

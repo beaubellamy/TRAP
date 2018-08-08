@@ -66,7 +66,7 @@ namespace TRAP
             
             /* Read the data. */
             List<TrainRecord> TrainRecords = new List<TrainRecord>();
-            TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
+            TrainRecords = FileOperations.readAzureICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
 
             if (TrainRecords.Count() == 0)
             {
@@ -78,7 +78,7 @@ namespace TRAP
             List<trainOperator> operators = TrainRecords.Select(t => t.trainOperator).Distinct().ToList();
             operators.Remove(trainOperator.Unknown);
             int numberOfOperators = operators.Count();
-                        
+
             /* Create a list of analysis Categories */
             List<Category> simCategories = new List<Category>();
 

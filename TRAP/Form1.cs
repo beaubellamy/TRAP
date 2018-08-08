@@ -2931,7 +2931,7 @@ namespace TRAP
             resetDefaultParameters();
 
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands Data 2016-201711.txt";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands Data 2018-June - Aggregates.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
@@ -2945,24 +2945,24 @@ namespace TRAP
             GeometryFile.ForeColor = System.Drawing.Color.Black;
 
             /* TSR File */
-            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands TSR 2016-201706.csv";
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands TSR 2018-201806.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
             /* Simulation files */
-            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Increasing.csv";
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Grain-Increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
             Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Decreasing.csv";
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Grain-Decreasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
             Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Increasing.csv";
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Minerals-Increasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
             Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
-            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Decreasing.csv";
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Minerals-Decreasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
             Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
 
@@ -2981,15 +2981,15 @@ namespace TRAP
             resultsDestination.ForeColor = System.Drawing.Color.Black;
 
             /* Settings */
-            fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2017, 6, 10);
+            fromDate.Value = new DateTime(2018, 1, 1);
+            toDate.Value = new DateTime(2018, 6, 10);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
 
             startInterpolationKm.Text = "55";
-            endInterpolationKm.Text = "145";
+            endInterpolationKm.Text = "200"; // usually 145
             interpolationInterval.Text = "50";
             minimumJourneyDistance.Text = "20";     // Reduced from 50 to allow the TM coal trains partial journey to be included.
             dataSeparation.Text = "4";
@@ -3009,12 +3009,12 @@ namespace TRAP
 
             Settings.analysisCategory = analysisCategory.TrainOperator;
 
-            trainType1.Text = "MB4";
-            Settings.Category1TrainType = trainType.MB4;
-            trainType2.Text = "BM4";
-            Settings.Category2TrainType = trainType.BM4;
-            trainType3.Text = null;
-            Settings.Category3TrainType = trainType.Unknown;
+            //trainType1.Text = "MB4";
+            //Settings.Category1TrainType = trainType.MB4;
+            //trainType2.Text = "BM4";
+            //Settings.Category2TrainType = trainType.BM4;
+            //trainType3.Text = null;
+            //Settings.Category3TrainType = trainType.Unknown;
 
             //Operator1Category.SelectedItem = "City Rail";
             //Settings.Category1Operator = trainOperator.CityRail;
@@ -3023,10 +3023,10 @@ namespace TRAP
             //Operator3Category.SelectedItem = "Group Remaining";
             //Settings.Category3Operator = trainOperator.GroupRemaining;
 
-            Commodity1Category.SelectedItem = null;
-            Settings.Category1Commodity = trainCommodity.Unknown;
-            Commodity2Category.SelectedItem = null;
-            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity1Category.SelectedItem = "Grain";
+            Settings.Category1Commodity = trainCommodity.Grain;
+            Commodity2Category.SelectedItem = "Mineral";
+            Settings.Category2Commodity = trainCommodity.Mineral;
             Commodity3Category.SelectedItem = null;
             Settings.Category3Commodity = trainCommodity.Unknown;
         
@@ -3558,6 +3558,27 @@ namespace TRAP
         /// <param name="e">The event arguments.</param>
         void tickTimer(object sender, EventArgs e)
         {
+            /* Stop the timer when stopTheClock is set to true. */
+            if (stopTheClock)
+            {
+                ((Timer)sender).Stop();
+                /* Reset the static timer properties. */
+                timeCounter = 0;
+                stopTheClock = false;
+                return;
+            }
+
+            /* Increment the timer*/
+            ++timeCounter;
+
+            /* Convert the timeCounter to hours, minutes and seconds. */
+            double hours = timeCounter / secPerHour;
+            double minutes = (hours - (int)hours) * minutesPerHour;
+            double seconds = (minutes - (int)minutes) * secPerMinute;
+
+            /* Format a string for display on the form. */
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", (int)hours, (int)minutes, (int)seconds);
+            ((Label)((Timer)sender).Tag).Text = elapsedTime;
 
         }
 
