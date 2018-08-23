@@ -66,18 +66,22 @@ namespace TRAP
             
             /* Read the data. */
             List<TrainRecord> TrainRecords = new List<TrainRecord>();
-            TrainRecords = FileOperations.readAzureICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
+            TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
+            //TrainRecords = FileOperations.readAzureICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
 
             if (TrainRecords.Count() == 0)
             {
                 //tool.messageBox("There are no records in the list to analyse.", "No trains available.");
                 return new List<Train>();
             }
-                        
+
             /* Identify the number of operators. */
             List<trainOperator> operators = TrainRecords.Select(t => t.trainOperator).Distinct().ToList();
             operators.Remove(trainOperator.Unknown);
             int numberOfOperators = operators.Count();
+
+            List<trainCommodity> Commodities = TrainRecords.Select(t => t.commodity).Distinct().ToList();
+            int numberOfCommodities = Commodities.Count();
 
             /* Create a list of analysis Categories */
             List<Category> simCategories = new List<Category>();
@@ -153,8 +157,18 @@ namespace TRAP
                 Settings.Category1LowerBound, Settings.Category1UpperBound, Settings.Category2LowerBound, Settings.Category2UpperBound);
 
             /* Write the raw train data to file. */
-            //FileOperations.writeRawTrainDataWithTime(CleanTrainRecords, FileSettings.aggregatedDestination);
-                        
+            FileOperations.writeRawTrainDataWithTime(CleanTrainRecords, FileSettings.aggregatedDestination);
+
+            /* Place holders for train counts of each comodity. */
+            //List<Train> steel = CleanTrainRecords.Where(t => t.commodity.Equals(trainCommodity.Steel)).ToList();
+            //List<Train> grain = CleanTrainRecords.Where(t => t.commodity.Equals(trainCommodity.Grain)).ToList();
+            //List<Train> mineral = CleanTrainRecords.Where(t => t.commodity.Equals(trainCommodity.Mineral)).ToList();
+            //List<Train> clinker = CleanTrainRecords.Where(t => t.commodity.Equals(trainCommodity.Clinker)).ToList();
+            //List<Train> passenger = CleanTrainRecords.Where(t => t.commodity.Equals(trainCommodity.Passenger)).ToList();
+            //List<Train> general = CleanTrainRecords.Where(t => t.commodity.Equals(trainCommodity.GeneralFreight)).ToList(); //******
+            //List<Train> coal = CleanTrainRecords.Where(t => t.commodity.Equals(trainCommodity.Coal)).ToList();
+            //List<Train> work = CleanTrainRecords.Where(t => t.commodity.Equals(trainCommodity.Work)).ToList();
+
             /* Interpolate data */
             List<Train> interpolatedTrains = new List<Train>();
             if (!Settings.IgnoreGaps)

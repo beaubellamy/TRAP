@@ -2982,14 +2982,14 @@ namespace TRAP
 
             /* Settings */
             fromDate.Value = new DateTime(2018, 1, 1);
-            toDate.Value = new DateTime(2018, 6, 10);
+            toDate.Value = new DateTime(2018, 7, 1);
 
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
 
-            startInterpolationKm.Text = "55";
-            endInterpolationKm.Text = "200"; // usually 145
+            startInterpolationKm.Text = "20";   // usaully 55
+            endInterpolationKm.Text = "200";    // usually 145
             interpolationInterval.Text = "50";
             minimumJourneyDistance.Text = "20";     // Reduced from 50 to allow the TM coal trains partial journey to be included.
             dataSeparation.Text = "4";
