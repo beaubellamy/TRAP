@@ -2919,7 +2919,111 @@ namespace TRAP
             Commodity3Category.SelectedItem = null;
             Settings.Category3Commodity = trainCommodity.Unknown;
         }
-        
+
+        /// <summary>
+        /// This function sets all the testing parameters for the the Hunter line
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void setHunterRegionParameters(object sender, EventArgs e)
+        {
+            /* Reset default parameters before setting new scenario parameters. */
+            resetDefaultParameters();
+
+            /* Data File */
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Hunter Region 2018Q1.txt";
+
+            IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+            simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+
+            IceDataFile.ForeColor = System.Drawing.Color.Black;
+            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Geometry File */
+            FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\KIY to WCK.csv";
+            GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
+            GeometryFile.ForeColor = System.Drawing.Color.Black;
+
+            /* TSR File */
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Hunter Region TSR - empty.csv";
+            temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
+            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+
+            /* Simulation files */
+            FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Pacific National - Increasing.csv";
+            Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Pacific National - Decreasing.csv";
+            Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Aurizon - Increasing.csv";
+            Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Aurizon - Decreasing.csv";
+            Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Freightliner - Increasing.csv";
+            Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+            FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Freightliner - Decreasing.csv";
+            Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+
+
+            /* Destination Folder */
+            FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region";
+            resultsDestination.Text = FileSettings.aggregatedDestination;
+            resultsDestination.ForeColor = System.Drawing.Color.Black;
+
+            /* Settings */
+            fromDate.Value = new DateTime(2018, 1, 1);
+            toDate.Value = new DateTime(2018, 7, 1);
+
+            /* Interpolation Parameters. */
+            excludeListOfTrains.Checked = false;
+            IgnoreGaps.Checked = false;
+
+            startInterpolationKm.Text = "165";
+            endInterpolationKm.Text = "285";
+            interpolationInterval.Text = "50";
+            minimumJourneyDistance.Text = "50";
+            dataSeparation.Text = "4";
+            timeSeparation.Text = "10";
+
+            loopBoundaryThreshold.Text = "2";
+            loopSpeedThreshold.Text = "50";
+            TSRWindowBoundary.Text = "1";
+
+            Category1LowerBound.Text = "0";
+            Category1UpperBound.Text = "100";
+            Category2LowerBound.Text = "100";
+            Category2UpperBound.Text = "200";
+
+            /* Anlaysis Parameters */
+            powerToWeightRatioAnalysis.Checked = false;
+
+            Settings.analysisCategory = analysisCategory.TrainOperator;
+
+            Operator1Category.SelectedItem = "Pacific National";
+            Settings.Category1Operator = trainOperator.PacificNational;
+            Operator2Category.SelectedItem = "Aurizon";
+            Settings.Category2Operator = trainOperator.Aurizon;
+            Operator3Category.SelectedItem = "Freightliner";
+            Settings.Category3Operator = trainOperator.Freightliner;
+
+            Commodity1Category.SelectedItem = null;
+            Settings.Category1Commodity = trainCommodity.Unknown;
+            Commodity2Category.SelectedItem = null;
+            Settings.Category2Commodity = trainCommodity.Unknown;
+            Commodity3Category.SelectedItem = null;
+            Settings.Category3Commodity = trainCommodity.Unknown;
+        }
+
         /// <summary>
         /// This function sets all the testing parameters for the Macarthur to Botany data
         /// </summary>
@@ -3178,6 +3282,21 @@ namespace TRAP
             /* If Gunnedah Basin testing flag is checked, set the appropriate parameters. */
             if (UlanLine.Checked)
                 setUlanLineParameters(sender, e);
+            else
+                resetDefaultParameters();
+        }
+
+        // <summary>
+        /// Function determines if the testing parameters for the Hunter line need 
+        /// to be set or resets to default settings.
+        /// </summary>
+        /// <param name="sender">The object container.</param>
+        /// <param name="e">The event arguments.</param>
+        private void Hunter_CheckedChanged(object sender, EventArgs e)
+        {
+            /* If Hunter testing flag is checked, set the appropriate parameters. */
+            if (Hunter.Checked)
+                setHunterRegionParameters(sender, e);
             else
                 resetDefaultParameters();
         }

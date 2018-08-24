@@ -144,6 +144,7 @@
             this.selectCategory1IncreasingSimulation = new System.Windows.Forms.Button();
             this.Category1SimulationLabel = new System.Windows.Forms.Label();
             this.Category1IncreasingSimulationFile = new System.Windows.Forms.TextBox();
+            this.Hunter = new System.Windows.Forms.CheckBox();
             this.simulationTab.SuspendLayout();
             this.AnalysisParametersTab.SuspendLayout();
             this.powerToWeightParametersTab.SuspendLayout();
@@ -164,6 +165,7 @@
             // 
             // AnalysisParametersTab
             // 
+            this.AnalysisParametersTab.Controls.Add(this.Hunter);
             this.AnalysisParametersTab.Controls.Add(this.IgnoreGaps);
             this.AnalysisParametersTab.Controls.Add(this.PortKembla);
             this.AnalysisParametersTab.Controls.Add(this.timeSeparation);
@@ -1421,6 +1423,17 @@
             this.Category1IncreasingSimulationFile.TabIndex = 0;
             this.Category1IncreasingSimulationFile.Text = "<Required>";
             // 
+            // Hunter
+            // 
+            this.Hunter.AutoSize = true;
+            this.Hunter.Location = new System.Drawing.Point(865, 243);
+            this.Hunter.Name = "Hunter";
+            this.Hunter.Size = new System.Drawing.Size(95, 17);
+            this.Hunter.TabIndex = 57;
+            this.Hunter.Text = "Hunter Region";
+            this.Hunter.UseVisualStyleBackColor = true;
+            this.Hunter.CheckedChanged += new System.EventHandler(this.Hunter_CheckedChanged);
+            // 
             // TrainPerformance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1561,6 +1574,7 @@
         private System.Windows.Forms.ComboBox Operator1Category;
         private System.Windows.Forms.Label CommodityLabel;
         private System.Windows.Forms.Label OperatorLabel;
+        private System.Windows.Forms.CheckBox Hunter;
     }
 }
 
