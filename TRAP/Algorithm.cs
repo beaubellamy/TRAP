@@ -66,8 +66,9 @@ namespace TRAP
             
             /* Read the data. */
             List<TrainRecord> TrainRecords = new List<TrainRecord>();
-            TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
+            //TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
             //TrainRecords = FileOperations.readAzureICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
+            TrainRecords = FileOperations.readAzureExtractICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
 
             if (TrainRecords.Count() == 0)
             {

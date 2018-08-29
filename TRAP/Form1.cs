@@ -1359,7 +1359,7 @@ namespace TRAP
             resetDefaultParameters();
 
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Data 201711-201805.txt";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Data 2018-Aug.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
@@ -1409,8 +1409,8 @@ namespace TRAP
             resultsDestination.ForeColor = System.Drawing.Color.Black;
 
             /* Settings */
-            fromDate.Value = new DateTime(2017, 11, 1);
-            toDate.Value = new DateTime(2018,2,18);
+            fromDate.Value = new DateTime(2018, 5, 20);
+            toDate.Value = new DateTime(2018, 8, 20);
 
             /* Interpolation Parameters. */
             excludeListOfTrains.Checked = false;
@@ -2827,7 +2827,7 @@ namespace TRAP
             resetDefaultParameters();
             
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Ulan Data 2017-20170531.txt";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Ulan Data 2018-Aug.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
@@ -2877,8 +2877,8 @@ namespace TRAP
             resultsDestination.ForeColor = System.Drawing.Color.Black;
 
             /* Settings */
-            fromDate.Value = new DateTime(2017, 1, 1);
-            toDate.Value = new DateTime(2017,6,10);
+            fromDate.Value = new DateTime(2018, 5, 20);
+            toDate.Value = new DateTime(2018,8,20);
 
             /* Interpolation Parameters. */
             excludeListOfTrains.Checked = false;
@@ -2931,7 +2931,7 @@ namespace TRAP
             resetDefaultParameters();
 
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Hunter Region 2018Q1.txt";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Hunter Region 2018-Aug.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
@@ -3035,7 +3035,7 @@ namespace TRAP
             resetDefaultParameters();
 
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands Data 2018-June - Aggregates.txt";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands 2018-Aug.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
