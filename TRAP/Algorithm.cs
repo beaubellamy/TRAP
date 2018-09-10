@@ -29,6 +29,9 @@ namespace TRAP
         /// location is ignored as the train is bound by the TSR at the location. The average 
         /// train is then determined from the included train data.
         /// 
+        /// For the purposes of the Hunter Valley region a Signal is treated as a loop. However, 
+        /// each signal must be identified in the geometry file.
+        /// 
         /// This function produces a file containing the interpolated data for each train 
         /// and a file containing the aggregated information for each analysis Category.
         /// 

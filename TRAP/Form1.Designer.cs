@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrainPerformance));
             this.simulationTab = new System.Windows.Forms.TabControl();
             this.AnalysisParametersTab = new System.Windows.Forms.TabPage();
+            this.Hunter = new System.Windows.Forms.CheckBox();
             this.IgnoreGaps = new System.Windows.Forms.CheckBox();
             this.PortKembla = new System.Windows.Forms.CheckBox();
             this.timeSeparation = new System.Windows.Forms.TextBox();
@@ -144,7 +145,6 @@
             this.selectCategory1IncreasingSimulation = new System.Windows.Forms.Button();
             this.Category1SimulationLabel = new System.Windows.Forms.Label();
             this.Category1IncreasingSimulationFile = new System.Windows.Forms.TextBox();
-            this.Hunter = new System.Windows.Forms.CheckBox();
             this.simulationTab.SuspendLayout();
             this.AnalysisParametersTab.SuspendLayout();
             this.powerToWeightParametersTab.SuspendLayout();
@@ -215,6 +215,17 @@
             this.AnalysisParametersTab.TabIndex = 0;
             this.AnalysisParametersTab.Text = "Analyis Parameters";
             this.AnalysisParametersTab.UseVisualStyleBackColor = true;
+            // 
+            // Hunter
+            // 
+            this.Hunter.AutoSize = true;
+            this.Hunter.Location = new System.Drawing.Point(865, 243);
+            this.Hunter.Name = "Hunter";
+            this.Hunter.Size = new System.Drawing.Size(95, 17);
+            this.Hunter.TabIndex = 57;
+            this.Hunter.Text = "Hunter Region";
+            this.Hunter.UseVisualStyleBackColor = true;
+            this.Hunter.CheckedChanged += new System.EventHandler(this.Hunter_CheckedChanged);
             // 
             // IgnoreGaps
             // 
@@ -1066,16 +1077,22 @@
             // 
             this.Commodity3Category.FormattingEnabled = true;
             this.Commodity3Category.Items.AddRange(new object[] {
-            "Steel",
             "Clinker",
-            "Mineral",
-            "Grain",
-            "General Freight",
-            "Intermodal",
-            "Passenger",
             "Coal",
+            "Express",
+            "GeneralFreight",
+            "Grain",
+            "Goods",
+            "Intermodal",
+            "Interstate",
+            "Mineral",
+            "Passenger",
+            "Shuttle",
+            "Shunt",
+            "Steel",
+            "TrailerRail",
             "Work",
-            "Group Remaining"});
+            "GroupRemaining"});
             this.Commodity3Category.Location = new System.Drawing.Point(249, 257);
             this.Commodity3Category.Margin = new System.Windows.Forms.Padding(2);
             this.Commodity3Category.Name = "Commodity3Category";
@@ -1088,23 +1105,37 @@
             // 
             this.Operator3Category.FormattingEnabled = true;
             this.Operator3Category.Items.AddRange(new object[] {
+            "ARCInfrastructure",
             "ARTC",
             "Aurizon",
-            "City Rail",
+            "AustralianRailGroup",
+            "AustralianRailwaysHistoricalSociety",
+            "AustralianTransportNetwork",
+            "AvailableRollingStock",
+            "CityRail",
             "Countrylink",
+            "ElZorroTransport",
             "Freightliner",
-            "Great Southern Rail",
+            "GenesseeWyoming",
+            "GreatSouthernRail",
             "Interail",
-            "Lauchlan Valley Rail Society",
-            "Pacific National",
+            "JohnHollandRail",
+            "LauchlanValleyRailSociety",
+            "Limited3801",
+            "MetroTrainsMelbourne",
+            "PacificNational",
             "QUBE",
-            "Rail Corp",
+            "QueenslandRail",
+            "RailTransportMuseum",
+            "RailCorp",
             "SCT",
-            "Southern Shorthaul Rail",
-            "Sydney Rail Service",
-            "The Rail Motor Service",
-            "V Line Passenger",
-            "Group Remaining"});
+            "SouthernShorthaulRail",
+            "SpecialistBulkRail",
+            "SydneyRailService",
+            "TheRailMotorService",
+            "Transport4NSW",
+            "VLinePassenger",
+            "GroupRemaining"});
             this.Operator3Category.Location = new System.Drawing.Point(118, 257);
             this.Operator3Category.Margin = new System.Windows.Forms.Padding(2);
             this.Operator3Category.Name = "Operator3Category";
@@ -1117,16 +1148,22 @@
             // 
             this.Commodity2Category.FormattingEnabled = true;
             this.Commodity2Category.Items.AddRange(new object[] {
-            "Steel",
             "Clinker",
-            "Mineral",
-            "Grain",
-            "General Freight",
-            "Intermodal",
-            "Passenger",
             "Coal",
+            "Express",
+            "GeneralFreight",
+            "Grain",
+            "Goods",
+            "Intermodal",
+            "Interstate",
+            "Mineral",
+            "Passenger",
+            "Shuttle",
+            "Shunt",
+            "Steel",
+            "TrailerRail",
             "Work",
-            "Group Remaining"});
+            "GroupRemaining"});
             this.Commodity2Category.Location = new System.Drawing.Point(249, 159);
             this.Commodity2Category.Margin = new System.Windows.Forms.Padding(2);
             this.Commodity2Category.Name = "Commodity2Category";
@@ -1139,23 +1176,37 @@
             // 
             this.Operator2Category.FormattingEnabled = true;
             this.Operator2Category.Items.AddRange(new object[] {
+            "ARCInfrastructure",
             "ARTC",
             "Aurizon",
-            "City Rail",
+            "AustralianRailGroup",
+            "AustralianRailwaysHistoricalSociety",
+            "AustralianTransportNetwork",
+            "AvailableRollingStock",
+            "CityRail",
             "Countrylink",
+            "ElZorroTransport",
             "Freightliner",
-            "Great Southern Rail",
+            "GenesseeWyoming",
+            "GreatSouthernRail",
             "Interail",
-            "Lauchlan Valley Rail Society",
-            "Pacific National",
+            "JohnHollandRail",
+            "LauchlanValleyRailSociety",
+            "Limited3801",
+            "MetroTrainsMelbourne",
+            "PacificNational",
             "QUBE",
-            "Rail Corp",
+            "QueenslandRail",
+            "RailTransportMuseum",
+            "RailCorp",
             "SCT",
-            "Southern Shorthaul Rail",
-            "Sydney Rail Service",
-            "The Rail Motor Service",
-            "V Line Passenger",
-            "Group Remaining"});
+            "SouthernShorthaulRail",
+            "SpecialistBulkRail",
+            "SydneyRailService",
+            "TheRailMotorService",
+            "Transport4NSW",
+            "VLinePassenger",
+            "GroupRemaining"});
             this.Operator2Category.Location = new System.Drawing.Point(118, 159);
             this.Operator2Category.Margin = new System.Windows.Forms.Padding(2);
             this.Operator2Category.Name = "Operator2Category";
@@ -1168,16 +1219,22 @@
             // 
             this.Commodity1Category.FormattingEnabled = true;
             this.Commodity1Category.Items.AddRange(new object[] {
-            "Steel",
             "Clinker",
-            "Mineral",
-            "Grain",
-            "General Freight",
-            "Intermodal",
-            "Passenger",
             "Coal",
+            "Express",
+            "GeneralFreight",
+            "Grain",
+            "Goods",
+            "Intermodal",
+            "Interstate",
+            "Mineral",
+            "Passenger",
+            "Shuttle",
+            "Shunt",
+            "Steel",
+            "TrailerRail",
             "Work",
-            "Group Remaining"});
+            "GroupRemaining"});
             this.Commodity1Category.Location = new System.Drawing.Point(249, 58);
             this.Commodity1Category.Margin = new System.Windows.Forms.Padding(2);
             this.Commodity1Category.Name = "Commodity1Category";
@@ -1190,23 +1247,37 @@
             // 
             this.Operator1Category.FormattingEnabled = true;
             this.Operator1Category.Items.AddRange(new object[] {
+            "ARCInfrastructure",
             "ARTC",
             "Aurizon",
-            "City Rail",
+            "AustralianRailGroup",
+            "AustralianRailwaysHistoricalSociety",
+            "AustralianTransportNetwork",
+            "AvailableRollingStock",
+            "CityRail",
             "Countrylink",
+            "ElZorroTransport",
             "Freightliner",
-            "Great Southern Rail",
+            "GenesseeWyoming",
+            "GreatSouthernRail",
             "Interail",
-            "Lauchlan Valley Rail Society",
-            "Pacific National",
+            "JohnHollandRail",
+            "LauchlanValleyRailSociety",
+            "Limited3801",
+            "MetroTrainsMelbourne",
+            "PacificNational",
             "QUBE",
-            "Rail Corp",
+            "QueenslandRail",
+            "RailTransportMuseum",
+            "RailCorp",
             "SCT",
-            "Southern Shorthaul Rail",
-            "Sydney Rail Service",
-            "The Rail Motor Service",
-            "V Line Passenger",
-            "Group Remaining"});
+            "SouthernShorthaulRail",
+            "SpecialistBulkRail",
+            "SydneyRailService",
+            "TheRailMotorService",
+            "Transport4NSW",
+            "VLinePassenger",
+            "GroupRemaining"});
             this.Operator1Category.Location = new System.Drawing.Point(118, 59);
             this.Operator1Category.Margin = new System.Windows.Forms.Padding(2);
             this.Operator1Category.Name = "Operator1Category";
@@ -1422,17 +1493,6 @@
             this.Category1IncreasingSimulationFile.Size = new System.Drawing.Size(389, 20);
             this.Category1IncreasingSimulationFile.TabIndex = 0;
             this.Category1IncreasingSimulationFile.Text = "<Required>";
-            // 
-            // Hunter
-            // 
-            this.Hunter.AutoSize = true;
-            this.Hunter.Location = new System.Drawing.Point(865, 243);
-            this.Hunter.Name = "Hunter";
-            this.Hunter.Size = new System.Drawing.Size(95, 17);
-            this.Hunter.TabIndex = 57;
-            this.Hunter.Text = "Hunter Region";
-            this.Hunter.UseVisualStyleBackColor = true;
-            this.Hunter.CheckedChanged += new System.EventHandler(this.Hunter_CheckedChanged);
             // 
             // TrainPerformance
             // 
