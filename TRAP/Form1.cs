@@ -2931,7 +2931,7 @@ namespace TRAP
             resetDefaultParameters();
 
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Hunter Region 2018-Aug.txt";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Extract Hunter Region 2018-Sept.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
@@ -2945,7 +2945,7 @@ namespace TRAP
             GeometryFile.ForeColor = System.Drawing.Color.Black;
 
             /* TSR File */
-            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Hunter Region TSR - empty.csv";
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Hunter Region TSR.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
             temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
 
@@ -2995,7 +2995,7 @@ namespace TRAP
             dataSeparation.Text = "4";
             timeSeparation.Text = "10";
 
-            loopBoundaryThreshold.Text = "2";
+            loopBoundaryThreshold.Text = "1";
             loopSpeedThreshold.Text = "50";
             TSRWindowBoundary.Text = "1";
 
@@ -3111,7 +3111,7 @@ namespace TRAP
             /* Anlaysis Parameters */
             powerToWeightRatioAnalysis.Checked = false;
 
-            Settings.analysisCategory = analysisCategory.TrainOperator;
+            Settings.analysisCategory = analysisCategory.TrainCommodity;
 
             //trainType1.Text = "MB4";
             //Settings.Category1TrainType = trainType.MB4;
@@ -3223,7 +3223,7 @@ namespace TRAP
             /* Anlaysis Parameters */
             powerToWeightRatioAnalysis.Checked = false;
 
-            Settings.analysisCategory = analysisCategory.TrainOperator;
+            Settings.analysisCategory = analysisCategory.TrainCommodity;
 
             Operator1Category.SelectedItem = null;
             Settings.Category1Operator = trainOperator.Unknown;

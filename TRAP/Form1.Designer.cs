@@ -1080,7 +1080,7 @@
             "Clinker",
             "Coal",
             "Express",
-            "GeneralFreight",
+            "General Freight",
             "Grain",
             "Goods",
             "Intermodal",
@@ -1090,9 +1090,9 @@
             "Shuttle",
             "Shunt",
             "Steel",
-            "TrailerRail",
+            "Trailer Rail",
             "Work",
-            "GroupRemaining"});
+            "Group Remaining"});
             this.Commodity3Category.Location = new System.Drawing.Point(249, 257);
             this.Commodity3Category.Margin = new System.Windows.Forms.Padding(2);
             this.Commodity3Category.Name = "Commodity3Category";
@@ -1105,37 +1105,37 @@
             // 
             this.Operator3Category.FormattingEnabled = true;
             this.Operator3Category.Items.AddRange(new object[] {
-            "ARCInfrastructure",
+            "ARC Infrastructure",
             "ARTC",
             "Aurizon",
-            "AustralianRailGroup",
-            "AustralianRailwaysHistoricalSociety",
-            "AustralianTransportNetwork",
-            "AvailableRollingStock",
+            "Australian Rail Group",
+            "Australian Railways Historical Society",
+            "Australian Transport Network",
+            "Available Rolling Stock",
             "CityRail",
             "Countrylink",
-            "ElZorroTransport",
+            "ElZorro Transport",
             "Freightliner",
-            "GenesseeWyoming",
-            "GreatSouthernRail",
+            "Genessee Wyoming",
+            "Great Southern Rail",
             "Interail",
-            "JohnHollandRail",
-            "LauchlanValleyRailSociety",
-            "Limited3801",
-            "MetroTrainsMelbourne",
-            "PacificNational",
+            "John HollandRail",
+            "Lauchlan Valley Rail Society",
+            "Limited 3801",
+            "Metro Trains Melbourne",
+            "Pacific National",
             "QUBE",
-            "QueenslandRail",
-            "RailTransportMuseum",
+            "Queensland Rail",
+            "RailTransport Museum",
             "RailCorp",
             "SCT",
-            "SouthernShorthaulRail",
-            "SpecialistBulkRail",
-            "SydneyRailService",
-            "TheRailMotorService",
-            "Transport4NSW",
-            "VLinePassenger",
-            "GroupRemaining"});
+            "Southern Shorthaul Rail",
+            "Specialist Bulk Rail",
+            "Sydney Rail Service",
+            "The Rail Motor Service",
+            "Transport 4 NSW",
+            "V Line Passenger",
+            "Group Remaining"});
             this.Operator3Category.Location = new System.Drawing.Point(118, 257);
             this.Operator3Category.Margin = new System.Windows.Forms.Padding(2);
             this.Operator3Category.Name = "Operator3Category";
@@ -1151,7 +1151,7 @@
             "Clinker",
             "Coal",
             "Express",
-            "GeneralFreight",
+            "General Freight",
             "Grain",
             "Goods",
             "Intermodal",
@@ -1161,9 +1161,9 @@
             "Shuttle",
             "Shunt",
             "Steel",
-            "TrailerRail",
+            "Trailer Rail",
             "Work",
-            "GroupRemaining"});
+            "Group Remaining"});
             this.Commodity2Category.Location = new System.Drawing.Point(249, 159);
             this.Commodity2Category.Margin = new System.Windows.Forms.Padding(2);
             this.Commodity2Category.Name = "Commodity2Category";
@@ -1176,37 +1176,37 @@
             // 
             this.Operator2Category.FormattingEnabled = true;
             this.Operator2Category.Items.AddRange(new object[] {
-            "ARCInfrastructure",
+            "ARC Infrastructure",
             "ARTC",
             "Aurizon",
-            "AustralianRailGroup",
-            "AustralianRailwaysHistoricalSociety",
-            "AustralianTransportNetwork",
-            "AvailableRollingStock",
+            "Australian Rail Group",
+            "Australian Railways Historical Society",
+            "Australian Transport Network",
+            "Available Rolling Stock",
             "CityRail",
             "Countrylink",
-            "ElZorroTransport",
+            "ElZorro Transport",
             "Freightliner",
-            "GenesseeWyoming",
-            "GreatSouthernRail",
+            "Genessee Wyoming",
+            "Great Southern Rail",
             "Interail",
-            "JohnHollandRail",
-            "LauchlanValleyRailSociety",
-            "Limited3801",
-            "MetroTrainsMelbourne",
-            "PacificNational",
+            "John HollandRail",
+            "Lauchlan Valley Rail Society",
+            "Limited 3801",
+            "Metro Trains Melbourne",
+            "Pacific National",
             "QUBE",
-            "QueenslandRail",
-            "RailTransportMuseum",
+            "Queensland Rail",
+            "RailTransport Museum",
             "RailCorp",
             "SCT",
-            "SouthernShorthaulRail",
-            "SpecialistBulkRail",
-            "SydneyRailService",
-            "TheRailMotorService",
-            "Transport4NSW",
-            "VLinePassenger",
-            "GroupRemaining"});
+            "Southern Shorthaul Rail",
+            "Specialist Bulk Rail",
+            "Sydney Rail Service",
+            "The Rail Motor Service",
+            "Transport 4 NSW",
+            "V Line Passenger",
+            "Group Remaining"});
             this.Operator2Category.Location = new System.Drawing.Point(118, 159);
             this.Operator2Category.Margin = new System.Windows.Forms.Padding(2);
             this.Operator2Category.Name = "Operator2Category";
@@ -1222,7 +1222,7 @@
             "Clinker",
             "Coal",
             "Express",
-            "GeneralFreight",
+            "General Freight",
             "Grain",
             "Goods",
             "Intermodal",
@@ -1232,9 +1232,9 @@
             "Shuttle",
             "Shunt",
             "Steel",
-            "TrailerRail",
+            "Trailer Rail",
             "Work",
-            "GroupRemaining"});
+            "Group Remaining"});
             this.Commodity1Category.Location = new System.Drawing.Point(249, 58);
             this.Commodity1Category.Margin = new System.Windows.Forms.Padding(2);
             this.Commodity1Category.Name = "Commodity1Category";
@@ -1247,37 +1247,37 @@
             // 
             this.Operator1Category.FormattingEnabled = true;
             this.Operator1Category.Items.AddRange(new object[] {
-            "ARCInfrastructure",
+            "ARC Infrastructure",
             "ARTC",
             "Aurizon",
-            "AustralianRailGroup",
-            "AustralianRailwaysHistoricalSociety",
-            "AustralianTransportNetwork",
-            "AvailableRollingStock",
+            "Australian Rail Group",
+            "Australian Railways Historical Society",
+            "Australian Transport Network",
+            "Available Rolling Stock",
             "CityRail",
             "Countrylink",
-            "ElZorroTransport",
+            "ElZorro Transport",
             "Freightliner",
-            "GenesseeWyoming",
-            "GreatSouthernRail",
+            "Genessee Wyoming",
+            "Great Southern Rail",
             "Interail",
-            "JohnHollandRail",
-            "LauchlanValleyRailSociety",
-            "Limited3801",
-            "MetroTrainsMelbourne",
-            "PacificNational",
+            "John HollandRail",
+            "Lauchlan Valley Rail Society",
+            "Limited 3801",
+            "Metro Trains Melbourne",
+            "Pacific National",
             "QUBE",
-            "QueenslandRail",
-            "RailTransportMuseum",
+            "Queensland Rail",
+            "RailTransport Museum",
             "RailCorp",
             "SCT",
-            "SouthernShorthaulRail",
-            "SpecialistBulkRail",
-            "SydneyRailService",
-            "TheRailMotorService",
-            "Transport4NSW",
-            "VLinePassenger",
-            "GroupRemaining"});
+            "Southern Shorthaul Rail",
+            "Specialist Bulk Rail",
+            "Sydney Rail Service",
+            "The Rail Motor Service",
+            "Transport 4 NSW",
+            "V Line Passenger",
+            "Group Remaining"});
             this.Operator1Category.Location = new System.Drawing.Point(118, 59);
             this.Operator1Category.Margin = new System.Windows.Forms.Padding(2);
             this.Operator1Category.Name = "Operator1Category";
