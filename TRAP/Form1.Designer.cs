@@ -219,7 +219,7 @@
             // Hunter
             // 
             this.Hunter.AutoSize = true;
-            this.Hunter.Location = new System.Drawing.Point(865, 243);
+            this.Hunter.Location = new System.Drawing.Point(916, 241);
             this.Hunter.Name = "Hunter";
             this.Hunter.Size = new System.Drawing.Size(95, 17);
             this.Hunter.TabIndex = 57;
@@ -236,12 +236,11 @@
             this.IgnoreGaps.TabIndex = 56;
             this.IgnoreGaps.Text = "Ignore large gaps in data";
             this.IgnoreGaps.UseVisualStyleBackColor = true;
-            this.IgnoreGaps.CheckedChanged += new System.EventHandler(this.IgnoreGaps_CheckedChanged);
             // 
             // PortKembla
             // 
             this.PortKembla.AutoSize = true;
-            this.PortKembla.Location = new System.Drawing.Point(865, 221);
+            this.PortKembla.Location = new System.Drawing.Point(916, 219);
             this.PortKembla.Name = "PortKembla";
             this.PortKembla.Size = new System.Drawing.Size(83, 17);
             this.PortKembla.TabIndex = 55;
@@ -450,7 +449,7 @@
             // SouthernHighlands
             // 
             this.SouthernHighlands.AutoSize = true;
-            this.SouthernHighlands.Location = new System.Drawing.Point(865, 198);
+            this.SouthernHighlands.Location = new System.Drawing.Point(916, 196);
             this.SouthernHighlands.Name = "SouthernHighlands";
             this.SouthernHighlands.Size = new System.Drawing.Size(119, 17);
             this.SouthernHighlands.TabIndex = 17;
@@ -461,7 +460,7 @@
             // UlanLine
             // 
             this.UlanLine.AutoSize = true;
-            this.UlanLine.Location = new System.Drawing.Point(865, 175);
+            this.UlanLine.Location = new System.Drawing.Point(916, 173);
             this.UlanLine.Name = "UlanLine";
             this.UlanLine.Size = new System.Drawing.Size(71, 17);
             this.UlanLine.TabIndex = 16;
@@ -472,7 +471,7 @@
             // Tarcoola2Kalgoorlie
             // 
             this.Tarcoola2Kalgoorlie.AutoSize = true;
-            this.Tarcoola2Kalgoorlie.Location = new System.Drawing.Point(865, 152);
+            this.Tarcoola2Kalgoorlie.Location = new System.Drawing.Point(916, 150);
             this.Tarcoola2Kalgoorlie.Name = "Tarcoola2Kalgoorlie";
             this.Tarcoola2Kalgoorlie.Size = new System.Drawing.Size(129, 17);
             this.Tarcoola2Kalgoorlie.TabIndex = 15;
@@ -483,7 +482,7 @@
             // Melbourne2Cootamundra
             // 
             this.Melbourne2Cootamundra.AutoSize = true;
-            this.Melbourne2Cootamundra.Location = new System.Drawing.Point(865, 129);
+            this.Melbourne2Cootamundra.Location = new System.Drawing.Point(916, 127);
             this.Melbourne2Cootamundra.Name = "Melbourne2Cootamundra";
             this.Melbourne2Cootamundra.Size = new System.Drawing.Size(154, 17);
             this.Melbourne2Cootamundra.TabIndex = 14;
@@ -494,7 +493,7 @@
             // Macarthur2Botany
             // 
             this.Macarthur2Botany.AutoSize = true;
-            this.Macarthur2Botany.Location = new System.Drawing.Point(865, 106);
+            this.Macarthur2Botany.Location = new System.Drawing.Point(916, 104);
             this.Macarthur2Botany.Name = "Macarthur2Botany";
             this.Macarthur2Botany.Size = new System.Drawing.Size(122, 17);
             this.Macarthur2Botany.TabIndex = 13;
@@ -505,7 +504,7 @@
             // GunnedahBasin
             // 
             this.GunnedahBasin.AutoSize = true;
-            this.GunnedahBasin.Location = new System.Drawing.Point(865, 83);
+            this.GunnedahBasin.Location = new System.Drawing.Point(916, 81);
             this.GunnedahBasin.Name = "GunnedahBasin";
             this.GunnedahBasin.Size = new System.Drawing.Size(105, 17);
             this.GunnedahBasin.TabIndex = 12;
@@ -516,7 +515,7 @@
             // CulleranRanges
             // 
             this.CulleranRanges.AutoSize = true;
-            this.CulleranRanges.Location = new System.Drawing.Point(865, 60);
+            this.CulleranRanges.Location = new System.Drawing.Point(916, 58);
             this.CulleranRanges.Name = "CulleranRanges";
             this.CulleranRanges.Size = new System.Drawing.Size(104, 17);
             this.CulleranRanges.TabIndex = 11;
@@ -527,7 +526,7 @@
             // TestLabel
             // 
             this.TestLabel.AutoSize = true;
-            this.TestLabel.Location = new System.Drawing.Point(862, 36);
+            this.TestLabel.Location = new System.Drawing.Point(913, 34);
             this.TestLabel.Name = "TestLabel";
             this.TestLabel.Size = new System.Drawing.Size(117, 13);
             this.TestLabel.TabIndex = 10;
@@ -1213,7 +1212,7 @@
             this.Operator2Category.Size = new System.Drawing.Size(115, 21);
             this.Operator2Category.TabIndex = 25;
             this.Operator2Category.Text = "Select an Operator";
-            this.Operator2Category.SelectedValueChanged += new System.EventHandler(this.Operator2Category_SelectedValueChanged);
+            this.Operator2Category.SelectedIndexChanged += new System.EventHandler(this.Operator2Category_SelectedIndexChanged);
             // 
             // Commodity1Category
             // 
@@ -1284,7 +1283,7 @@
             this.Operator1Category.Size = new System.Drawing.Size(114, 21);
             this.Operator1Category.TabIndex = 23;
             this.Operator1Category.Text = "Select an Operator";
-            this.Operator1Category.SelectedValueChanged += new System.EventHandler(this.Operator1Category_SelectedValueChanged);
+            this.Operator1Category.SelectedIndexChanged += new System.EventHandler(this.Operator1Category_SelectedIndexChanged);
             // 
             // CommodityLabel
             // 

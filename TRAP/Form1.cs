@@ -32,6 +32,8 @@ namespace TRAP
         private int timeCounter = 0;
         private bool stopTheClock = false;
 
+        
+
         public TrainPerformance()
         {
             /* initialise the form. */
@@ -76,8 +78,8 @@ namespace TRAP
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
             
         }
 
@@ -90,7 +92,7 @@ namespace TRAP
         {
             FileSettings.geometryFile = Tools.selectDataFile(caption: "Select the geometry file.");
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
         }
 
         /// <summary>
@@ -102,7 +104,7 @@ namespace TRAP
         {
             FileSettings.temporarySpeedRestrictionFile = Tools.selectDataFile(caption: "Select the TSR file.");
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
         }
 
         /// <summary>
@@ -114,7 +116,7 @@ namespace TRAP
         {
             FileSettings.trainListFile = Tools.selectDataFile(caption: "Select the train list file.");
             trainListFile.Text = Path.GetFileName(FileSettings.trainListFile);
-            trainListFile.ForeColor = System.Drawing.Color.Black;
+            trainListFile.ForeColor = SystemColors.ActiveCaptionText;
         }
 
         /// <summary>
@@ -151,7 +153,9 @@ namespace TRAP
 
             /* Read the data. */
             List<TrainRecord> TrainRecords = new List<TrainRecord>();
-            TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
+            //TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
+            //TrainRecords = FileOperations.readAzureICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
+            TrainRecords = FileOperations.readAzureExtractICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
 
 
             if (TrainRecords.Count() == 0)
@@ -321,7 +325,7 @@ namespace TRAP
             filename = Tools.selectDataFile(caption: browseString);
             FileSettings.simulationFiles[index] = filename;
             simulationFile.Text = Path.GetFileName(filename);
-            simulationFile.ForeColor = System.Drawing.Color.Black;
+            simulationFile.ForeColor = SystemColors.ActiveCaptionText;
         }
 
         /// <summary>
@@ -377,7 +381,7 @@ namespace TRAP
             /* Browse the folders for the desired desination folder. */
             FileSettings.aggregatedDestination = Tools.selectFolder();
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
         }
 
         /// <summary>
@@ -962,7 +966,7 @@ namespace TRAP
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void Operator1Category_SelectedValueChanged(object sender, EventArgs e)
+        private void Operator1Category_SelectedIndexChanged(object sender, EventArgs e)
         {
             /* Set the analysis Category to train operator. */
             Settings.analysisCategory = analysisCategory.TrainOperator;
@@ -990,7 +994,7 @@ namespace TRAP
         /// </summary>
         /// <param name="sender">The object container.</param>
         /// <param name="e">The event arguments.</param>
-        private void Operator2Category_SelectedValueChanged(object sender, EventArgs e)
+        private void Operator2Category_SelectedIndexChanged(object sender, EventArgs e)
         {
             /* Set the analysis Category to train operator. */
             Settings.analysisCategory = analysisCategory.TrainOperator;
@@ -1259,49 +1263,49 @@ namespace TRAP
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Cullerin Ranges Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Cullerin Ranges TSR.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Increasing 3.31_ThuW1.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Decreasing 3.33_TueW1.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Increasing 4.8_FriW1.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges\Decreasing 4.68_WedW1.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[4] = "";
             //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[5] = "";
             //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Cullerin Ranges";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2016, 1, 1);
@@ -1360,53 +1364,53 @@ namespace TRAP
 
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Data 2018-Aug.txt";
-
+            
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin MTP - TSR.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\PacificNational-Decreasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Aurizon-Increasing-60.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Aurizon-Decreasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[4] = "";
             //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[5] = "";
             //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2018, 5, 20);
@@ -1464,53 +1468,53 @@ namespace TRAP
 
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany data.txt";
-
+           
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany TSR.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Botany to Macarthur - increasing - 3.33_ThuW1.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany - decreasing - 3.20_SatW1.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Botany to Macarthur - increasing - 7.87_ThuW1.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany\Macarthur to Botany - decreasing - 6.97_SatW1.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[4] = "";
             //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[5] = "";
             //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Macarthur to Botany";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2016, 1, 1);
@@ -1566,56 +1570,56 @@ namespace TRAP
         {
             /* Reset default parameters before setting new scenario parameters. */
             resetDefaultParameters();
-
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Melbourne to Cootamundra data.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Melbourne to Cootamundra Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Melbourne to Cootamundra TSR.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Increasing sim 3.5.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\decreasing sim 3.5.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\Increasing sim 4.6.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra\decreasing sim 4.6.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[4] = "";
             //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[5] = "";
             //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Melbourne to Cootamundra";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2016, 1, 1);
@@ -1670,56 +1674,56 @@ namespace TRAP
         {
             /* Reset default parameters before setting new scenario parameters. */
             resetDefaultParameters();
-
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie data.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 2.2_ThuW1.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 2.6_SunW1.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\increasing 3.4_FriW1.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\decreasing 3.5_MonW1.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[4] = "";
             //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[5] = "";
             //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2016, 1, 1);
@@ -1775,56 +1779,56 @@ namespace TRAP
         {
             /* Reset default parameters before setting new scenario parameters. */
             resetDefaultParameters();
-
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\GP1 SCT Vans - increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\GP1 SCT Vans - increasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP4 Intermodal - increasing.csv";
             //Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            //Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP4 Intermodal - increasing.csv";
             //Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            //Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP5 Intermodal - increasing.csv";
             //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP5 Intermodal - increasing.csv";
             //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
@@ -1890,56 +1894,56 @@ namespace TRAP
         {
             /* Reset default parameters before setting new scenario parameters. */
             resetDefaultParameters();
-
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\AP1 Steel - increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\AP1 Steel - increasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\AP2 Steel - increasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\AP2 Steel - increasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\AP8 Indian Pacific - increasing.csv";
             Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\AP8 Indian Pacific - increasing.csv";
             Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
@@ -1998,56 +2002,56 @@ namespace TRAP
         {
             /* Reset default parameters before setting new scenario parameters. */
             resetDefaultParameters();
-
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\GP1 SCT Vans - increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\GP1 SCT Vans - increasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP1 Intermodal - increasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP1 Intermodal - increasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP2 Steel - increasing.csv";
             Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP2 Steel - increasing.csv";
             Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
@@ -2106,56 +2110,56 @@ namespace TRAP
         {
             /* Reset default parameters before setting new scenario parameters. */
             resetDefaultParameters();
-
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP4 Intermodal - increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP4 Intermodal - increasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP5 Intermodal - increasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP5 Intermodal - increasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP7 Express - increasing.csv";
             Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP7 Express - increasing.csv";
             Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
@@ -2214,56 +2218,56 @@ namespace TRAP
         {
             /* Reset default parameters before setting new scenario parameters. */
             resetDefaultParameters();
-
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP9 Intermodal - increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\MP9 Intermodal - increasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\SP5 Intermodal - increasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\SP5 Intermodal - increasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\SP7 Intermodal - increasing.csv";
             Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\SP7 Intermodal - increasing.csv";
             Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
@@ -2322,56 +2326,56 @@ namespace TRAP
         {
             /* Reset default parameters before setting new scenario parameters. */
             resetDefaultParameters();
-
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PA8 Indian Pacific - decreasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PA8 Indian Pacific - decreasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PG1 SCT Vans - decreasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PG1 SCT Vans - decreasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM1 Intermodal - decreasing.csv";
             Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM1 Intermodal - decreasing.csv";
             Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
@@ -2430,56 +2434,56 @@ namespace TRAP
         {
             /* Reset default parameters before setting new scenario parameters. */
             resetDefaultParameters();
-
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM4 Steel - decreasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM4 Steel - decreasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM5 Intermodal - decreasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM5 Intermodal - decreasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM6 Intermodal - decreasing.csv";
             Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM6 Intermodal - decreasing.csv";
             Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
@@ -2538,56 +2542,56 @@ namespace TRAP
         {
             /* Reset default parameters before setting new scenario parameters. */
             resetDefaultParameters();
-
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM7 Express - decreasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM7 Express - decreasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM9 Intermodal - decreasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PM9 Intermodal - decreasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\GP1 SCT Vans - increasing.csv";
             //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\GP1 SCT Vans - increasing.csv";
             //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
@@ -2646,56 +2650,56 @@ namespace TRAP
         {
             /* Reset default parameters before setting new scenario parameters. */
             resetDefaultParameters();
-
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie 2017.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\Tarcoola to Kalgoorlie TSR 2017.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PS6 Intermodal - decreasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PS6 Intermodal - decreasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PS7 Steel - decreasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PS7 Steel - decreasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PX4 Intermodal - decreasing.csv";
             Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie\PX4 Intermodal - decreasing.csv";
             Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Tarcoola to Kalgoorlie";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2017, 1, 1);
@@ -2832,49 +2836,49 @@ namespace TRAP
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Ulan Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Ulan TSR.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Pacific National - Increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Pacific National - Decreasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Aurizon - Increasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Aurizon - Decreasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Freightliner - Increasing.csv";
             Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Freightliner - Decreasing.csv";
             Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2018, 5, 20);
@@ -2929,56 +2933,56 @@ namespace TRAP
         {
             /* Reset default parameters before setting new scenario parameters. */
             resetDefaultParameters();
-
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Extract Hunter Region 2018-Sept.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\KIY to WCK.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Hunter Region TSR.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Pacific National - Increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Pacific National - Decreasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Aurizon - Increasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Aurizon - Decreasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Freightliner - Increasing.csv";
             Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region\Freightliner - Decreasing.csv";
             Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Hunter Region";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2018, 1, 1);
@@ -3033,56 +3037,56 @@ namespace TRAP
         {
             /* Reset default parameters before setting new scenario parameters. */
             resetDefaultParameters();
-
+            
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands 2018-Aug.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Southern Highlands TSR 2018-201806.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Grain-Increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Grain-Decreasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Minerals-Increasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\Minerals-Decreasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Increasing.csv";
             //Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            //Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             //FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands\MB Superfreighter-Decreasing.csv";
             //Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            //Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            //Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Southern Highlands";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2018, 1, 1);
@@ -3148,53 +3152,53 @@ namespace TRAP
 
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Port Kembla to Moss Vale data.txt";
-
+            
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
-            IceDataFile.ForeColor = System.Drawing.Color.Black;
-            simICEDataFile.ForeColor = System.Drawing.Color.Black;
+            IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+            simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Geometry File */
             FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Port Kembla to Moss Vale Geometry.csv";
             GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
-            GeometryFile.ForeColor = System.Drawing.Color.Black;
+            GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
             FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Port Kembla to  Moss Vale TSR.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
-            temporarySpeedRestrictionFile.ForeColor = System.Drawing.Color.Black;
+            temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Simulation files */
             FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Coal-Increasing.csv";
             Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
-            Category1IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Coal-Decreasing.csv";
             Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
-            Category1DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Grain-Increasing.csv";
             Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
-            Category2IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Grain-Decreasing.csv";
             Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
-            Category2DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Minerals-Increasing.csv";
             Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
-            Category3IncreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
             FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale\Minerals-Decreasing.csv";
             Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
-            Category3DecreasingSimulationFile.ForeColor = System.Drawing.Color.Black;
+            Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
 
 
             /* Destination Folder */
             FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Port Kembla to Moss Vale";
             resultsDestination.Text = FileSettings.aggregatedDestination;
-            resultsDestination.ForeColor = System.Drawing.Color.Black;
+            resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
 
             /* Settings */
             fromDate.Value = new DateTime(2016, 1, 1);
@@ -3698,18 +3702,10 @@ namespace TRAP
             /* Format a string for display on the form. */
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", (int)hours, (int)minutes, (int)seconds);
             ((Label)((Timer)sender).Tag).Text = elapsedTime;
-
         }
 
         
 
-        private void IgnoreGaps_CheckedChanged(object sender, EventArgs e)
-        {
-            /* If Culleran Ranges tesging flag is checked, set the appropriate parameters. */
-            if (CulleranRanges.Checked)
-                setCulleranRangesParameters(sender, e);
-            else
-                resetDefaultParameters();
-        }
+
     }
 }

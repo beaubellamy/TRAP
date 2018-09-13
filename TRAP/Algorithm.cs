@@ -13,7 +13,7 @@ namespace TRAP
 
     class Algorithm
     {
-        
+
         /// <summary>
         /// Determine the average train performance in both directions based on the supplied 
         /// actual train data. The form allows the user to specify which parameters will be 
@@ -47,7 +47,7 @@ namespace TRAP
         /// performance between the gaps.
         /// 
         /// 
-        /// </summary>        
+        /// </summary>                
         [STAThread]
         public static List<Train> trainPerformance()
         {
@@ -69,6 +69,7 @@ namespace TRAP
             
             /* Read the data. */
             List<TrainRecord> TrainRecords = new List<TrainRecord>();
+
             //TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
             //TrainRecords = FileOperations.readAzureICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
             TrainRecords = FileOperations.readAzureExtractICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
