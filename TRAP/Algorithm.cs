@@ -46,6 +46,9 @@ namespace TRAP
         /// aggregation. This allows for more trains to be counted towards the average 
         /// performance between the gaps.
         /// 
+        /// Version 1.2.0.0
+        /// - Added sample count and standard deviation of the average speed values, 
+        /// which are written to the output file.
         /// 
         /// </summary>                
         [STAThread]
