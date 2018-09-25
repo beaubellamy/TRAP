@@ -1363,7 +1363,7 @@ namespace TRAP
             resetDefaultParameters();
 
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Data 2018-Aug.txt";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Extract Gunnedah Basin 2018-Aug.txt";
             
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
@@ -1377,7 +1377,7 @@ namespace TRAP
             GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
 
             /* TSR File */
-            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin MTP - TSR.csv";
+            FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin TSR.csv";
             temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
             temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
 
@@ -2831,7 +2831,7 @@ namespace TRAP
             resetDefaultParameters();
             
             /* Data File */
-            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Ulan Data 2018-Aug.txt";
+            FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Ulan\Extract Ulan Data 2018-Aug.txt";
 
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
