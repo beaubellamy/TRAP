@@ -2992,8 +2992,8 @@ namespace TRAP
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
 
-            startInterpolationKm.Text = "165";
-            endInterpolationKm.Text = "285";
+            startInterpolationKm.Text = "160";
+            endInterpolationKm.Text = "290";
             interpolationInterval.Text = "50";
             minimumJourneyDistance.Text = "50";
             dataSeparation.Text = "4";
