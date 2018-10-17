@@ -35,6 +35,7 @@ namespace Globalsettings
         public static double interval;                      /* Interpolation interval (metres). */
         public static bool IgnoreGaps;                      /* Will the interpolation ignore gaps in the data (ie. gaps wont be interpolated through) */
         public static double minimumJourneyDistance;        /* Minimum distance of a train journey to be considered valid. */
+        public static bool trainsStoppingAtLoops;           /* Analyse the performance of the trains as they stop at the loops. */
 
         /* Processing parameters */
         public static double loopSpeedThreshold;            /* Cuttoff for the simulation speed, when comparing the train to the simualted train. */

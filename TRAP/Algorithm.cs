@@ -321,14 +321,22 @@ namespace TRAP
 
                 /* Aggregate the train lists into an average train consistent with the specified Category. */
                 if (increasingTrainCategory.Count() > 0)
-                    averageTrains.Add(Processing.averageTrain(increasingTrainCategory, interpolatedSimulations[index * 2].journey, trackGeometry,Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold,Settings.TSRwindowBoundary));
-                    //averageTrains.Add(Processing.averageTrainStoppingAtLoops(increasingTrainCategory, interpolatedSimulations[index * 2].journey, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
+                {
+                    if (Settings.trainsStoppingAtLoops)
+                        averageTrains.Add(Processing.averageTrainStoppingAtLoops(increasingTrainCategory, interpolatedSimulations[index * 2].journey, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
+                    else
+                        averageTrains.Add(Processing.averageTrain(increasingTrainCategory, interpolatedSimulations[index * 2].journey, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
+                }
                 else
                     averageTrains.Add(Processing.createZeroedAverageTrain(simCategories[index], direction.IncreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
-                
+
                 if (decreasingTrainCategory.Count() > 0)
-                    averageTrains.Add(Processing.averageTrain(decreasingTrainCategory, interpolatedSimulations[index * 2 + 1].journey, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
-                    //averageTrains.Add(Processing.averageTrainStoppingAtLoops(decreasingTrainCategory, interpolatedSimulations[index * 2 + 1].journey, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
+                {
+                    if (Settings.trainsStoppingAtLoops)
+                        averageTrains.Add(Processing.averageTrainStoppingAtLoops(decreasingTrainCategory, interpolatedSimulations[index * 2 + 1].journey, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
+                    else
+                        averageTrains.Add(Processing.averageTrain(decreasingTrainCategory, interpolatedSimulations[index * 2 + 1].journey, trackGeometry, Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
+                }
                 else
                     averageTrains.Add(Processing.createZeroedAverageTrain(simCategories[index], direction.DecreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
                 
@@ -460,19 +468,25 @@ namespace TRAP
                 if (increasingCombined.Count() == 0)
                     averageTrains.Add(Processing.createZeroedAverageTrain(Category.Combined, direction.IncreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
                 else
-                    averageTrains.Add(Processing.averageTrain(increasingCombined, weightedSimulation[0].journey, trackGeometry,
+                {
+                    if (Settings.trainsStoppingAtLoops)
+                        averageTrains.Add(Processing.averageTrainStoppingAtLoops(increasingCombined, weightedSimulation[0].journey, trackGeometry,
+                            Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
+                    else
+                        averageTrains.Add(Processing.averageTrain(increasingCombined, weightedSimulation[0].journey, trackGeometry,
                         Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
-                    //averageTrains.Add(Processing.averageTrainStoppingAtLoops(increasingCombined, weightedSimulation[0].journey, trackGeometry,
-                    //                Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
-
+                }
                 if (decreasingCombined.Count() == 0)
                     averageTrains.Add(Processing.createZeroedAverageTrain(Category.Combined, direction.DecreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
                 else
-                    averageTrains.Add(Processing.averageTrain(decreasingCombined, weightedSimulation[1].journey, trackGeometry,
-                        Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
-                    //averageTrains.Add(Processing.averageTrainStoppingAtLoops(decreasingCombined, weightedSimulation[1].journey, trackGeometry,
-                    //    Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
-
+                {
+                    if (Settings.trainsStoppingAtLoops)
+                        averageTrains.Add(Processing.averageTrainStoppingAtLoops(decreasingCombined, weightedSimulation[1].journey, trackGeometry,
+                            Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
+                    else
+                        averageTrains.Add(Processing.averageTrain(decreasingCombined, weightedSimulation[1].journey, trackGeometry,
+                            Settings.startKm, Settings.endKm, Settings.interval, Settings.loopSpeedThreshold, Settings.loopBoundaryThreshold, Settings.TSRwindowBoundary));
+                 }
                 averageTrains.Add(weightedSimulation[0].ToAverageTrain());
                 averageTrains.Add(weightedSimulation[1].ToAverageTrain());
 

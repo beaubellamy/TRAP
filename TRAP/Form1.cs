@@ -582,6 +582,12 @@ namespace TRAP
         public bool getIgnoreGapsFlag() { return IgnoreGaps.Checked; }
 
         /// <summary>
+        /// Extract the value of the TrainsStoppingAtLoops flag.
+        /// </summary>
+        /// <returns>The value of the boolean flag.</returns>
+        public bool getTrainsStoppingAtLoopsFlag() { return TrainsStoppingAtLoops.Checked; }
+
+        /// <summary>
         /// Extract the value of the start km for interpolation.
         /// </summary>
         /// <returns>The start km.</returns>
@@ -1164,6 +1170,7 @@ namespace TRAP
             /* Extract the form parameters. */
             Settings.dateRange = form.getDateRange();
             Settings.excludeListOfTrains = form.getTrainListExcludeFlag();
+            Settings.trainsStoppingAtLoops = form.getTrainsStoppingAtLoopsFlag();
             Settings.startKm = form.getStartKm();
             Settings.endKm = form.getEndKm();
             Settings.interval = form.getInterval();
@@ -1314,6 +1321,7 @@ namespace TRAP
             /* Interpolation parameters */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "220";
             endInterpolationKm.Text = "320";
@@ -1419,6 +1427,7 @@ namespace TRAP
             /* Interpolation Parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "280";
             endInterpolationKm.Text = "540";
@@ -1523,6 +1532,7 @@ namespace TRAP
             /* Interpoaltion Parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "5";
             endInterpolationKm.Text = "70";
@@ -1628,6 +1638,7 @@ namespace TRAP
             /* Interpolation Parameters */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "5";
             endInterpolationKm.Text = "505";
@@ -1732,6 +1743,7 @@ namespace TRAP
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "950";
             endInterpolationKm.Text = "1400";
@@ -1837,6 +1849,7 @@ namespace TRAP
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -1952,6 +1965,7 @@ namespace TRAP
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2060,6 +2074,7 @@ namespace TRAP
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2168,6 +2183,7 @@ namespace TRAP
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2276,6 +2292,7 @@ namespace TRAP
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2384,6 +2401,7 @@ namespace TRAP
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2492,6 +2510,7 @@ namespace TRAP
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2600,6 +2619,7 @@ namespace TRAP
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2708,6 +2728,7 @@ namespace TRAP
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "500";
             endInterpolationKm.Text = "1700";
@@ -2887,6 +2908,7 @@ namespace TRAP
             /* Interpolation Parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "280";
             endInterpolationKm.Text = "460";
@@ -2991,6 +3013,7 @@ namespace TRAP
             /* Interpolation Parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "160";
             endInterpolationKm.Text = "290";
@@ -3095,6 +3118,7 @@ namespace TRAP
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "20";   // usaully 55
             endInterpolationKm.Text = "200";    // usually 145
@@ -3207,6 +3231,7 @@ namespace TRAP
             /* Interpolation parameters. */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "80";
             endInterpolationKm.Text = "160";
@@ -3437,6 +3462,7 @@ namespace TRAP
             /* Interpolation Parameters */
             excludeListOfTrains.Checked = false;
             IgnoreGaps.Checked = false;
+            TrainsStoppingAtLoops.Checked = false;
 
             startInterpolationKm.Text = "0";
             endInterpolationKm.Text = "100";

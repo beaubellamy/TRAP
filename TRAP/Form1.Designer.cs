@@ -145,6 +145,7 @@
             this.selectCategory1IncreasingSimulation = new System.Windows.Forms.Button();
             this.Category1SimulationLabel = new System.Windows.Forms.Label();
             this.Category1IncreasingSimulationFile = new System.Windows.Forms.TextBox();
+            this.TrainsStoppingAtLoops = new System.Windows.Forms.CheckBox();
             this.simulationTab.SuspendLayout();
             this.AnalysisParametersTab.SuspendLayout();
             this.powerToWeightParametersTab.SuspendLayout();
@@ -165,6 +166,7 @@
             // 
             // AnalysisParametersTab
             // 
+            this.AnalysisParametersTab.Controls.Add(this.TrainsStoppingAtLoops);
             this.AnalysisParametersTab.Controls.Add(this.Hunter);
             this.AnalysisParametersTab.Controls.Add(this.IgnoreGaps);
             this.AnalysisParametersTab.Controls.Add(this.PortKembla);
@@ -1493,6 +1495,16 @@
             this.Category1IncreasingSimulationFile.TabIndex = 0;
             this.Category1IncreasingSimulationFile.Text = "<Required>";
             // 
+            // TrainsStoppingAtLoops
+            // 
+            this.TrainsStoppingAtLoops.AutoSize = true;
+            this.TrainsStoppingAtLoops.Location = new System.Drawing.Point(17, 446);
+            this.TrainsStoppingAtLoops.Name = "TrainsStoppingAtLoops";
+            this.TrainsStoppingAtLoops.Size = new System.Drawing.Size(174, 17);
+            this.TrainsStoppingAtLoops.TabIndex = 58;
+            this.TrainsStoppingAtLoops.Text = "Analyse trains stopping at loops";
+            this.TrainsStoppingAtLoops.UseVisualStyleBackColor = true;
+            // 
             // TrainPerformance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1634,6 +1646,7 @@
         private System.Windows.Forms.Label CommodityLabel;
         private System.Windows.Forms.Label OperatorLabel;
         private System.Windows.Forms.CheckBox Hunter;
+        private System.Windows.Forms.CheckBox TrainsStoppingAtLoops;
     }
 }
 
