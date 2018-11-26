@@ -1372,7 +1372,7 @@ namespace TRAP
 
             /* Data File */
             FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Extract Gunnedah Basin 2018-Aug.txt";
-            
+
             IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
             simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
 
@@ -1464,6 +1464,107 @@ namespace TRAP
             Commodity3Category.SelectedItem = null;
             Settings.Category3Commodity = trainCommodity.Unknown;
         }
+
+        /* Gunnedah parameters when splitting the PN locos in to TT and 90 class. */
+        //private void setGunnedahBasinParameters(object sender, EventArgs e)
+        //{
+        //    /* Reset default parameters before setting new scenario parameters. */
+        //    resetDefaultParameters();
+
+        //    /* Data File */
+        //    FileSettings.dataFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Extract Gunnedah Basin 2018-Aug.txt";
+
+        //    IceDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+        //    simICEDataFile.Text = Path.GetFileName(FileSettings.dataFile);
+
+        //    IceDataFile.ForeColor = SystemColors.ActiveCaptionText;
+        //    simICEDataFile.ForeColor = SystemColors.ActiveCaptionText;
+
+        //    /* Geometry File */
+        //    FileSettings.geometryFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin Geometry.csv";
+        //    GeometryFile.Text = Path.GetFileName(FileSettings.geometryFile);
+        //    GeometryFile.ForeColor = SystemColors.ActiveCaptionText;
+
+        //    /* TSR File */
+        //    FileSettings.temporarySpeedRestrictionFile = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin\Gunnedah Basin TSR.csv";
+        //    temporarySpeedRestrictionFile.Text = Path.GetFileName(FileSettings.temporarySpeedRestrictionFile);
+        //    temporarySpeedRestrictionFile.ForeColor = SystemColors.ActiveCaptionText;
+
+        //    /* Simulation files */
+        //    FileSettings.simulationFiles[0] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Traxim\2018\Projects\Gunnedah\PacificNational TT-Increasing.csv";
+        //    Category1IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[0]);
+        //    Category1IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
+
+        //    FileSettings.simulationFiles[1] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Traxim\2018\Projects\Gunnedah\PacificNational TT-Decreasing.csv";
+        //    Category1DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[1]);
+        //    Category1DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
+
+        //    FileSettings.simulationFiles[2] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Traxim\2018\Projects\Gunnedah\Aurizon-Increasing-60.csv";
+        //    Category2IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[2]);
+        //    Category2IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
+
+        //    FileSettings.simulationFiles[3] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Traxim\2018\Projects\Gunnedah\Aurizon-Decreasing.csv";
+        //    Category2DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[3]);
+        //    Category2DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
+
+        //    FileSettings.simulationFiles[4] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Traxim\2018\Projects\Gunnedah\PacificNational 90-Increasing.csv";
+        //    Category3IncreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[4]);
+        //    Category3IncreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
+
+        //    FileSettings.simulationFiles[5] = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Traxim\2018\Projects\Gunnedah\PacificNational 90-Decreasing.csv";
+        //    Category3DecreasingSimulationFile.Text = Path.GetFileName(FileSettings.simulationFiles[5]);
+        //    Category3DecreasingSimulationFile.ForeColor = SystemColors.ActiveCaptionText;
+
+
+        //    /* Destination Folder */
+        //    FileSettings.aggregatedDestination = @"S:\Corporate Strategy\Infrastructure Strategies\Simulations\Train Performance Analysis\Gunnedah Basin";
+        //    resultsDestination.Text = FileSettings.aggregatedDestination;
+        //    resultsDestination.ForeColor = SystemColors.ActiveCaptionText;
+
+        //    /* Settings */
+        //    fromDate.Value = new DateTime(2018, 5, 20);
+        //    toDate.Value = new DateTime(2018, 8, 20);
+
+        //    /* Interpolation Parameters. */
+        //    excludeListOfTrains.Checked = false;
+        //    IgnoreGaps.Checked = false;
+        //    TrainsStoppingAtLoops.Checked = false;
+
+        //    startInterpolationKm.Text = "280";
+        //    endInterpolationKm.Text = "540";
+        //    interpolationInterval.Text = "50";
+        //    minimumJourneyDistance.Text = "50";
+        //    dataSeparation.Text = "4";
+        //    timeSeparation.Text = "10";
+
+        //    loopBoundaryThreshold.Text = "2";
+        //    loopSpeedThreshold.Text = "50";
+        //    TSRWindowBoundary.Text = "2";
+
+        //    Category1LowerBound.Text = "0";
+        //    Category1UpperBound.Text = "100";
+        //    Category2LowerBound.Text = "100";
+        //    Category2UpperBound.Text = "200";
+
+        //    /* Anlaysis Parameters */
+        //    powerToWeightRatioAnalysis.Checked = false;
+
+        //    Settings.analysisCategory = analysisCategory.TrainOperator;
+
+        //    Operator1Category.SelectedItem = "Pacific National";
+        //    Settings.Category1Operator = trainOperator.PacificNational;
+        //    Operator2Category.SelectedItem = "Aurizon";
+        //    Settings.Category2Operator = trainOperator.Aurizon;
+        //    Operator3Category.SelectedItem = "Freightliner";
+        //    Settings.Category3Operator = trainOperator.Freightliner;
+
+        //    Commodity1Category.SelectedItem = null;
+        //    Settings.Category1Commodity = trainCommodity.Unknown;
+        //    Commodity2Category.SelectedItem = null;
+        //    Settings.Category2Commodity = trainCommodity.Unknown;
+        //    Commodity3Category.SelectedItem = null;
+        //    Settings.Category3Commodity = trainCommodity.Unknown;
+        //}
 
         /// <summary>
         /// This function sets all the testing parameters for the Macarthur to Botany data

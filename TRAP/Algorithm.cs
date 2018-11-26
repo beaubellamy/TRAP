@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Globalsettings;
 
 /* Custome Libraries */
@@ -55,6 +56,8 @@ namespace TRAP
         public static List<Train> trainPerformance()
         {
 
+            //FileOperations.test(Settings);
+
             /* Ensure there is a empty list of trains to exclude to start. */
             List<string> excludeTrainList = new List<string> { };
 
@@ -87,6 +90,8 @@ namespace TRAP
             List<trainOperator> operators = TrainRecords.Select(t => t.trainOperator).Distinct().ToList();
             operators.Remove(trainOperator.Unknown);
             int numberOfOperators = operators.Count();
+
+            List<string> locos = TrainRecords.Where(t => t.trainOperator == trainOperator.PacificNational).Select(t => t.locoID).Distinct().ToList();
 
             List<trainCommodity> Commodities = TrainRecords.Select(t => t.commodity).Distinct().ToList();
             int numberOfCommodities = Commodities.Count();
@@ -220,6 +225,38 @@ namespace TRAP
                     {
                         increasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                         decreasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+
+                        /******************************************************************************************/
+                        /* Hack to get seperate the PN train by loco in Gunnedah */
+
+                        /* PN - TT */
+                        //if (operatorCategory == trainOperator.PacificNational)
+                        //{
+                        //    increasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).
+                        //        Where(t => t.locoID.StartsWith("TT")).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        //    decreasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).
+                        //        Where(t => t.locoID.StartsWith("TT")).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                        //}
+                        ///* PN - 90 */
+                        //if (operatorCategory == trainOperator.Freightliner)
+                        //{
+                        //    increasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == trainOperator.PacificNational).
+                        //        Where(t => t.locoID.StartsWith("9")).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        //    decreasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == trainOperator.PacificNational).
+                        //        Where(t => t.locoID.StartsWith("9")).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                        //}
+                        ///* QR - all */
+                        //if (operatorCategory == trainOperator.Aurizon)
+                        //{
+                        //    increasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
+                        //    decreasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
+
+                        //}
+                        /*********************************************************************************************/
+
                     }
                     else
                     {
@@ -236,6 +273,8 @@ namespace TRAP
                                 increasingTrainCategory = increasingTrainCategory.Where(t => t.trainOperator != operatorCategory).ToList();
                                 decreasingTrainCategory = decreasingTrainCategory.Where(t => t.trainOperator != operatorCategory).ToList();
                             }
+
+
                         }
                         /* Reset the operator to grouped for the analysis */
                         Processing.setOperatorToGrouped(increasingTrainCategory);
@@ -503,11 +542,27 @@ namespace TRAP
                 throw new ArgumentException(error);
             }
 
-            /* Write the averaged Data to file for inspection. */            
-            FileOperations.writeAverageData(averageTrains, stats, FileSettings.aggregatedDestination);
-            
+            Dictionary<FieldInfo, object> settings = ReadStaticFields(typeof(Globalsettings.Settings), typeof(Globalsettings.FileSettings));
+
+
+            /* Write the averaged Data to file for inspection. */
+            //FileOperations.writeAverageData(averageTrains, stats, FileSettings.aggregatedDestination); // pass in Globalsettings
+            FileOperations.writeAverageData(averageTrains, stats, FileSettings.aggregatedDestination, settings); // pass in Globalsettings
+
             return interpolatedTrains;
         }
-        
+
+        public static Dictionary<FieldInfo, object> ReadStaticFields(params Type[] types)
+        {
+            return types
+                .SelectMany
+                (
+                    t => t.GetFields(BindingFlags.Public | BindingFlags.Static)
+                )
+                .ToDictionary(f => f, f => f.GetValue(null));
+        }
+
     }
+
+    
 }

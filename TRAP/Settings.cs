@@ -25,8 +25,8 @@ namespace Globalsettings
 
         /* Data boundaries */
         public static DateTime[] dateRange;                 /* Date range of data to include. */
-        public static GeoLocation topLeftLocation;          /* Top left corner of the geographic box describing the included data. */
-        public static GeoLocation bottomRightLocation;      /* Bottom right corner of the geographic box describing the included data. */
+        public static GeoLocation topLeftLocation;          // Depreicated /* Top left corner of the geographic box describing the included data. */
+        public static GeoLocation bottomRightLocation;      // Depreicated /* Bottom right corner of the geographic box describing the included data. */
         public static bool excludeListOfTrains;             /* Is a list of trains that are to be excluded available. */
 
         /* Corridor dependant / Analysis parameters */
@@ -50,7 +50,7 @@ namespace Globalsettings
         public static double Category2LowerBound;           /* The lower bound cuttoff for the overpowered trains. */
         public static double Category2UpperBound;           /* The upper bound cuttoff for the overpowered trains. */
 
-        public static double proRataTSRRatio;               /* The ratio to apply to the simulated speed to replace the actual speed for TSR locations. */
+        public static double proRataTSRRatio;               // Depricated /* The ratio to apply to the simulated speed to replace the actual speed for TSR locations. */
 
         public static analysisCategory analysisCategory;
         public static trainOperator Category1Operator = trainOperator.Unknown;
@@ -66,5 +66,8 @@ namespace Globalsettings
 
     }
 
+   
+
+   
 }
 
