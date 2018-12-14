@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Globalsettings;
+using System.Diagnostics;
+
 
 /* Custome Libraries */
 using TrainLibrary;
@@ -55,6 +57,7 @@ namespace TRAP
         [STAThread]
         public static List<Train> trainPerformance()
         {
+            Process proc = Process.GetCurrentProcess();
 
             //FileOperations.test(Settings);
 
@@ -75,7 +78,7 @@ namespace TRAP
             
             /* Read the data. */
             List<TrainRecord> TrainRecords = new List<TrainRecord>();
-
+            
             //TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
             //TrainRecords = FileOperations.readAzureICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
             TrainRecords = FileOperations.readAzureExtractICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
@@ -95,6 +98,8 @@ namespace TRAP
 
             List<trainCommodity> Commodities = TrainRecords.Select(t => t.commodity).Distinct().ToList();
             int numberOfCommodities = Commodities.Count();
+
+            int recordsNotPNorQR = TrainRecords.Where(t => t.trainOperator != trainOperator.PacificNational).Where(t => t.trainOperator != trainOperator.Aurizon).Count();
 
             /* Create a list of analysis Categories */
             List<Category> simCategories = new List<Category>();
@@ -169,6 +174,8 @@ namespace TRAP
                 Settings.timeThreshold, Settings.distanceThreshold, Settings.minimumJourneyDistance, Settings.analysisCategory,
                 Settings.Category1LowerBound, Settings.Category1UpperBound, Settings.Category2LowerBound, Settings.Category2UpperBound);
 
+            List<Train> trainsNotPNorQR = CleanTrainRecords.Where(t => t.trainOperator != trainOperator.PacificNational).Where(t => t.trainOperator != trainOperator.Aurizon).ToList();
+
             /* Write the raw train data to file. */
             FileOperations.writeRawTrainDataWithTime(CleanTrainRecords, FileSettings.aggregatedDestination);
 
@@ -194,8 +201,17 @@ namespace TRAP
             /* Populate the trains TSR values after interpolation to gain more granularity with TSR boundary. */
             Processing.populateAllTrainsTemporarySpeedRestrictions(interpolatedTrains, TSRs);
 
-            /* Write the interpolated data to file. */
+            List<processTrainDataPoint> processedTrains = new List<processTrainDataPoint>();
+            // need to identify which simulation we need to include.
+            
+            /* Write the interpolated data to file.
+             * These trains still contain the affect of TSR's and loops.
+             */
             FileOperations.writeTrainData(interpolatedTrains, Settings.startKm, Settings.interval, FileSettings.aggregatedDestination);
+
+            /* remove the affect of TSR's and loops */
+
+            /* Write all processed interpolated data to file for Tableau. */
 
             /* Create the list of averaged trains */
             List<AverageTrain> averageTrains = new List<AverageTrain>();
@@ -214,6 +230,8 @@ namespace TRAP
                     increasingTrainCategory = interpolatedTrains.Where(t => t.Category == simCategories[index]).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                     decreasingTrainCategory = interpolatedTrains.Where(t => t.Category == simCategories[index]).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
 
+
+
                 }
                 else if (Settings.analysisCategory == analysisCategory.TrainOperator)
                 {
@@ -225,37 +243,6 @@ namespace TRAP
                     {
                         increasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
                         decreasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
-
-
-                        /******************************************************************************************/
-                        /* Hack to get seperate the PN train by loco in Gunnedah */
-
-                        /* PN - TT */
-                        //if (operatorCategory == trainOperator.PacificNational)
-                        //{
-                        //    increasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).
-                        //        Where(t => t.locoID.StartsWith("TT")).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
-                        //    decreasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).
-                        //        Where(t => t.locoID.StartsWith("TT")).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
-
-                        //}
-                        ///* PN - 90 */
-                        //if (operatorCategory == trainOperator.Freightliner)
-                        //{
-                        //    increasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == trainOperator.PacificNational).
-                        //        Where(t => t.locoID.StartsWith("9")).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
-                        //    decreasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == trainOperator.PacificNational).
-                        //        Where(t => t.locoID.StartsWith("9")).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
-
-                        //}
-                        ///* QR - all */
-                        //if (operatorCategory == trainOperator.Aurizon)
-                        //{
-                        //    increasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).Where(t => t.trainDirection == direction.IncreasingKm).ToList();
-                        //    decreasingTrainCategory = interpolatedTrains.Where(t => t.trainOperator == operatorCategory).Where(t => t.trainDirection == direction.DecreasingKm).ToList();
-
-                        //}
-                        /*********************************************************************************************/
 
                     }
                     else
@@ -369,6 +356,7 @@ namespace TRAP
                 else
                     averageTrains.Add(Processing.createZeroedAverageTrain(simCategories[index], direction.IncreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
 
+                
                 if (decreasingTrainCategory.Count() > 0)
                 {
                     if (Settings.trainsStoppingAtLoops)
@@ -378,7 +366,10 @@ namespace TRAP
                 }
                 else
                     averageTrains.Add(Processing.createZeroedAverageTrain(simCategories[index], direction.DecreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
-                
+
+
+                processedTrains.AddRange(Processing.processTrainData(increasingTrainCategory, interpolatedSimulations[index * 2].journey, averageTrains[index * 2], Settings.TSRwindowBoundary, Settings.loopBoundaryThreshold));
+                processedTrains.AddRange(Processing.processTrainData(decreasingTrainCategory, interpolatedSimulations[index * 2+1].journey, averageTrains[index * 2 + 1], Settings.TSRwindowBoundary, Settings.loopBoundaryThreshold));
             }
 
             /* Add the weighted average trains to the list. */
@@ -548,6 +539,7 @@ namespace TRAP
             /* Write the averaged Data to file for inspection. */
             //FileOperations.writeAverageData(averageTrains, stats, FileSettings.aggregatedDestination); // pass in Globalsettings
             FileOperations.writeAverageData(averageTrains, stats, FileSettings.aggregatedDestination, settings); // pass in Globalsettings
+            FileOperations.writeProcessTrainDataPoints(processedTrains, FileSettings.aggregatedDestination);
 
             return interpolatedTrains;
         }

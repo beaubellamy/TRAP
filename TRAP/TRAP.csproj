@@ -74,8 +74,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IOLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="IOLibrary">
       <HintPath>..\..\Software Libraries\IOLibrary\IOLibrary\bin\x64\Debug\IOLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Statistics">
