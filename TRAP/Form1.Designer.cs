@@ -31,6 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrainPerformance));
             this.simulationTab = new System.Windows.Forms.TabControl();
             this.AnalysisParametersTab = new System.Windows.Forms.TabPage();
+            this.HunterLoco = new System.Windows.Forms.CheckBox();
+            this.UlanLoco = new System.Windows.Forms.CheckBox();
+            this.GunnedahBasinLoco = new System.Windows.Forms.CheckBox();
+            this.TrainsStoppingAtLoops = new System.Windows.Forms.CheckBox();
             this.Hunter = new System.Windows.Forms.CheckBox();
             this.IgnoreGaps = new System.Windows.Forms.CheckBox();
             this.PortKembla = new System.Windows.Forms.CheckBox();
@@ -145,7 +149,7 @@
             this.selectCategory1IncreasingSimulation = new System.Windows.Forms.Button();
             this.Category1SimulationLabel = new System.Windows.Forms.Label();
             this.Category1IncreasingSimulationFile = new System.Windows.Forms.TextBox();
-            this.TrainsStoppingAtLoops = new System.Windows.Forms.CheckBox();
+            this.testingCorridor = new System.Windows.Forms.CheckBox();
             this.simulationTab.SuspendLayout();
             this.AnalysisParametersTab.SuspendLayout();
             this.powerToWeightParametersTab.SuspendLayout();
@@ -166,6 +170,10 @@
             // 
             // AnalysisParametersTab
             // 
+            this.AnalysisParametersTab.Controls.Add(this.testingCorridor);
+            this.AnalysisParametersTab.Controls.Add(this.HunterLoco);
+            this.AnalysisParametersTab.Controls.Add(this.UlanLoco);
+            this.AnalysisParametersTab.Controls.Add(this.GunnedahBasinLoco);
             this.AnalysisParametersTab.Controls.Add(this.TrainsStoppingAtLoops);
             this.AnalysisParametersTab.Controls.Add(this.Hunter);
             this.AnalysisParametersTab.Controls.Add(this.IgnoreGaps);
@@ -217,6 +225,49 @@
             this.AnalysisParametersTab.TabIndex = 0;
             this.AnalysisParametersTab.Text = "Analyis Parameters";
             this.AnalysisParametersTab.UseVisualStyleBackColor = true;
+            // 
+            // HunterLoco
+            // 
+            this.HunterLoco.AutoSize = true;
+            this.HunterLoco.Location = new System.Drawing.Point(916, 327);
+            this.HunterLoco.Name = "HunterLoco";
+            this.HunterLoco.Size = new System.Drawing.Size(122, 17);
+            this.HunterLoco.TabIndex = 61;
+            this.HunterLoco.Text = "Hunter Region Loco";
+            this.HunterLoco.UseVisualStyleBackColor = true;
+            this.HunterLoco.CheckedChanged += new System.EventHandler(this.HunterLoco_CheckedChanged);
+            // 
+            // UlanLoco
+            // 
+            this.UlanLoco.AutoSize = true;
+            this.UlanLoco.Location = new System.Drawing.Point(916, 304);
+            this.UlanLoco.Name = "UlanLoco";
+            this.UlanLoco.Size = new System.Drawing.Size(98, 17);
+            this.UlanLoco.TabIndex = 60;
+            this.UlanLoco.Text = "Ulan Line Loco";
+            this.UlanLoco.UseVisualStyleBackColor = true;
+            this.UlanLoco.CheckedChanged += new System.EventHandler(this.UlanLoco_CheckedChanged);
+            // 
+            // GunnedahBasinLoco
+            // 
+            this.GunnedahBasinLoco.AutoSize = true;
+            this.GunnedahBasinLoco.Location = new System.Drawing.Point(916, 281);
+            this.GunnedahBasinLoco.Name = "GunnedahBasinLoco";
+            this.GunnedahBasinLoco.Size = new System.Drawing.Size(132, 17);
+            this.GunnedahBasinLoco.TabIndex = 59;
+            this.GunnedahBasinLoco.Text = "Gunnedah Basin Loco";
+            this.GunnedahBasinLoco.UseVisualStyleBackColor = true;
+            this.GunnedahBasinLoco.CheckedChanged += new System.EventHandler(this.GunnedahBasinLoco_CheckedChanged);
+            // 
+            // TrainsStoppingAtLoops
+            // 
+            this.TrainsStoppingAtLoops.AutoSize = true;
+            this.TrainsStoppingAtLoops.Location = new System.Drawing.Point(17, 446);
+            this.TrainsStoppingAtLoops.Name = "TrainsStoppingAtLoops";
+            this.TrainsStoppingAtLoops.Size = new System.Drawing.Size(174, 17);
+            this.TrainsStoppingAtLoops.TabIndex = 58;
+            this.TrainsStoppingAtLoops.Text = "Analyse trains stopping at loops";
+            this.TrainsStoppingAtLoops.UseVisualStyleBackColor = true;
             // 
             // Hunter
             // 
@@ -1495,15 +1546,16 @@
             this.Category1IncreasingSimulationFile.TabIndex = 0;
             this.Category1IncreasingSimulationFile.Text = "<Required>";
             // 
-            // TrainsStoppingAtLoops
+            // testingCorridor
             // 
-            this.TrainsStoppingAtLoops.AutoSize = true;
-            this.TrainsStoppingAtLoops.Location = new System.Drawing.Point(17, 446);
-            this.TrainsStoppingAtLoops.Name = "TrainsStoppingAtLoops";
-            this.TrainsStoppingAtLoops.Size = new System.Drawing.Size(174, 17);
-            this.TrainsStoppingAtLoops.TabIndex = 58;
-            this.TrainsStoppingAtLoops.Text = "Analyse trains stopping at loops";
-            this.TrainsStoppingAtLoops.UseVisualStyleBackColor = true;
+            this.testingCorridor.AutoSize = true;
+            this.testingCorridor.Location = new System.Drawing.Point(916, 389);
+            this.testingCorridor.Name = "testingCorridor";
+            this.testingCorridor.Size = new System.Drawing.Size(99, 17);
+            this.testingCorridor.TabIndex = 62;
+            this.testingCorridor.Text = "Testing corridor";
+            this.testingCorridor.UseVisualStyleBackColor = true;
+            this.testingCorridor.CheckedChanged += new System.EventHandler(this.testingCorridor_CheckedChanged);
             // 
             // TrainPerformance
             // 
@@ -1647,6 +1699,10 @@
         private System.Windows.Forms.Label OperatorLabel;
         private System.Windows.Forms.CheckBox Hunter;
         private System.Windows.Forms.CheckBox TrainsStoppingAtLoops;
+        private System.Windows.Forms.CheckBox HunterLoco;
+        private System.Windows.Forms.CheckBox UlanLoco;
+        private System.Windows.Forms.CheckBox GunnedahBasinLoco;
+        private System.Windows.Forms.CheckBox testingCorridor;
     }
 }
 
