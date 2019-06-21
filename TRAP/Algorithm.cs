@@ -565,7 +565,6 @@ namespace TRAP
 
 
             /* Write the averaged Data to file for inspection. */
-            //FileOperations.writeAverageData(averageTrains, stats, FileSettings.aggregatedDestination); // pass in Globalsettings
             FileOperations.writeAverageData(averageTrains, stats, FileSettings.aggregatedDestination, settings);
             //FileOperations.writeProcessTrainDataPoints(processedTrains, FileSettings.aggregatedDestination);
 
