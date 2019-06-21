@@ -75,11 +75,9 @@ namespace TRAP
             
             /* Read the data. */
             List<TrainRecord> TrainRecords = new List<TrainRecord>();
-            
-            //TrainRecords = FileOperations.readICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
-            //TrainRecords = FileOperations.readAzureICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange); // Azure train data query
-            TrainRecords = FileOperations.readAzureExtractICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
 
+            TrainRecords = FileOperations.readAzureICEData(FileSettings.dataFile, excludeTrainList, Settings.excludeListOfTrains, Settings.dateRange);
+            
             if (TrainRecords.Count() == 0)
             {
                 //tool.messageBox("There are no records in the list to analyse.", "No trains available.");
@@ -168,7 +166,6 @@ namespace TRAP
 
             /* Clean the data */
             List<Train> CleanTrainRecords = new List<Train>();
-            //CleanTrainRecords = Processing.MakeTrains(OrderdTrainRecords, trackGeometry,
             CleanTrainRecords = Processing.CleanData(OrderdTrainRecords, trackGeometry,
                 Settings.timeThreshold, Settings.distanceThreshold, Settings.minimumJourneyDistance, Settings.analysisCategory,
                 Settings.Category1LowerBound, Settings.Category1UpperBound, Settings.Category2LowerBound, Settings.Category2UpperBound);
@@ -201,17 +198,12 @@ namespace TRAP
             Processing.populateAllTrainsTemporarySpeedRestrictions(interpolatedTrains, TSRs);
 
             List<processTrainDataPoint> processedTrains = new List<processTrainDataPoint>();
-            // need to identify which simulation we need to include.
             
             /* Write the interpolated data to file.
              * These trains still contain the affect of TSR's and loops.
              */
-            //FileOperations.writeTrainData(interpolatedTrains, Settings.startKm, Settings.interval, FileSettings.aggregatedDestination);
-
-            /* remove the affect of TSR's and loops */
-
-            /* Write all processed interpolated data to file for Tableau. */
-
+            FileOperations.writeTrainData(interpolatedTrains, Settings.startKm, Settings.interval, FileSettings.aggregatedDestination);
+            
             /* Create the list of averaged trains */
             List<AverageTrain> averageTrains = new List<AverageTrain>();
             /* Create a sublist of trains for each direction. */
@@ -405,11 +397,7 @@ namespace TRAP
                     averageTrains.Add(Processing.createZeroedAverageTrain(simCategories[index], direction.DecreasingKm, Settings.startKm, Settings.endKm, Settings.interval));
                     processedTrains.AddRange(Processing.processTrainData(interpolatedSimulations[index * 2 + 1].journey, averageTrains[index * 2 + 1], direction.DecreasingKm));
                 }
-
-                //processedTrains.AddRange(Processing.processTrainData(increasingTrainCategory, interpolatedSimulations[index * 2].journey, averageTrains[index * 2], Settings.TSRwindowBoundary, Settings.loopBoundaryThreshold));
-                //processedTrains.AddRange(Processing.processTrainData(decreasingTrainCategory, interpolatedSimulations[index * 2+1].journey, averageTrains[index * 2 + 1], Settings.TSRwindowBoundary, Settings.loopBoundaryThreshold));
-
-
+            
             }
 
             /* Add the weighted average trains to the list. */
@@ -578,8 +566,8 @@ namespace TRAP
 
             /* Write the averaged Data to file for inspection. */
             //FileOperations.writeAverageData(averageTrains, stats, FileSettings.aggregatedDestination); // pass in Globalsettings
-            //FileOperations.writeAverageData(averageTrains, stats, FileSettings.aggregatedDestination, settings); // pass in Globalsettings
-            FileOperations.writeProcessTrainDataPoints(processedTrains, FileSettings.aggregatedDestination);
+            FileOperations.writeAverageData(averageTrains, stats, FileSettings.aggregatedDestination, settings);
+            //FileOperations.writeProcessTrainDataPoints(processedTrains, FileSettings.aggregatedDestination);
 
             return interpolatedTrains;
         }
