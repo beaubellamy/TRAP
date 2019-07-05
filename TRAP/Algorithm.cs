@@ -80,7 +80,7 @@ namespace TRAP
             
             if (TrainRecords.Count() == 0)
             {
-                //tool.messageBox("There are no records in the list to analyse.", "No trains available.");
+                Tools.messageBox("There are no records in the list to analyse.", "No trains available.");
                 return new List<Train>();
             }
 

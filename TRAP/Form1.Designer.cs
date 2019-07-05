@@ -31,13 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrainPerformance));
             this.simulationTab = new System.Windows.Forms.TabControl();
             this.AnalysisParametersTab = new System.Windows.Forms.TabPage();
-            this.HunterLoco = new System.Windows.Forms.CheckBox();
-            this.UlanLoco = new System.Windows.Forms.CheckBox();
-            this.GunnedahBasinLoco = new System.Windows.Forms.CheckBox();
             this.TrainsStoppingAtLoops = new System.Windows.Forms.CheckBox();
-            this.Hunter = new System.Windows.Forms.CheckBox();
             this.IgnoreGaps = new System.Windows.Forms.CheckBox();
-            this.PortKembla = new System.Windows.Forms.CheckBox();
             this.timeSeparation = new System.Windows.Forms.TextBox();
             this.TSRWindowBoundary = new System.Windows.Forms.TextBox();
             this.dataSeparation = new System.Windows.Forms.TextBox();
@@ -61,14 +56,6 @@
             this.toLabel = new System.Windows.Forms.Label();
             this.fromLabel = new System.Windows.Forms.Label();
             this.DateRangeLabel = new System.Windows.Forms.Label();
-            this.SouthernHighlands = new System.Windows.Forms.CheckBox();
-            this.UlanLine = new System.Windows.Forms.CheckBox();
-            this.Tarcoola2Kalgoorlie = new System.Windows.Forms.CheckBox();
-            this.Melbourne2Cootamundra = new System.Windows.Forms.CheckBox();
-            this.Macarthur2Botany = new System.Windows.Forms.CheckBox();
-            this.GunnedahBasin = new System.Windows.Forms.CheckBox();
-            this.CulleranRanges = new System.Windows.Forms.CheckBox();
-            this.TestLabel = new System.Windows.Forms.Label();
             this.excludeListOfTrains = new System.Windows.Forms.CheckBox();
             this.trainListFile = new System.Windows.Forms.TextBox();
             this.selectTrainFile = new System.Windows.Forms.Button();
@@ -149,6 +136,19 @@
             this.selectCategory1IncreasingSimulation = new System.Windows.Forms.Button();
             this.Category1SimulationLabel = new System.Windows.Forms.Label();
             this.Category1IncreasingSimulationFile = new System.Windows.Forms.TextBox();
+            this.TestLabel = new System.Windows.Forms.Label();
+            this.CulleranRanges = new System.Windows.Forms.CheckBox();
+            this.GunnedahBasin = new System.Windows.Forms.CheckBox();
+            this.Macarthur2Botany = new System.Windows.Forms.CheckBox();
+            this.Melbourne2Cootamundra = new System.Windows.Forms.CheckBox();
+            this.Tarcoola2Kalgoorlie = new System.Windows.Forms.CheckBox();
+            this.UlanLine = new System.Windows.Forms.CheckBox();
+            this.SouthernHighlands = new System.Windows.Forms.CheckBox();
+            this.PortKembla = new System.Windows.Forms.CheckBox();
+            this.Hunter = new System.Windows.Forms.CheckBox();
+            this.GunnedahBasinLoco = new System.Windows.Forms.CheckBox();
+            this.UlanLoco = new System.Windows.Forms.CheckBox();
+            this.HunterLoco = new System.Windows.Forms.CheckBox();
             this.testingCorridor = new System.Windows.Forms.CheckBox();
             this.simulationTab.SuspendLayout();
             this.AnalysisParametersTab.SuspendLayout();
@@ -226,39 +226,6 @@
             this.AnalysisParametersTab.Text = "Analyis Parameters";
             this.AnalysisParametersTab.UseVisualStyleBackColor = true;
             // 
-            // HunterLoco
-            // 
-            this.HunterLoco.AutoSize = true;
-            this.HunterLoco.Location = new System.Drawing.Point(916, 327);
-            this.HunterLoco.Name = "HunterLoco";
-            this.HunterLoco.Size = new System.Drawing.Size(122, 17);
-            this.HunterLoco.TabIndex = 61;
-            this.HunterLoco.Text = "Hunter Region Loco";
-            this.HunterLoco.UseVisualStyleBackColor = true;
-            this.HunterLoco.CheckedChanged += new System.EventHandler(this.HunterLoco_CheckedChanged);
-            // 
-            // UlanLoco
-            // 
-            this.UlanLoco.AutoSize = true;
-            this.UlanLoco.Location = new System.Drawing.Point(916, 304);
-            this.UlanLoco.Name = "UlanLoco";
-            this.UlanLoco.Size = new System.Drawing.Size(98, 17);
-            this.UlanLoco.TabIndex = 60;
-            this.UlanLoco.Text = "Ulan Line Loco";
-            this.UlanLoco.UseVisualStyleBackColor = true;
-            this.UlanLoco.CheckedChanged += new System.EventHandler(this.UlanLoco_CheckedChanged);
-            // 
-            // GunnedahBasinLoco
-            // 
-            this.GunnedahBasinLoco.AutoSize = true;
-            this.GunnedahBasinLoco.Location = new System.Drawing.Point(916, 281);
-            this.GunnedahBasinLoco.Name = "GunnedahBasinLoco";
-            this.GunnedahBasinLoco.Size = new System.Drawing.Size(132, 17);
-            this.GunnedahBasinLoco.TabIndex = 59;
-            this.GunnedahBasinLoco.Text = "Gunnedah Basin Loco";
-            this.GunnedahBasinLoco.UseVisualStyleBackColor = true;
-            this.GunnedahBasinLoco.CheckedChanged += new System.EventHandler(this.GunnedahBasinLoco_CheckedChanged);
-            // 
             // TrainsStoppingAtLoops
             // 
             this.TrainsStoppingAtLoops.AutoSize = true;
@@ -269,17 +236,6 @@
             this.TrainsStoppingAtLoops.Text = "Analyse trains stopping at loops";
             this.TrainsStoppingAtLoops.UseVisualStyleBackColor = true;
             // 
-            // Hunter
-            // 
-            this.Hunter.AutoSize = true;
-            this.Hunter.Location = new System.Drawing.Point(916, 241);
-            this.Hunter.Name = "Hunter";
-            this.Hunter.Size = new System.Drawing.Size(95, 17);
-            this.Hunter.TabIndex = 57;
-            this.Hunter.Text = "Hunter Region";
-            this.Hunter.UseVisualStyleBackColor = true;
-            this.Hunter.CheckedChanged += new System.EventHandler(this.Hunter_CheckedChanged);
-            // 
             // IgnoreGaps
             // 
             this.IgnoreGaps.AutoSize = true;
@@ -289,17 +245,6 @@
             this.IgnoreGaps.TabIndex = 56;
             this.IgnoreGaps.Text = "Ignore large gaps in data";
             this.IgnoreGaps.UseVisualStyleBackColor = true;
-            // 
-            // PortKembla
-            // 
-            this.PortKembla.AutoSize = true;
-            this.PortKembla.Location = new System.Drawing.Point(916, 219);
-            this.PortKembla.Name = "PortKembla";
-            this.PortKembla.Size = new System.Drawing.Size(83, 17);
-            this.PortKembla.TabIndex = 55;
-            this.PortKembla.Text = "Port Kembla";
-            this.PortKembla.UseVisualStyleBackColor = true;
-            this.PortKembla.CheckedChanged += new System.EventHandler(this.PortKembla_CheckedChanged);
             // 
             // timeSeparation
             // 
@@ -498,92 +443,6 @@
             this.DateRangeLabel.Size = new System.Drawing.Size(68, 13);
             this.DateRangeLabel.TabIndex = 32;
             this.DateRangeLabel.Text = "Date Range:";
-            // 
-            // SouthernHighlands
-            // 
-            this.SouthernHighlands.AutoSize = true;
-            this.SouthernHighlands.Location = new System.Drawing.Point(916, 196);
-            this.SouthernHighlands.Name = "SouthernHighlands";
-            this.SouthernHighlands.Size = new System.Drawing.Size(119, 17);
-            this.SouthernHighlands.TabIndex = 17;
-            this.SouthernHighlands.Text = "Southern Highlands";
-            this.SouthernHighlands.UseVisualStyleBackColor = true;
-            this.SouthernHighlands.CheckedChanged += new System.EventHandler(this.SouthernHighlands_CheckedChanged);
-            // 
-            // UlanLine
-            // 
-            this.UlanLine.AutoSize = true;
-            this.UlanLine.Location = new System.Drawing.Point(916, 173);
-            this.UlanLine.Name = "UlanLine";
-            this.UlanLine.Size = new System.Drawing.Size(71, 17);
-            this.UlanLine.TabIndex = 16;
-            this.UlanLine.Text = "Ulan Line";
-            this.UlanLine.UseVisualStyleBackColor = true;
-            this.UlanLine.CheckedChanged += new System.EventHandler(this.UlanLine_CheckedChanged);
-            // 
-            // Tarcoola2Kalgoorlie
-            // 
-            this.Tarcoola2Kalgoorlie.AutoSize = true;
-            this.Tarcoola2Kalgoorlie.Location = new System.Drawing.Point(916, 150);
-            this.Tarcoola2Kalgoorlie.Name = "Tarcoola2Kalgoorlie";
-            this.Tarcoola2Kalgoorlie.Size = new System.Drawing.Size(129, 17);
-            this.Tarcoola2Kalgoorlie.TabIndex = 15;
-            this.Tarcoola2Kalgoorlie.Text = "Tarcoola to Kalgoorlie";
-            this.Tarcoola2Kalgoorlie.UseVisualStyleBackColor = true;
-            this.Tarcoola2Kalgoorlie.CheckedChanged += new System.EventHandler(this.Tarcoola2Kalgoorlie_CheckedChanged);
-            // 
-            // Melbourne2Cootamundra
-            // 
-            this.Melbourne2Cootamundra.AutoSize = true;
-            this.Melbourne2Cootamundra.Location = new System.Drawing.Point(916, 127);
-            this.Melbourne2Cootamundra.Name = "Melbourne2Cootamundra";
-            this.Melbourne2Cootamundra.Size = new System.Drawing.Size(154, 17);
-            this.Melbourne2Cootamundra.TabIndex = 14;
-            this.Melbourne2Cootamundra.Text = "Melbourne to Cootamundra";
-            this.Melbourne2Cootamundra.UseVisualStyleBackColor = true;
-            this.Melbourne2Cootamundra.CheckedChanged += new System.EventHandler(this.Melbourne2Cootamundra_CheckedChanged);
-            // 
-            // Macarthur2Botany
-            // 
-            this.Macarthur2Botany.AutoSize = true;
-            this.Macarthur2Botany.Location = new System.Drawing.Point(916, 104);
-            this.Macarthur2Botany.Name = "Macarthur2Botany";
-            this.Macarthur2Botany.Size = new System.Drawing.Size(122, 17);
-            this.Macarthur2Botany.TabIndex = 13;
-            this.Macarthur2Botany.Text = "Macarthur to Botany";
-            this.Macarthur2Botany.UseVisualStyleBackColor = true;
-            this.Macarthur2Botany.CheckedChanged += new System.EventHandler(this.Macarthur2Botany_CheckedChanged);
-            // 
-            // GunnedahBasin
-            // 
-            this.GunnedahBasin.AutoSize = true;
-            this.GunnedahBasin.Location = new System.Drawing.Point(916, 81);
-            this.GunnedahBasin.Name = "GunnedahBasin";
-            this.GunnedahBasin.Size = new System.Drawing.Size(105, 17);
-            this.GunnedahBasin.TabIndex = 12;
-            this.GunnedahBasin.Text = "Gunnedah Basin";
-            this.GunnedahBasin.UseVisualStyleBackColor = true;
-            this.GunnedahBasin.CheckedChanged += new System.EventHandler(this.GunnedahBasin_CheckedChanged);
-            // 
-            // CulleranRanges
-            // 
-            this.CulleranRanges.AutoSize = true;
-            this.CulleranRanges.Location = new System.Drawing.Point(916, 58);
-            this.CulleranRanges.Name = "CulleranRanges";
-            this.CulleranRanges.Size = new System.Drawing.Size(104, 17);
-            this.CulleranRanges.TabIndex = 11;
-            this.CulleranRanges.Text = "Culleran Ranges";
-            this.CulleranRanges.UseVisualStyleBackColor = true;
-            this.CulleranRanges.CheckedChanged += new System.EventHandler(this.CulleranRanges_CheckedChanged);
-            // 
-            // TestLabel
-            // 
-            this.TestLabel.AutoSize = true;
-            this.TestLabel.Location = new System.Drawing.Point(913, 34);
-            this.TestLabel.Name = "TestLabel";
-            this.TestLabel.Size = new System.Drawing.Size(117, 13);
-            this.TestLabel.TabIndex = 10;
-            this.TestLabel.Text = "Set Testing Parameters";
             // 
             // excludeListOfTrains
             // 
@@ -1546,6 +1405,147 @@
             this.Category1IncreasingSimulationFile.TabIndex = 0;
             this.Category1IncreasingSimulationFile.Text = "<Required>";
             // 
+            // TestLabel
+            // 
+            this.TestLabel.AutoSize = true;
+            this.TestLabel.Location = new System.Drawing.Point(913, 34);
+            this.TestLabel.Name = "TestLabel";
+            this.TestLabel.Size = new System.Drawing.Size(117, 13);
+            this.TestLabel.TabIndex = 10;
+            this.TestLabel.Text = "Set Testing Parameters";
+            // 
+            // CulleranRanges
+            // 
+            this.CulleranRanges.AutoSize = true;
+            this.CulleranRanges.Location = new System.Drawing.Point(916, 58);
+            this.CulleranRanges.Name = "CulleranRanges";
+            this.CulleranRanges.Size = new System.Drawing.Size(104, 17);
+            this.CulleranRanges.TabIndex = 11;
+            this.CulleranRanges.Text = "Culleran Ranges";
+            this.CulleranRanges.UseVisualStyleBackColor = true;
+            this.CulleranRanges.CheckedChanged += new System.EventHandler(this.CulleranRanges_CheckedChanged);
+            // 
+            // GunnedahBasin
+            // 
+            this.GunnedahBasin.AutoSize = true;
+            this.GunnedahBasin.Location = new System.Drawing.Point(916, 81);
+            this.GunnedahBasin.Name = "GunnedahBasin";
+            this.GunnedahBasin.Size = new System.Drawing.Size(105, 17);
+            this.GunnedahBasin.TabIndex = 12;
+            this.GunnedahBasin.Text = "Gunnedah Basin";
+            this.GunnedahBasin.UseVisualStyleBackColor = true;
+            this.GunnedahBasin.CheckedChanged += new System.EventHandler(this.GunnedahBasin_CheckedChanged);
+            // 
+            // Macarthur2Botany
+            // 
+            this.Macarthur2Botany.AutoSize = true;
+            this.Macarthur2Botany.Location = new System.Drawing.Point(916, 104);
+            this.Macarthur2Botany.Name = "Macarthur2Botany";
+            this.Macarthur2Botany.Size = new System.Drawing.Size(122, 17);
+            this.Macarthur2Botany.TabIndex = 13;
+            this.Macarthur2Botany.Text = "Macarthur to Botany";
+            this.Macarthur2Botany.UseVisualStyleBackColor = true;
+            this.Macarthur2Botany.CheckedChanged += new System.EventHandler(this.Macarthur2Botany_CheckedChanged);
+            // 
+            // Melbourne2Cootamundra
+            // 
+            this.Melbourne2Cootamundra.AutoSize = true;
+            this.Melbourne2Cootamundra.Location = new System.Drawing.Point(916, 127);
+            this.Melbourne2Cootamundra.Name = "Melbourne2Cootamundra";
+            this.Melbourne2Cootamundra.Size = new System.Drawing.Size(154, 17);
+            this.Melbourne2Cootamundra.TabIndex = 14;
+            this.Melbourne2Cootamundra.Text = "Melbourne to Cootamundra";
+            this.Melbourne2Cootamundra.UseVisualStyleBackColor = true;
+            this.Melbourne2Cootamundra.CheckedChanged += new System.EventHandler(this.Melbourne2Cootamundra_CheckedChanged);
+            // 
+            // Tarcoola2Kalgoorlie
+            // 
+            this.Tarcoola2Kalgoorlie.AutoSize = true;
+            this.Tarcoola2Kalgoorlie.Location = new System.Drawing.Point(916, 150);
+            this.Tarcoola2Kalgoorlie.Name = "Tarcoola2Kalgoorlie";
+            this.Tarcoola2Kalgoorlie.Size = new System.Drawing.Size(129, 17);
+            this.Tarcoola2Kalgoorlie.TabIndex = 15;
+            this.Tarcoola2Kalgoorlie.Text = "Tarcoola to Kalgoorlie";
+            this.Tarcoola2Kalgoorlie.UseVisualStyleBackColor = true;
+            this.Tarcoola2Kalgoorlie.CheckedChanged += new System.EventHandler(this.Tarcoola2Kalgoorlie_CheckedChanged);
+            // 
+            // UlanLine
+            // 
+            this.UlanLine.AutoSize = true;
+            this.UlanLine.Location = new System.Drawing.Point(916, 173);
+            this.UlanLine.Name = "UlanLine";
+            this.UlanLine.Size = new System.Drawing.Size(71, 17);
+            this.UlanLine.TabIndex = 16;
+            this.UlanLine.Text = "Ulan Line";
+            this.UlanLine.UseVisualStyleBackColor = true;
+            this.UlanLine.CheckedChanged += new System.EventHandler(this.UlanLine_CheckedChanged);
+            // 
+            // SouthernHighlands
+            // 
+            this.SouthernHighlands.AutoSize = true;
+            this.SouthernHighlands.Location = new System.Drawing.Point(916, 196);
+            this.SouthernHighlands.Name = "SouthernHighlands";
+            this.SouthernHighlands.Size = new System.Drawing.Size(119, 17);
+            this.SouthernHighlands.TabIndex = 17;
+            this.SouthernHighlands.Text = "Southern Highlands";
+            this.SouthernHighlands.UseVisualStyleBackColor = true;
+            this.SouthernHighlands.CheckedChanged += new System.EventHandler(this.SouthernHighlands_CheckedChanged);
+            // 
+            // PortKembla
+            // 
+            this.PortKembla.AutoSize = true;
+            this.PortKembla.Location = new System.Drawing.Point(916, 219);
+            this.PortKembla.Name = "PortKembla";
+            this.PortKembla.Size = new System.Drawing.Size(83, 17);
+            this.PortKembla.TabIndex = 55;
+            this.PortKembla.Text = "Port Kembla";
+            this.PortKembla.UseVisualStyleBackColor = true;
+            this.PortKembla.CheckedChanged += new System.EventHandler(this.PortKembla_CheckedChanged);
+            // 
+            // Hunter
+            // 
+            this.Hunter.AutoSize = true;
+            this.Hunter.Location = new System.Drawing.Point(916, 241);
+            this.Hunter.Name = "Hunter";
+            this.Hunter.Size = new System.Drawing.Size(95, 17);
+            this.Hunter.TabIndex = 57;
+            this.Hunter.Text = "Hunter Region";
+            this.Hunter.UseVisualStyleBackColor = true;
+            this.Hunter.CheckedChanged += new System.EventHandler(this.Hunter_CheckedChanged);
+            // 
+            // GunnedahBasinLoco
+            // 
+            this.GunnedahBasinLoco.AutoSize = true;
+            this.GunnedahBasinLoco.Location = new System.Drawing.Point(916, 281);
+            this.GunnedahBasinLoco.Name = "GunnedahBasinLoco";
+            this.GunnedahBasinLoco.Size = new System.Drawing.Size(132, 17);
+            this.GunnedahBasinLoco.TabIndex = 59;
+            this.GunnedahBasinLoco.Text = "Gunnedah Basin Loco";
+            this.GunnedahBasinLoco.UseVisualStyleBackColor = true;
+            this.GunnedahBasinLoco.CheckedChanged += new System.EventHandler(this.GunnedahBasinLoco_CheckedChanged);
+            // 
+            // UlanLoco
+            // 
+            this.UlanLoco.AutoSize = true;
+            this.UlanLoco.Location = new System.Drawing.Point(916, 304);
+            this.UlanLoco.Name = "UlanLoco";
+            this.UlanLoco.Size = new System.Drawing.Size(98, 17);
+            this.UlanLoco.TabIndex = 60;
+            this.UlanLoco.Text = "Ulan Line Loco";
+            this.UlanLoco.UseVisualStyleBackColor = true;
+            this.UlanLoco.CheckedChanged += new System.EventHandler(this.UlanLoco_CheckedChanged);
+            // 
+            // HunterLoco
+            // 
+            this.HunterLoco.AutoSize = true;
+            this.HunterLoco.Location = new System.Drawing.Point(916, 327);
+            this.HunterLoco.Name = "HunterLoco";
+            this.HunterLoco.Size = new System.Drawing.Size(122, 17);
+            this.HunterLoco.TabIndex = 61;
+            this.HunterLoco.Text = "Hunter Region Loco";
+            this.HunterLoco.UseVisualStyleBackColor = true;
+            this.HunterLoco.CheckedChanged += new System.EventHandler(this.HunterLoco_CheckedChanged);
+            // 
             // testingCorridor
             // 
             this.testingCorridor.AutoSize = true;
@@ -1672,15 +1672,6 @@
         private System.Windows.Forms.Label toLabel;
         private System.Windows.Forms.Label fromLabel;
         private System.Windows.Forms.Label DateRangeLabel;
-        private System.Windows.Forms.CheckBox PortKembla;
-        private System.Windows.Forms.CheckBox SouthernHighlands;
-        private System.Windows.Forms.CheckBox UlanLine;
-        private System.Windows.Forms.CheckBox Tarcoola2Kalgoorlie;
-        private System.Windows.Forms.CheckBox Melbourne2Cootamundra;
-        private System.Windows.Forms.CheckBox Macarthur2Botany;
-        private System.Windows.Forms.CheckBox GunnedahBasin;
-        private System.Windows.Forms.CheckBox CulleranRanges;
-        private System.Windows.Forms.Label TestLabel;
         private System.Windows.Forms.CheckBox IgnoreGaps;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label AnalysisLabel;
@@ -1697,12 +1688,21 @@
         private System.Windows.Forms.ComboBox Operator1Category;
         private System.Windows.Forms.Label CommodityLabel;
         private System.Windows.Forms.Label OperatorLabel;
-        private System.Windows.Forms.CheckBox Hunter;
         private System.Windows.Forms.CheckBox TrainsStoppingAtLoops;
+        private System.Windows.Forms.CheckBox testingCorridor;
         private System.Windows.Forms.CheckBox HunterLoco;
         private System.Windows.Forms.CheckBox UlanLoco;
         private System.Windows.Forms.CheckBox GunnedahBasinLoco;
-        private System.Windows.Forms.CheckBox testingCorridor;
+        private System.Windows.Forms.CheckBox Hunter;
+        private System.Windows.Forms.CheckBox PortKembla;
+        private System.Windows.Forms.CheckBox SouthernHighlands;
+        private System.Windows.Forms.CheckBox UlanLine;
+        private System.Windows.Forms.CheckBox Tarcoola2Kalgoorlie;
+        private System.Windows.Forms.CheckBox Melbourne2Cootamundra;
+        private System.Windows.Forms.CheckBox Macarthur2Botany;
+        private System.Windows.Forms.CheckBox GunnedahBasin;
+        private System.Windows.Forms.CheckBox CulleranRanges;
+        private System.Windows.Forms.Label TestLabel;
     }
 }
 
